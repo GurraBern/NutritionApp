@@ -1,0 +1,32 @@
+﻿using Microsoft.Extensions.Logging;
+using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.Services;
+
+namespace NutritionApp;
+
+public static class MauiProgram
+{
+	public static MauiApp CreateMauiApp()
+	{
+		var builder = MauiApp.CreateBuilder();
+		builder
+			.UseMauiApp<App>()
+			.ConfigureFonts(fonts =>
+			{
+				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+			});
+
+		builder.Services.AddSingleton<INutritionService, NutritionService>();
+
+
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainViewModel>();
+
+#if DEBUG
+        builder.Logging.AddDebug();
+#endif
+
+		return builder.Build();
+	}
+}
