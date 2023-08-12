@@ -20,7 +20,7 @@
             <ListView x:Name="searchResults" 
                       ItemsSource="{Binding SearchResults}"
                       SelectionMode="Single"
-                      ItemSelected="{Binding }">
+                      ItemSelected="SearchResultSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:FoodItem">
                         <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal}" DetailColor="Black" TextColor="Black"></TextCell>
