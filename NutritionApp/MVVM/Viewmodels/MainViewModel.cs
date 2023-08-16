@@ -2,37 +2,40 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.Viewmodels;
 
-public class MainViewModel : INotifyPropertyChanged
+public partial class MainViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
     private readonly INutritionService nutritionService;
     public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
-  
-
+    public ObservableCollection<FoodItem> BreakfastFood { get; set; } = new();
+    
     public MainViewModel(INutritionService nutritionService)
     {
         this.nutritionService = nutritionService;
     }
 
-    public ICommand PerformSearch => new Command<string>((string query) =>
+    [RelayCommand]
+    public async Task PerformSearch(string query)
     {
         var searchResult = nutritionService.GetSearchResults(query);
 
-        if(searchResult != null)
+        if (searchResult != null)
         {
             SearchResults.Clear();
             foreach (var foodItem in searchResult)
             {
                 SearchResults.Add(foodItem);
+
+                BreakfastFood.Add(foodItem);//remove
             }
         }
-
-    });
+    }
 
     protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
     {
