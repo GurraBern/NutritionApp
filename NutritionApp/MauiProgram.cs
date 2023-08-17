@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 
 namespace NutritionApp;
@@ -22,6 +23,9 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
+
+        builder.Services.AddScoped<FoodDetailPage>();
+        builder.Services.AddScoped<FoodDetailViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

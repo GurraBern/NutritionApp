@@ -38,6 +38,7 @@ public partial class MainViewModel : INotifyPropertyChanged
         }
     }
 
+    [RelayCommand]
     public async Task NavigateToFoodDetailPage(FoodItem foodItem)
     {
         await Shell.Current.GoToAsync(nameof(FoodDetailPage));

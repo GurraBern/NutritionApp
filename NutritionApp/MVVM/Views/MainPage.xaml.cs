@@ -13,11 +13,10 @@ public partial class MainPage : ContentPage
 		this.vm = vm;
 	}
 
-    private void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
+    private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
     {
-		var selectedFoodItem = (FoodItem) e.SelectedItem;
-
-		vm.NavigateToFoodDetailPage(selectedFoodItem);
+		var selectedFoodItem = e.SelectedItem as FoodItem;
+		await vm.NavigateToFoodDetailPage(selectedFoodItem);
 	}
 }
 
