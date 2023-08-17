@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
+using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.Viewmodels;
@@ -35,6 +36,12 @@ public partial class MainViewModel : INotifyPropertyChanged
                 BreakfastFood.Add(foodItem);//remove
             }
         }
+    }
+
+    public async Task NavigateToFoodDetailPage(FoodItem foodItem)
+    {
+        await Shell.Current.GoToAsync(nameof(FoodDetailPage));
+
     }
 
     protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")

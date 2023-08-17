@@ -1,4 +1,5 @@
-﻿using NutritionApp.MVVM.Viewmodels;
+﻿using NutritionApp.MVVM.Models;
+using NutritionApp.MVVM.Viewmodels;
 
 namespace NutritionApp;
 
@@ -14,7 +15,9 @@ public partial class MainPage : ContentPage
 
     private void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
     {
-		var test = e.SelectedItem;
-    }
+		var selectedFoodItem = (FoodItem) e.SelectedItem;
+
+		vm.NavigateToFoodDetailPage(selectedFoodItem);
+	}
 }
 
