@@ -16,7 +16,7 @@ public partial class MainPage : ContentPage
     private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
     {
 		var selectedFoodItem = e.SelectedItem as FoodItem;
-		await vm.NavigateToFoodDetailPage(selectedFoodItem);
+		await MainViewModel.NavigateToFoodDetailPage(selectedFoodItem);
 	}
 }
 

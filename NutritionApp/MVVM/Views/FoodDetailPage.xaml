@@ -4,9 +4,6 @@
              x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
              Title="FoodDetailPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Label Text="FoodItem name"></Label>
     </VerticalStackLayout>
 </ContentPage>

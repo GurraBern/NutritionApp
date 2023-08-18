@@ -39,11 +39,8 @@ public partial class MainViewModel : INotifyPropertyChanged
     }
 
     [RelayCommand]
-    public async Task NavigateToFoodDetailPage(FoodItem foodItem)
-    {
-        await Shell.Current.GoToAsync(nameof(FoodDetailPage));
-
-    }
+    public static async Task NavigateToFoodDetailPage(FoodItem foodItem) =>
+        await NavigationService.NavigateToFoodDetailPage(foodItem);
 
     protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
     {
