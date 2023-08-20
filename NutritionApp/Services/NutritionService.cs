@@ -1,42 +1,44 @@
 ﻿using NutritionApp.MVVM.Models;
+using RestSharp;
 
 namespace NutritionApp.Services;
 
 public class NutritionService : INutritionService
 {
-
-    public NutritionService()
+    private readonly IRestClient client;
+    public NutritionService(IRestClient client)
     {
-        
+        this.client = client;
     }
 
-    public ICollection<FoodItem> GetSearchResults(string query)
+    public async Task<IEnumerable<FoodItem>> GetSearchResults(string query)
     {
-        //TODO implement api call
-        var searchResults = new List<FoodItem>();
-        var food1 = new FoodItem()
+        try
         {
-            FoodName = "Pancakes",
-            Gram = 100,
-            Kcal = 242,
-            Protein = 10,
-            Carbs = 50,
-            Fat = 20
-        };
-
-        var food2 = new FoodItem()
+            var request = new RestRequest($"api/Food/name/{query}");
+            var searchResults = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            return searchResults;
+        }
+        catch (Exception e)
         {
-            FoodName = "Egg and Bacon",
-            Gram = 100,
-            Kcal = 194,
-            Protein = 20,
-            Carbs = 30,
-            Fat = 30
-        };
+            throw;
+        }
+    }
 
-        searchResults.Add(food1);
-        searchResults.Add(food2);
+    public async Task<IEnumerable<FoodItem>> GetFood()
+    {
+        try
+        {
+            var request = new RestRequest("api/Food");
+            var test = await client.ExecuteAsync(request);
 
-        return searchResults;
+            var foods = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            return foods;
+        }
+        catch (Exception e)
+        {
+
+            throw;
+        }
     }
 }
