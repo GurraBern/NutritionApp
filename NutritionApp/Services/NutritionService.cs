@@ -13,9 +13,32 @@ public class NutritionService : INutritionService
 
     public async Task<IEnumerable<FoodItem>> GetSearchResults(string query)
     {
-        var request = new RestRequest($"/api/Food/name/{query}");
-        var searchResults = await client.GetAsync<IEnumerable<FoodItem>>(request);
+        try
+        {
+            var request = new RestRequest($"api/Food/name/{query}");
+            var searchResults = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            return searchResults;
+        }
+        catch (Exception e)
+        {
+            throw;
+        }
+    }
 
-        return searchResults;
+    public async Task<IEnumerable<FoodItem>> GetFood()
+    {
+        try
+        {
+            var request = new RestRequest("api/Food");
+            var test = await client.ExecuteAsync(request);
+
+            var foods = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            return foods;
+        }
+        catch (Exception e)
+        {
+
+            throw;
+        }
     }
 }

@@ -31,7 +31,6 @@ public class MainViewModel : INotifyPropertyChanged
                 SearchResults.Add(foodItem);
             }
         }
-
     });
 
     protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
