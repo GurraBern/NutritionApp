@@ -4,5 +4,6 @@ namespace NutritionApp.Services;
 
 public interface INutritionService
 {
-    public ICollection<FoodItem> GetSearchResults(string query);
+    public Task<IEnumerable<FoodItem>> GetSearchResults(string query);
+    public Task<IEnumerable<FoodItem>> GetFood();
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using NutritionApp.MVVM.Models;
+using NutritionApp.Services;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -24,7 +26,7 @@ public partial class MainViewModel : INotifyPropertyChanged
     [RelayCommand]
     public async Task PerformSearch(string query)
     {
-        var searchResult = nutritionService.GetSearchResults(query);
+        var searchResult = await nutritionService.GetSearchResults(query);
 
         if (searchResult != null)
         {
@@ -32,11 +34,10 @@ public partial class MainViewModel : INotifyPropertyChanged
             foreach (var foodItem in searchResult)
             {
                 SearchResults.Add(foodItem);
-
-                BreakfastFood.Add(foodItem);//remove
             }
         }
-    }
+
+    });
 
     [RelayCommand]
     public static async Task NavigateToFoodDetailPage(FoodItem foodItem) =>
