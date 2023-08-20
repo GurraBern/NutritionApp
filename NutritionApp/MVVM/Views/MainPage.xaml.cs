@@ -1,5 +1,4 @@
 ﻿using NutritionApp.MVVM.Viewmodels;
-using NutritionApp.Services;
 
 namespace NutritionApp;
 

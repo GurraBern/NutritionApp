@@ -12,22 +12,44 @@
             Padding="30,0"
             VerticalOptions="Center">
 
-            <SearchBar x:Name="searchBar"
-                       SearchCommand="{Binding PerformSearch}"
+            <VerticalStackLayout>
+                <SearchBar x:Name="searchBar"
+                       SearchCommand="{Binding PerformSearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
                        TextColor="Black"/>
 
-            <ListView x:Name="searchResults" 
+                <ListView x:Name="searchResults" 
                       ItemsSource="{Binding SearchResults}"
                       SelectionMode="Single"
                       ItemSelected="SearchResultSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:FoodItem">
-                        <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal}" DetailColor="Black" TextColor="Black"></TextCell>
-                        
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:FoodItem">
+                            <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal}" DetailColor="Black" TextColor="Black"></TextCell>
+
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                
+                <VerticalStackLayout BackgroundColor="WhiteSmoke">
+                    <Label FontSize="Large" TextColor="Black" Text="Breakfast"></Label>
+                    <VerticalStackLayout Margin="10, 0">
+                        <CollectionView ItemsSource="{Binding BreakfastFood}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:FoodItem">
+                                    <Label TextColor="Black" Text="{Binding FoodName}"></Label>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+                
+                <Label TextColor="Black" Text="Lunch"></Label>
+                <Label TextColor="Black" Text="Dinner"></Label>
+                <Label TextColor="Black" Text="Snack"></Label>
+
+            </VerticalStackLayout>
+           
             
         </VerticalStackLayout>
     </ScrollView>
