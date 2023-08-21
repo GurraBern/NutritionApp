@@ -3,11 +3,7 @@ using NutritionApp.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
-using NutritionApp.MVVM.Models;
-using NutritionApp.MVVM.Views;
-using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.Viewmodels;
 
@@ -36,8 +32,7 @@ public partial class MainViewModel : INotifyPropertyChanged
                 SearchResults.Add(foodItem);
             }
         }
-
-    });
+    }
 
     [RelayCommand]
     public static async Task NavigateToFoodDetailPage(FoodItem foodItem) =>
