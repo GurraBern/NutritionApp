@@ -1,5 +1,6 @@
 ﻿using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.Services;
 
 namespace NutritionApp;
 
@@ -16,7 +17,7 @@ public partial class MainPage : ContentPage
     private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
     {
 		var selectedFoodItem = e.SelectedItem as FoodItem;
-		await MainViewModel.NavigateToFoodDetailPage(selectedFoodItem);
+        await NavigationService.NavigateToFoodDetailPage(selectedFoodItem);
 	}
 }
 

@@ -4,9 +4,9 @@ namespace NutritionApp.MVVM.Viewmodels;
 
 public class FoodDetailViewModel
 {
-    public FoodItem foodItem { get; set; }
+    public FoodItem FoodItem { get; }
     public FoodDetailViewModel(FoodItem foodItem)
     {
-        this.foodItem = foodItem;
+        FoodItem = foodItem;
     }
 }

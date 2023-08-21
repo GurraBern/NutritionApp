@@ -2,8 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
-             Title="FoodDetailPage">
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.Viewmodels" 
+             x:DataType="viewmodel:FoodDetailViewModel"
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             Title="FoodDetailPage"
+             xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views">
+
+
+
     <VerticalStackLayout>
-        <Label Text="FoodItem name"></Label>
+        <Label Text="{Binding FoodItem.FoodName}"></Label>
+
+
+        <customComponents:NutritionElement"/>
+        <customComponents:NutritionElement />
+        <customComponents:NutritionElement />
+        <customComponents:NutritionElement />
+        <customComponents:NutritionElement />
+
+        <!--<Label Text="{Binding FoodItem.Kcal, StringFormat='{0:F2} Kcal per 100g'}"></Label>
+        <ProgressBar Progress="0.3"></ProgressBar>-->
+        
+        
     </VerticalStackLayout>
 </ContentPage>
