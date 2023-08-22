@@ -11,18 +11,14 @@
 
 
     <VerticalStackLayout>
-        <Label Text="{Binding FoodItem.FoodName}"></Label>
+        <Label Text="{Binding FoodItem.FoodName}" FontSize="Header"></Label>
+
+        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}"/>
+        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}"/>
+        <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}"/>
+        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}"/>
 
 
-        <customComponents:NutritionElement"/>
-        <customComponents:NutritionElement />
-        <customComponents:NutritionElement />
-        <customComponents:NutritionElement />
-        <customComponents:NutritionElement />
 
-        <!--<Label Text="{Binding FoodItem.Kcal, StringFormat='{0:F2} Kcal per 100g'}"></Label>
-        <ProgressBar Progress="0.3"></ProgressBar>-->
-        
-        
     </VerticalStackLayout>
 </ContentPage>
