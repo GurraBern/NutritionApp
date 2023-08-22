@@ -1,18 +1,17 @@
 ﻿using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.Input;
+using NutritionApp.MVVM.ViewModels;
 
 namespace NutritionApp.MVVM.Viewmodels;
 
-public partial class MainViewModel : INotifyPropertyChanged
+public partial class MainViewModel : BaseViewModel
 {
-    public event PropertyChangedEventHandler PropertyChanged;
     private readonly INutritionService nutritionService;
     public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
     public ObservableCollection<FoodItem> BreakfastFood { get; set; } = new();
+    private string searchQuery = string.Empty;
     
     public MainViewModel(INutritionService nutritionService)
     {
@@ -22,8 +21,13 @@ public partial class MainViewModel : INotifyPropertyChanged
     [RelayCommand]
     public async Task PerformSearch(string query)
     {
-        var searchResult = await nutritionService.GetSearchResults(query);
+        if (query.IsEqualOrEmpty(searchQuery))
+            return;
 
+        searchQuery = query;
+        IsBusy = true;
+
+        var searchResult = await nutritionService.GetSearchResults(query);
         if (searchResult != null)
         {
             SearchResults.Clear();
@@ -32,10 +36,7 @@ public partial class MainViewModel : INotifyPropertyChanged
                 SearchResults.Add(foodItem);
             }
         }
-    }
 
-    protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        IsBusy = false;
     }
 }

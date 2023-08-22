@@ -29,6 +29,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
 
                 <Border BackgroundColor="FloralWhite">
                     <VerticalStackLayout>

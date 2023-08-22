@@ -13,12 +13,10 @@
     <VerticalStackLayout>
         <Label Text="{Binding FoodItem.FoodName}" FontSize="Header"></Label>
 
-        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}"/>
-        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}"/>
-        <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}"/>
-        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}"/>
-
-
-
+        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}" AmountNeeded="2400"/>
+        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
+        <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}" AmountNeeded="240"/>
+        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}" AmountNeeded="70"/>
+        
     </VerticalStackLayout>
 </ContentPage>

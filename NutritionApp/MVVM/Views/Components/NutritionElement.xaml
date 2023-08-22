@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.NutritionElement">
     <VerticalStackLayout>
-        <!--<Label Text="{Binding FoodItem.Kcal, StringFormat='{0} Kcal per 100g'}"></Label>-->
         <Label x:Name="nutritionNameLabel"></Label>
-        <ProgressBar Progress="0.3"></ProgressBar>
+
+        <ProgressBar x:Name="nutritionProgressBar" Progress="0" ProgressColor="Red"/>
     </VerticalStackLayout>
 </ContentView>
