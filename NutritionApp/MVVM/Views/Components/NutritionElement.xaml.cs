@@ -18,7 +18,15 @@ public partial class NutritionElement : ContentView
 
     public string Amount
     {
-        get => (string)GetValue(AmountProperty);
+        get
+        {
+            var currentAmount = (string)GetValue(AmountProperty);
+            var amountNeeded = int.Parse((string)GetValue(AmountNeededProperty));
+            var progress = double.Parse(currentAmount) / amountNeeded;
+
+            MoveProgressBar(progress);
+            return currentAmount;
+        }
         set => SetValue(AmountProperty, value);
     }
 
@@ -32,16 +40,19 @@ public partial class NutritionElement : ContentView
 	{
         InitializeComponent();
 
+        
         //TODO Rewrite with actual Amount and AmountNeeded
-        Random random = new Random();
-        var num = random.NextDouble() * (1 - 0) + 0;
+        //Random random = new Random();
+        //var num = random.NextDouble() * (1 - 0) + 0;
 
-        MoveProgressBar(num);
+        //var t = (string)GetValue(AmountNeededProperty);
+
+        //MoveProgressBar(num);
     }
 
-    private async void MoveProgressBar(double position = 0)
+    private async void MoveProgressBar(double position)
     {
-        await nutritionProgressBar.ProgressTo(position, 2000, Easing.Linear);
+        await nutritionProgressBar.ProgressTo(position, 1000, Easing.Linear);
     }
 
     protected override void OnBindingContextChanged()
