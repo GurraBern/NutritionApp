@@ -16,7 +16,8 @@
                 <SearchBar x:Name="searchBar"
                        SearchCommand="{Binding PerformSearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                       TextColor="Black"/>
+                       TextColor="Black"
+                       BackgroundColor="LightGrey"/>
 
                 <ListView x:Name="searchResults" 
                       ItemsSource="{Binding SearchResults}"

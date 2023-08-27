@@ -6,9 +6,15 @@ namespace NutritionApp.Services;
 
 public class NavigationService
 {
-    public static async Task NavigateToFoodDetailPage(FoodItem foodItem)
+    private readonly INutritionTracker nutritionTracker;
+
+    public NavigationService(INutritionTracker nutritionTracker)
     {
-        var foodDetailViewModel = new FoodDetailViewModel(foodItem);
+        this.nutritionTracker = nutritionTracker;
+    }
+    public async Task NavigateToFoodDetailPage(FoodItem foodItem)
+    {
+        var foodDetailViewModel = new FoodDetailViewModel(foodItem, nutritionTracker);
         var foodDetailPage = new FoodDetailPage(foodDetailViewModel);
         await Shell.Current.Navigation.PushAsync(foodDetailPage);
     }
