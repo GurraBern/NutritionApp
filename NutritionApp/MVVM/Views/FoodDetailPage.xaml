@@ -13,10 +13,19 @@
     <VerticalStackLayout>
         <Label Text="{Binding FoodItem.FoodName}" FontSize="Header"></Label>
 
-        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}" AmountNeeded="2400"/>
-        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
+        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}" AmountConsumed="{Binding ConsumedKcal}" AmountNeeded="2400"/>
+        <!--<customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
         <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}" AmountNeeded="240"/>
-        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}" AmountNeeded="70"/>
-        
+        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}" AmountNeeded="70"/>-->
+
+
+        <Button Command="{Binding AddFoodCommand}" Text="add 100 grams"></Button>
+
+        <Label Text="Nutrition per 100g"></Label>
+        <Label Text="{Binding FoodItem.Kcal, StringFormat='{0}g kcal'}"></Label>
+        <Label Text="{Binding FoodItem.Protein, StringFormat='{0}g protein'}"></Label>
+        <Label Text="{Binding FoodItem.Carbs, StringFormat='{0}g carbs'}"></Label>
+        <Label Text="{Binding FoodItem.Fat, StringFormat='{0}g fat'}"></Label>
+
     </VerticalStackLayout>
 </ContentPage>

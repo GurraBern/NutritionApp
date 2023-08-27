@@ -8,8 +8,12 @@ public partial class NutritionElement : ContentView
     public static readonly BindableProperty AmountProperty =
             BindableProperty.Create(nameof(Amount), typeof(string), typeof(NutritionElement), default(string));
 
+    public static readonly BindableProperty AmountConsumedProperty =
+        BindableProperty.Create(nameof(AmountConsumed), typeof(string), typeof(NutritionElement), default(string));
+
     public static readonly BindableProperty AmountNeededProperty =
            BindableProperty.Create(nameof(AmountNeeded), typeof(string), typeof(NutritionElement), default(string));
+
     public string Text
     {
         get => (string)GetValue(TextProperty);
@@ -20,14 +24,25 @@ public partial class NutritionElement : ContentView
     {
         get
         {
-            var currentAmount = (string)GetValue(AmountProperty);
+            var amountConsumed = double.Parse((string)GetValue(AmountConsumedProperty));
+            var foodNutritionAmount = (string)GetValue(AmountProperty);
             var amountNeeded = int.Parse((string)GetValue(AmountNeededProperty));
-            var progress = double.Parse(currentAmount) / amountNeeded;
 
-            MoveProgressBar(progress);
-            return currentAmount;
+            var toBeAddedNutritionIndication = (double.Parse(foodNutritionAmount) + amountConsumed) / amountNeeded;
+            MoveProgressBar(addedNutritionProgressBar, toBeAddedNutritionIndication);
+
+            var consumedNutrition = amountConsumed / amountNeeded;
+            MoveProgressBar(consumedNutritionProgressBar, consumedNutrition);
+
+            return foodNutritionAmount;
         }
         set => SetValue(AmountProperty, value);
+    }
+
+    public string AmountConsumed
+    {
+        get => (string)GetValue(AmountConsumedProperty);
+        set => SetValue(AmountConsumedProperty, value);
     }
 
     public string AmountNeeded
@@ -37,23 +52,11 @@ public partial class NutritionElement : ContentView
     }
 
     public NutritionElement()
-	{
-        InitializeComponent();
-
-        
-        //TODO Rewrite with actual Amount and AmountNeeded
-        //Random random = new Random();
-        //var num = random.NextDouble() * (1 - 0) + 0;
-
-        //var t = (string)GetValue(AmountNeededProperty);
-
-        //MoveProgressBar(num);
-    }
-
-    private async void MoveProgressBar(double position)
     {
-        await nutritionProgressBar.ProgressTo(position, 1000, Easing.Linear);
+        InitializeComponent();
     }
+
+    private static async void MoveProgressBar(ProgressBar progressBar, double position) => await progressBar.ProgressTo(position, 1000, Easing.Linear);
 
     protected override void OnBindingContextChanged()
     {
@@ -61,4 +64,6 @@ public partial class NutritionElement : ContentView
 
         nutritionNameLabel.Text = Text + ": " + Amount;
     }
+
+
 }

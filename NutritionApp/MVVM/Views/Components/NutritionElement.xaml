@@ -5,6 +5,9 @@
     <VerticalStackLayout>
         <Label x:Name="nutritionNameLabel"></Label>
 
-        <ProgressBar x:Name="nutritionProgressBar" Progress="0" ProgressColor="Red"/>
+        <AbsoluteLayout>
+            <ProgressBar x:Name="addedNutritionProgressBar" Progress="0" ProgressColor="DarkSlateBlue" ScaleY="3" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
+            <ProgressBar x:Name="consumedNutritionProgressBar" Progress="0" ProgressColor="DodgerBlue" ScaleY="3" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
+        </AbsoluteLayout>
     </VerticalStackLayout>
 </ContentView>
