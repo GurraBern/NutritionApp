@@ -64,6 +64,4 @@ public partial class NutritionElement : ContentView
 
         nutritionNameLabel.Text = Text + ": " + Amount;
     }
-
-
 }

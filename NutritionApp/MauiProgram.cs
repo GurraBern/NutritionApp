@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NutritionApp.MVVM.Viewmodels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
+using NutritionApp.Services.NutritionTrackingService;
 using RestSharp;
 using System.Reflection;
 
