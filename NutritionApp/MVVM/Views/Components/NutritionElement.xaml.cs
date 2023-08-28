@@ -9,10 +9,10 @@ public partial class NutritionElement : ContentView
             BindableProperty.Create(nameof(Amount), typeof(string), typeof(NutritionElement), default(string));
 
     public static readonly BindableProperty AmountConsumedProperty =
-        BindableProperty.Create(nameof(AmountConsumed), typeof(string), typeof(NutritionElement), default(string));
+            BindableProperty.Create(nameof(AmountConsumed), typeof(string), typeof(NutritionElement), default(string));
 
     public static readonly BindableProperty AmountNeededProperty =
-           BindableProperty.Create(nameof(AmountNeeded), typeof(string), typeof(NutritionElement), default(string));
+            BindableProperty.Create(nameof(AmountNeeded), typeof(string), typeof(NutritionElement), default(string));
 
     public string Text
     {
@@ -24,15 +24,7 @@ public partial class NutritionElement : ContentView
     {
         get
         {
-            var amountConsumed = double.Parse((string)GetValue(AmountConsumedProperty));
             var foodNutritionAmount = (string)GetValue(AmountProperty);
-            var amountNeeded = int.Parse((string)GetValue(AmountNeededProperty));
-
-            var toBeAddedNutritionIndication = (double.Parse(foodNutritionAmount) + amountConsumed) / amountNeeded;
-            MoveProgressBar(addedNutritionProgressBar, toBeAddedNutritionIndication);
-
-            var consumedNutrition = amountConsumed / amountNeeded;
-            MoveProgressBar(consumedNutritionProgressBar, consumedNutrition);
 
             return foodNutritionAmount;
         }
@@ -61,7 +53,30 @@ public partial class NutritionElement : ContentView
     protected override void OnBindingContextChanged()
     {
         base.OnBindingContextChanged();
+        UpdateProgessBar();
 
         nutritionNameLabel.Text = Text + ": " + Amount;
+    }
+
+    protected override void OnPropertyChanged(string propertyName = null)
+    {
+        base.OnPropertyChanged(propertyName);
+        UpdateProgessBar();
+    }
+
+    private void UpdateProgessBar()
+    {
+        double.TryParse((string)GetValue(AmountConsumedProperty), out var amountConsumed);
+        var foodNutritionAmount = (string)GetValue(AmountProperty);
+        int.TryParse((string)GetValue(AmountNeededProperty), out int amountNeeded);
+
+        if (foodNutritionAmount != null)
+        {
+            var toBeAddedNutritionIndication = (double.Parse(foodNutritionAmount) + amountConsumed) / amountNeeded;
+            MoveProgressBar(addedNutritionProgressBar, toBeAddedNutritionIndication);
+
+            var consumedNutrition = amountConsumed / amountNeeded;
+            MoveProgressBar(consumedNutritionProgressBar, consumedNutrition);
+        }
     }
 }

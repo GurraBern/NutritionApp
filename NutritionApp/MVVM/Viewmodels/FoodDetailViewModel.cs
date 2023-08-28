@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
@@ -8,16 +9,10 @@ namespace NutritionApp.MVVM.Viewmodels;
 public partial class FoodDetailViewModel : BaseViewModel
 {
     private readonly INutritionTracker nutritionTracker;
-
     public FoodItem FoodItem { get; }
 
-    public int ConsumedKcal
-    {
-        get
-        {
-            return nutritionTracker.TotalKcal;
-        }
-    }
+    [ObservableProperty]
+    public int consumedKcal = 0;
 
     public FoodDetailViewModel(FoodItem foodItem, INutritionTracker nutritionTracker)
     {
@@ -29,5 +24,6 @@ public partial class FoodDetailViewModel : BaseViewModel
     public void AddFood()
     {
         nutritionTracker.ConsumedFoods.Add(FoodItem);
+        ConsumedKcal = nutritionTracker.TotalKcal;
     }
 }

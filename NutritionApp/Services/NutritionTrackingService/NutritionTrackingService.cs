@@ -1,8 +1,9 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using NutritionApp.MVVM.Models;
 
 namespace NutritionApp.Services.NutritionTrackingService;
 
-public class NutritionTrackingService : INutritionTracker
+public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
     public List<FoodItem> ConsumedFoods { get; set; } = new List<FoodItem>();
 
