@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.Viewmodels" 
+             x:DataType="viewmodel:FoodDetailViewModel"
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             Title="FoodDetailPage"
+             xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
+             BackgroundColor="{DynamicResource White}">
+
+    <VerticalStackLayout Margin="10,5" Spacing="10">
+        <Label Text="{Binding FoodItem.FoodName}" FontSize="Medium" HorizontalOptions="Center"></Label>
+        <HorizontalStackLayout>
+            <Border>
+                <Entry Text="100"></Entry>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"></RoundRectangle>
+                </Border.StrokeShape>
+            </Border>
+            <Label Text="Gram" Margin="5,0" VerticalOptions="Center" FontSize="Small"></Label>
+        </HorizontalStackLayout>
+
+        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}" AmountConsumed="{Binding ConsumedKcal}" AmountNeeded="2400" HorizontalOptions="Center"/>
+        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
+        <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}" AmountNeeded="240"/>
+        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}" AmountNeeded="70"/>
+
+        <Label Text="Nutritional Information" FontSize="Small" FontAttributes="Bold"></Label>
+        <Border Padding="15">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Text="Calories" FontAttributes="Bold"></Label>
+                <Label Grid.Row="0" Text="{Binding FoodItem.Kcal, StringFormat='{0} kcal'}" HorizontalOptions="End"></Label>
+
+                <Label Grid.Row="1" Text="Protein" FontAttributes="Bold"></Label>
+                <Label Grid.Row="1" Text="{Binding FoodItem.Protein, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
+
+                <Label Grid.Row="2" Text="Carbs" FontAttributes="Bold"></Label>
+                <Label Grid.Row="2" Text="{Binding FoodItem.Carbs, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
+
+                <Label Grid.Row="3" Text="Fat" FontAttributes="Bold"></Label>
+                <Label Grid.Row="3" Text="{Binding FoodItem.Fat, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
+            </Grid>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5"/>
+            </Border.StrokeShape>
+        </Border>
+
+        <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
+        
+    </VerticalStackLayout>
+</ContentPage>

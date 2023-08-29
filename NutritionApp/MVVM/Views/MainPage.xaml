@@ -4,9 +4,10 @@
              x:Class="NutritionApp.MainPage"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.Viewmodels"       
              x:DataType="viewmodel:MainViewModel"
-             xmlns:model="clr-namespace:NutritionApp.MVVM.Models">
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             BackgroundColor="{DynamicResource White}">
 
-    <ScrollView BackgroundColor="White">
+    <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -16,7 +17,9 @@
                 <SearchBar x:Name="searchBar"
                        SearchCommand="{Binding PerformSearchCommand}"
                        SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                       TextColor="Black"/>
+                       TextColor="Black"
+                       BackgroundColor="LightGrey"
+                       Placeholder="Search foods..."/>
 
                 <ListView x:Name="searchResults" 
                       ItemsSource="{Binding SearchResults}"
@@ -30,20 +33,27 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                
-                <VerticalStackLayout BackgroundColor="WhiteSmoke">
-                    <Label FontSize="Large" TextColor="Black" Text="Breakfast"></Label>
-                    <VerticalStackLayout Margin="10, 0">
-                        <CollectionView ItemsSource="{Binding BreakfastFood}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="model:FoodItem">
-                                    <Label TextColor="Black" Text="{Binding FoodName}"></Label>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                <Border BackgroundColor="FloralWhite">
+                    <VerticalStackLayout>
+                        <Label FontSize="Medium" Text="Breakfast"></Label>
+                        <Label FontSize="Small" Text="1305 kcal"></Label>
+                        <VerticalStackLayout Margin="10, 0">
+                            <CollectionView ItemsSource="{Binding BreakfastFood}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="model:FoodItem">
+                                        <Label Text="{Binding FoodName}"></Label>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
-                </VerticalStackLayout>
-                
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15">
+                            
+                        </RoundRectangle>
+                    </Border.StrokeShape>
+                </Border>
+            
                 <Label TextColor="Black" Text="Lunch"></Label>
                 <Label TextColor="Black" Text="Dinner"></Label>
                 <Label TextColor="Black" Text="Snack"></Label>
