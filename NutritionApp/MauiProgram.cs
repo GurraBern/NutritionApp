@@ -1,11 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Controls;
 using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
+using NutritionApp.Services.NutritionTrackingService;
 using RestSharp;
 using System.Reflection;
 
@@ -36,9 +35,15 @@ public static class MauiProgram
         builder.Configuration.AddJsonStream(stream);
 
         builder.Services.AddSingleton<INutritionService, NutritionService>();
+        builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
+
+        builder.Services.AddSingleton<NavigationService>();
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
+
+        builder.Services.AddScoped<FoodDetailPage>();
+        builder.Services.AddScoped<FoodDetailViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
