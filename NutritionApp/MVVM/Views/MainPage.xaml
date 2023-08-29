@@ -9,10 +9,21 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+            Spacing="10"
+            Padding="20,0">
 
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Text=">"></Button>
+                <Label FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
+                <Button Grid.Column="2" Text=">"></Button>
+            </Grid>
+   
             <VerticalStackLayout>
                 <SearchBar x:Name="searchBar"
                        SearchCommand="{Binding PerformSearchCommand}"
@@ -34,31 +45,24 @@
                 </ListView>
                 <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
 
-                <Border BackgroundColor="FloralWhite">
+                <Label Margin="0,5" FontSize="Small" Text="Today's Intake"></Label>
+                <Border Padding="10,0">
                     <VerticalStackLayout>
-                        <Label FontSize="Medium" Text="Breakfast"></Label>
-                        <Label FontSize="Small" Text="1305 kcal"></Label>
-                        <VerticalStackLayout Margin="10, 0">
-                            <CollectionView ItemsSource="{Binding BreakfastFood}">
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="model:FoodItem">
+                        <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="model:FoodItem">
+                                    <HorizontalStackLayout Spacing="10">
                                         <Label Text="{Binding FoodName}"></Label>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </VerticalStackLayout>
+                                        <Label Text="{Binding Kcal, StringFormat='{0} kcal'}"></Label>
+                                    </HorizontalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </VerticalStackLayout>
                     <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="15">
-                            
-                        </RoundRectangle>
+                        <RoundRectangle CornerRadius="5"/>
                     </Border.StrokeShape>
                 </Border>
-            
-                <Label TextColor="Black" Text="Lunch"></Label>
-                <Label TextColor="Black" Text="Dinner"></Label>
-                <Label TextColor="Black" Text="Snack"></Label>
-
             </VerticalStackLayout>
            
             

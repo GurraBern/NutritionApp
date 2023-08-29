@@ -17,6 +17,13 @@ public partial class MainPage : ContentPage
         this.navigationService = navigationService;
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        vm.UpdateConsumedFoodItems();
+    }
+
     private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var selectedFoodItem = e.SelectedItem as FoodItem;

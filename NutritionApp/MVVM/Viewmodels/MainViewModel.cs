@@ -9,13 +9,16 @@ namespace NutritionApp.MVVM.Viewmodels;
 public partial class MainViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
+    private readonly INutritionTracker nutritionTracker;
+
     public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
-    public ObservableCollection<FoodItem> BreakfastFood { get; set; } = new();
+    public ObservableCollection<FoodItem> ConsumedFoodItems { get; set; } = new();
     private string searchQuery = string.Empty;
 
-    public MainViewModel(INutritionService nutritionService)
+    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker)
     {
         this.nutritionService = nutritionService;
+        this.nutritionTracker = nutritionTracker;
     }
 
     [RelayCommand]
@@ -38,5 +41,16 @@ public partial class MainViewModel : BaseViewModel
         }
 
         IsBusy = false;
+    }
+
+    public void UpdateConsumedFoodItems()
+    {
+        ConsumedFoodItems.Clear();
+
+        var consumedFoodItems = nutritionTracker.ConsumedFoods;
+        foreach (var foodItem in consumedFoodItems)
+        {
+            ConsumedFoodItems.Add(foodItem);
+        }
     }
 }
