@@ -5,6 +5,7 @@
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.Viewmodels"       
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              BackgroundColor="{DynamicResource White}">
 
     <ScrollView>
@@ -18,12 +19,11 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-
                 <Button Grid.Column="0" Text=">"></Button>
                 <Label FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
                 <Button Grid.Column="2" Text=">"></Button>
             </Grid>
-   
+
             <VerticalStackLayout>
                 <SearchBar x:Name="searchBar"
                        SearchCommand="{Binding PerformSearchCommand}"
@@ -38,35 +38,38 @@
                       ItemSelected="SearchResultSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="model:FoodItem">
-                            <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal}" DetailColor="Black" TextColor="Black"></TextCell>
-
+                            <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                
                 <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
 
-                <Label Margin="0,5" FontSize="Small" Text="Today's Intake"></Label>
-                <Border Padding="10,0">
+                <toolkit:Expander>
+                    <toolkit:Expander.Header>
+                        <Label FontSize="Small" Text="{Binding ConsumedFoodItems.Count, StringFormat='Todays Intake ({0} foods)'}"></Label>
+                    </toolkit:Expander.Header>
                     <VerticalStackLayout>
                         <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Vertical"/>
+                            </CollectionView.ItemsLayout>
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="model:FoodItem">
-                                    <HorizontalStackLayout Spacing="10">
-                                        <Label Text="{Binding FoodName}"></Label>
-                                        <Label Text="{Binding Kcal, StringFormat='{0} kcal'}"></Label>
-                                    </HorizontalStackLayout>
+                                    <Grid Padding="10,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding FoodName}"/>
+                                        <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Gram, StringFormat='{0} Grams'}"/>
+                                    </Grid>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </VerticalStackLayout>
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="5"/>
-                    </Border.StrokeShape>
-                </Border>
+                </toolkit:Expander>
             </VerticalStackLayout>
-           
-            
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
