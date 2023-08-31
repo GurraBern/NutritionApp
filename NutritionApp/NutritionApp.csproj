@@ -67,6 +67,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="MVVM\Views\Components\NutritionDetailPage.xaml.cs">
+	    <DependentUpon>NutritionDetailPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="MVVM\Views\Components\NutritionElement.xaml.cs">
 	    <DependentUpon>NutritionElement.xaml</DependentUpon>
 	  </Compile>
@@ -76,6 +79,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="MVVM\Views\Components\NutritionDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\Components\NutritionElement.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
