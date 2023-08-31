@@ -10,4 +10,7 @@ public interface INutritionTracker
     public int TotalProtein => ConsumedFoods.Sum(food => food.Protein);
     public int TotalCarbs => ConsumedFoods.Sum(food => food.Carbs);
     public int TotalFat => ConsumedFoods.Sum(food => food.Fat);
+    public void AddFood(FoodItem food);
+    public void RemoveFood(FoodItem food);
+
 }

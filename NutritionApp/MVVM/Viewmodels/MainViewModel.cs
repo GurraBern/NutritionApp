@@ -13,7 +13,6 @@ public partial class MainViewModel : BaseViewModel
 
     public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
     public ObservableCollection<FoodItem> ConsumedFoodItems { get; set; } = new();
-    private string searchQuery = string.Empty;
 
     public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker)
     {
@@ -24,10 +23,9 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     public async Task PerformSearch(string query)
     {
-        if (query.IsEqualOrEmpty(searchQuery))
+        if (string.IsNullOrEmpty(query))
             return;
 
-        searchQuery = query;
         IsBusy = true;
 
         var searchResult = await nutritionService.GetSearchResults(query);
@@ -52,5 +50,11 @@ public partial class MainViewModel : BaseViewModel
         {
             ConsumedFoodItems.Add(foodItem);
         }
+    }
+
+    [RelayCommand]
+    public void ClearSearchResults()
+    {
+        SearchResults.Clear();
     }
 }

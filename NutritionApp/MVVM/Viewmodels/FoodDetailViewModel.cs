@@ -21,9 +21,9 @@ public partial class FoodDetailViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async Task AddFoodAsync()
+    public async Task AddFood()
     {
-        nutritionTracker.ConsumedFoods.Add(FoodItem);
+        nutritionTracker.AddFood(FoodItem);
         ConsumedKcal = nutritionTracker.TotalKcal;
 
         await Shell.Current.GoToAsync("//MainPage");

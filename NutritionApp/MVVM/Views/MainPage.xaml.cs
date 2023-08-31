@@ -21,6 +21,7 @@ public partial class MainPage : ContentPage
     {
         base.OnAppearing();
 
+        vm.ClearSearchResults();
         vm.UpdateConsumedFoodItems();
     }
 
@@ -28,5 +29,10 @@ public partial class MainPage : ContentPage
     {
         var selectedFoodItem = e.SelectedItem as FoodItem;
         await navigationService.NavigateToFoodDetailPage(selectedFoodItem);
+    }
+
+    private void SearchBar_Unfocused(object sender, FocusEventArgs e)
+    {
+        vm.ClearSearchResults();
     }
 }

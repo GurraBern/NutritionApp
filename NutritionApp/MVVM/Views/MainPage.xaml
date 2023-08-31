@@ -12,7 +12,7 @@
         <VerticalStackLayout
             Spacing="10"
             Padding="20,0">
-
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -24,52 +24,46 @@
                 <Button Grid.Column="2" Text=">"></Button>
             </Grid>
 
-            <VerticalStackLayout>
-                <SearchBar x:Name="searchBar"
-                       SearchCommand="{Binding PerformSearchCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                       TextColor="Black"
-                       BackgroundColor="LightGrey"
-                       Placeholder="Search foods..."/>
+            <SearchBar x:Name="searchBar"
+                    SearchCommand="{Binding PerformSearchCommand}"
+                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                    TextColor="Black"
+                    BackgroundColor="LightGrey"
+                    Placeholder="Search foods..."
+                    Unfocused="SearchBar_Unfocused"/>
 
-                <ListView x:Name="searchResults" 
-                      ItemsSource="{Binding SearchResults}"
-                      SelectionMode="Single"
-                      ItemSelected="SearchResultSelected">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="model:FoodItem">
-                            <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+            <ListView x:Name="searchResults" 
+                    ItemsSource="{Binding SearchResults}"
+                    SelectionMode="Single"
+                    ItemSelected="SearchResultSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:FoodItem">
+                        <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
                 
-                <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+            <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
 
-                <toolkit:Expander>
-                    <toolkit:Expander.Header>
-                        <Label FontSize="Small" Text="{Binding ConsumedFoodItems.Count, StringFormat='Todays Intake ({0} foods)'}"></Label>
-                    </toolkit:Expander.Header>
-                    <VerticalStackLayout>
-                        <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
-                            <CollectionView.ItemsLayout>
-                                <LinearItemsLayout Orientation="Vertical"/>
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="model:FoodItem">
-                                    <Grid Padding="10,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding FoodName}"/>
-                                        <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Gram, StringFormat='{0} Grams'}"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </VerticalStackLayout>
-                </toolkit:Expander>
-            </VerticalStackLayout>
+            <toolkit:Expander>
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="{Binding ConsumedFoodItems.Count, StringFormat='Todays Intake ({0} foods)'}"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:FoodItem">
+                            <Grid Padding="10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding FoodName}"/>
+                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Gram, StringFormat='{0} Grams'}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

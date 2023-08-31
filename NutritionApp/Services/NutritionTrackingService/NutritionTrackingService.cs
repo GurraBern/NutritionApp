@@ -16,4 +16,14 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     {
 
     }
+
+    public void AddFood(FoodItem food)
+    {
+        ConsumedFoods.Add(food);
+    }
+
+    public void RemoveFood(FoodItem food)
+    {
+        ConsumedFoods.Remove(food);
+    }
 }
