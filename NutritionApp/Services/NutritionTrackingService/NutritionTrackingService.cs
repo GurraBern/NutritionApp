@@ -5,6 +5,7 @@ namespace NutritionApp.Services.NutritionTrackingService;
 
 public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
+    public event EventHandler ItemAdded;
     public List<FoodItem> ConsumedFoods { get; set; } = new List<FoodItem>();
 
     public int TotalKcal => ConsumedFoods.Sum(food => food.Kcal);
@@ -20,10 +21,12 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     public void AddFood(FoodItem food)
     {
         ConsumedFoods.Add(food);
+        ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemoveFood(FoodItem food)
     {
         ConsumedFoods.Remove(food);
+        ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 }

@@ -62,6 +62,7 @@ public partial class NutritionElement : ContentView
     {
         base.OnPropertyChanged(propertyName);
         UpdateProgessBar();
+        UpdateText();
     }
 
     private void UpdateProgessBar()
@@ -78,5 +79,11 @@ public partial class NutritionElement : ContentView
             var consumedNutrition = amountConsumed / amountNeeded;
             MoveProgressBar(consumedNutritionProgressBar, consumedNutrition);
         }
+    }
+
+    private void UpdateText()
+    {
+        if (Amount != null && nutritionNameLabel != null)
+            nutritionNameLabel.Text = Text + ": " + Amount;
     }
 }

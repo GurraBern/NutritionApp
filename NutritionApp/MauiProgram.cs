@@ -42,8 +42,11 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
 
-        builder.Services.AddScoped<FoodDetailPage>();
-        builder.Services.AddScoped<FoodDetailViewModel>();
+        builder.Services.AddSingleton<NutritionDetailViewModel>();
+        builder.Services.AddSingleton<NutritionDetailPage>();
+
+        builder.Services.AddTransient<FoodDetailPage>();
+        builder.Services.AddTransient<FoodDetailViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

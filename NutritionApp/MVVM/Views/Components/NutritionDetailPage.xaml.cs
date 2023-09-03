@@ -1,11 +1,17 @@
 using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.Services;
 
-namespace NutritionApp.MVVM.Views.Components;
+namespace NutritionApp.MVVM.Views;
 
 public partial class NutritionDetailPage : ContentView
 {
-    public NutritionDetailPage(NutritionDetailViewModel vm)
+    private readonly NutritionDetailViewModel vm;
+
+    public NutritionDetailPage()
     {
+        var nutritionTracker = ServiceHelper.GetService<INutritionTracker>();
+        vm = new NutritionDetailViewModel(nutritionTracker);
+
         InitializeComponent();
         BindingContext = vm;
     }
