@@ -4,9 +4,9 @@ namespace NutritionApp.MVVM.Views;
 
 public partial class FoodDetailPage : ContentPage
 {
-	public FoodDetailPage(FoodDetailViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
-	}
+    public FoodDetailPage(FoodDetailViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
+    }
 }

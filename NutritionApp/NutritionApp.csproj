@@ -67,8 +67,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MVVM\Views\Components\NutritionElement.xaml.cs">
-	    <DependentUpon>NutritionElement.xaml</DependentUpon>
+	  <Compile Update="MVVM\Views\Components\NutritionDetailView.xaml.cs">
+	    <DependentUpon>NutritionDetailView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="MVVM\Views\Components\NutritionElementView.xaml.cs">
+	    <DependentUpon>NutritionElementView.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="MVVM\Views\FoodDetailPage.xaml.cs">
 	    <DependentUpon>FoodDetailPage.xaml</DependentUpon>
@@ -76,7 +79,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MVVM\Views\Components\NutritionElement.xaml">
+	  <MauiXaml Update="MVVM\Views\Components\NutritionDetailView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\Components\NutritionElementView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\FoodDetailPage.xaml">
