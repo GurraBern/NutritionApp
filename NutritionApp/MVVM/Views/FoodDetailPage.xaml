@@ -10,7 +10,7 @@
              BackgroundColor="{DynamicResource White}">
 
     <VerticalStackLayout Margin="10,5" Spacing="10">
-        <Label Text="{Binding FoodItem.FoodName}" FontSize="Medium" HorizontalOptions="Center"></Label>
+        <Label Text="{Binding FoodItem.Name}" FontSize="Medium" HorizontalOptions="Center"></Label>
         <HorizontalStackLayout>
             <Border>
                 <Entry Text="100"></Entry>
@@ -38,16 +38,16 @@
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Text="Calories" FontAttributes="Bold"></Label>
-                <Label Grid.Row="0" Text="{Binding FoodItem.Kcal, StringFormat='{0} kcal'}" HorizontalOptions="End"></Label>
+                <Label Grid.Row="0" Text="{Binding FoodItem.Calories, StringFormat='{0} kcal'}" HorizontalOptions="End"></Label>
 
                 <Label Grid.Row="1" Text="Protein" FontAttributes="Bold"></Label>
                 <Label Grid.Row="1" Text="{Binding FoodItem.Protein, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
 
                 <Label Grid.Row="2" Text="Carbs" FontAttributes="Bold"></Label>
-                <Label Grid.Row="2" Text="{Binding FoodItem.Carbs, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
+                <Label Grid.Row="2" Text="{Binding FoodItem.Carbohydrates.Carbohydrate, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
 
                 <Label Grid.Row="3" Text="Fat" FontAttributes="Bold"></Label>
-                <Label Grid.Row="3" Text="{Binding FoodItem.Fat, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
+                <Label Grid.Row="3" Text="{Binding FoodItem.Fats.TotalFat, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
             </Grid>
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="5"/>

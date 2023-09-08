@@ -67,13 +67,14 @@ public partial class NutritionElement : ContentView
 
     private void UpdateProgessBar()
     {
-        double.TryParse((string)GetValue(AmountConsumedProperty), out var amountConsumed);
-        var foodNutritionAmount = (string)GetValue(AmountProperty);
-        int.TryParse((string)GetValue(AmountNeededProperty), out int amountNeeded);
+        double.TryParse((string)GetValue(AmountConsumedProperty), out double amountConsumed);
+        var foodNutritionString = (string)GetValue(AmountProperty);
+        double.TryParse(foodNutritionString, out double foodNutritionAmount);
+        double.TryParse((string)GetValue(AmountNeededProperty), out double amountNeeded);
 
-        if (foodNutritionAmount != null)
+        if (amountNeeded > 0)
         {
-            var toBeAddedNutritionIndication = (double.Parse(foodNutritionAmount) + amountConsumed) / amountNeeded;
+            var toBeAddedNutritionIndication = (foodNutritionAmount + amountConsumed) / amountNeeded;
             MoveProgressBar(addedNutritionProgressBar, toBeAddedNutritionIndication);
 
             var consumedNutrition = amountConsumed / amountNeeded;

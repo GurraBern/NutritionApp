@@ -24,7 +24,6 @@ public partial class FoodDetailViewModel : BaseViewModel
     public async Task AddFood()
     {
         nutritionTracker.AddFood(FoodItem);
-        ConsumedKcal = nutritionTracker.TotalKcal;
 
         await Shell.Current.GoToAsync("//MainPage");
     }

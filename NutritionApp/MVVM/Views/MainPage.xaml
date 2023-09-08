@@ -39,7 +39,7 @@
                     ItemSelected="SearchResultSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:FoodItem">
-                        <TextCell Text="{Binding FoodName}" Detail="{Binding Kcal, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
+                        <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -58,8 +58,8 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding FoodName}"/>
-                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Gram, StringFormat='{0} Grams'}"/>
+                                <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
+                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding ServingSize, StringFormat='{0} Grams'}"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
