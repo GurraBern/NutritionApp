@@ -9,16 +9,16 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
 
     [ObservableProperty]
-    public int kcal;
+    public double kcal;
 
     [ObservableProperty]
-    public int protein;
+    public double protein;
 
     [ObservableProperty]
-    public int carbs;
+    public double carbs;
 
     [ObservableProperty]
-    public int fat;
+    public double fat;
 
     public NutritionDetailViewModel(INutritionTracker nutritionTracker)
     {

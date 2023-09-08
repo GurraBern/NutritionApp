@@ -8,10 +8,10 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     public event EventHandler ItemAdded;
     public List<FoodItem> ConsumedFoods { get; set; } = new List<FoodItem>();
 
-    public int TotalKcal => ConsumedFoods.Sum(food => food.Kcal);
-    public int TotalProtein => ConsumedFoods.Sum(food => food.Protein);
-    public int TotalCarbs => ConsumedFoods.Sum(food => food.Carbs);
-    public int TotalFat => ConsumedFoods.Sum(food => food.Fat);
+    public double TotalKcal => ConsumedFoods.Sum(food => food.Calories);
+    public double TotalProtein => ConsumedFoods.Sum(food => food.Protein);
+    public double TotalCarbs => ConsumedFoods.Sum(food => food.Carbohydrates.Carbohydrate);
+    public double TotalFat => ConsumedFoods.Sum(food => food.Fats.TotalFat);
 
     public NutritionTrackingService()
     {
