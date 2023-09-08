@@ -13,7 +13,7 @@
         <Label Text="{Binding FoodItem.Name}" FontSize="Medium" HorizontalOptions="Center"></Label>
         <HorizontalStackLayout>
             <Border>
-                <Entry Text="100"></Entry>
+                <Entry Text="{Binding Amount}"></Entry>
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5"></RoundRectangle>
                 </Border.StrokeShape>
@@ -21,10 +21,10 @@
             <Label Text="Gram" Margin="5,0" VerticalOptions="Center" FontSize="Small"></Label>
         </HorizontalStackLayout>
 
-        <customComponents:NutritionElement Text="Kcal" Amount="{Binding FoodItem.Kcal}" AmountConsumed="{Binding ConsumedKcal}" AmountNeeded="2400" HorizontalOptions="Center"/>
-        <customComponents:NutritionElement Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
-        <customComponents:NutritionElement Text="Carbs" Amount="{Binding FoodItem.Carbs}" AmountNeeded="240"/>
-        <customComponents:NutritionElement Text="Fat" Amount="{Binding FoodItem.Fat}" AmountNeeded="70"/>
+        <customComponents:CustomProgressBar Title="Kcal" ProgressA="{Binding ConsumedPercentage}" ProgressB="{Binding ConsumedPercentage}" HorizontalOptions="Center"/>
+        <!--<customComponents:CustomProgressBar Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
+        <customComponents:CustomProgressBar Text="Carbs" Amount="{Binding FoodItem.Carbohydrates.Carbohydrate}" AmountNeeded="240"/>
+        <customComponents:CustomProgressBar Text="Fat" Amount="{Binding FoodItem.Fats.TotalFat}" AmountNeeded="70"/>-->
 
         <Label Text="Nutritional Information" FontSize="Small" FontAttributes="Bold"></Label>
         <Border Padding="15">

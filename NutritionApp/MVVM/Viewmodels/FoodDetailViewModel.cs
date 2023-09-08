@@ -1,5 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
@@ -11,8 +10,9 @@ public partial class FoodDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     public FoodItem FoodItem { get; }
 
-    [ObservableProperty]
-    public int consumedKcal = 0;
+    public int Amount { get; set; } = 100;
+
+    public double ConsumedPercentage => nutritionTracker.TotalKcal / 2400;
 
     public FoodDetailViewModel(FoodItem foodItem, INutritionTracker nutritionTracker)
     {

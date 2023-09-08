@@ -9,16 +9,16 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
 
     [ObservableProperty]
-    public double kcal;
+    private double consumedKcalPercentage;
 
     [ObservableProperty]
-    public double protein;
+    private double consumedProteinPercentage;
 
     [ObservableProperty]
-    public double carbs;
+    private double consumedCarbsPercentage;
 
     [ObservableProperty]
-    public double fat;
+    private double consumedFatPercentage;
 
     public NutritionDetailViewModel(INutritionTracker nutritionTracker)
     {
@@ -26,10 +26,10 @@ public partial class NutritionDetailViewModel : BaseViewModel
 
         nutritionTracker.ItemAdded += (sender, args) =>
         {
-            Kcal = nutritionTracker.TotalKcal;
-            Protein = nutritionTracker.TotalProtein;
-            Carbs = nutritionTracker.TotalCarbs;
-            Fat = nutritionTracker.TotalFat;
+            ConsumedKcalPercentage = nutritionTracker.TotalKcal / 2400;
+            ConsumedProteinPercentage = nutritionTracker.TotalProtein / 110;
+            ConsumedCarbsPercentage = nutritionTracker.TotalCarbs / 240;
+            ConsumedFatPercentage = nutritionTracker.TotalFat / 70;
         };
     }
 }

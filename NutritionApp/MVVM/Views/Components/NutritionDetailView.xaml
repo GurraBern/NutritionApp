@@ -6,9 +6,9 @@
              x:DataType="viewmodel:NutritionDetailViewModel"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views">
     <VerticalStackLayout>
-        <customComponents:NutritionElement Text="Kcal" Amount="{Binding Kcal}" AmountNeeded="2400" AmountConsumed="{Binding Kcal}"></customComponents:NutritionElement>
-        <customComponents:NutritionElement Text="Protein" Amount="{Binding Protein}" AmountNeeded="90" AmountConsumed="{Binding Protein}"></customComponents:NutritionElement>
-        <customComponents:NutritionElement Text="Carbs" Amount="{Binding Carbs}" AmountNeeded="240" AmountConsumed="{Binding Carbs}"></customComponents:NutritionElement>
-        <customComponents:NutritionElement Text="Fat" Amount="{Binding Fat}" AmountNeeded="75" AmountConsumed="{Binding Fat}"></customComponents:NutritionElement>
+        <customComponents:CustomProgressBar Title="Kcal" ProgressA="{Binding ConsumedKcalPercentage}"></customComponents:CustomProgressBar>
+        <customComponents:CustomProgressBar Title="Protein" ProgressA="{Binding ConsumedProteinPercentage}"></customComponents:CustomProgressBar>
+        <customComponents:CustomProgressBar Title="Carbs" ProgressA="{Binding ConsumedCarbsPercentage}"></customComponents:CustomProgressBar>
+        <customComponents:CustomProgressBar Title="Fat" ProgressA="{Binding ConsumedFatPercentage}"></customComponents:CustomProgressBar>
     </VerticalStackLayout>
 </ContentView>
