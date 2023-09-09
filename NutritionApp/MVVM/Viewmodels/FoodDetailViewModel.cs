@@ -1,18 +1,29 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
-using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 
-namespace NutritionApp.MVVM.Viewmodels;
+namespace NutritionApp.MVVM.ViewModels;
 
 public partial class FoodDetailViewModel : BaseViewModel
 {
     private readonly INutritionTracker nutritionTracker;
+    private int amount = 100;
     public FoodItem FoodItem { get; }
-
-    public int Amount { get; set; } = 100;
-
+    public double ToBeAddedPercentage => (nutritionTracker.TotalKcal + Amount * FoodItem.Calories / 100) / 2400;
     public double ConsumedPercentage => nutritionTracker.TotalKcal / 2400;
+    public int Amount
+    {
+        get => amount;
+        set
+        {
+            if (amount != value)
+            {
+                amount = value;
+                OnPropertyChanged(nameof(ToBeAddedPercentage));
+                OnPropertyChanged(nameof(ConsumedPercentage));
+            }
+        }
+    }
 
     public FoodDetailViewModel(FoodItem foodItem, INutritionTracker nutritionTracker)
     {

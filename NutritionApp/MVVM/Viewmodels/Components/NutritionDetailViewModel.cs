@@ -1,8 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 
-namespace NutritionApp.MVVM.Viewmodels;
+namespace NutritionApp.MVVM.ViewModels;
 
 public partial class NutritionDetailViewModel : BaseViewModel
 {

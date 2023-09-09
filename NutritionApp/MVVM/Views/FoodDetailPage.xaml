@@ -21,7 +21,7 @@
             <Label Text="Gram" Margin="5,0" VerticalOptions="Center" FontSize="Small"></Label>
         </HorizontalStackLayout>
 
-        <customComponents:CustomProgressBar Title="Kcal" ProgressA="{Binding ConsumedPercentage}" ProgressB="{Binding ConsumedPercentage}" HorizontalOptions="Center"/>
+        <customComponents:CustomProgressBar Title="Kcal" ProgressA="{Binding ToBeAddedPercentage}" ProgressB="{Binding ConsumedPercentage}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"  HorizontalOptions="Center"/>
         <!--<customComponents:CustomProgressBar Text="Protein" Amount="{Binding FoodItem.Protein}" AmountNeeded="120"/>
         <customComponents:CustomProgressBar Text="Carbs" Amount="{Binding FoodItem.Carbohydrates.Carbohydrate}" AmountNeeded="240"/>
         <customComponents:CustomProgressBar Text="Fat" Amount="{Binding FoodItem.Fats.TotalFat}" AmountNeeded="70"/>-->

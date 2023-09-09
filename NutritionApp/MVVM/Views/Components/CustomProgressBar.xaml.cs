@@ -26,6 +26,34 @@ public partial class CustomProgressBar : ContentView
         set => SetValue(TitleProperty, value);
     }
 
+    public static readonly BindableProperty ProgressBarAColorProperty =
+    BindableProperty.Create(nameof(ProgressBarAColor), typeof(Color), typeof(CustomProgressBar), Color.FromRgb(0, 0, 0),
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var control = (CustomProgressBar)bindable;
+            control.progressBarA.ProgressColor = (Color)newValue;
+        });
+
+    public Color ProgressBarAColor
+    {
+        get { return (Color)GetValue(ProgressBarAColorProperty); }
+        set { SetValue(ProgressBarAColorProperty, value); }
+    }
+
+    public static readonly BindableProperty ProgressBarBColorProperty =
+    BindableProperty.Create(nameof(ProgressBarBColor), typeof(Color), typeof(CustomProgressBar), Color.FromRgb(0, 0, 0),
+        propertyChanged: (bindable, oldValue, newValue) =>
+        {
+            var control = (CustomProgressBar)bindable;
+            control.progressBarB.ProgressColor = (Color)newValue;
+        });
+
+    public Color ProgressBarBColor
+    {
+        get { return (Color)GetValue(ProgressBarBColorProperty); }
+        set { SetValue(ProgressBarBColorProperty, value); }
+    }
+
     public double ProgressA
     {
         get => (double)GetValue(ProgressAProperty);
@@ -43,5 +71,5 @@ public partial class CustomProgressBar : ContentView
         InitializeComponent();
     }
 
-    private static async void MoveProgressBar(ProgressBar progressBar, double position) => await progressBar.ProgressTo(position, 700, Easing.SinIn);
+    private async static void MoveProgressBar(ProgressBar progressBar, double position) => await progressBar.ProgressTo(position, 500, Easing.Linear);
 }

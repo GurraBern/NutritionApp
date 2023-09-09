@@ -1,10 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
-using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 using System.Collections.ObjectModel;
 
-namespace NutritionApp.MVVM.Viewmodels;
+namespace NutritionApp.MVVM.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {

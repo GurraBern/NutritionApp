@@ -1,4 +1,4 @@
-﻿namespace NutritionApp.MVVM.Viewmodels;
+﻿namespace NutritionApp.MVVM.ViewModels;
 
 public static class StringExtensions
 {
