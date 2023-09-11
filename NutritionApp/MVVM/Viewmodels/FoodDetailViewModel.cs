@@ -9,8 +9,14 @@ public partial class FoodDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     private int amount = 100;
     public FoodItem FoodItem { get; }
-    public double ToBeAddedPercentage => (nutritionTracker.TotalKcal + Amount * FoodItem.Calories / 100) / 2400;
-    public double ConsumedPercentage => nutritionTracker.TotalKcal / 2400;
+    public double PotentialKcalProgress => CalculateProgress(nutritionTracker.TotalKcal, FoodItem.Calories, 2400);
+    public double KcalProgress => nutritionTracker.TotalKcal / 2400;
+    public double PotentialProteinProgress => CalculateProgress(nutritionTracker.TotalProtein, FoodItem.Protein, 110);
+    public double ProteinProgress => nutritionTracker.TotalProtein / 110;
+    public double PotentialCarbsProgress => CalculateProgress(nutritionTracker.TotalCarbs, FoodItem.Carbohydrates.Carbohydrate, 240);
+    public double CarbsProgress => nutritionTracker.TotalCarbs / 240;
+    public double PotentialFatProgress => CalculateProgress(nutritionTracker.TotalFat, FoodItem.Fats.TotalFat, 70);
+    public double FatProgress => nutritionTracker.TotalFat / 70;
     public int Amount
     {
         get => amount;
@@ -19,8 +25,14 @@ public partial class FoodDetailViewModel : BaseViewModel
             if (amount != value)
             {
                 amount = value;
-                OnPropertyChanged(nameof(ToBeAddedPercentage));
-                OnPropertyChanged(nameof(ConsumedPercentage));
+                OnPropertyChanged(nameof(PotentialKcalProgress));
+                OnPropertyChanged(nameof(KcalProgress));
+                OnPropertyChanged(nameof(ProteinProgress));
+                OnPropertyChanged(nameof(PotentialProteinProgress));
+                OnPropertyChanged(nameof(CarbsProgress));
+                OnPropertyChanged(nameof(PotentialCarbsProgress));
+                OnPropertyChanged(nameof(FatProgress));
+                OnPropertyChanged(nameof(PotentialFatProgress));
             }
         }
     }
@@ -38,4 +50,7 @@ public partial class FoodDetailViewModel : BaseViewModel
 
         await Shell.Current.GoToAsync("//MainPage");
     }
+
+    private double CalculateProgress(double currentValue, double foodItemValue, double targetValue) =>
+        (currentValue + amount * foodItemValue / 100) / targetValue;
 }

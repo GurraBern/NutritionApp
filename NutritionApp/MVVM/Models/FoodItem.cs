@@ -5,7 +5,7 @@ namespace NutritionApp.MVVM.Models;
 
 public class FoodItem : ObservableObject
 {
-    public string? Id { get; set; }
+    public string Id { get; set; }
 
     public string Name { get; set; } = null!;
 
