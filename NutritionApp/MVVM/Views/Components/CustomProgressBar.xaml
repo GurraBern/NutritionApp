@@ -6,8 +6,8 @@
         <Label x:Name="titleLabel"></Label>
 
         <AbsoluteLayout>
-            <ProgressBar x:Name="progressBarA" Progress="0" ScaleY="3" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
-            <ProgressBar x:Name="progressBarB" Progress="0" ScaleY="3" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
+            <ProgressBar x:Name="progressBarA" Progress="0" ScaleY="1" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
+            <ProgressBar x:Name="progressBarB" Progress="0" ScaleY="1" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All"/>
         </AbsoluteLayout>
     </VerticalStackLayout>
 </ContentView>

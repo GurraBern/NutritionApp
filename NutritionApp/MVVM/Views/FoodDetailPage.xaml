@@ -22,46 +22,31 @@
             <Label Text="Gram" Margin="5,0" VerticalOptions="Center" FontSize="Small"></Label>
         </HorizontalStackLayout>
 
-
         <toolkit:Expander IsExpanded="True">
             <toolkit:Expander.Header>
                 <Label FontSize="Small" Text="Primary Nutrients"></Label>
             </toolkit:Expander.Header>
             <VerticalStackLayout>
-                <customComponents:CustomProgressBar Title="{Binding FoodItem.Calories, StringFormat='Kcal {0}'}" ProgressA="{Binding PotentialKcalProgress}" ProgressB="{Binding KcalProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="Protein" ProgressA="{Binding PotentialProteinProgress}" ProgressB="{Binding ProteinProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="Carbs" ProgressA="{Binding PotentialCarbsProgress}" ProgressB="{Binding CarbsProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="Fat" ProgressA="{Binding PotentialFatProgress}" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding KcalAmount, StringFormat='Kcal {0}'}" ProgressA="{Binding PotentialKcalProgress}" ProgressB="{Binding KcalProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding ProteinAmount, StringFormat='Protein {0}'}" ProgressA="{Binding PotentialProteinProgress}" ProgressB="{Binding ProteinProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding CarbsAmount, StringFormat='Carbs {0}'}" ProgressA="{Binding PotentialCarbsProgress}" ProgressB="{Binding CarbsProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding FatAmount, StringFormat='Fat {0}'}" ProgressA="{Binding PotentialFatProgress}" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
             </VerticalStackLayout>
         </toolkit:Expander>
 
-        <Label Text="Nutritional Information (100g)" FontSize="Small" FontAttributes="Bold"></Label>
-        <Border Padding="15">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Text="Calories" FontAttributes="Bold"></Label>
-                <Label Grid.Row="0" Text="{Binding FoodItem.Calories, StringFormat='{0} kcal'}" HorizontalOptions="End"></Label>
-
-                <Label Grid.Row="1" Text="Protein" FontAttributes="Bold"></Label>
-                <Label Grid.Row="1" Text="{Binding FoodItem.Protein, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
-
-                <Label Grid.Row="2" Text="Carbs" FontAttributes="Bold"></Label>
-                <Label Grid.Row="2" Text="{Binding FoodItem.Carbohydrates.Carbohydrate, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
-
-                <Label Grid.Row="3" Text="Fat" FontAttributes="Bold"></Label>
-                <Label Grid.Row="3" Text="{Binding FoodItem.Fats.TotalFat, StringFormat='{0}g'}" HorizontalOptions="End"></Label>
-            </Grid>
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5"/>
-            </Border.StrokeShape>
-        </Border>
+        <toolkit:Expander IsExpanded="True">
+            <toolkit:Expander.Header>
+                <Label FontSize="Small" Text="Vitamins"></Label>
+            </toolkit:Expander.Header>
+            <VerticalStackLayout>
+                <customComponents:CustomProgressBar Title="{Binding VitaminAAmount, StringFormat='A {0}mg'}"  ProgressB="{Binding VitaminAProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <!--<customComponents:CustomProgressBar Title="{Binding VitaminDAmount, StringFormat='D {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding VitaminEAmount, StringFormat='E {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding VitaminCAmount, StringFormat='C {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding VitaminKAmount, StringFormat='K {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding VitaminB1Amount, StringFormat='B1 {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>-->
+            </VerticalStackLayout>
+        </toolkit:Expander>
 
         <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
 

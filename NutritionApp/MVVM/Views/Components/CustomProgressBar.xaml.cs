@@ -11,13 +11,13 @@ public partial class CustomProgressBar : ContentView
     public static readonly BindableProperty ProgressAProperty = BindableProperty.Create(nameof(ProgressA), typeof(double), typeof(CustomProgressBar), propertyChanged: (bindable, oldValue, newValue) =>
     {
         var control = (CustomProgressBar)bindable;
-        MoveProgressBar(control.progressBarA, (double)newValue);
+        control.progressBarA.Progress = (double)newValue;
     });
 
     public static readonly BindableProperty ProgressBProperty = BindableProperty.Create(nameof(ProgressB), typeof(double), typeof(CustomProgressBar), propertyChanged: (bindable, oldValue, newValue) =>
     {
         var control = (CustomProgressBar)bindable;
-        MoveProgressBar(control.progressBarB, (double)newValue);
+        control.progressBarB.Progress = (double)newValue;
     });
 
     public string Title
