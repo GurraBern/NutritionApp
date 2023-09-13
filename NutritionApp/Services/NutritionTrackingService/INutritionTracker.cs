@@ -6,7 +6,7 @@ public interface INutritionTracker
 {
     public event EventHandler ItemAdded;
     public List<FoodItem> ConsumedFoods { get; set; }
-
+    public double KcalNeeded { get; }
     public double TotalKcal => ConsumedFoods.Sum(food => food.Calories);
     public double TotalProtein => ConsumedFoods.Sum(food => food.Protein);
     public double TotalCarbs => ConsumedFoods.Sum(food => food.Carbohydrates.Carbohydrate);

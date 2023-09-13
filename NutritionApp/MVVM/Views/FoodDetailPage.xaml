@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:NutritionApp.Converters"
              x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels" 
              x:DataType="viewmodel:FoodDetailViewModel"
@@ -27,10 +28,15 @@
                 <Label FontSize="Small" Text="Primary Nutrients"></Label>
             </toolkit:Expander.Header>
             <VerticalStackLayout>
-                <customComponents:CustomProgressBar Title="{Binding KcalAmount, StringFormat='Kcal {0}'}" ProgressA="{Binding PotentialKcalProgress}" ProgressB="{Binding KcalProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding ProteinAmount, StringFormat='Protein {0}'}" ProgressA="{Binding PotentialProteinProgress}" ProgressB="{Binding ProteinProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding CarbsAmount, StringFormat='Carbs {0}'}" ProgressA="{Binding PotentialCarbsProgress}" ProgressB="{Binding CarbsProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding FatAmount, StringFormat='Fat {0}'}" ProgressA="{Binding PotentialFatProgress}" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar
+                    Title="{Binding Calories.CurrentItemValue, StringFormat='Kcal {0}'}"
+                    ProgressA="{Binding Calories.NutritionPotentialProgress}"
+                    ProgressB="{Binding Calories.NutritionProgress}"
+                    ProgressBarAColor="LightGrey"
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding ProteinAmount, StringFormat='Protein {0}g'}" ProgressA="{Binding PotentialProteinProgress}" ProgressB="{Binding ProteinProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding CarbsAmount, StringFormat='Carbs {0}g'}" ProgressA="{Binding PotentialCarbsProgress}" ProgressB="{Binding CarbsProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar Title="{Binding FatAmount, StringFormat='Fat {0}g'}" ProgressA="{Binding PotentialFatProgress}" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
             </VerticalStackLayout>
         </toolkit:Expander>
 

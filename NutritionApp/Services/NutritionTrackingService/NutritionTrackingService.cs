@@ -13,6 +13,10 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     public double TotalCarbs => ConsumedFoods.Sum(food => food.Carbohydrates.Carbohydrate);
     public double TotalFat => ConsumedFoods.Sum(food => food.Fats.TotalFat);
 
+    public double KcalNeeded => 2400;
+
+    public NutritionSettings nutritionSettings;
+
     public NutritionTrackingService()
     {
 

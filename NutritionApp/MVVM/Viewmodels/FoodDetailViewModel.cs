@@ -9,8 +9,8 @@ public partial class FoodDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     private int amount = 100;
     public FoodItem FoodItem { get; }
-    public double PotentialKcalProgress => CalculateProgress(nutritionTracker.TotalKcal, FoodItem.Calories, 2400);
-    public double KcalProgress => nutritionTracker.TotalKcal / 2400;
+    public NutritionInformation Calories { get; set; }
+
     public double PotentialProteinProgress => CalculateProgress(nutritionTracker.TotalProtein, FoodItem.Protein, 110);
     public double ProteinProgress => nutritionTracker.TotalProtein / 110;
     public double PotentialCarbsProgress => CalculateProgress(nutritionTracker.TotalCarbs, FoodItem.Carbohydrates.Carbohydrate, 240);
@@ -22,15 +22,14 @@ public partial class FoodDetailViewModel : BaseViewModel
     public double CarbsAmount => CalculateCurrentAmount(FoodItem.Carbohydrates.Carbohydrate);
     public double FatAmount => CalculateCurrentAmount(FoodItem.Fats.Fat);
     public double VitaminAAmount => CalculateCurrentAmount(FoodItem.Vitamins.VitaminA);
+    public double VitaminAProgress => CalculateProgress(nutritionTracker.TotalVitaminA, FoodItem.Vitamins.VitaminA, 1);
+    public double PotentialVitaminAProgress => CalculateProgress(nutritionTracker.TotalVitaminA, FoodItem.Vitamins.VitaminA, 1);
+
     public double VitaminDAmount => CalculateCurrentAmount(FoodItem.Vitamins.VitaminD);
     public double VitaminEAmount => CalculateCurrentAmount(FoodItem.Vitamins.VitaminE);
     public double VitaminCAmount => CalculateCurrentAmount(FoodItem.Vitamins.VitaminC);
     public double VitaminKAmount => CalculateCurrentAmount(FoodItem.Vitamins.VitaminK);
     public double VitaminB1Amount => CalculateCurrentAmount(FoodItem.Vitamins.Thiamin);
-
-    public double VitaminAProgress => CalculateProgress(nutritionTracker.TotalVitaminA, FoodItem.Vitamins.VitaminA, 1);
-
-
     public int Amount
     {
         get => amount;
@@ -39,7 +38,6 @@ public partial class FoodDetailViewModel : BaseViewModel
             if (amount != value)
             {
                 amount = value;
-
                 UpdateAllOnPropertiesChanged();
             }
         }
@@ -49,6 +47,8 @@ public partial class FoodDetailViewModel : BaseViewModel
     {
         FoodItem = foodItem;
         this.nutritionTracker = nutritionTracker;
+        Calories = new(nutritionTracker.TotalKcal, FoodItem.Calories, nutritionTracker.KcalNeeded);
+        UpdateAllOnPropertiesChanged();
     }
 
     [RelayCommand]
@@ -62,18 +62,12 @@ public partial class FoodDetailViewModel : BaseViewModel
     private double CalculateProgress(double currentValue, double foodItemValue, double targetValue) =>
         (currentValue + amount * foodItemValue / 100) / targetValue;
 
-    private double CalculateCurrentAmount(double nutritionAmount)
-    {
-        var test = Math.Round(nutritionAmount / 100 * Amount, 2);
-
-        return test;
-    }
+    private double CalculateCurrentAmount(double nutritionAmount) => Math.Round(nutritionAmount / 100 * Amount, 2);
 
     private void UpdateAllOnPropertiesChanged()
     {
         OnPropertyChanged(nameof(Amount));
-        OnPropertyChanged(nameof(PotentialKcalProgress));
-        OnPropertyChanged(nameof(KcalProgress));
+        Calories.SetProgress(Amount);
         OnPropertyChanged(nameof(ProteinProgress));
         OnPropertyChanged(nameof(PotentialProteinProgress));
         OnPropertyChanged(nameof(CarbsProgress));
