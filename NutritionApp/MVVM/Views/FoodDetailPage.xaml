@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:NutritionApp.Converters"
              x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels" 
              x:DataType="viewmodel:FoodDetailViewModel"
@@ -34,9 +33,24 @@
                     ProgressB="{Binding Calories.NutritionProgress}"
                     ProgressBarAColor="LightGrey"
                     ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding ProteinAmount, StringFormat='Protein {0}g'}" ProgressA="{Binding PotentialProteinProgress}" ProgressB="{Binding ProteinProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding CarbsAmount, StringFormat='Carbs {0}g'}" ProgressA="{Binding PotentialCarbsProgress}" ProgressB="{Binding CarbsProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding FatAmount, StringFormat='Fat {0}g'}" ProgressA="{Binding PotentialFatProgress}" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightGrey" ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding Protein.CurrentItemValue, StringFormat='Protein {0}g'}"
+                    ProgressA="{Binding Protein.NutritionPotentialProgress}"
+                    ProgressB="{Binding Protein.NutritionProgress}"
+                    ProgressBarAColor="LightGrey"
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding Carbs.CurrentItemValue, StringFormat='Carbs {0}g'}" 
+                    ProgressA="{Binding Carbs.NutritionPotentialProgress}"
+                    ProgressB="{Binding Carbs.NutritionProgress}" 
+                    ProgressBarAColor="LightGrey" 
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding Fat.CurrentItemValue, StringFormat='Fat {0}g'}" 
+                    ProgressA="{Binding Fat.NutritionPotentialProgress}" 
+                    ProgressB="{Binding Fat.NutritionProgress}" 
+                    ProgressBarAColor="LightGrey" 
+                    ProgressBarBColor="LimeGreen"/>
             </VerticalStackLayout>
         </toolkit:Expander>
 
@@ -45,12 +59,36 @@
                 <Label FontSize="Small" Text="Vitamins"></Label>
             </toolkit:Expander.Header>
             <VerticalStackLayout>
-                <customComponents:CustomProgressBar Title="{Binding VitaminAAmount, StringFormat='A {0}mg'}"  ProgressB="{Binding VitaminAProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <!--<customComponents:CustomProgressBar Title="{Binding VitaminDAmount, StringFormat='D {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding VitaminEAmount, StringFormat='E {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding VitaminCAmount, StringFormat='C {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding VitaminKAmount, StringFormat='K {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding }" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>
-                <customComponents:CustomProgressBar Title="{Binding VitaminB1Amount, StringFormat='B1 {0}mg'}" ProgressA="{Binding }" ProgressB="{Binding FatProgress}" ProgressBarAColor="LightSeaGreen" ProgressBarBColor="LimeGreen"/>-->
+                <customComponents:CustomProgressBar 
+                     Title="{Binding VitaminA.CurrentItemValue, StringFormat='Vitamin A {0}g'}" 
+                     ProgressA="{Binding VitaminA.NutritionPotentialProgress}" 
+                     ProgressB="{Binding VitaminA.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding VitaminD.CurrentItemValue, StringFormat='Vitamin D {0}g'}" 
+                    ProgressA="{Binding VitaminD.NutritionPotentialProgress}" 
+                    ProgressB="{Binding VitaminD.NutritionProgress}" 
+                    ProgressBarAColor="LightGrey" 
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding VitaminE.CurrentItemValue, StringFormat='Vitamin E {0}g'}" 
+                    ProgressA="{Binding VitaminE.NutritionPotentialProgress}" 
+                    ProgressB="{Binding VitaminE.NutritionProgress}" 
+                    ProgressBarAColor="LightGrey" 
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                    Title="{Binding VitaminC.CurrentItemValue, StringFormat='Vitamin C {0}g'}" 
+                    ProgressA="{Binding VitaminC.NutritionPotentialProgress}" 
+                    ProgressB="{Binding VitaminC.NutritionProgress}" 
+                    ProgressBarAColor="LightGrey" 
+                    ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding VitaminK.CurrentItemValue, StringFormat='Vitamin K {0}g'}" 
+                     ProgressA="{Binding VitaminK.NutritionPotentialProgress}" 
+                     ProgressB="{Binding VitaminK.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
             </VerticalStackLayout>
         </toolkit:Expander>
 

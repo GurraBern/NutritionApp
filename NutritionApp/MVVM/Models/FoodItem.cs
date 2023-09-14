@@ -11,6 +11,8 @@ public class FoodItem : ObservableObject
 
     public CreatorType CreatorType { get; set; }
 
+    public int Amount { get; set; }
+
     public string ServingSize { get; set; }
 
     public double Calories { get; set; }

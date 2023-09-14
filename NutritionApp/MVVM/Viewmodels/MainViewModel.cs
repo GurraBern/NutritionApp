@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
-using NutritionApp.Services;
+using NutritionApp.Services.NutritionServices.NutritionService;
+using NutritionApp.Services.NutritionServices.NutritionTrackingService;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
