@@ -15,7 +15,20 @@ public interface INutritionTracker
     public double TotalVitaminE => ConsumedFoods.Sum(food => food.Vitamins.VitaminE);
     public double TotalVitaminC => ConsumedFoods.Sum(food => food.Vitamins.VitaminC);
     public double TotalVitaminK => ConsumedFoods.Sum(food => food.Vitamins.VitaminK);
+    public double TotalThiamin => ConsumedFoods.Sum(food => food.Vitamins.Thiamin);
+    public double TotalRiboflavin => ConsumedFoods.Sum(food => food.Vitamins.Riboflavin);
+    public double TotalNiacin => ConsumedFoods.Sum(food => food.Vitamins.Niacin);
+    public double TotalPantothenicAcid => ConsumedFoods.Sum(food => food.Vitamins.PantothenicAcid);
+    public double TotalVitaminB6 => ConsumedFoods.Sum(food => food.Vitamins.VitaminB6);
+    public double TotalFolate => ConsumedFoods.Sum(food => food.Vitamins.Folate);
+    public double TotalVitaminB12 => ConsumedFoods.Sum(food => food.Vitamins.VitaminB12);
+    public double TotalTocopherolAlpha => ConsumedFoods.Sum(food => food.Vitamins.TocopherolAlpha);
+    public double TotalCholine => ConsumedFoods.Sum(food => food.Vitamins.Choline);
+    public double TotalFolicAcid => ConsumedFoods.Sum(food => food.Vitamins.FolicAcid);
+    public double TotalCaroteneAlpha => ConsumedFoods.Sum(food => food.Vitamins.CaroteneAlpha);
 
+
+    
     public void AddFood(FoodItem food);
     public void RemoveFood(FoodItem food);
 }

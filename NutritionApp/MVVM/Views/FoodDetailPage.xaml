@@ -89,6 +89,69 @@
                      ProgressB="{Binding VitaminK.NutritionProgress}" 
                      ProgressBarAColor="LightGrey" 
                      ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding Thiamin.CurrentItemValue, StringFormat='Vitamin B1 {0}g'}" 
+                     ProgressA="{Binding Thiamin.NutritionPotentialProgress}" 
+                     ProgressB="{Binding Thiamin.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding Riboflavin.CurrentItemValue, StringFormat='Vitamin B2 {0}g'}" 
+                     ProgressA="{Binding Riboflavin.NutritionPotentialProgress}" 
+                     ProgressB="{Binding Riboflavin.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding Niacin.CurrentItemValue, StringFormat='Vitamin B3 {0}g'}" 
+                     ProgressA="{Binding Niacin.NutritionPotentialProgress}" 
+                     ProgressB="{Binding Niacin.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding PantothenicAcid.CurrentItemValue, StringFormat='Vitamin B5 {0}g'}" 
+                     ProgressA="{Binding PantothenicAcid.NutritionPotentialProgress}" 
+                     ProgressB="{Binding PantothenicAcid.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding VitaminB6.CurrentItemValue, StringFormat='Vitamin B6 {0}g'}" 
+                     ProgressA="{Binding VitaminB6.NutritionPotentialProgress}" 
+                     ProgressB="{Binding VitaminB6.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding Folate.CurrentItemValue, StringFormat='Vitamin B9 {0}g'}" 
+                     ProgressA="{Binding Folate.NutritionPotentialProgress}" 
+                     ProgressB="{Binding Folate.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding VitaminB12.CurrentItemValue, StringFormat='Vitamin B12 {0}g'}" 
+                     ProgressA="{Binding VitaminB12.NutritionPotentialProgress}" 
+                     ProgressB="{Binding VitaminB12.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding TocopherolAlpha.CurrentItemValue, StringFormat='α-Tocopherol {0}g'}" 
+                     ProgressA="{Binding TocopherolAlpha.NutritionPotentialProgress}" 
+                     ProgressB="{Binding TocopherolAlpha.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding Choline.CurrentItemValue, StringFormat='Choline {0}g'}" 
+                     ProgressA="{Binding Choline.NutritionPotentialProgress}" 
+                     ProgressB="{Binding Choline.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+                <customComponents:CustomProgressBar 
+                     Title="{Binding FolicAcid.CurrentItemValue, StringFormat='FolicAcid {0}g'}" 
+                     ProgressA="{Binding FolicAcid.NutritionPotentialProgress}" 
+                     ProgressB="{Binding FolicAcid.NutritionProgress}" 
+                     ProgressBarAColor="LightGrey" 
+                     ProgressBarBColor="LimeGreen"/>
+
+                
+                
             </VerticalStackLayout>
         </toolkit:Expander>
 
