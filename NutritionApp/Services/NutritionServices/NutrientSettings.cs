@@ -10,6 +10,10 @@ public class NutrientSettings : INutrientSettings
 
     public double FatNeeded => 70;
 
+    public double SaturatedFatNeeded => 1;
+
+    public double CholesterolNeeded => 1;
+
     public double VitaminANeeded => 0.0009;
 
     public double VitaminDNeeded => 0.000015;
@@ -26,19 +30,46 @@ public class NutrientSettings : INutrientSettings
 
     public double NiacinNeeded => 0.016;
 
-    public double PantothenicAcidNeeded => throw new NotImplementedException();
+    public double PantothenicAcidNeeded => 1;
 
-    public double VitaminB6Needed => throw new NotImplementedException();
+    public double VitaminB6Needed => 1;
 
-    public double FolateNeeded => throw new NotImplementedException();
+    public double FolateNeeded => 1;
 
-    public double VitaminB12Needed => throw new NotImplementedException();
+    public double VitaminB12Needed => 1;
 
-    public double TocopherolAlphaNeeded => throw new NotImplementedException();
+    public double TocopherolAlphaNeeded => 1;
 
-    public double CholineNeeded => throw new NotImplementedException();
+    public double CholineNeeded => 1;
 
-    public double FolicAcidNeeded => throw new NotImplementedException();
+    public double FolicAcidNeeded => 1;
 
-    public double CaroteneAlphaNeeded => throw new NotImplementedException();
+    public double CaroteneAlphaNeeded => 1;
+
+    public double CaroteneBetaNeeded => 1;
+
+    public double CryptoxanthinBetaNeeded => 1;
+
+    public double LuteinZeaxanthinNeeded => 1;
+
+    public double LycopeneNeeded => 1;
+
+    public double CalciumNeeded => 1;
+
+    public double IronNeeded => 1;
+
+    public double ZinkNeeded => 1;
+
+    public double SodiumNeeded => 1;
+
+    public double MagnesiumNeeded => 1;
+
+    public double CopperNeeded => 1;
+
+    public double ManganeseNeeded => 1;
+
+    public double PhosphorousNeeded => 1;
+
+    public double SeleniumNeeded => 1;
+
 }

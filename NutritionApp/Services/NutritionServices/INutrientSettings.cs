@@ -6,6 +6,8 @@ public interface INutrientSettings
     public double ProteinNeeded { get; }
     public double CarbsNeeded { get; }
     public double FatNeeded { get; }
+    public double SaturatedFatNeeded { get; }
+    public double CholesterolNeeded { get; }
     public double VitaminANeeded { get; }
     public double VitaminDNeeded { get; }
     public double VitaminENeeded { get; }
@@ -22,7 +24,17 @@ public interface INutrientSettings
     public double CholineNeeded { get; }
     public double FolicAcidNeeded { get; }
     public double CaroteneAlphaNeeded { get; }
-
-    
-
+    public double CaroteneBetaNeeded { get; }
+    public double CryptoxanthinBetaNeeded { get; }
+    public double LuteinZeaxanthinNeeded { get; }
+    public double LycopeneNeeded { get; }
+    public double CalciumNeeded { get; }
+    public double IronNeeded { get; }
+    public double ZinkNeeded { get; }
+    public double SodiumNeeded { get; }
+    public double MagnesiumNeeded { get; }
+    public double CopperNeeded { get; }
+    public double ManganeseNeeded { get; }
+    public double PhosphorousNeeded { get; }
+    public double SeleniumNeeded { get; }
 }

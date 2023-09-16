@@ -10,6 +10,8 @@ public interface INutritionTracker
     public double TotalProtein => ConsumedFoods.Sum(food => food.Protein);
     public double TotalCarbs => ConsumedFoods.Sum(food => food.Carbohydrates.Carbohydrate);
     public double TotalFat => ConsumedFoods.Sum(food => food.Fats.TotalFat);
+    public double TotalSaturatedFat => ConsumedFoods.Sum(food => food.Fats.SaturatedFat);
+    public double TotalCholesterol => ConsumedFoods.Sum(food => food.Fats.Cholesterol);
     public double TotalVitaminA => ConsumedFoods.Sum(food => food.Vitamins.VitaminA);
     public double TotalVitaminD => ConsumedFoods.Sum(food => food.Vitamins.VitaminD);
     public double TotalVitaminE => ConsumedFoods.Sum(food => food.Vitamins.VitaminE);
@@ -26,9 +28,22 @@ public interface INutritionTracker
     public double TotalCholine => ConsumedFoods.Sum(food => food.Vitamins.Choline);
     public double TotalFolicAcid => ConsumedFoods.Sum(food => food.Vitamins.FolicAcid);
     public double TotalCaroteneAlpha => ConsumedFoods.Sum(food => food.Vitamins.CaroteneAlpha);
-
+    public double TotalCaroteneBeta => ConsumedFoods.Sum(food => food.Vitamins.CaroteneBeta);
+    public double TotalCryptoxanthinBeta => ConsumedFoods.Sum(food => food.Vitamins.CryptoxanthinBeta);
+    public double TotalLuteinZeaxanthin => ConsumedFoods.Sum(food => food.Vitamins.LuteinZeaxanthin);
+    public double TotalLycopene => ConsumedFoods.Sum(food => food.Vitamins.Lycopene);
+    public double TotalCalcium => ConsumedFoods.Sum(food => food.Minerals.Calcium);
+    public double TotalIron => ConsumedFoods.Sum(food => food.Minerals.Iron);
+    public double TotalZink => ConsumedFoods.Sum(food => food.Minerals.Zink);
+    public double TotalSodium => ConsumedFoods.Sum(food => food.Minerals.Sodium);
+    public double TotalMagnesium => ConsumedFoods.Sum(food => food.Minerals.Magnesium);
+    public double TotalCopper => ConsumedFoods.Sum(food => food.Minerals.Copper);
+    public double TotalManganese => ConsumedFoods.Sum(food => food.Minerals.Manganese);
+    public double TotalPhosphorous => ConsumedFoods.Sum(food => food.Minerals.Phosphorous);
+    public double TotalSelenium => ConsumedFoods.Sum(food => food.Minerals.Selenium);
 
     
+
     public void AddFood(FoodItem food);
     public void RemoveFood(FoodItem food);
 }
