@@ -41,9 +41,24 @@ public interface INutritionTracker
     public double TotalManganese => ConsumedFoods.Sum(food => food.Minerals.Manganese);
     public double TotalPhosphorous => ConsumedFoods.Sum(food => food.Minerals.Phosphorous);
     public double TotalSelenium => ConsumedFoods.Sum(food => food.Minerals.Selenium);
-
-    
-
+    public double TotalAlanine => ConsumedFoods.Sum(food => food.AminoAcids.Alanine);
+    public double TotalArginine => ConsumedFoods.Sum(food => food.AminoAcids.Arginine);
+    public double TotalAsparticAcid => ConsumedFoods.Sum(food => food.AminoAcids.AsparticAcid);
+    public double TotalCystine => ConsumedFoods.Sum(food => food.AminoAcids.Cystine);
+    public double TotalGlutamicAcid => ConsumedFoods.Sum(food => food.AminoAcids.GlutamicAcid);
+    public double TotalHistidine => ConsumedFoods.Sum(food => food.AminoAcids.Histidine);
+    public double TotalHydroxyproline => ConsumedFoods.Sum(food => food.AminoAcids.Hydroxyproline);
+    public double TotalIsoleucine => ConsumedFoods.Sum(food => food.AminoAcids.Isoleucine);
+    public double TotalLeucine => ConsumedFoods.Sum(food => food.AminoAcids.Leucine);
+    public double TotalLysine => ConsumedFoods.Sum(food => food.AminoAcids.Lysine);
+    public double TotalMethionine => ConsumedFoods.Sum(food => food.AminoAcids.Methionine);
+    public double TotalPhenylalanine => ConsumedFoods.Sum(food => food.AminoAcids.Phenylalanine);
+    public double TotalProline => ConsumedFoods.Sum(food => food.AminoAcids.Proline);
+    public double TotalSerine => ConsumedFoods.Sum(food => food.AminoAcids.Serine);
+    public double TotalThreonine => ConsumedFoods.Sum(food => food.AminoAcids.Serine);
+    public double TotalTryptophan => ConsumedFoods.Sum(food => food.AminoAcids.Tryptophan);
+    public double TotalTyrosine => ConsumedFoods.Sum(food => food.AminoAcids.Tyrosine);
+    public double TotalValine => ConsumedFoods.Sum(food => food.AminoAcids.Valine);
     public void AddFood(FoodItem food);
     public void RemoveFood(FoodItem food);
 }

@@ -10,6 +10,7 @@
              BackgroundColor="{DynamicResource White}"
              Title="FoodDetailPage">
 
+    <ScrollView>
     <VerticalStackLayout Margin="10,5" Spacing="10">
         <Label Text="{Binding FoodItem.Name}" FontSize="Medium" HorizontalOptions="Center"></Label>
         <HorizontalStackLayout>
@@ -264,7 +265,125 @@
             </VerticalStackLayout>
         </toolkit:Expander>
 
-        <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
+
+            <toolkit:Expander IsExpanded="True">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Amino Acids"></Label>
+                </toolkit:Expander.Header>
+                <VerticalStackLayout>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Alanine.CurrentItemValue, StringFormat='Alanine {0}g'}" 
+                        ProgressA="{Binding Alanine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Alanine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Arginine.CurrentItemValue, StringFormat='Arginine {0}g'}" 
+                        ProgressA="{Binding Arginine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Arginine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding AsparticAcid.CurrentItemValue, StringFormat='AsparticAcid {0}g'}" 
+                        ProgressA="{Binding AsparticAcid.NutritionPotentialProgress}" 
+                        ProgressB="{Binding AsparticAcid.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Cystine.CurrentItemValue, StringFormat='Cystine {0}g'}" 
+                        ProgressA="{Binding Cystine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Cystine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding GlutamicAcid.CurrentItemValue, StringFormat='GlutamicAcid {0}g'}" 
+                        ProgressA="{Binding GlutamicAcid.NutritionPotentialProgress}" 
+                        ProgressB="{Binding GlutamicAcid.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Histidine.CurrentItemValue, StringFormat='Histidine {0}g'}" 
+                        ProgressA="{Binding Histidine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Histidine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Hydroxyproline.CurrentItemValue, StringFormat='Hydroxyproline {0}g'}" 
+                        ProgressA="{Binding Hydroxyproline.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Hydroxyproline.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Isoleucine.CurrentItemValue, StringFormat='Isoleucine {0}g'}" 
+                        ProgressA="{Binding Isoleucine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Isoleucine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Leucine.CurrentItemValue, StringFormat='Leucine {0}g'}" 
+                        ProgressA="{Binding Leucine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Leucine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Lysine.CurrentItemValue, StringFormat='Lysine {0}g'}" 
+                        ProgressA="{Binding Lysine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Lysine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Methionine.CurrentItemValue, StringFormat='Methionine {0}g'}" 
+                        ProgressA="{Binding Methionine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Methionine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Phenylalanine.CurrentItemValue, StringFormat='Phenylalanine {0}g'}" 
+                        ProgressA="{Binding Phenylalanine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Phenylalanine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Proline.CurrentItemValue, StringFormat='Proline {0}g'}" 
+                        ProgressA="{Binding Proline.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Proline.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Serine.CurrentItemValue, StringFormat='Serine {0}g'}" 
+                        ProgressA="{Binding Serine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Serine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Threonine.CurrentItemValue, StringFormat='Threonine {0}g'}" 
+                        ProgressA="{Binding Threonine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Threonine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Tryptophan.CurrentItemValue, StringFormat='Tryptophan {0}g'}" 
+                        ProgressA="{Binding Tryptophan.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Tryptophan.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Tyrosine.CurrentItemValue, StringFormat='Tyrosine {0}g'}" 
+                        ProgressA="{Binding Tyrosine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Tyrosine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                    <customComponents:CustomProgressBar 
+                        Title="{Binding Valine.CurrentItemValue, StringFormat='Valine {0}g'}" 
+                        ProgressA="{Binding Valine.NutritionPotentialProgress}" 
+                        ProgressB="{Binding Valine.NutritionProgress}" 
+                        ProgressBarAColor="LightGrey" 
+                        ProgressBarBColor="LimeGreen"/>
+                </VerticalStackLayout>
+            </toolkit:Expander>
+
+            <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
 
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

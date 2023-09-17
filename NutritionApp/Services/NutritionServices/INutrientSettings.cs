@@ -37,4 +37,22 @@ public interface INutrientSettings
     public double ManganeseNeeded { get; }
     public double PhosphorousNeeded { get; }
     public double SeleniumNeeded { get; }
+    public double AlanineNeeded { get; }
+    public double ArginineNeeded { get; }
+    public double AsparticAcidNeeded { get; }
+    public double CystineNeeded { get; }
+    public double GlutamicAcidNeeded { get; }
+    public double HistidineNeeded { get; }
+    public double HydroxyprolineNeeded { get; }
+    public double IsoleucineNeeded { get; }
+    public double LeucineNeeded { get; }
+    public double LysineNeeded { get; }
+    public double MethionineNeeded { get; }
+    public double PhenylalanineNeeded { get; }
+    public double ProlineNeeded { get; }
+    public double SerineNeeded { get; }
+    public double ThreonineNeeded { get; }
+    public double TryptophanNeeded { get; }
+    public double TyrosineNeeded { get; }
+    public double ValineNeeded { get; }
 }

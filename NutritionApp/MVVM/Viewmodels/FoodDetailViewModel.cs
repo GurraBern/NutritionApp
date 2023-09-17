@@ -16,7 +16,7 @@ public partial class FoodDetailViewModel : BaseViewModel
     public NutritionInformation Calories { get; set; }
     public NutritionInformation Protein { get; set; }
     public NutritionInformation Carbs { get; set; }
-    public NutritionInformation Fat { get; set; }
+    public NutritionInformation Fat { get; set; }    
     public NutritionInformation SaturatedFat { get; set; }
     public NutritionInformation Cholesterol { get; set; }
 
@@ -56,7 +56,25 @@ public partial class FoodDetailViewModel : BaseViewModel
     public NutritionInformation Selenium { get; set; }
 
     //Aminoacids
-
+    public NutritionInformation Alanine { get; set; }
+    public NutritionInformation Arginine { get; set; }
+    public NutritionInformation AsparticAcid { get; set; }
+    public NutritionInformation Cystine { get; set; }
+    public NutritionInformation GlutamicAcid { get; set; }
+    public NutritionInformation Glycine { get; set; }
+    public NutritionInformation Histidine { get; set; }
+    public NutritionInformation Hydroxyproline { get; set; }
+    public NutritionInformation Isoleucine { get; set; }
+    public NutritionInformation Leucine { get; set; }
+    public NutritionInformation Lysine { get; set; }
+    public NutritionInformation Methionine { get; set; }
+    public NutritionInformation Phenylalanine { get; set; }
+    public NutritionInformation Proline { get; set; }
+    public NutritionInformation Serine { get; set; }
+    public NutritionInformation Threonine { get; set; }
+    public NutritionInformation Tryptophan { get; set; }
+    public NutritionInformation Tyrosine { get; set; }
+    public NutritionInformation Valine { get; set; }
     public int Amount
     {
         get => amount;
@@ -117,6 +135,24 @@ public partial class FoodDetailViewModel : BaseViewModel
         Manganese = new(nutritionTracker.TotalManganese, FoodItem.Minerals.Manganese, nutrientSettings.ManganeseNeeded);
         Phosphorous = new(nutritionTracker.TotalPhosphorous, FoodItem.Minerals.Phosphorous, nutrientSettings.PhosphorousNeeded);
         Selenium = new(nutritionTracker.TotalSelenium, FoodItem.Minerals.Selenium, nutrientSettings.SeleniumNeeded);
+        Alanine = new(nutritionTracker.TotalAlanine, FoodItem.AminoAcids.Alanine, nutrientSettings.AlanineNeeded);
+        Arginine = new(nutritionTracker.TotalArginine, FoodItem.AminoAcids.Arginine, nutrientSettings.ArginineNeeded);
+        AsparticAcid = new(nutritionTracker.TotalAsparticAcid, FoodItem.AminoAcids.AsparticAcid, nutrientSettings.AsparticAcidNeeded);
+        Cystine = new(nutritionTracker.TotalCystine, FoodItem.AminoAcids.Cystine, nutrientSettings.CystineNeeded);
+        GlutamicAcid = new(nutritionTracker.TotalGlutamicAcid, FoodItem.AminoAcids.GlutamicAcid, nutrientSettings.GlutamicAcidNeeded);
+        Histidine = new(nutritionTracker.TotalHistidine, FoodItem.AminoAcids.Histidine, nutrientSettings.HistidineNeeded);
+        Hydroxyproline = new(nutritionTracker.TotalHydroxyproline, FoodItem.AminoAcids.Hydroxyproline, nutrientSettings.HydroxyprolineNeeded);
+        Isoleucine = new(nutritionTracker.TotalIsoleucine, FoodItem.AminoAcids.Isoleucine, nutrientSettings.IsoleucineNeeded);
+        Leucine = new(nutritionTracker.TotalLeucine, FoodItem.AminoAcids.Leucine, nutrientSettings.LeucineNeeded);
+        Lysine = new(nutritionTracker.TotalLysine, FoodItem.AminoAcids.Lysine, nutrientSettings.LysineNeeded);
+        Methionine = new(nutritionTracker.TotalMethionine, FoodItem.AminoAcids.Methionine, nutrientSettings.MethionineNeeded);
+        Phenylalanine = new(nutritionTracker.TotalPhenylalanine, FoodItem.AminoAcids.Phenylalanine, nutrientSettings.PhenylalanineNeeded);
+        Proline = new(nutritionTracker.TotalProline, FoodItem.AminoAcids.Proline, nutrientSettings.ProlineNeeded);
+        Serine = new(nutritionTracker.TotalSerine, FoodItem.AminoAcids.Serine, nutrientSettings.SerineNeeded);
+        Threonine = new(nutritionTracker.TotalThreonine, FoodItem.AminoAcids.Threonine, nutrientSettings.ThreonineNeeded);
+        Tryptophan = new(nutritionTracker.TotalTryptophan, FoodItem.AminoAcids.Tryptophan, nutrientSettings.TryptophanNeeded);
+        Tyrosine = new(nutritionTracker.TotalTyrosine, FoodItem.AminoAcids.Tyrosine, nutrientSettings.TyrosineNeeded);
+        Valine = new(nutritionTracker.TotalValine, FoodItem.AminoAcids.Valine, nutrientSettings.ValineNeeded);
     }
 
     [RelayCommand]
@@ -167,5 +203,22 @@ public partial class FoodDetailViewModel : BaseViewModel
         Manganese.SetProgress(Amount, nutritionTracker.TotalManganese);
         Phosphorous.SetProgress(Amount, nutritionTracker.TotalPhosphorous);
         Selenium.SetProgress(Amount, nutritionTracker.TotalSelenium);
+        Alanine.SetProgress(Amount, nutritionTracker.TotalAlanine);
+        Arginine.SetProgress(Amount, nutritionTracker.TotalArginine);
+        AsparticAcid.SetProgress(Amount, nutritionTracker.TotalAsparticAcid);
+        Cystine.SetProgress(Amount, nutritionTracker.TotalCystine);
+        GlutamicAcid.SetProgress(Amount, nutritionTracker.TotalGlutamicAcid);
+        Histidine.SetProgress(Amount, nutritionTracker.TotalHistidine);
+        Hydroxyproline.SetProgress(Amount, nutritionTracker.TotalHydroxyproline);
+        Isoleucine.SetProgress(Amount, nutritionTracker.TotalIsoleucine);
+        Leucine.SetProgress(Amount, nutritionTracker.TotalLeucine);
+        Lysine.SetProgress(Amount, nutritionTracker.TotalLysine);
+        Methionine.SetProgress(Amount, nutritionTracker.TotalMethionine);
+        Phenylalanine.SetProgress(Amount, nutritionTracker.TotalPhenylalanine);
+        Proline.SetProgress(Amount, nutritionTracker.TotalProline);
+        Serine.SetProgress(Amount, nutritionTracker.TotalSerine);
+        Threonine.SetProgress(Amount, nutritionTracker.TotalThreonine);
+        Tyrosine.SetProgress(Amount, nutritionTracker.TotalTyrosine);
+        Valine.SetProgress(Amount, nutritionTracker.TotalValine);
     }
 }
