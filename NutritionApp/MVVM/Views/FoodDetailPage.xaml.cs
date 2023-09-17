@@ -1,4 +1,4 @@
-using NutritionApp.MVVM.Viewmodels;
+using NutritionApp.MVVM.ViewModels;
 
 namespace NutritionApp.MVVM.Views;
 

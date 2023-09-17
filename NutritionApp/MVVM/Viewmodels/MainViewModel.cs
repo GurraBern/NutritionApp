@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
-using NutritionApp.MVVM.ViewModels;
-using NutritionApp.Services;
+using NutritionApp.Services.NutritionServices.NutritionService;
+using NutritionApp.Services.NutritionServices.NutritionTrackingService;
 using System.Collections.ObjectModel;
 
-namespace NutritionApp.MVVM.Viewmodels;
+namespace NutritionApp.MVVM.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {

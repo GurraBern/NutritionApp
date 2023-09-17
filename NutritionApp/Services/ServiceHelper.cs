@@ -1,4 +1,4 @@
-﻿namespace NutritionApp.MVVM;
+﻿namespace NutritionApp.Services;
 
 public static class ServiceHelper
 {

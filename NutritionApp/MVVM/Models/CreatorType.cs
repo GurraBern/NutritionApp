@@ -1,4 +1,4 @@
-﻿namespace NutritionApp.Models;
+﻿namespace NutritionApp.MVVM.Models;
 
 public enum CreatorType
 {

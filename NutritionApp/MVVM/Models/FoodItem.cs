@@ -1,16 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NutritionApp.Models;
 using NutritionApp.Models.Nutrition;
 
 namespace NutritionApp.MVVM.Models;
 
 public class FoodItem : ObservableObject
 {
-    public string? Id { get; set; }
+    public string Id { get; set; }
 
     public string Name { get; set; } = null!;
 
     public CreatorType CreatorType { get; set; }
+
+    public int Amount { get; set; }
 
     public string ServingSize { get; set; }
 
