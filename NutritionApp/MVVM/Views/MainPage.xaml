@@ -14,15 +14,16 @@
             Spacing="10"
             Padding="20,0">
             
-            <Grid>
+            <Grid HeightRequest="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text=">"></Button>
-                <Label FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
-                <Button Grid.Column="2" Text=">"></Button>
+
+                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0"></ImageButton>
+                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
+                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2"></ImageButton>
             </Grid>
 
             <SearchBar x:Name="searchBar"
@@ -59,7 +60,7 @@
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
-                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding ServingSize, StringFormat='{0} Grams'}"/>
+                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

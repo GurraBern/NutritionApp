@@ -7,22 +7,119 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
     public event EventHandler ItemAdded;
     public List<FoodItem> ConsumedFoods { get; set; } = new List<FoodItem>();
-    public double TotalKcal => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Calories, food.Amount));
-    public double TotalProtein => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Protein, food.Amount));
-    public double TotalCarbs => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Carbohydrates.Carbohydrate, food.Amount));
-    public double TotalFat => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Fats.TotalFat, food.Amount));
-    public double TotalVitaminA => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminA, food.Amount));
-    public double TotalVitaminD => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminD, food.Amount));
-    public double TotalVitaminE => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminE, food.Amount));
-    public double TotalVitaminC => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminC, food.Amount));
-    public double TotalVitaminK => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminK, food.Amount));
-    public double TotalThiamin => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.Thiamin, food.Amount));
-    public double TotalRiboflavin => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.Riboflavin, food.Amount));
-    public double TotalNiacin => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.Niacin, food.Amount));
-    public double TotalPantothenicAcid => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.PantothenicAcid, food.Amount));
-    public double TotalFolate => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.Folate, food.Amount));
-    public double TotalVitaminB12 => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.VitaminB12, food.Amount));
-    public double TotalTocopherolAlpha => ConsumedFoods.Sum(food => CalculateActualNutrition(food.Vitamins.TocopherolAlpha, food.Amount));
+    public Dictionary<string, double> NutrientTotals { get; set; } = new()
+    {
+        { "Calories", 0 },
+        { "Protein", 0 },
+        { "Carbs", 0 },
+        { "Fat", 0 },
+        { "SaturatedFat", 0 },
+        { "Cholesterol", 0 },
+        { "VitaminA", 0 },
+        { "VitaminD", 0 },
+        { "VitaminE", 0 },
+        { "VitaminC", 0 },
+        { "VitaminK", 0 },
+        { "Thiamin", 0 },
+        { "Riboflavin", 0 },
+        { "Niacin", 0 },
+        { "PantothenicAcid", 0 },
+        { "VitaminB6", 0 },
+        { "Folate", 0 },
+        { "VitaminB12", 0 },
+        { "TocopherolAlpha", 0 },
+        { "Choline", 0 },
+        { "FolicAcid", 0 },
+        { "CaroteneAlpha", 0 },
+        { "CaroteneBeta", 0 },
+        { "CryptoxanthinBeta", 0 }, // RecommendedDosageUnknown
+        { "LuteinZeaxanthin", 0 },
+        { "Lycopene", 0 },
+        { "Calcium", 0 },
+        { "Iron", 0 },
+        { "Zinc", 0 },
+        { "Sodium", 0 },
+        { "Magnesium", 0 },
+        { "Copper", 0 },
+        { "Manganese", 0 },
+        { "Phosphorous", 0 },
+        { "Selenium", 0 },
+        { "Alanine", 0 },
+        { "Arginine", 0 },
+        { "AsparticAcid", 0 },
+        { "Cystine", 0 },
+        { "GlutamicAcid", 0 },
+        { "Histidine", 0 },
+        { "Hydroxyproline", 0 }, // RecommendedDosageUnknown
+        { "Isoleucine", 0 },
+        { "Leucine", 0 },
+        { "Lysine", 0 },
+        { "Methionine", 0 },
+        { "Phenylalanine", 0 },
+        { "Proline", 0 },
+        { "Serine", 0 },
+        { "Threonine", 0 },
+        { "Tryptophan", 0 },
+        { "Tyrosine", 0 },
+        { "Valine", 0 }
+    };
+
+    public Dictionary<string, double> NutrientNeeds { get; set; } = new()
+    {
+        { "Calories", 2400 },
+        { "Protein", 110 },
+        { "Carbs", 240 },
+        { "Fat", 70 },
+        { "SaturatedFat", 19 },
+        { "Cholesterol", 0.3 },
+        { "VitaminA", 0.0009 },
+        { "VitaminD", 0.000015 },
+        { "VitaminE", 0.00159 },
+        { "VitaminC", 0.075 },
+        { "VitaminK", 0.00012 },
+        { "Thiamin", 0.0012 },
+        { "Riboflavin", 0.0013 },
+        { "Niacin", 0.016 },
+        { "PantothenicAcid", 0.005 },
+        { "VitaminB6", 0.0013 },
+        { "Folate", 0.0004 },
+        { "VitaminB12", 0.0000024 },
+        { "TocopherolAlpha", 0.0015 },
+        { "Choline", 0.550 },
+        { "FolicAcid", 0.0004 },
+        { "CaroteneAlpha", 0.0009 },
+        { "CaroteneBeta", 0.180 },
+        { "CryptoxanthinBeta", 1 }, // RecommendedDosageUnknown
+        { "LuteinZeaxanthin", 0.020 },
+        { "Lycopene", 0.021 },
+        { "Calcium", 1 },
+        { "Iron", 0.008 },
+        { "Zinc", 0.011 },
+        { "Sodium", 1.5 },
+        { "Magnesium", 0.4 },
+        { "Copper", 0.0009 },
+        { "Manganese", 0.0023 },
+        { "Phosphorous", 0.7 },
+        { "Selenium", 0.000055 },
+        { "Alanine", 3.2 },
+        { "Arginine", 15 },
+        { "AsparticAcid", 3 },
+        { "Cystine", 0.287 },
+        { "GlutamicAcid", 15 },
+        { "Histidine", 0.7 },
+        { "Hydroxyproline", 1 }, // RecommendedDosageUnknown
+        { "Isoleucine", 6 },
+        { "Leucine", 10 },
+        { "Lysine", 3 },
+        { "Methionine", 0.91 },
+        { "Phenylalanine", 2 },
+        { "Proline", 5 },
+        { "Serine", 8 },
+        { "Threonine", 1 },
+        { "Tryptophan", 0.35 },
+        { "Tyrosine", 10 },
+        { "Valine", 2 }
+    };
 
     public NutritionTrackingService()
     {
@@ -32,6 +129,9 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     public void AddFood(FoodItem food)
     {
         ConsumedFoods.Add(food);
+
+        //TODO calculate all nutrients on food
+
         ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
@@ -41,5 +141,5 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
-    private double CalculateActualNutrition(double nutritionAmount, double amountConsumed) => nutritionAmount / 100 * amountConsumed;
+
 }

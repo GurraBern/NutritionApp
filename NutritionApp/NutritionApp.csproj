@@ -50,6 +50,8 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\chevron_left_icon.svg" />
+	  <None Remove="Resources\Images\right_chevron_arrow_round_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
