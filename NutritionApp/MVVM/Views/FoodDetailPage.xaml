@@ -23,7 +23,6 @@
             <Label Text="Gram" Margin="5,0" VerticalOptions="Center" FontSize="Small"></Label>
         </HorizontalStackLayout>
 
-  
         <toolkit:Expander IsExpanded="True">
             <toolkit:Expander.Header>
                 <Label FontSize="Small" Text="Primary Nutrients"></Label>
@@ -32,7 +31,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Nutrient">
                         <customComponents:CustomProgressBar
-                            Title="{Binding Name}"
+                            Title="{Binding Name, StringFormat='{0} units'}"
                             ProgressA="{Binding NutritionPotentialProgress}"
                             ProgressB="{Binding NutritionProgress}"
                             ProgressBarAColor="LightGrey"

@@ -43,56 +43,57 @@ public partial class FoodDetailViewModel : BaseViewModel
     {
         //Main nutrients
         MainNutrients.Add(new Nutrient("Calories", Amount, FoodItem.Calories, nutritionTracker));
-        //MainNutrients.Add(new Nutrient("Protein", nutritionTracker.TotalProtein, FoodItem.Protein, nutrientSettings.ProteinNeeded));
-        //MainNutrients.Add(new Nutrient("Carbs", nutritionTracker.TotalCarbs, FoodItem.Carbohydrates.Carbohydrate, nutrientSettings.CarbsNeeded));
-        //MainNutrients.Add(new Nutrient("Fat", nutritionTracker.TotalFat, FoodItem.Fats.Fat, nutrientSettings.FatNeeded));
-        //MainNutrients.Add(new Nutrient("SaturatedFat", nutritionTracker.TotalSaturatedFat, FoodItem.Fats.SaturatedFat, nutrientSettings.SaturatedFatNeeded));
-        //MainNutrients.Add(new Nutrient("Cholesterol", nutritionTracker.TotalCholesterol, FoodItem.Fats.Cholesterol, nutrientSettings.CholesterolNeeded));
+        MainNutrients.Add(new Nutrient("Protein", Amount, FoodItem.Protein, nutritionTracker));
+        MainNutrients.Add(new Nutrient("Carbohydrates", Amount, FoodItem.Carbohydrates.Carbohydrate, nutritionTracker));
+        MainNutrients.Add(new Nutrient("Fat", Amount, FoodItem.Fats.Fat, nutritionTracker));
+        MainNutrients.Add(new Nutrient("SaturatedFat", Amount, FoodItem.Fats.SaturatedFat, nutritionTracker));
+        MainNutrients.Add(new Nutrient("Cholesterol", Amount, FoodItem.Fats.Cholesterol, nutritionTracker));
 
-        ////Vitamins
-        //Vitamins.Add(new Nutrient("VitaminA", nutritionTracker.TotalVitaminA, FoodItem.Vitamins.VitaminA, nutrientSettings.VitaminANeeded));
-        //Vitamins.Add(new Nutrient("VitaminD", nutritionTracker.TotalVitaminD, FoodItem.Vitamins.VitaminD, nutrientSettings.VitaminDNeeded));
-        //Vitamins.Add(new Nutrient("VitaminE", nutritionTracker.TotalVitaminE, FoodItem.Vitamins.VitaminE, nutrientSettings.VitaminENeeded));
-        //Vitamins.Add(new Nutrient("VitaminC", nutritionTracker.TotalVitaminC, FoodItem.Vitamins.VitaminC, nutrientSettings.VitaminCNeeded));
-        //Vitamins.Add(new Nutrient("VitaminK", nutritionTracker.TotalVitaminK, FoodItem.Vitamins.VitaminK, nutrientSettings.VitaminKNeeded));
-        //Vitamins.Add(new Nutrient("Thiamin", nutritionTracker.TotalThiamin, FoodItem.Vitamins.Thiamin, nutrientSettings.ThiaminNeeded));
-        //Vitamins.Add(new Nutrient("Riboflavin", nutritionTracker.TotalRiboflavin, FoodItem.Vitamins.Riboflavin, nutrientSettings.RiboflavinNeeded));
-        //Vitamins.Add(new Nutrient("Niacin", nutritionTracker.TotalNiacin, FoodItem.Vitamins.Niacin, nutrientSettings.NiacinNeeded));
-        //Vitamins.Add(new Nutrient("PantothenicAcid", nutritionTracker.TotalNiacin, FoodItem.Vitamins.Niacin, nutrientSettings.NiacinNeeded));
-        //Vitamins.Add(new Nutrient("VitaminB6", nutritionTracker.TotalVitaminB6, FoodItem.Vitamins.VitaminB6, nutrientSettings.VitaminB6Needed));
-        //Vitamins.Add(new Nutrient("Folate", nutritionTracker.TotalFolate, FoodItem.Vitamins.Folate, nutrientSettings.FolateNeeded));
-        //Vitamins.Add(new Nutrient("VitaminB12", nutritionTracker.TotalVitaminB12, FoodItem.Vitamins.VitaminB12, nutrientSettings.VitaminB12Needed));
-        //Vitamins.Add(new Nutrient("TocopherolAlpha", nutritionTracker.TotalTocopherolAlpha, FoodItem.Vitamins.TocopherolAlpha, nutrientSettings.TocopherolAlphaNeeded));
-        //Vitamins.Add(new Nutrient("Choline", nutritionTracker.TotalCholine, FoodItem.Vitamins.Choline, nutrientSettings.CholineNeeded));
-        //Vitamins.Add(new Nutrient("FolicAcid", nutritionTracker.TotalFolicAcid, FoodItem.Vitamins.FolicAcid, nutrientSettings.FolicAcidNeeded));
-        //Vitamins.Add(new Nutrient("CaroteneAlpha", nutritionTracker.TotalCaroteneAlpha, FoodItem.Vitamins.CaroteneAlpha, nutrientSettings.CaroteneAlphaNeeded));
-        //Vitamins.Add(new Nutrient("CaroteneBeta", nutritionTracker.TotalCaroteneBeta, FoodItem.Vitamins.CaroteneBeta, nutrientSettings.CaroteneBetaNeeded));
-        //Vitamins.Add(new Nutrient("CryptoxanthinBeta", nutritionTracker.TotalCryptoxanthinBeta, FoodItem.Vitamins.CryptoxanthinBeta, nutrientSettings.CryptoxanthinBetaNeeded));
-        //Vitamins.Add(new Nutrient("LuteinZeaxanthin", nutritionTracker.TotalLuteinZeaxanthin, FoodItem.Vitamins.LuteinZeaxanthin, nutrientSettings.LuteinZeaxanthinNeeded));
-        //Vitamins.Add(new Nutrient("Lycopene", nutritionTracker.TotalLycopene, FoodItem.Vitamins.Lycopene, nutrientSettings.LycopeneNeeded));
+        //Vitamins
+        Vitamins.Add(new Nutrient("VitaminA", Amount, FoodItem.Vitamins.VitaminA, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminD", Amount, FoodItem.Vitamins.VitaminD, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminE", Amount, FoodItem.Vitamins.VitaminE, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminC", Amount, FoodItem.Vitamins.VitaminC, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminK", Amount, FoodItem.Vitamins.VitaminK, nutritionTracker));
+        Vitamins.Add(new Nutrient("Thiamin", Amount, FoodItem.Vitamins.Thiamin, nutritionTracker));
+        Vitamins.Add(new Nutrient("Riboflavin", Amount, FoodItem.Vitamins.Riboflavin, nutritionTracker));
+        Vitamins.Add(new Nutrient("Niacin", Amount, FoodItem.Vitamins.Niacin, nutritionTracker));
+        Vitamins.Add(new Nutrient("PantothenicAcid", Amount, FoodItem.Vitamins.PantothenicAcid, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminB6", Amount, FoodItem.Vitamins.VitaminB6, nutritionTracker));
+        Vitamins.Add(new Nutrient("Folate", Amount, FoodItem.Vitamins.Folate, nutritionTracker));
+        Vitamins.Add(new Nutrient("VitaminB12", Amount, FoodItem.Vitamins.VitaminB12, nutritionTracker));
+        Vitamins.Add(new Nutrient("TocopherolAlpha", Amount, FoodItem.Vitamins.TocopherolAlpha, nutritionTracker));
+        Vitamins.Add(new Nutrient("Choline", Amount, FoodItem.Vitamins.Choline, nutritionTracker));
+        Vitamins.Add(new Nutrient("FolicAcid", Amount, FoodItem.Vitamins.FolicAcid, nutritionTracker));
+        Vitamins.Add(new Nutrient("CaroteneAlpha", Amount, FoodItem.Vitamins.CaroteneAlpha, nutritionTracker));
+        Vitamins.Add(new Nutrient("CaroteneBeta", Amount, FoodItem.Vitamins.CaroteneBeta, nutritionTracker));
+        Vitamins.Add(new Nutrient("CryptoxanthinBeta", Amount, FoodItem.Vitamins.CryptoxanthinBeta, nutritionTracker));
+        Vitamins.Add(new Nutrient("LuteinZeaxanthin", Amount, FoodItem.Vitamins.LuteinZeaxanthin, nutritionTracker));
+        Vitamins.Add(new Nutrient("Lycopene", Amount, FoodItem.Vitamins.Lycopene, nutritionTracker));
 
-        ////Minerals
-        //Minerals.Add(new Nutrient("Calcium", nutritionTracker.TotalCalcium, FoodItem.Minerals.Calcium, nutrientSettings.CalciumNeeded));
-        //Minerals.Add(new Nutrient("Iron", nutritionTracker.TotalIron, FoodItem.Minerals.Iron, nutrientSettings.IronNeeded));
-        //Minerals.Add(new Nutrient("Zink", nutritionTracker.TotalZink, FoodItem.Minerals.Zink, nutrientSettings.ZinkNeeded));
-        //Minerals.Add(new Nutrient("Sodium", nutritionTracker.TotalSodium, FoodItem.Minerals.Sodium, nutrientSettings.SodiumNeeded));
-        //Minerals.Add(new Nutrient("Magnesium", nutritionTracker.TotalMagnesium, FoodItem.Minerals.Magnesium, nutrientSettings.MagnesiumNeeded));
-        //Minerals.Add(new Nutrient("Copper", nutritionTracker.TotalCopper, FoodItem.Minerals.Copper, nutrientSettings.CopperNeeded));
-        //Minerals.Add(new Nutrient("Manganese", nutritionTracker.TotalManganese, FoodItem.Minerals.Manganese, nutrientSettings.ManganeseNeeded));
-        //Minerals.Add(new Nutrient("Phosphorous", nutritionTracker.TotalPhosphorous, FoodItem.Minerals.Phosphorous, nutrientSettings.PhosphorousNeeded));
-        //Minerals.Add(new Nutrient("Selenium", nutritionTracker.TotalSelenium, FoodItem.Minerals.Selenium, nutrientSettings.SeleniumNeeded));
+        //Minerals
+        Minerals.Add(new Nutrient("Calcium", Amount, FoodItem.Minerals.Calcium, nutritionTracker));
+        Minerals.Add(new Nutrient("Iron", Amount, FoodItem.Minerals.Iron, nutritionTracker));
+        Minerals.Add(new Nutrient("Zink", Amount, FoodItem.Minerals.Zink, nutritionTracker));
+        Minerals.Add(new Nutrient("Sodium", Amount, FoodItem.Minerals.Sodium, nutritionTracker));
+        Minerals.Add(new Nutrient("Magnesium", Amount, FoodItem.Minerals.Magnesium, nutritionTracker));
+        Minerals.Add(new Nutrient("Copper", Amount, FoodItem.Minerals.Copper, nutritionTracker));
+        Minerals.Add(new Nutrient("Manganese", Amount, FoodItem.Minerals.Manganese, nutritionTracker));
+        Minerals.Add(new Nutrient("Phosphorous", Amount, FoodItem.Minerals.Phosphorous, nutritionTracker));
+        Minerals.Add(new Nutrient("Selenium", Amount, FoodItem.Minerals.Selenium, nutritionTracker));
 
-        //////Amino Acids
-        //AminoAcids.Add(new Nutrient("Alanine", nutritionTracker.TotalAlanine, FoodItem.AminoAcids.Alanine, nutrientSettings.AlanineNeeded));
-        //AminoAcids.Add(new Nutrient("Arginine", nutritionTracker.TotalArginine, FoodItem.AminoAcids.Arginine, nutrientSettings.ArginineNeeded));
-        //AminoAcids.Add(new Nutrient("AsparticAcid", nutritionTracker.TotalAsparticAcid, FoodItem.AminoAcids.AsparticAcid, nutrientSettings.AsparticAcidNeeded));
-        //AminoAcids.Add(new Nutrient("Cystine", nutritionTracker.TotalCystine, FoodItem.AminoAcids.Cystine, nutrientSettings.CystineNeeded));
-        //AminoAcids.Add(new Nutrient("GlutamicAcid", nutritionTracker.TotalGlutamicAcid, FoodItem.AminoAcids.GlutamicAcid, nutrientSettings.GlutamicAcidNeeded));
-        //AminoAcids.Add(new Nutrient("Histidine", nutritionTracker.TotalHistidine, FoodItem.AminoAcids.Histidine, nutrientSettings.HistidineNeeded));
-        //AminoAcids.Add(new Nutrient("Hydroxyproline", nutritionTracker.TotalHydroxyproline, FoodItem.AminoAcids.Hydroxyproline, nutrientSettings.HydroxyprolineNeeded));
-        //AminoAcids.Add(new Nutrient("Isoleucine", nutritionTracker.TotalIsoleucine, FoodItem.AminoAcids.Isoleucine, nutrientSettings.IsoleucineNeeded));
-        //AminoAcids.Add(new Nutrient("Leucine", nutritionTracker.TotalLeucine, FoodItem.AminoAcids.Leucine, nutrientSettings.LeucineNeeded));
-        //AminoAcids.Add(new Nutrient("Lysine", nutritionTracker.TotalLysine, FoodItem.AminoAcids.Lysine, nutrientSettings.LysineNeeded));
+        //Amino Acids
+        AminoAcids.Add(new Nutrient("Alanine", Amount, FoodItem.AminoAcids.Alanine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Arginine", Amount, FoodItem.AminoAcids.Arginine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("AsparticAcid", Amount, FoodItem.AminoAcids.AsparticAcid, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Cystine", Amount, FoodItem.AminoAcids.Cystine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("GlutamicAcid", Amount, FoodItem.AminoAcids.GlutamicAcid, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Histidine", Amount, FoodItem.AminoAcids.Histidine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Hydroxyproline", Amount, FoodItem.AminoAcids.Hydroxyproline, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Isoleucine", Amount, FoodItem.AminoAcids.Isoleucine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Isoleucine", Amount, FoodItem.AminoAcids.Isoleucine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Leucine", Amount, FoodItem.AminoAcids.Leucine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Lysine", Amount, FoodItem.AminoAcids.Lysine, nutritionTracker));
     }
 
     [RelayCommand]
@@ -104,11 +105,26 @@ public partial class FoodDetailViewModel : BaseViewModel
         await Shell.Current.GoToAsync("//MainPage");
     }
 
-    private async Task UpdateAllOnPropertiesChanged()
+    private void UpdateAllOnPropertiesChanged()
     {
         OnPropertyChanged(nameof(Amount));
 
         foreach (var nutrient in MainNutrients)
+        {
+            nutrient.Update(Amount);
+        }
+
+        foreach (var nutrient in Vitamins)
+        {
+            nutrient.Update(Amount);
+        }
+
+        foreach (var nutrient in Minerals)
+        {
+            nutrient.Update(Amount);
+        }
+
+        foreach (var nutrient in AminoAcids)
         {
             nutrient.Update(Amount);
         }

@@ -11,7 +11,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     {
         { "Calories", 0 },
         { "Protein", 0 },
-        { "Carbs", 0 },
+        { "Carbohydrates", 0 },
         { "Fat", 0 },
         { "SaturatedFat", 0 },
         { "Cholesterol", 0 },
@@ -37,7 +37,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "Lycopene", 0 },
         { "Calcium", 0 },
         { "Iron", 0 },
-        { "Zinc", 0 },
+        { "Zink", 0 },
         { "Sodium", 0 },
         { "Magnesium", 0 },
         { "Copper", 0 },
@@ -63,18 +63,17 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "Tyrosine", 0 },
         { "Valine", 0 }
     };
-
     public Dictionary<string, double> NutrientNeeds { get; set; } = new()
     {
         { "Calories", 2400 },
         { "Protein", 110 },
-        { "Carbs", 240 },
+        { "Carbohydrates", 240 },
         { "Fat", 70 },
         { "SaturatedFat", 19 },
         { "Cholesterol", 0.3 },
         { "VitaminA", 0.0009 },
         { "VitaminD", 0.000015 },
-        { "VitaminE", 0.00159 },
+        { "VitaminE", 0.015 },
         { "VitaminC", 0.075 },
         { "VitaminK", 0.00012 },
         { "Thiamin", 0.0012 },
@@ -84,7 +83,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "VitaminB6", 0.0013 },
         { "Folate", 0.0004 },
         { "VitaminB12", 0.0000024 },
-        { "TocopherolAlpha", 0.0015 },
+        { "TocopherolAlpha", 0.015 },
         { "Choline", 0.550 },
         { "FolicAcid", 0.0004 },
         { "CaroteneAlpha", 0.0009 },
@@ -94,7 +93,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "Lycopene", 0.021 },
         { "Calcium", 1 },
         { "Iron", 0.008 },
-        { "Zinc", 0.011 },
+        { "Zink", 0.011 },
         { "Sodium", 1.5 },
         { "Magnesium", 0.4 },
         { "Copper", 0.0009 },
@@ -130,7 +129,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     {
         ConsumedFoods.Add(food);
 
-        //TODO calculate all nutrients on food
+        NutrientCalculator.SumNutrients(food, NutrientTotals);
 
         ItemAdded?.Invoke(this, EventArgs.Empty);
     }
@@ -140,6 +139,4 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         ConsumedFoods.Remove(food);
         ItemAdded?.Invoke(this, EventArgs.Empty);
     }
-
-
 }
