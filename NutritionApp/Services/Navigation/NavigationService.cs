@@ -13,6 +13,7 @@ public class NavigationService
     {
         this.nutritionTracker = nutritionTracker;
     }
+
     public async Task NavigateToFoodDetailPage(FoodItem foodItem)
     {
         var foodDetailViewModel = new FoodDetailViewModel(foodItem, nutritionTracker);

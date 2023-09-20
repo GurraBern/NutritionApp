@@ -13,9 +13,7 @@ public partial class FoodDetailViewModel : BaseViewModel
     public ObservableCollection<Nutrient> Vitamins { get; set; } = new();
     public ObservableCollection<Nutrient> Minerals { get; set; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; set; } = new();
-
     public FoodItem FoodItem { get; }
-
     public int Amount
     {
         get => amount;
@@ -35,7 +33,6 @@ public partial class FoodDetailViewModel : BaseViewModel
         this.nutritionTracker = nutritionTracker;
 
         InitializeNutrients(nutritionTracker);
-        UpdateAllOnPropertiesChanged();
     }
 
     private void InitializeNutrients(INutritionTracker nutritionTracker)

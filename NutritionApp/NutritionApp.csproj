@@ -69,9 +69,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MVVM\Views\Components\NutritionDetailView.xaml.cs">
-	    <DependentUpon>NutritionDetailView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="MVVM\Views\Components\CustomProgressBar.xaml.cs">
 	    <DependentUpon>CustomProgressBar.xaml</DependentUpon>
 	  </Compile>
@@ -81,9 +78,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MVVM\Views\Components\NutritionDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\Components\CustomProgressBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

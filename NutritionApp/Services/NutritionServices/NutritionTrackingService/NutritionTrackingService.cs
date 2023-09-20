@@ -5,7 +5,6 @@ namespace NutritionApp.Services.NutritionServices.NutritionTrackingService;
 
 public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
-    public event EventHandler ItemAdded;
     public List<FoodItem> ConsumedFoods { get; set; } = new List<FoodItem>();
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
     {
@@ -130,13 +129,10 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         ConsumedFoods.Add(food);
 
         NutrientCalculator.SumNutrients(food, NutrientTotals);
-
-        ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 
     public void RemoveFood(FoodItem food)
     {
         ConsumedFoods.Remove(food);
-        ItemAdded?.Invoke(this, EventArgs.Empty);
     }
 }
