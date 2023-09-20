@@ -11,7 +11,7 @@ public class FoodItem : ObservableObject
 
     public CreatorType CreatorType { get; set; }
 
-    public int Amount { get; set; }
+    public int Amount { get; set; } = 100;
 
     public string ServingSize { get; set; }
 

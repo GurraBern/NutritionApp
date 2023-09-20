@@ -50,6 +50,8 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\chevron_left_icon.svg" />
+	  <None Remove="Resources\Images\right_chevron_arrow_round_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -67,9 +69,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="MVVM\Views\Components\NutritionDetailView.xaml.cs">
-	    <DependentUpon>NutritionDetailView.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="MVVM\Views\Components\CustomProgressBar.xaml.cs">
 	    <DependentUpon>CustomProgressBar.xaml</DependentUpon>
 	  </Compile>
@@ -79,9 +78,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MVVM\Views\Components\NutritionDetailView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\Components\CustomProgressBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

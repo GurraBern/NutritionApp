@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
-using NutritionApp.Services.NutritionServices;
 using NutritionApp.Services.NutritionServices.NutritionService;
 using NutritionApp.Services.NutritionServices.NutritionTrackingService;
 using RestSharp;
@@ -38,15 +37,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<INutritionService, NutritionService>();
         builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
-        builder.Services.AddSingleton<INutrientSettings, NutrientSettings>();
 
         builder.Services.AddSingleton<NavigationService>();
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
-
-        builder.Services.AddSingleton<NutritionDetailViewModel>();
-        builder.Services.AddSingleton<NutritionDetailPage>();
 
         builder.Services.AddTransient<FoodDetailPage>();
         builder.Services.AddTransient<FoodDetailViewModel>();
