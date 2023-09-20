@@ -9,7 +9,6 @@ public partial class FoodDetailViewModel : BaseViewModel
 {
     private readonly INutritionTracker nutritionTracker;
     private int amount = 100;
-
     public ObservableCollection<Nutrient> MainNutrients { get; set; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; set; } = new();
     public ObservableCollection<Nutrient> Minerals { get; set; } = new();
@@ -91,9 +90,16 @@ public partial class FoodDetailViewModel : BaseViewModel
         AminoAcids.Add(new Nutrient("Histidine", Amount, FoodItem.AminoAcids.Histidine, nutritionTracker));
         AminoAcids.Add(new Nutrient("Hydroxyproline", Amount, FoodItem.AminoAcids.Hydroxyproline, nutritionTracker));
         AminoAcids.Add(new Nutrient("Isoleucine", Amount, FoodItem.AminoAcids.Isoleucine, nutritionTracker));
-        AminoAcids.Add(new Nutrient("Isoleucine", Amount, FoodItem.AminoAcids.Isoleucine, nutritionTracker));
         AminoAcids.Add(new Nutrient("Leucine", Amount, FoodItem.AminoAcids.Leucine, nutritionTracker));
         AminoAcids.Add(new Nutrient("Lysine", Amount, FoodItem.AminoAcids.Lysine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Methionine", Amount, FoodItem.AminoAcids.Methionine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Phenylalanine", Amount, FoodItem.AminoAcids.Phenylalanine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Proline", Amount, FoodItem.AminoAcids.Proline, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Serine", Amount, FoodItem.AminoAcids.Serine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Threonine", Amount, FoodItem.AminoAcids.Threonine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Tryptophan", Amount, FoodItem.AminoAcids.Tryptophan, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Tyrosine", Amount, FoodItem.AminoAcids.Tyrosine, nutritionTracker));
+        AminoAcids.Add(new Nutrient("Valine", Amount, FoodItem.AminoAcids.Valine, nutritionTracker));
     }
 
     [RelayCommand]

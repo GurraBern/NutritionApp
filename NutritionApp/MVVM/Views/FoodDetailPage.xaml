@@ -94,7 +94,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </toolkit:Expander>
-            
+        
             <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
 
     </VerticalStackLayout>

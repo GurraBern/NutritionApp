@@ -55,6 +55,14 @@ public class NutrientCalculator
         nutrients["Isoleucine"] += CalculateNutrients(food.AminoAcids.Isoleucine, amount);
         nutrients["Leucine"] += CalculateNutrients(food.AminoAcids.Leucine, amount);
         nutrients["Lysine"] += CalculateNutrients(food.AminoAcids.Lysine, amount);
+        nutrients["Methionine"] += CalculateNutrients(food.AminoAcids.Methionine, amount);
+        nutrients["Phenylalanine"] += CalculateNutrients(food.AminoAcids.Phenylalanine, amount);
+        nutrients["Proline"] += CalculateNutrients(food.AminoAcids.Proline, amount);
+        nutrients["Serine"] += CalculateNutrients(food.AminoAcids.Serine, amount);
+        nutrients["Threonine"] += CalculateNutrients(food.AminoAcids.Threonine, amount);
+        nutrients["Tryptophan"] += CalculateNutrients(food.AminoAcids.Tryptophan, amount);
+        nutrients["Tyrosine"] += CalculateNutrients(food.AminoAcids.Tyrosine, amount);
+        nutrients["Valine"] += CalculateNutrients(food.AminoAcids.Valine, amount);
     }
 
     private static double CalculateNutrients(double nutrient, int amount) => nutrient / 100 * amount;

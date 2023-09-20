@@ -5,11 +5,10 @@ namespace NutritionApp.MVVM.Models;
 
 public partial class Nutrient : ObservableObject
 {
-    private double nutritionTotal;
+    private readonly double nutritionTotal;
     private readonly double nutritionAmountNeeded;
     private readonly double foodItemValue;
     private readonly INutritionTracker nutritionTracker;
-    public string Name { get; }
 
     [ObservableProperty]
     private double nutritionAmount;
@@ -22,6 +21,7 @@ public partial class Nutrient : ObservableObject
 
     [ObservableProperty]
     private double currentItemValue;
+    public string Name { get; }
 
     public Nutrient(string name, double amount, double foodItemValue, INutritionTracker nutritionTracker)
     {
@@ -32,21 +32,20 @@ public partial class Nutrient : ObservableObject
 
         nutritionTotal = nutritionTracker.NutrientTotals[name];
         nutritionAmountNeeded = nutritionTracker.NutrientNeeds[name];
-        SetProgress(nutritionAmount, nutritionTotal);
+        Update(nutritionAmount);
     }
 
-    public void SetProgress(double amount, double itemValue)
+    public void Update(double amount = 1)
+    {
+        SetProgress(amount);
+    }
+
+    private void SetProgress(double amount)
     {
         NutritionAmount = amount;
         NutritionProgress = nutritionTracker.NutrientTotals[Name] / nutritionAmountNeeded;
         NutritionPotentialProgress = CalculateProgress(amount);
         CurrentItemValue = NutritionAmount / 100 * foodItemValue;
-    }
-
-    public void Update(double amount)
-    {
-        var needs = nutritionTracker.NutrientNeeds[Name];
-        SetProgress(amount, needs);
     }
 
     private double CalculateProgress(double amount) =>

@@ -67,8 +67,77 @@
                 </CollectionView>
             </toolkit:Expander>
 
+            <toolkit:Expander IsExpanded="True">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Primary Nutrients"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding MainNutrients}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nutrient">
+                            <customComponents:CustomProgressBar
+                                Title="{Binding Name, StringFormat='{0} units'}"
+                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressB="{Binding NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
 
-            <customComponents:NutritionDetailPage/>
+            <toolkit:Expander IsExpanded="False">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Vitamins"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding Vitamins}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nutrient">
+                            <customComponents:CustomProgressBar
+                                Title="{Binding Name}"
+                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressB="{Binding NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
+
+            <toolkit:Expander IsExpanded="False">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Minerals"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding Minerals}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nutrient">
+                            <customComponents:CustomProgressBar
+                                Title="{Binding Name}"
+                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressB="{Binding NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
+
+            <toolkit:Expander IsExpanded="False">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Amino Acids +"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding AminoAcids}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nutrient">
+                            <customComponents:CustomProgressBar
+                                Title="{Binding Name}"
+                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressB="{Binding NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
 
         </VerticalStackLayout>
     </ScrollView>

@@ -22,7 +22,7 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
 
         vm.ClearSearchResults();
-        vm.UpdateConsumedFoodItems();
+        vm.UpdateNutritionInformation();
     }
 
     private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
