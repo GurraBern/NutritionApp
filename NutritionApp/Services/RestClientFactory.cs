@@ -1,6 +1,6 @@
 ﻿using RestSharp;
 
-namespace NutritionApp;
+namespace NutritionApp.Services;
 
 public class RestClientFactory
 {
