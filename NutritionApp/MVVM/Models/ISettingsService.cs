@@ -2,6 +2,5 @@
 
 public interface ISettingsService
 {
-    Task<T> Get<T>(string key, T defaultValue);
-    Task<T> Save<T>(string key, T value);
+    double Get(string key);
 }
