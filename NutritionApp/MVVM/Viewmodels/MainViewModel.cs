@@ -12,7 +12,7 @@ public partial class MainViewModel : BaseViewModel
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
     private readonly ISettingsService settingsService;
-
+    private int dayIndex = 0;
     public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
     public ObservableCollection<NutritionDay> nutritionDays = new();
 
@@ -33,16 +33,23 @@ public partial class MainViewModel : BaseViewModel
         this.settingsService = settingsService;
         selectedDailyFood = new NutritionDay(DateTime.Today);
         nutritionTracker.NutritionDay = selectedDailyFood;
+
+        nutritionDays.Add(selectedDailyFood);
+        nutritionDays.Add(new NutritionDay(DateTime.Today.AddDays(-1)));
     }
 
     public void UpdateNutritionInformation()
     {
         ConsumedFoodItems.Clear();
-        foreach (var food in nutritionTracker.NutritionDay.ConsumedFoodItems)
+        foreach (var food in SelectedDailyFood.ConsumedFoodItems)
         {
             ConsumedFoodItems.Add(food);
         }
 
+        PrimaryNutrients.Clear();
+        Vitamins.Clear();
+        Minerals.Clear();
+        AminoAcids.Clear();
         CreateAndAddNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
         CreateAndAddNutrients(NutritionUtils.vitamins, Vitamins);
         CreateAndAddNutrients(NutritionUtils.minerals, Minerals);
@@ -82,5 +89,33 @@ public partial class MainViewModel : BaseViewModel
     public void ClearSearchResults()
     {
         SearchResults.Clear();
+    }
+
+    [RelayCommand]
+    public void NextDay()
+    {
+        dayIndex--;
+        if (dayIndex < 0)
+        {
+            dayIndex = 0;
+
+            SelectedDailyFood = nutritionDays[dayIndex];
+            nutritionTracker.NutritionDay = SelectedDailyFood;
+        }
+
+        UpdateNutritionInformation();
+    }
+
+    [RelayCommand]
+    public void PreviousDay()
+    {
+        dayIndex++;
+        if (dayIndex >= nutritionDays.Count)
+            dayIndex = 0;
+
+        SelectedDailyFood = nutritionDays[dayIndex];
+        nutritionTracker.NutritionDay = SelectedDailyFood;
+
+        UpdateNutritionInformation();
     }
 }

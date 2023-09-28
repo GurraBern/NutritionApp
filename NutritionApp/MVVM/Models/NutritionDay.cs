@@ -5,8 +5,8 @@ namespace NutritionApp.MVVM.Models;
 
 public class NutritionDay : ObservableObject
 {
-    public DateTime Date { get; set; }
-    public List<FoodItem> ConsumedFoodItems { get; set; } = new();
+    public DateTime Date { get; }
+    public List<FoodItem> ConsumedFoodItems { get; } = new();
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
     {
         { "Calories", 0 },
@@ -73,10 +73,5 @@ public class NutritionDay : ObservableObject
     {
         ConsumedFoodItems.Add(food);
         NutrientCalculator.SumNutrients(food, NutrientTotals);
-    }
-
-    public List<FoodItem> GetConsumedFoods()
-    {
-        return ConsumedFoodItems;
     }
 }

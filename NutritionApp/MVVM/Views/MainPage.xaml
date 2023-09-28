@@ -21,9 +21,9 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0"></ImageButton>
-                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
-                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2"></ImageButton>
+                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedDailyFood.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
+                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
             </Grid>
 
             <SearchBar x:Name="searchBar"
