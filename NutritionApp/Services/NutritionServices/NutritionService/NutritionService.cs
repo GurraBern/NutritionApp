@@ -1,7 +1,7 @@
 ﻿using NutritionApp.MVVM.Models;
 using RestSharp;
 
-namespace NutritionApp.Services.NutritionServices.NutritionService;
+namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionService : INutritionService
 {

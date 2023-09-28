@@ -5,8 +5,7 @@ using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
-using NutritionApp.Services.NutritionServices.NutritionService;
-using NutritionApp.Services.NutritionServices.NutritionTrackingService;
+using NutritionApp.Services.NutritionServices;
 using RestSharp;
 using System.Reflection;
 

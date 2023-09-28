@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using NutritionApp.Services.NutritionServices.NutritionTrackingService;
 
 namespace NutritionApp.MVVM.Models;
 

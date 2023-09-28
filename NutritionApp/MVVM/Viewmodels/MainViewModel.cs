@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using NutritionApp.MVVM.Models;
-using NutritionApp.Services.NutritionServices.NutritionService;
-using NutritionApp.Services.NutritionServices.NutritionTrackingService;
+using NutritionApp.MVVM.Viewmodels.Utils;
+using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
@@ -21,6 +21,9 @@ public partial class MainViewModel : BaseViewModel
     public ObservableCollection<FoodItem> ConsumedFoodItems { get; set; } = new();
 
     public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
+    public ObservableCollection<Nutrient> Vitamins { get; set; } = new();
+    public ObservableCollection<Nutrient> Minerals { get; set; } = new();
+    public ObservableCollection<Nutrient> AminoAcids { get; set; } = new();
 
 
     public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, ISettingsService settingsService)
@@ -35,16 +38,22 @@ public partial class MainViewModel : BaseViewModel
     public void UpdateNutritionInformation()
     {
         ConsumedFoodItems.Clear();
-        PrimaryNutrients.Clear();
-        foreach (var item in nutritionTracker.NutritionDay.ConsumedFoodItems)
+        foreach (var food in nutritionTracker.NutritionDay.ConsumedFoodItems)
         {
-            ConsumedFoodItems.Add(item);
+            ConsumedFoodItems.Add(food);
         }
 
-        foreach (var valuePair in nutritionTracker.NutritionDay.NutrientTotals)
+        CreateAndAddNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
+        CreateAndAddNutrients(NutritionUtils.vitamins, Vitamins);
+        CreateAndAddNutrients(NutritionUtils.minerals, Minerals);
+        CreateAndAddNutrients(NutritionUtils.aminoAcids, AminoAcids);
+    }
+
+    private void CreateAndAddNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    {
+        foreach (var valuePair in nutritionTracker.NutritionDay.NutrientTotals.Where(x => nutrientNames.Contains(x.Key)))
         {
-            Nutrient nutrient = new(valuePair.Key, valuePair.Value, 1, settingsService, nutritionTracker.NutritionDay);
-            PrimaryNutrients.Add(nutrient);
+            nutrientCollection.Add(new Nutrient(valuePair.Key, valuePair.Value, 1, settingsService, nutritionTracker.NutritionDay));
         }
     }
 

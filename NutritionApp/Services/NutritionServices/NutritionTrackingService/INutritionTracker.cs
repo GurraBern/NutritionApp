@@ -1,6 +1,6 @@
 ﻿using NutritionApp.MVVM.Models;
 
-namespace NutritionApp.Services.NutritionServices.NutritionTrackingService;
+namespace NutritionApp.Services.NutritionServices;
 
 public interface INutritionTracker
 {

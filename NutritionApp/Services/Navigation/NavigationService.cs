@@ -1,7 +1,7 @@
 ﻿using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
-using NutritionApp.Services.NutritionServices.NutritionTrackingService;
+using NutritionApp.Services.NutritionServices;
 
 namespace NutritionApp.Services;
 

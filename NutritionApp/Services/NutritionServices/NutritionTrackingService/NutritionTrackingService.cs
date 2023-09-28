@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using NutritionApp.MVVM.Models;
 
-namespace NutritionApp.Services.NutritionServices.NutritionTrackingService;
+namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
