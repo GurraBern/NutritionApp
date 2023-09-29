@@ -8,4 +8,6 @@ public interface INutritionTracker
     public NutritionDay NutritionDay { get; set; }
     public void AddFood(FoodItem food);
     public void RemoveFood(FoodItem food);
+    public NutritionDay NextDay();
+    public NutritionDay PreviousDay();
 }

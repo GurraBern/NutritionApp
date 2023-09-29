@@ -22,7 +22,7 @@
                 </Grid.ColumnDefinitions>
 
                 <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
-                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedDailyFood.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
+                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
                 <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
             </Grid>
 

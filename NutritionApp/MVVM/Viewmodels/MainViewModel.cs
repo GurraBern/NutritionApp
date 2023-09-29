@@ -12,14 +12,12 @@ public partial class MainViewModel : BaseViewModel
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
     private readonly ISettingsService settingsService;
-    private int dayIndex = 0;
-    public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
-    public ObservableCollection<NutritionDay> nutritionDays = new();
 
     [ObservableProperty]
-    public NutritionDay selectedDailyFood;
+    private NutritionDay selectedNutritionDay;
+    public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
+    public ObservableCollection<NutritionDay> nutritionDays = new();
     public ObservableCollection<FoodItem> ConsumedFoodItems { get; set; } = new();
-
     public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; set; } = new();
     public ObservableCollection<Nutrient> Minerals { get; set; } = new();
@@ -31,17 +29,14 @@ public partial class MainViewModel : BaseViewModel
         this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
         this.settingsService = settingsService;
-        selectedDailyFood = new NutritionDay(DateTime.Today);
-        nutritionTracker.NutritionDay = selectedDailyFood;
 
-        nutritionDays.Add(selectedDailyFood);
-        nutritionDays.Add(new NutritionDay(DateTime.Today.AddDays(-1)));
+        selectedNutritionDay = nutritionTracker.NutritionDay;
     }
 
     public void UpdateNutritionInformation()
     {
         ConsumedFoodItems.Clear();
-        foreach (var food in SelectedDailyFood.ConsumedFoodItems)
+        foreach (var food in SelectedNutritionDay.ConsumedFoodItems)
         {
             ConsumedFoodItems.Add(food);
         }
@@ -94,28 +89,14 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     public void NextDay()
     {
-        dayIndex--;
-        if (dayIndex < 0)
-        {
-            dayIndex = 0;
-
-            SelectedDailyFood = nutritionDays[dayIndex];
-            nutritionTracker.NutritionDay = SelectedDailyFood;
-        }
-
+        SelectedNutritionDay = nutritionTracker.NextDay();
         UpdateNutritionInformation();
     }
 
     [RelayCommand]
     public void PreviousDay()
     {
-        dayIndex++;
-        if (dayIndex >= nutritionDays.Count)
-            dayIndex = 0;
-
-        SelectedDailyFood = nutritionDays[dayIndex];
-        nutritionTracker.NutritionDay = SelectedDailyFood;
-
+        SelectedNutritionDay = nutritionTracker.PreviousDay();
         UpdateNutritionInformation();
     }
 }
