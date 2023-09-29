@@ -1,6 +1,6 @@
 ﻿using NutritionApp.MVVM.Models;
 
-namespace NutritionApp;
+namespace NutritionApp.Services.NutritionServices;
 
 public class NutrientCalculator
 {

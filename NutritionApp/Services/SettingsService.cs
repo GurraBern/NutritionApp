@@ -1,13 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Microsoft.Maui.Storage;
 using NutritionApp.MVVM.Models;
+using System.Threading.Tasks;
 
-namespace NutritionApp.Services.NutritionServices;
+namespace NutritionApp.Services;
 
-public class NutritionTrackingService : ObservableObject, INutritionTracker
+public class SettingsService : ISettingsService
 {
-    private int dayIndex = 0;
-    public NutritionDay NutritionDay { get; set; }
-    public List<NutritionDay> NutritionDays = new();
     public Dictionary<string, double> NutrientNeeds { get; set; } = new()
     {
         { "Calories", 2400 },
@@ -64,43 +62,8 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "Tyrosine", 10 },
         { "Valine", 2 }
     };
-
-    public NutritionTrackingService()
+    public double Get(string key)
     {
-        //TODO Load NutritionDay if exists from db otherwise create
-        NutritionDay = new NutritionDay(DateTime.Today);
-        NutritionDays.Add(NutritionDay);
-    }
-
-    public void AddFood(FoodItem food)
-    {
-        NutritionDay.AddFood(food);
-    }
-
-    public void RemoveFood(FoodItem food)
-    {
-        //nutritionDay.Remove(food);
-    }
-
-    public NutritionDay NextDay()
-    {
-        dayIndex--;
-        if (dayIndex < 0)
-            dayIndex = 0;
-
-        NutritionDay = NutritionDays[dayIndex];
-        return NutritionDay;
-    }
-
-    public NutritionDay PreviousDay()
-    {
-        dayIndex++;
-        if (dayIndex >= NutritionDays.Count)
-        {
-            NutritionDays.Add(new NutritionDay(DateTime.Today.AddDays(-dayIndex)));
-        }
-
-        NutritionDay = NutritionDays[dayIndex];
-        return NutritionDay;
+        return NutrientNeeds[key];
     }
 }

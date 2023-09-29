@@ -21,9 +21,9 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0"></ImageButton>
-                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="2023-08-29"></Label>
-                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2"></ImageButton>
+                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
+                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
             </Grid>
 
             <SearchBar x:Name="searchBar"
@@ -71,12 +71,12 @@
                 <toolkit:Expander.Header>
                     <Label FontSize="Small" Text="Primary Nutrients"></Label>
                 </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding MainNutrients}">
+                <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
-                                Title="{Binding Name, StringFormat='{0} units'}"
-                                ProgressA="{Binding NutritionPotentialProgress}"
+                                Title="{Binding Name}"
+                                ProgressA="1"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
@@ -94,7 +94,7 @@
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
                                 Title="{Binding Name}"
-                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressA="1"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
@@ -112,7 +112,7 @@
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
                                 Title="{Binding Name}"
-                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressA="1"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
@@ -120,17 +120,17 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </toolkit:Expander>
-
+            
             <toolkit:Expander IsExpanded="False">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Amino Acids +"></Label>
+                    <Label FontSize="Small" Text="Amino Acids"></Label>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding AminoAcids}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
                                 Title="{Binding Name}"
-                                ProgressA="{Binding NutritionPotentialProgress}"
+                                ProgressA="1"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
@@ -138,7 +138,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </toolkit:Expander>
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

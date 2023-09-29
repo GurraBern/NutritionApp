@@ -1,12 +1,13 @@
 ﻿using NutritionApp.MVVM.Models;
 
-namespace NutritionApp.Services.NutritionServices.NutritionTrackingService;
+namespace NutritionApp.Services.NutritionServices;
 
 public interface INutritionTracker
 {
-    public List<FoodItem> ConsumedFoods { get; set; }
-    public Dictionary<string, double> NutrientTotals { get; set; }
     public Dictionary<string, double> NutrientNeeds { get; set; }
+    public NutritionDay NutritionDay { get; set; }
     public void AddFood(FoodItem food);
     public void RemoveFood(FoodItem food);
+    public NutritionDay NextDay();
+    public NutritionDay PreviousDay();
 }
