@@ -11,7 +11,7 @@ public partial class MainViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
-    private readonly ISettingsService settingsService;
+    private readonly INutrientFactory nutritionFactory;
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
@@ -22,11 +22,11 @@ public partial class MainViewModel : BaseViewModel
     public ObservableCollection<Nutrient> Minerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
 
-    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, ISettingsService settingsService)
+    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutritionFactory)
     {
         this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
-        this.settingsService = settingsService;
+        this.nutritionFactory = nutritionFactory;
 
         SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
         SetupNutrients(NutritionUtils.vitamins, Vitamins);
@@ -58,7 +58,8 @@ public partial class MainViewModel : BaseViewModel
     {
         foreach (var name in nutrientNames)
         {
-            nutrientCollection.Add(new Nutrient(name, 0, 0, settingsService));
+            var nutrient = nutritionFactory.CreateNutrient(name);
+            nutrientCollection.Add(nutrient);
         }
     }
 
