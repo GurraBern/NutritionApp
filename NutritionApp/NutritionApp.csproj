@@ -50,8 +50,15 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json" />
 	  <None Remove="Resources\Images\chevron_left_icon.svg" />
 	  <None Remove="Resources\Images\right_chevron_arrow_round_icon.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -59,8 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="6.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+		<PackageReference Include="Google.Cloud.Firestore" Version="3.3.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />

@@ -38,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INutritionService, NutritionService>();
         builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
+        builder.Services.AddSingleton<INutritionRepository, NutritionRepository>();
 
         builder.Services.AddSingleton<NavigationService>();
 

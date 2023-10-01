@@ -5,9 +5,11 @@ namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionTrackingService : ObservableObject, INutritionTracker
 {
+    private readonly INutritionRepository nutritionRepository;
     private int dayIndex = 0;
-    public NutritionDay NutritionDay { get; set; }
-    public List<NutritionDay> NutritionDays = new();
+    private bool isInitialized = false;
+    private NutritionDay nutritionDay;
+    private List<NutritionDay> NutritionDays = new();
     public Dictionary<string, double> NutrientNeeds { get; set; } = new()
     {
         { "Calories", 2400 },
@@ -65,16 +67,32 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         { "Valine", 2 }
     };
 
-    public NutritionTrackingService()
+    public NutritionTrackingService(INutritionRepository nutritionRepository)
     {
-        //TODO Load NutritionDay if exists from db otherwise create
-        NutritionDay = new NutritionDay(DateTime.Today);
-        NutritionDays.Add(NutritionDay);
+        nutritionDay = new NutritionDay(DateTime.Today);
+        NutritionDays.Add(nutritionDay);
+        this.nutritionRepository = nutritionRepository;
+    }
+
+    public async Task Initialize()
+    {
+        if (!isInitialized)
+        {
+            var consumedFood = await nutritionRepository.GetConsumedFood();
+            foreach (var food in consumedFood)
+            {
+                nutritionDay.AddFood(food);
+            }
+
+            isInitialized = true;
+        }
     }
 
     public void AddFood(FoodItem food)
     {
-        NutritionDay.AddFood(food);
+        nutritionDay.AddFood(food);
+
+        nutritionRepository.InsertConsumedFood(food);
     }
 
     public void RemoveFood(FoodItem food)
@@ -88,8 +106,8 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         if (dayIndex < 0)
             dayIndex = 0;
 
-        NutritionDay = NutritionDays[dayIndex];
-        return NutritionDay;
+        nutritionDay = NutritionDays[dayIndex];
+        return nutritionDay;
     }
 
     public NutritionDay PreviousDay()
@@ -100,7 +118,14 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
             NutritionDays.Add(new NutritionDay(DateTime.Today.AddDays(-dayIndex)));
         }
 
-        NutritionDay = NutritionDays[dayIndex];
-        return NutritionDay;
+        nutritionDay = NutritionDays[dayIndex];
+        return nutritionDay;
+    }
+
+    public async Task<NutritionDay> GetSelectedNutritionDay()
+    {
+        await Initialize();
+
+        return nutritionDay;
     }
 }
