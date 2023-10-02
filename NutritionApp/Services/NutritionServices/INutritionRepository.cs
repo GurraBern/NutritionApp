@@ -4,6 +4,6 @@ namespace NutritionApp.Services.NutritionServices;
 
 public interface INutritionRepository
 {
-    Task<IEnumerable<FoodItem>> GetConsumedFood();
-    Task InsertConsumedFood(FoodItem foodItem);
+    Task<NutritionDay> GetNutritionDay(DateTime dateToQuery);
+    Task InsertNutritionDay(NutritionDay nutritionDay);
 }

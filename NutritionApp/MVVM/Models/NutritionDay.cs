@@ -1,12 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Google.Cloud.Firestore;
 using NutritionApp.Services.NutritionServices;
 
 namespace NutritionApp.MVVM.Models;
 
+[FirestoreData]
 public class NutritionDay : ObservableObject
 {
-    public DateTime Date { get; }
+    [FirestoreProperty]
+    public string Date { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd");
+
+    [FirestoreProperty]
     public List<FoodItem> ConsumedFoodItems { get; } = new();
+
+    [FirestoreProperty]
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
     {
         { "Calories", 0 },
@@ -64,9 +71,9 @@ public class NutritionDay : ObservableObject
         { "Valine", 0 }
     };
 
-    public NutritionDay(DateTime date)
+    public NutritionDay()
     {
-        Date = date;
+
     }
 
     public void AddFood(FoodItem food)

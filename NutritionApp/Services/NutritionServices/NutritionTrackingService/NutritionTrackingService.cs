@@ -69,7 +69,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
 
     public NutritionTrackingService(INutritionRepository nutritionRepository)
     {
-        nutritionDay = new NutritionDay(DateTime.Today);
+        nutritionDay = new NutritionDay();
         NutritionDays.Add(nutritionDay);
         this.nutritionRepository = nutritionRepository;
     }
@@ -78,8 +78,8 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     {
         if (!isInitialized)
         {
-            var consumedFood = await nutritionRepository.GetConsumedFood();
-            foreach (var food in consumedFood)
+            var nutritionDay = await nutritionRepository.GetNutritionDay(DateTime.UtcNow);
+            foreach (var food in nutritionDay.ConsumedFoodItems)
             {
                 nutritionDay.AddFood(food);
             }
@@ -91,8 +91,6 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
     public void AddFood(FoodItem food)
     {
         nutritionDay.AddFood(food);
-
-        nutritionRepository.InsertConsumedFood(food);
     }
 
     public void RemoveFood(FoodItem food)
@@ -115,7 +113,10 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         dayIndex++;
         if (dayIndex >= NutritionDays.Count)
         {
-            NutritionDays.Add(new NutritionDay(DateTime.Today.AddDays(-dayIndex)));
+            NutritionDays.Add(new NutritionDay()
+            {
+                Date = DateTime.Today.AddDays(-dayIndex).ToString("yyyy-MM-dd"),
+            });
         }
 
         nutritionDay = NutritionDays[dayIndex];

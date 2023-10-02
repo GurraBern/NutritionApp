@@ -16,18 +16,23 @@ public class NutritionRepository : INutritionRepository
         db = FirestoreDb.Create("nutritiontracker-f8aba");
     }
 
-    public async Task<IEnumerable<FoodItem>> GetConsumedFood()
+    public async Task<NutritionDay> GetNutritionDay(DateTime dateToQuery)
     {
         try
         {
             var userId = "2sRR9EhUGTEpHx4XQz6C";
-            var consumedFoodCollectionRef = db.Collection("Users").Document(userId).Collection("ConsumedFood");
+            var nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
 
-            QuerySnapshot querySnapshot = await consumedFoodCollectionRef.GetSnapshotAsync();
+            string dateStr = dateToQuery.ToString("yyyy-MM-dd");
 
-            var consumedFood = querySnapshot.Documents.Select(doc => doc.ConvertTo<FoodItem>());
+            QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
+                .WhereEqualTo("Date", dateStr)
+                .GetSnapshotAsync();
 
-            return consumedFood;
+            var nutritionDay = querySnapshot.Documents
+                .Select(doc => doc.ConvertTo<NutritionDay>()).FirstOrDefault();
+
+            return nutritionDay;
         }
         catch (Exception ex)
         {
@@ -35,16 +40,17 @@ public class NutritionRepository : INutritionRepository
         }
     }
 
-    public async Task InsertConsumedFood(FoodItem foodItem)
+    //TODO insert for specific day
+    public async Task InsertNutritionDay(NutritionDay nutritionDay)
     {
         try
         {
             var userId = "2sRR9EhUGTEpHx4XQz6C";
             DocumentReference userDocRef = db.Collection("Users").Document(userId);
 
-            CollectionReference consumedFoodCollectionRef = userDocRef.Collection("ConsumedFood");
+            CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
 
-            await consumedFoodCollectionRef.AddAsync(foodItem);
+            await nutritionDaysCollectionRef.AddAsync(nutritionDay);
         }
         catch (Exception ex)
         {
