@@ -88,9 +88,10 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         NutritionDays.Add(currentNutritionDay);
     }
 
-    public void AddFood(FoodItem food)
+    public async void AddFood(FoodItem food)
     {
         currentNutritionDay.AddFood(food);
+        await nutritionRepository.UpdateNutritionDay(currentNutritionDay);
     }
 
     public void RemoveFood(FoodItem food)

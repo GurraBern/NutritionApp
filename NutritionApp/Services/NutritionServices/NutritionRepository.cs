@@ -9,7 +9,6 @@ public class NutritionRepository : INutritionRepository
 
     public NutritionRepository()
     {
-
         var path = AppDomain.CurrentDomain.BaseDirectory + @"nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json";
         Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
 
@@ -20,10 +19,10 @@ public class NutritionRepository : INutritionRepository
     {
         try
         {
+            string date = dateToQuery.ToString("yyyy-MM-dd");
+
             var userId = "2sRR9EhUGTEpHx4XQz6C";
             var nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
-
-            string date = dateToQuery.ToString("yyyy-MM-dd");
 
             QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
                 .WhereEqualTo("Date", date)
@@ -39,11 +38,10 @@ public class NutritionRepository : INutritionRepository
         }
         catch (Exception ex)
         {
-            throw ex;
+            throw;
         }
     }
 
-    //TODO insert for specific day
     public async Task InsertNutritionDay(NutritionDay nutritionDay)
     {
         try
@@ -54,6 +52,28 @@ public class NutritionRepository : INutritionRepository
             CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
 
             await nutritionDaysCollectionRef.AddAsync(nutritionDay);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public async Task UpdateNutritionDay(NutritionDay updatedNutritionDay)
+    {
+        try
+        {
+            var userId = "2sRR9EhUGTEpHx4XQz6C";
+
+            CollectionReference nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
+
+            QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
+                .WhereEqualTo("Date", updatedNutritionDay.Date)
+                .GetSnapshotAsync();
+
+            DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
+
+            await nutritionDayDocRef.SetAsync(updatedNutritionDay);
         }
         catch (Exception ex)
         {

@@ -39,7 +39,6 @@ public partial class FoodDetailViewModel : BaseViewModel
 
     private void InitializeNutrients()
     {
-
         // Main Nutrients
         MainNutrients.Add(nutrientFactory.CreateNutrient("Calories", Amount, FoodItem.Calories));
         MainNutrients.Add(nutrientFactory.CreateNutrient("Protein", Amount, FoodItem.Protein));
