@@ -98,9 +98,9 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public void PreviousDay()
+    public async Task PreviousDay()
     {
-        SelectedNutritionDay = nutritionTracker.PreviousDay();
+        SelectedNutritionDay = await nutritionTracker.PreviousDay();
         UpdateNutritionInformation();
     }
 }

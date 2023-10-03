@@ -9,5 +9,5 @@ public interface INutritionTracker
     void RemoveFood(FoodItem food);
     Task<NutritionDay> GetSelectedNutritionDay();
     NutritionDay NextDay();
-    NutritionDay PreviousDay();
+    Task<NutritionDay> PreviousDay();
 }

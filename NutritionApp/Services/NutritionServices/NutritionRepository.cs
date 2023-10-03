@@ -23,14 +23,17 @@ public class NutritionRepository : INutritionRepository
             var userId = "2sRR9EhUGTEpHx4XQz6C";
             var nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
 
-            string dateStr = dateToQuery.ToString("yyyy-MM-dd");
+            string date = dateToQuery.ToString("yyyy-MM-dd");
 
             QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
-                .WhereEqualTo("Date", dateStr)
+                .WhereEqualTo("Date", date)
                 .GetSnapshotAsync();
 
             var nutritionDay = querySnapshot.Documents
-                .Select(doc => doc.ConvertTo<NutritionDay>()).FirstOrDefault();
+                .Select(doc => doc.ConvertTo<NutritionDay>()).FirstOrDefault() ?? new NutritionDay()
+                {
+                    Date = date
+                };
 
             return nutritionDay;
         }

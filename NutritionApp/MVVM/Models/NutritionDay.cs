@@ -11,7 +11,7 @@ public class NutritionDay : ObservableObject
     public string Date { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
     [FirestoreProperty]
-    public List<FoodItem> ConsumedFoodItems { get; } = new();
+    public List<FoodItem> ConsumedFoodItems { get; set; } = new();
 
     [FirestoreProperty]
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
