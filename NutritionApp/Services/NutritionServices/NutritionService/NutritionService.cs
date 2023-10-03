@@ -30,8 +30,6 @@ public class NutritionService : INutritionService
         try
         {
             var request = new RestRequest("api/Food");
-            var test = await client.ExecuteAsync(request);
-
             var foods = await client.GetAsync<IEnumerable<FoodItem>>(request);
             return foods;
         }

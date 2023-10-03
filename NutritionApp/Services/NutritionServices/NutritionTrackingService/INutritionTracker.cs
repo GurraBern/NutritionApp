@@ -4,10 +4,10 @@ namespace NutritionApp.Services.NutritionServices;
 
 public interface INutritionTracker
 {
-    public Dictionary<string, double> NutrientNeeds { get; set; }
-    public NutritionDay NutritionDay { get; set; }
-    public void AddFood(FoodItem food);
-    public void RemoveFood(FoodItem food);
-    public NutritionDay NextDay();
-    public NutritionDay PreviousDay();
+    Dictionary<string, double> NutrientNeeds { get; set; }
+    void AddFood(FoodItem food);
+    void RemoveFood(FoodItem food);
+    Task<NutritionDay> GetSelectedNutritionDay();
+    NutritionDay NextDay();
+    Task<NutritionDay> PreviousDay();
 }

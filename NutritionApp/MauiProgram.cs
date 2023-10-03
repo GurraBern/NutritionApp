@@ -35,9 +35,11 @@ public static class MauiProgram
         var stream = assembly.GetManifestResourceStream(appSettingsPath);
         builder.Configuration.AddJsonStream(stream);
 
+        builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INutritionService, NutritionService>();
         builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
+        builder.Services.AddSingleton<INutritionRepository, NutritionRepository>();
 
         builder.Services.AddSingleton<NavigationService>();
 

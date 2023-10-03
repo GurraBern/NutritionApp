@@ -11,26 +11,33 @@ public partial class MainViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
-    private readonly ISettingsService settingsService;
-
+    private readonly INutrientFactory nutritionFactory;
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
-    public ObservableCollection<FoodItem> SearchResults { get; set; } = new();
+    public ObservableCollection<FoodItem> SearchResults { get; } = new();
     public ObservableCollection<NutritionDay> nutritionDays = new();
-    public ObservableCollection<FoodItem> ConsumedFoodItems { get; set; } = new();
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; set; } = new();
-    public ObservableCollection<Nutrient> Minerals { get; set; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; set; } = new();
+    public ObservableCollection<FoodItem> ConsumedFoodItems { get; } = new();
+    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
+    public ObservableCollection<Nutrient> Vitamins { get; } = new();
+    public ObservableCollection<Nutrient> Minerals { get; } = new();
+    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
 
-
-    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, ISettingsService settingsService)
+    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutritionFactory)
     {
         this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
-        this.settingsService = settingsService;
+        this.nutritionFactory = nutritionFactory;
 
-        selectedNutritionDay = nutritionTracker.NutritionDay;
+        SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
+        SetupNutrients(NutritionUtils.vitamins, Vitamins);
+        SetupNutrients(NutritionUtils.minerals, Minerals);
+        SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
+    }
+
+    public async Task AssignNutritionDay()
+    {
+        SelectedNutritionDay = await nutritionTracker.GetSelectedNutritionDay();
+        UpdateNutritionInformation();
     }
 
     public void UpdateNutritionInformation()
@@ -41,21 +48,18 @@ public partial class MainViewModel : BaseViewModel
             ConsumedFoodItems.Add(food);
         }
 
-        PrimaryNutrients.Clear();
-        Vitamins.Clear();
-        Minerals.Clear();
-        AminoAcids.Clear();
-        CreateAndAddNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
-        CreateAndAddNutrients(NutritionUtils.vitamins, Vitamins);
-        CreateAndAddNutrients(NutritionUtils.minerals, Minerals);
-        CreateAndAddNutrients(NutritionUtils.aminoAcids, AminoAcids);
+        foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
+        {
+            nutrient.SetProgress(nutrient.NutritionAmount, SelectedNutritionDay.NutrientTotals[nutrient.Name]);
+        }
     }
 
-    private void CreateAndAddNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void SetupNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
     {
-        foreach (var valuePair in nutritionTracker.NutritionDay.NutrientTotals.Where(x => nutrientNames.Contains(x.Key)))
+        foreach (var name in nutrientNames)
         {
-            nutrientCollection.Add(new Nutrient(valuePair.Key, valuePair.Value, 1, settingsService, nutritionTracker.NutritionDay));
+            var nutrient = nutritionFactory.CreateNutrient(name);
+            nutrientCollection.Add(nutrient);
         }
     }
 
@@ -94,9 +98,9 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public void PreviousDay()
+    public async Task PreviousDay()
     {
-        SelectedNutritionDay = nutritionTracker.PreviousDay();
+        SelectedNutritionDay = await nutritionTracker.PreviousDay();
         UpdateNutritionInformation();
     }
 }

@@ -4,11 +4,9 @@ namespace NutritionApp.MVVM.Models;
 
 public partial class Nutrient : ObservableObject
 {
-    private readonly double nutritionTotal;
+    private double nutritionTotal = 0;
     private readonly double nutritionAmountNeeded;
     private readonly double foodItemValue;
-    private NutritionDay nutritionDay;
-
     [ObservableProperty]
     private double nutritionAmount;
 
@@ -22,28 +20,21 @@ public partial class Nutrient : ObservableObject
     private double currentItemValue;
     public string Name { get; }
 
-    public Nutrient(string name, double amount, double foodItemValue, ISettingsService settingsService, NutritionDay nutritionDay)
+    public Nutrient(string name, double amount, double foodItemValue, ISettingsService settingsService)
     {
         Name = name;
         nutritionAmount = amount;
         this.foodItemValue = foodItemValue;
+
         nutritionAmountNeeded = settingsService.Get(name);
-        this.nutritionDay = nutritionDay;
-
-        nutritionTotal = nutritionDay.NutrientTotals[name];
-
-        Update(nutritionAmount);
+        SetProgress(nutritionAmount);
     }
 
-    public void Update(double amount = 1)
-    {
-        SetProgress(amount);
-    }
-
-    private void SetProgress(double amount)
+    public void SetProgress(double amount = 0, double nutritionTotal = 0)
     {
         NutritionAmount = amount;
-        NutritionProgress = nutritionDay.NutrientTotals[Name] / nutritionAmountNeeded;
+        this.nutritionTotal = nutritionTotal;
+        NutritionProgress = nutritionTotal / nutritionAmountNeeded;
         NutritionPotentialProgress = CalculateProgress(amount);
         CurrentItemValue = NutritionAmount / 100 * foodItemValue;
     }

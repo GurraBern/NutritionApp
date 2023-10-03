@@ -1,12 +1,10 @@
-﻿using Microsoft.Maui.Storage;
-using NutritionApp.MVVM.Models;
-using System.Threading.Tasks;
+﻿using NutritionApp.MVVM.Models;
 
-namespace NutritionApp.Services;
+namespace NutritionApp.Services.NutritionServices;
 
 public class SettingsService : ISettingsService
 {
-    public Dictionary<string, double> NutrientNeeds { get; set; } = new()
+    private Dictionary<string, double> NutrientNeeds { get; set; } = new()
     {
         { "Calories", 2400 },
         { "Protein", 110 },
@@ -62,6 +60,7 @@ public class SettingsService : ISettingsService
         { "Tyrosine", 10 },
         { "Valine", 2 }
     };
+
     public double Get(string key)
     {
         return NutrientNeeds[key];

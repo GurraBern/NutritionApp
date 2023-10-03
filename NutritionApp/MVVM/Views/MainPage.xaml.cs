@@ -17,12 +17,12 @@ public partial class MainPage : ContentPage
         this.navigationService = navigationService;
     }
 
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         base.OnAppearing();
 
+        await vm.AssignNutritionDay();
         vm.ClearSearchResults();
-        vm.UpdateNutritionInformation();
     }
 
     private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
