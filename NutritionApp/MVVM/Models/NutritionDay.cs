@@ -26,7 +26,8 @@ public class NutritionDay : ObservableObject
         { "VitaminD", 0 },
         { "VitaminE", 0 },
         { "VitaminC", 0 },
-        { "VitaminK", 0 },
+        { "VitaminK1", 0 },
+        { "VitaminK2", 0 },
         { "Thiamin", 0 },
         { "Riboflavin", 0 },
         { "Niacin", 0 },
@@ -44,18 +45,27 @@ public class NutritionDay : ObservableObject
         { "Lycopene", 0 },
         { "Calcium", 0 },
         { "Iron", 0 },
-        { "Zink", 0 },
+        { "Zinc", 0 },
         { "Sodium", 0 },
         { "Magnesium", 0 },
         { "Copper", 0 },
+        { "Fluoride", 0 },
+        { "Iodine", 0 },
+        { "Molybdenum", 0 },
+        { "Nickel", 0 },
+        { "Phosphorus", 0 },
+        { "Potassium", 0 },
         { "Manganese", 0 },
         { "Phosphorous", 0 },
         { "Selenium", 0 },
         { "Alanine", 0 },
         { "Arginine", 0 },
+        { "Asparagine", 0 },
         { "AsparticAcid", 0 },
         { "Cystine", 0 },
         { "GlutamicAcid", 0 },
+        { "Glutamine", 0 },
+        { "Glycine", 0 },
         { "Histidine", 0 },
         { "Hydroxyproline", 0 }, // RecommendedDosageUnknown
         { "Isoleucine", 0 },
@@ -68,7 +78,8 @@ public class NutritionDay : ObservableObject
         { "Threonine", 0 },
         { "Tryptophan", 0 },
         { "Tyrosine", 0 },
-        { "Valine", 0 }
+        { "Valine", 0 },
+        { "Theobromine", 0 }
     };
 
     public NutritionDay()
