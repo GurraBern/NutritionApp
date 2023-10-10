@@ -15,16 +15,27 @@ public partial class Nutrient : ObservableObject
 
     [ObservableProperty]
     private double nutritionPotentialProgress;
+    private double _currentItemValue;
+    public double CurrentItemValue
+    {
+        get { return _currentItemValue; }
+        set
+        {
+            if (SetProperty(ref _currentItemValue, value))
+                OnPropertyChanged(nameof(Title));
+        }
+    }
 
-    [ObservableProperty]
-    private double currentItemValue;
     public string Name { get; }
+    public string unit = string.Empty;
+    public string Title => $"{Name} {Math.Round(CurrentItemValue, 2)} {unit}";
 
-    public Nutrient(string name, double amount, double foodItemValue, ISettingsService settingsService)
+    public Nutrient(string name, double amount, double foodItemValue, string unit, ISettingsService settingsService)
     {
         Name = name;
         nutritionAmount = amount;
         this.foodItemValue = foodItemValue;
+        this.unit = unit;
 
         nutritionAmountNeeded = settingsService.Get(name);
         SetProgress(nutritionAmount);

@@ -71,9 +71,11 @@ public class NutritionRepository : INutritionRepository
                 .WhereEqualTo("Date", updatedNutritionDay.Date)
                 .GetSnapshotAsync();
 
-            DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
-
-            await nutritionDayDocRef.SetAsync(updatedNutritionDay);
+            if (querySnapshot.Documents.Count > 0)
+            {
+                DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
+                await nutritionDayDocRef.SetAsync(updatedNutritionDay);
+            }
         }
         catch (Exception ex)
         {
