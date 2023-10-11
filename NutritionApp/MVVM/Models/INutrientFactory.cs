@@ -2,5 +2,5 @@
 
 public interface INutrientFactory
 {
-    Nutrient CreateNutrient(string name, int amount = 0, double foodValue = 0, string unit = "g");
+    Nutrient CreateNutrient(string name, double foodValue = 0);
 }

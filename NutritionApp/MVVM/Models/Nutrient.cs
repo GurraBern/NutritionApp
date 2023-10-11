@@ -4,17 +4,15 @@ namespace NutritionApp.MVVM.Models;
 
 public partial class Nutrient : ObservableObject
 {
-    private double nutritionTotal = 0;
     private readonly double nutritionAmountNeeded;
-    private readonly double foodItemValue;
-    [ObservableProperty]
-    private double nutritionAmount;
-
+    public readonly double foodItemValue;
+    private readonly ISettingsService settingsService;
     [ObservableProperty]
     private double nutritionProgress;
 
     [ObservableProperty]
     private double nutritionPotentialProgress;
+
     private double _currentItemValue;
     public double CurrentItemValue
     {
@@ -28,28 +26,30 @@ public partial class Nutrient : ObservableObject
 
     public string Name { get; }
     public string unit = string.Empty;
-    public string Title => $"{Name} {Math.Round(CurrentItemValue, 2)} {unit}";
+    public string Title => $"{Name} {Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
 
-    public Nutrient(string name, double amount, double foodItemValue, string unit, ISettingsService settingsService)
+    public Nutrient(string name, double foodValue, ISettingsService settingsService)
     {
         Name = name;
-        nutritionAmount = amount;
-        this.foodItemValue = foodItemValue;
-        this.unit = unit;
-
-        nutritionAmountNeeded = settingsService.Get(name);
-        SetProgress(nutritionAmount);
+        foodItemValue = foodValue;
+        this.settingsService = settingsService;
+        unit = settingsService.GetNutritionUnit(name);
+        nutritionAmountNeeded = settingsService.GetNutritionNeed(name);
     }
 
-    public void SetProgress(double amount = 0, double nutritionTotal = 0)
+    public void SetProgress(double amount, double nutritionTotal = 0)
     {
-        NutritionAmount = amount;
-        this.nutritionTotal = nutritionTotal;
         NutritionProgress = nutritionTotal / nutritionAmountNeeded;
-        NutritionPotentialProgress = CalculateProgress(amount);
-        CurrentItemValue = NutritionAmount / 100 * foodItemValue;
+        CurrentItemValue = amount;
     }
 
-    private double CalculateProgress(double amount) =>
-        (nutritionTotal + amount * foodItemValue / 100) / nutritionAmountNeeded;
+    public void SetPotentialProgress(double amount, double nutritionTotal = 0)
+    {
+        NutritionPotentialProgress = CalculateProgress(amount, nutritionTotal);
+    }
+
+    private double CalculateProgress(double amount, double total)
+    {
+        return (total + amount) / nutritionAmountNeeded;
+    }
 }

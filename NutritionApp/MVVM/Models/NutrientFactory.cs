@@ -9,8 +9,8 @@ public class NutrientFactory : INutrientFactory
         this.settingsService = settingsService;
     }
 
-    public Nutrient CreateNutrient(string name, int amount, double foodValue, string unit)
+    public Nutrient CreateNutrient(string name, double foodValue)
     {
-        return new Nutrient(name, amount, foodValue, unit, settingsService);
+        return new Nutrient(name, foodValue, settingsService);
     }
 }

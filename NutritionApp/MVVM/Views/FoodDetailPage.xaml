@@ -49,7 +49,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
-                                Title="{Binding Name}"
+                                Title="{Binding Title}"
                                 ProgressA="{Binding NutritionPotentialProgress}"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
@@ -67,7 +67,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
-                                Title="{Binding Name}"
+                                Title="{Binding Title}"
                                 ProgressA="{Binding NutritionPotentialProgress}"
                                 ProgressB="{Binding NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
@@ -85,7 +85,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <customComponents:CustomProgressBar
-                                    Title="{Binding Name}"
+                                    Title="{Binding Title}"
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
