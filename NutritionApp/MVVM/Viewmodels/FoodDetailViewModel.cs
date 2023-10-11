@@ -140,7 +140,7 @@ public partial class FoodDetailViewModel : BaseViewModel
         foreach (var nutrient in MainNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
         {
             var nutrientAmount = Convert.ToDouble(Amount) / 100 * nutrient.foodItemValue;
-            nutrient.SetProgress(nutrientAmount);
+            nutrient.SetProgress(nutrientAmount, nutritionDay.NutrientTotals[nutrient.Name]);
             nutrient.SetPotentialProgress(nutrientAmount, nutritionDay.NutrientTotals[nutrient.Name]);
         }
     }
