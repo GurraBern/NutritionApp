@@ -28,10 +28,10 @@ public partial class Nutrient : ObservableObject
     public string unit = string.Empty;
     public string Title => $"{Name} {Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
 
-    public Nutrient(string name, double foodValue, ISettingsService settingsService)
+    public Nutrient(string name, double nutrientValue, ISettingsService settingsService)
     {
         Name = name;
-        foodItemValue = foodValue;
+        foodItemValue = nutrientValue;
         this.settingsService = settingsService;
         unit = settingsService.GetNutritionUnit(name);
         nutritionAmountNeeded = settingsService.GetNutritionNeed(name);

@@ -76,6 +76,10 @@ public class NutritionRepository : INutritionRepository
                 DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
                 await nutritionDayDocRef.SetAsync(updatedNutritionDay);
             }
+            else
+            {
+                await InsertNutritionDay(updatedNutritionDay);
+            }
         }
         catch (Exception ex)
         {

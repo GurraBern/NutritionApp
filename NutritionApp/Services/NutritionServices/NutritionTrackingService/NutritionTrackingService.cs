@@ -58,7 +58,7 @@ public class NutritionTrackingService : ObservableObject, INutritionTracker
         dayIndex++;
         if (dayIndex >= NutritionDays.Count)
         {
-            var nutritionDay = await nutritionRepository.GetNutritionDay(DateTime.UtcNow.AddDays(-1));
+            var nutritionDay = await nutritionRepository.GetNutritionDay(DateTime.UtcNow.AddDays(-dayIndex));
             NutritionDays.Add(nutritionDay);
         }
 
