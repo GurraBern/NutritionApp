@@ -50,7 +50,7 @@ public partial class MainViewModel : BaseViewModel
 
         foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
         {
-            nutrient.SetProgress(nutrient.NutritionAmount, SelectedNutritionDay.NutrientTotals[nutrient.Name]);
+            nutrient.SetProgress(SelectedNutritionDay.NutrientTotals[nutrient.Name], SelectedNutritionDay.NutrientTotals[nutrient.Name]);
         }
     }
 

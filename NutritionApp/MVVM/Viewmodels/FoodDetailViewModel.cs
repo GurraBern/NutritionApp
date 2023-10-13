@@ -9,11 +9,13 @@ public partial class FoodDetailViewModel : BaseViewModel
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
+    private NutritionDay nutritionDay;
     private int amount = 100;
     public ObservableCollection<Nutrient> MainNutrients { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
     public ObservableCollection<Nutrient> Minerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
+    public ObservableCollection<Nutrient> Other { get; } = new();
     public FoodItem FoodItem { get; }
     public int Amount
     {
@@ -34,71 +36,94 @@ public partial class FoodDetailViewModel : BaseViewModel
         FoodItem = foodItem;
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
+    }
+
+    public async Task Initialize()
+    {
         InitializeNutrients();
+        nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
+        UpdateAllOnPropertiesChanged();
     }
 
     private void InitializeNutrients()
     {
         // Main Nutrients
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Calories", Amount, FoodItem.Calories));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Protein", Amount, FoodItem.Protein));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Carbohydrates", Amount, FoodItem.Carbohydrate));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Fat", Amount, FoodItem.Fat));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("SaturatedFat", Amount, FoodItem.SaturatedFat));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Cholesterol", Amount, FoodItem.Cholesterol));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Calories", FoodItem.Calories));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Protein", FoodItem.Protein));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Carbohydrates", FoodItem.Carbohydrate));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Fiber", FoodItem.Fiber));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Sugars", FoodItem.Sugar));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Starch", FoodItem.Starch));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Fat", FoodItem.TotalFat));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("SaturatedFat", FoodItem.TotalSaturatedFat));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("TransFat", FoodItem.TotalTransFat));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("MonounsaturatedFat", FoodItem.TotalMonounsaturated));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("PolyunsaturatedFat", FoodItem.TotalPolyunsaturated));
+        MainNutrients.Add(nutrientFactory.CreateNutrient("Cholesterol", FoodItem.Cholesterol));
 
         // Vitamins
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminA", Amount, FoodItem.VitaminA));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminD", Amount, FoodItem.VitaminD));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminE", Amount, FoodItem.VitaminE));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminC", Amount, FoodItem.VitaminC));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminK", Amount, FoodItem.VitaminK));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Thiamin", Amount, FoodItem.Thiamin));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Riboflavin", Amount, FoodItem.Riboflavin));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Niacin", Amount, FoodItem.Niacin));
-        Vitamins.Add(nutrientFactory.CreateNutrient("PantothenicAcid", Amount, FoodItem.PantothenicAcid));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminB6", Amount, FoodItem.VitaminB6));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Folate", Amount, FoodItem.Folate));
-        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminB12", Amount, FoodItem.VitaminB12));
-        Vitamins.Add(nutrientFactory.CreateNutrient("TocopherolAlpha", Amount, FoodItem.TocopherolAlpha));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Choline", Amount, FoodItem.Choline));
-        Vitamins.Add(nutrientFactory.CreateNutrient("FolicAcid", Amount, FoodItem.FolicAcid));
-        Vitamins.Add(nutrientFactory.CreateNutrient("CaroteneAlpha", Amount, FoodItem.CaroteneAlpha));
-        Vitamins.Add(nutrientFactory.CreateNutrient("CaroteneBeta", Amount, FoodItem.CaroteneBeta));
-        Vitamins.Add(nutrientFactory.CreateNutrient("CryptoxanthinBeta", Amount, FoodItem.CryptoxanthinBeta));
-        Vitamins.Add(nutrientFactory.CreateNutrient("LuteinZeaxanthin", Amount, FoodItem.LuteinZeaxanthin));
-        Vitamins.Add(nutrientFactory.CreateNutrient("Lycopene", Amount, FoodItem.Lycopene));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminA", FoodItem.VitaminA));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Thiamin", FoodItem.Thiamin));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Riboflavin", FoodItem.Riboflavin));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Niacin", FoodItem.Niacin));
+        Vitamins.Add(nutrientFactory.CreateNutrient("PantothenicAcid", FoodItem.PantothenicAcid));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminB6", FoodItem.VitaminB6));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Biotin", FoodItem.Biotin));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Folate", FoodItem.Folate));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminB12", FoodItem.VitaminB12));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminC", FoodItem.VitaminC));
+        Vitamins.Add(nutrientFactory.CreateNutrient("Choline", FoodItem.Choline));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminD", FoodItem.VitaminD));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminE", FoodItem.VitaminE));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminK1", FoodItem.VitaminK1));
+        Vitamins.Add(nutrientFactory.CreateNutrient("VitaminK2", FoodItem.VitaminK2));
 
         // Minerals
-        Minerals.Add(nutrientFactory.CreateNutrient("Calcium", Amount, FoodItem.Calcium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Iron", Amount, FoodItem.Iron));
-        Minerals.Add(nutrientFactory.CreateNutrient("Zink", Amount, FoodItem.Zink));
-        Minerals.Add(nutrientFactory.CreateNutrient("Sodium", Amount, FoodItem.Sodium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Magnesium", Amount, FoodItem.Magnesium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Copper", Amount, FoodItem.Copper));
-        Minerals.Add(nutrientFactory.CreateNutrient("Manganese", Amount, FoodItem.Manganese));
-        Minerals.Add(nutrientFactory.CreateNutrient("Phosphorous", Amount, FoodItem.Phosphorous));
-        Minerals.Add(nutrientFactory.CreateNutrient("Selenium", Amount, FoodItem.Selenium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Calcium", FoodItem.Calcium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Chromium", FoodItem.Chromium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Copper", FoodItem.Copper));
+        Minerals.Add(nutrientFactory.CreateNutrient("Fluoride", FoodItem.Fluoride));
+        Minerals.Add(nutrientFactory.CreateNutrient("Iodine", FoodItem.Iodine));
+        Minerals.Add(nutrientFactory.CreateNutrient("Iron", FoodItem.Iron));
+        Minerals.Add(nutrientFactory.CreateNutrient("Magnesium", FoodItem.Magnesium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Manganese", FoodItem.Manganese));
+        Minerals.Add(nutrientFactory.CreateNutrient("Molybdenum", FoodItem.Molybdenum));
+        Minerals.Add(nutrientFactory.CreateNutrient("Nickel", FoodItem.Nickel));
+        Minerals.Add(nutrientFactory.CreateNutrient("Phosphorus", FoodItem.Phosphorus));
+        Minerals.Add(nutrientFactory.CreateNutrient("Potassium", FoodItem.Potassium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Selenium", FoodItem.Selenium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Sodium", FoodItem.Sodium));
+        Minerals.Add(nutrientFactory.CreateNutrient("Zinc", FoodItem.Zinc));
 
         // Amino Acids
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Alanine", Amount, FoodItem.Alanine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Arginine", Amount, FoodItem.Arginine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("AsparticAcid", Amount, FoodItem.AsparticAcid));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Cystine", Amount, FoodItem.Cystine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("GlutamicAcid", Amount, FoodItem.GlutamicAcid));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Histidine", Amount, FoodItem.Histidine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Hydroxyproline", Amount, FoodItem.Hydroxyproline));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Isoleucine", Amount, FoodItem.Isoleucine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Leucine", Amount, FoodItem.Leucine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Lysine", Amount, FoodItem.Lysine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Methionine", Amount, FoodItem.Methionine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Phenylalanine", Amount, FoodItem.Phenylalanine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Proline", Amount, FoodItem.Proline));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Serine", Amount, FoodItem.Serine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Threonine", Amount, FoodItem.Threonine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Tryptophan", Amount, FoodItem.Tryptophan));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Tyrosine", Amount, FoodItem.Tyrosine));
-        AminoAcids.Add(nutrientFactory.CreateNutrient("Valine", Amount, FoodItem.Valine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Alanine", FoodItem.Alanine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Arginine", FoodItem.Arginine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Asparagine", FoodItem.Asparagine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("AsparticAcid", FoodItem.AsparticAcid));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Cystine", FoodItem.Cystine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("GlutamicAcid", FoodItem.GlutamicAcid));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Glutamine", FoodItem.Glutamine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Glycine", FoodItem.Glycine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Histidine", FoodItem.Histidine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Isoleucine", FoodItem.Isoleucine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Leucine", FoodItem.Leucine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Lysine", FoodItem.Lysine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Methionine", FoodItem.Methionine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Phenylalanine", FoodItem.Phenylalanine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Proline", FoodItem.Proline));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Serine", FoodItem.Serine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Threonine", FoodItem.Threonine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Tryptophan", FoodItem.Tryptophan));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Tyrosine", FoodItem.Tyrosine));
+        AminoAcids.Add(nutrientFactory.CreateNutrient("Valine", FoodItem.Valine));
+
+        //Other
+        Other.Add(nutrientFactory.CreateNutrient("CaroteneAlpha", FoodItem.CaroteneAlpha));
+        Other.Add(nutrientFactory.CreateNutrient("CaroteneBeta", FoodItem.CaroteneBeta));
+        Other.Add(nutrientFactory.CreateNutrient("CryptoxanthinBeta", FoodItem.CryptoxanthinBeta));
+        Other.Add(nutrientFactory.CreateNutrient("LuteinZeaxanthin", FoodItem.LuteinZeaxanthin));
+        Other.Add(nutrientFactory.CreateNutrient("Lycopene", FoodItem.Lycopene));
+        Other.Add(nutrientFactory.CreateNutrient("Theobromine", FoodItem.Theobromine));
     }
 
     [RelayCommand]
@@ -114,7 +139,9 @@ public partial class FoodDetailViewModel : BaseViewModel
     {
         foreach (var nutrient in MainNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
         {
-            nutrient.SetProgress(Amount);
+            var nutrientAmount = Convert.ToDouble(Amount) * nutrient.foodItemValue / 100;
+            nutrient.SetProgress(nutrientAmount, nutritionDay.NutrientTotals[nutrient.Name]);
+            nutrient.SetPotentialProgress(nutrientAmount, nutritionDay.NutrientTotals[nutrient.Name]);
         }
     }
 }

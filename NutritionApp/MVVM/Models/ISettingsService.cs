@@ -2,5 +2,6 @@
 
 public interface ISettingsService
 {
-    double Get(string key);
+    double GetNutritionNeed(string key);
+    string GetNutritionUnit(string key);
 }
