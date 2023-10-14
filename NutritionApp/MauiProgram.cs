@@ -16,8 +16,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
+        builder.UseMauiApp<App>()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,6 +34,7 @@ public static class MauiProgram
         var stream = assembly.GetManifestResourceStream(appSettingsPath);
         builder.Configuration.AddJsonStream(stream);
 
+        builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INutritionService, NutritionService>();

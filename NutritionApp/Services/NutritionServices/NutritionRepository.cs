@@ -5,13 +5,12 @@ namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionRepository : INutritionRepository
 {
-    private readonly FirestoreDb db;
+    private AuthService authService;
+    private FirestoreDb db;
 
-    public NutritionRepository()
+    public NutritionRepository(AuthService authService)
     {
-        var path = AppDomain.CurrentDomain.BaseDirectory + @"nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json";
-        Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
-
+        this.authService = authService;
         db = FirestoreDb.Create("nutritiontracker-f8aba");
     }
 
