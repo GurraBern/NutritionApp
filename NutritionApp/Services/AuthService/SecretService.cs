@@ -13,10 +13,9 @@ public class SecretService
         this.client = client;
     }
 
-    public async Task<FirebaseAuthConfig> GetAuthConfig()
+    public async Task<FirebaseAuthConfig> GetAuthConfig(string password)
     {
-        //TEMP - /authConfig/123 is the password to fetch authConfig
-        var request = new RestRequest($"api/NutritionAuthentication/authConfig/123");
+        var request = new RestRequest($"api/NutritionAuthentication/authConfig/{password}");
         var secretResponse = await client.PostAsync<SecretResponse>(request);
         var authConfig = new FirebaseAuthConfig()
         {

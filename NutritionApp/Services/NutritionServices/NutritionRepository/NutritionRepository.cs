@@ -19,9 +19,10 @@ public class NutritionRepository : INutritionRepository
     {
         try
         {
+
             string date = dateToQuery.ToString("yyyy-MM-dd");
 
-            var userId = "2sRR9EhUGTEpHx4XQz6C";
+            var userId = authService.User.Uid;
             var nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
 
             QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
@@ -46,7 +47,7 @@ public class NutritionRepository : INutritionRepository
     {
         try
         {
-            var userId = "2sRR9EhUGTEpHx4XQz6C";
+            var userId = authService.User.Uid;
             DocumentReference userDocRef = db.Collection("Users").Document(userId);
 
             CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
@@ -63,7 +64,7 @@ public class NutritionRepository : INutritionRepository
     {
         try
         {
-            var userId = "2sRR9EhUGTEpHx4XQz6C";
+            var userId = authService.User.Uid;
 
             CollectionReference nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
 

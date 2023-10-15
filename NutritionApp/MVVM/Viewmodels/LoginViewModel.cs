@@ -6,7 +6,6 @@ namespace NutritionApp.MVVM.ViewModels;
 
 public partial class LoginViewModel : BaseViewModel
 {
-    //private readonly IUserRepository _userRepository;
     //private readonly IToastService _toastService;
 
     [ObservableProperty]
@@ -42,10 +41,10 @@ public partial class LoginViewModel : BaseViewModel
         Email = savedEmail;
         Password = savedPassword;
 
-        var success = await authService.Login(savedEmail, savedPassword);
+        var user = await authService.Login(savedEmail, savedPassword);
 
-        //if (success)
-        //    await Shell.Current.GoToAsync("//Home");
+        if (user != null)
+            await Shell.Current.GoToAsync("//Home");
 
         IsBusy = false;
     }
@@ -55,8 +54,8 @@ public partial class LoginViewModel : BaseViewModel
     {
         var user = await authService.Login(Email, Password);
 
-        //if (user)
-        await Shell.Current.GoToAsync("//MainPage");
+        if (user != null)
+            await Shell.Current.GoToAsync("//MainPage");
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
     }
@@ -66,8 +65,8 @@ public partial class LoginViewModel : BaseViewModel
     {
         var user = await authService.SignUp(Email, Password);
 
-        //if (user)
-        await Shell.Current.GoToAsync("//MainPage");
+        if (user != null)
+            await Shell.Current.GoToAsync("//MainPage");
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
     }
