@@ -5,6 +5,7 @@ using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
+using NutritionApp.Services.AuthService;
 using NutritionApp.Services.NutritionServices;
 using RestSharp;
 using System.Reflection;
@@ -48,6 +49,9 @@ public static class MauiProgram
 
         builder.Services.AddTransient<FoodDetailPage>();
         builder.Services.AddTransient<FoodDetailViewModel>();
+
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<LoginViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();

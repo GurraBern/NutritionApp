@@ -1,14 +1,15 @@
 ﻿using Google.Cloud.Firestore;
 using NutritionApp.MVVM.Models;
+using NutritionApp.Services.AuthService;
 
 namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionRepository : INutritionRepository
 {
-    private AuthService authService;
+    private IAuthService authService;
     private FirestoreDb db;
 
-    public NutritionRepository(AuthService authService)
+    public NutritionRepository(IAuthService authService)
     {
         this.authService = authService;
         db = FirestoreDb.Create("nutritiontracker-f8aba");

@@ -2,7 +2,7 @@
 using Firebase.Auth.Providers;
 using RestSharp;
 
-namespace NutritionApp;
+namespace NutritionApp.Services.AuthService;
 
 public class SecretService
 {
