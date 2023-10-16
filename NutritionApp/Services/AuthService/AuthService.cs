@@ -4,30 +4,18 @@ namespace NutritionApp.Services.AuthService;
 
 public class AuthService : IAuthService
 {
-    private FirebaseAuthClient firebaseAuth;
+    private readonly FirebaseAuthClient firebaseAuth;
     private bool isInitialized = false;
     public User User { get; set; }
 
 
-    public AuthService()
+    public AuthService(FirebaseAuthClient firebaseAuth)
     {
-
-    }
-
-    private async Task Init()
-    {
-        if (!isInitialized)
-        {
-            var secretService = new SecretService(RestClientFactory.CreateRestClient("https://localhost:44349"));
-            var config = await secretService.GetAuthConfig("123");
-            firebaseAuth = new FirebaseAuthClient(config);
-        }
+        this.firebaseAuth = firebaseAuth;
     }
 
     public async Task<User> SignUp(string email, string password)
     {
-        await Init();
-
         var userCredentials = await firebaseAuth.CreateUserWithEmailAndPasswordAsync(email, password);
         User = userCredentials.User;
 
@@ -35,8 +23,6 @@ public class AuthService : IAuthService
     }
     public async Task<User> Login(string email, string password)
     {
-        await Init();
-
         var userCredentials = await firebaseAuth.SignInWithEmailAndPasswordAsync(email, password);
         User = userCredentials.User;
 

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NutritionApp.MVVM.Models;
@@ -34,6 +36,16 @@ public static class MauiProgram
         var assembly = IntrospectionExtensions.GetTypeInfo(typeof(MauiProgram)).Assembly;
         var stream = assembly.GetManifestResourceStream(appSettingsPath);
         builder.Configuration.AddJsonStream(stream);
+
+        builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+        {
+            ApiKey = builder.Configuration["AppSettings:FirebaseApiKey"],
+            AuthDomain = builder.Configuration["AppSettings:AuthDomain"],
+            Providers = new FirebaseAuthProvider[]
+            {
+                new EmailProvider()
+            }
+        }));
 
         builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
