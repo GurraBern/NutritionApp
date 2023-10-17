@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NutritionApp.MVVM.Models;
+using Nutrition.Core;
 
 namespace NutritionApp.Services.NutritionServices;
 

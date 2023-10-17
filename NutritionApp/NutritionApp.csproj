@@ -72,6 +72,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Nutrition.Core\Nutrition.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="MVVM\Views\Components\CustomProgressBar.xaml.cs">
 	    <DependentUpon>CustomProgressBar.xaml</DependentUpon>
 	  </Compile>

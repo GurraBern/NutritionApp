@@ -1,4 +1,6 @@
-﻿namespace NutritionApp.MVVM.Models;
+﻿using NutritionApp.Services.NutritionServices;
+
+namespace NutritionApp.MVVM.Models;
 
 public class NutrientFactory : INutrientFactory
 {

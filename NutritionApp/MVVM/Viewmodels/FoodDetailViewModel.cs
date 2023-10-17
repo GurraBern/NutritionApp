@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;

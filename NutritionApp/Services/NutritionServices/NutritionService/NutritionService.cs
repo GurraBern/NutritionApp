@@ -1,4 +1,4 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
 using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
