@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using NutritionApp.Services.AuthService;
+using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.ViewModels;
 
@@ -41,9 +41,9 @@ public partial class LoginViewModel : BaseViewModel
         Email = savedEmail;
         Password = savedPassword;
 
-        var user = await authService.Login(savedEmail, savedPassword);
+        await authService.Login(savedEmail, savedPassword);
 
-        if (user != null)
+        if (authService.CurrentUser != null)
             await Shell.Current.GoToAsync("//Home");
 
         IsBusy = false;
@@ -52,9 +52,9 @@ public partial class LoginViewModel : BaseViewModel
     [RelayCommand]
     private async Task SignIn()
     {
-        var user = await authService.Login(Email, Password);
+        await authService.Login(Email, Password);
 
-        if (user != null)
+        if (authService.CurrentUser != null)
             await Shell.Current.GoToAsync("//MainPage");
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
@@ -63,9 +63,9 @@ public partial class LoginViewModel : BaseViewModel
     [RelayCommand]
     private async Task SignUp()
     {
-        var user = await authService.SignUp(Email, Password);
+        await authService.SignUp(Email, Password);
 
-        if (user != null)
+        if (authService.CurrentUser != null)
             await Shell.Current.GoToAsync("//MainPage");
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");

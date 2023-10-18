@@ -7,7 +7,6 @@ using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
-using NutritionApp.Services.AuthService;
 using NutritionApp.Services.NutritionServices;
 using RestSharp;
 using System.Reflection;
@@ -47,12 +46,14 @@ public static class MauiProgram
             }
         }));
 
+        builder.Services.AddScoped(sp => new NutritionApiClient("https://localhost:32768"));
+        builder.Services.AddScoped<INutritionTrackingService, NutritionTrackingService>();
+
         builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INutritionService, NutritionService>();
-        builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
-        //builder.Services.AddSingleton<INutritionRepository, NutritionRepository>();
+        builder.Services.AddSingleton<INutritionTracker, NutritionTracker>();
 
         builder.Services.AddSingleton<NavigationService>();
 

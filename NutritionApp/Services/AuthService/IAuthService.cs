@@ -1,11 +1,11 @@
 ﻿using Firebase.Auth;
 
-namespace NutritionApp.Services.AuthService;
+namespace NutritionApp.Services;
 
 public interface IAuthService
 {
-    User User { get; set; }
-    Task<User> SignUp(string email, string password);
-    Task<User> Login(string email, string password);
+    User CurrentUser { get; }
+    Task SignUp(string email, string password);
+    Task Login(string email, string password);
     void SignOut();
 }

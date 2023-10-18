@@ -1,4 +1,5 @@
 using Google.Cloud.Firestore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nutrition.Core;
 
@@ -15,6 +16,7 @@ namespace UserNutritionAPI.Controllers
             db = FirestoreDb.Create("nutritiontracker-f8aba");
         }
 
+        [Authorize]
         [HttpGet("getnutrition/{userid}/{dateToQuery}")]
         public async Task<NutritionDay> GetNutritionDay(string userId, DateTime dateToQuery)
         {
@@ -42,6 +44,7 @@ namespace UserNutritionAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("insertnutrition/{userid}/{nutritionDay}")]
         public async Task InsertNutritionDay(string userId, NutritionDay nutritionDay)
         {
@@ -59,6 +62,7 @@ namespace UserNutritionAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPatch("updatenutrition/{userid}/{nutritionDay}")]
         public async Task UpdateNutritionDay(string userId, NutritionDay nutritionDay)
         {

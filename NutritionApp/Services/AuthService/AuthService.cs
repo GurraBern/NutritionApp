@@ -1,33 +1,32 @@
 ﻿using Firebase.Auth;
 
-namespace NutritionApp.Services.AuthService;
+namespace NutritionApp.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly FirebaseAuthClient firebaseAuth;
-    private bool isInitialized = false;
-    public User User { get; set; }
-
+    private readonly FirebaseAuthClient _firebaseAuth;
+    private UserCredential _userCredential;
+    public User? CurrentUser => _userCredential?.User;
 
     public AuthService(FirebaseAuthClient firebaseAuth)
     {
-        this.firebaseAuth = firebaseAuth;
+        this._firebaseAuth = firebaseAuth;
     }
 
-    public async Task<User> SignUp(string email, string password)
+    public async Task SignUp(string email, string password)
     {
-        var userCredentials = await firebaseAuth.CreateUserWithEmailAndPasswordAsync(email, password);
-        User = userCredentials.User;
+        _userCredential = await _firebaseAuth.CreateUserWithEmailAndPasswordAsync(email, password);
 
-        return User;
     }
-    public async Task<User> Login(string email, string password)
+
+    public async Task Login(string email, string password)
     {
-        var userCredentials = await firebaseAuth.SignInWithEmailAndPasswordAsync(email, password);
-        User = userCredentials.User;
-
-        return User;
+        _userCredential = await _firebaseAuth.SignInWithEmailAndPasswordAsync(email, password);
     }
 
-    public void SignOut() => firebaseAuth.SignOut();
+    public void SignOut()
+    {
+        _userCredential = null;
+        _firebaseAuth.SignOut();
+    }
 }
