@@ -1,4 +1,4 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
 using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
@@ -35,7 +35,6 @@ public class NutritionService : INutritionService
         }
         catch (Exception e)
         {
-
             throw;
         }
     }

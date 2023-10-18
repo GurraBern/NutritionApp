@@ -1,4 +1,4 @@
-﻿namespace NutritionApp.MVVM.Models;
+﻿namespace NutritionApp.Services.NutritionServices;
 
 public interface ISettingsService
 {

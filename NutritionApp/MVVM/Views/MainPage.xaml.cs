@@ -1,8 +1,8 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 
-namespace NutritionApp;
+namespace NutritionApp.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {

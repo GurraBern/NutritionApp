@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NutritionApp.MainPage"
+             x:Class="NutritionApp.MVVM.Views.MainPage"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
              BackgroundColor="{DynamicResource White}">
@@ -39,7 +40,7 @@
                     SelectionMode="Single"
                     ItemSelected="SearchResultSelected">
                 <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="model:FoodItem">
+                    <DataTemplate x:DataType="modelCore:FoodItem">
                         <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -53,7 +54,7 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:FoodItem">
+                        <DataTemplate x:DataType="modelCore:FoodItem">
                             <Grid Padding="10,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"></ColumnDefinition>

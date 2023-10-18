@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutritionApp.MVVM.Views.LoginPage"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             x:DataType="viewmodel:LoginViewModel"
+             Title="LoginPage">
+
+    <VerticalStackLayout BackgroundColor="White">
+
+        <Grid VerticalOptions="Start" Margin="15,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" FontSize="Header" Text="Nutrition App" HorizontalOptions="Center"></Label>
+            <StackLayout Grid.Row="1">
+                <Entry Text="{Binding Email}" Placeholder="email"></Entry>
+                <Entry Text="{Binding Password}" IsPassword="True" Placeholder="password"></Entry>
+            </StackLayout>
+
+            <StackLayout Grid.Row="2" Spacing="5">
+                <Button Text="Sign In" Command="{Binding SignInCommand}"></Button>
+                <Button Text="Create Account" Command="{Binding SignUpCommand}"></Button>
+            </StackLayout>
+
+            <ActivityIndicator Grid.Row="3" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}"/>
+        </Grid>
+
+    </VerticalStackLayout>
+</ContentPage>

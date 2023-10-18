@@ -1,6 +1,6 @@
 ﻿using Google.Cloud.Firestore;
 
-namespace NutritionApp.MVVM.Models;
+namespace Nutrition.Core;
 
 [FirestoreData]
 public class FoodItem

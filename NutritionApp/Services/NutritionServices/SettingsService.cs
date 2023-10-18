@@ -1,6 +1,4 @@
-﻿using NutritionApp.MVVM.Models;
-
-namespace NutritionApp.Services.NutritionServices;
+﻿namespace NutritionApp.Services.NutritionServices;
 
 public class SettingsService : ISettingsService
 {

@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using Firebase.Auth;
+using Firebase.Auth.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using NutritionApp.MVVM.Models;
@@ -16,8 +18,7 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
         var builder = MauiApp.CreateBuilder();
-        builder
-            .UseMauiApp<App>()
+        builder.UseMauiApp<App>()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -35,11 +36,24 @@ public static class MauiProgram
         var stream = assembly.GetManifestResourceStream(appSettingsPath);
         builder.Configuration.AddJsonStream(stream);
 
+        builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+        {
+            ApiKey = builder.Configuration["AppSettings:FirebaseApiKey"],
+            AuthDomain = builder.Configuration["AppSettings:AuthDomain"],
+            Providers = new FirebaseAuthProvider[]
+            {
+                new EmailProvider()
+            }
+        }));
+
+        builder.Services.AddScoped(sp => new NutritionApiClient("https://localhost:32768"));
+        builder.Services.AddScoped<INutritionTrackingService, NutritionTrackingService>();
+
+        builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
         builder.Services.AddSingleton<INutritionService, NutritionService>();
-        builder.Services.AddSingleton<INutritionTracker, NutritionTrackingService>();
-        builder.Services.AddSingleton<INutritionRepository, NutritionRepository>();
+        builder.Services.AddSingleton<INutritionTracker, NutritionTracker>();
 
         builder.Services.AddSingleton<NavigationService>();
 
@@ -48,6 +62,9 @@ public static class MauiProgram
 
         builder.Services.AddTransient<FoodDetailPage>();
         builder.Services.AddTransient<FoodDetailViewModel>();
+
+        builder.Services.AddTransient<LoginPage>();
+        builder.Services.AddTransient<LoginViewModel>();
 
 #if DEBUG
         builder.Logging.AddDebug();
