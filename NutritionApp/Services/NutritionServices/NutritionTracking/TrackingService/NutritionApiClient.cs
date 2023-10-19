@@ -14,4 +14,10 @@ public class NutritionApiClient : RestClient
         request.AddHeader("Authorization", $"Bearer {bearerToken}");
         return await this.GetAsync<T>(request);
     }
+
+    public async Task<T> PutAsync<T>(RestRequest request, string bearerToken)
+    {
+        request.AddHeader("Authorization", $"Bearer {bearerToken}");
+        return await this.PutAsync<T>(request);
+    }
 }

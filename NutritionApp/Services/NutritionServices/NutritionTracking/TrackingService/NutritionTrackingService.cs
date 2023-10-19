@@ -22,4 +22,11 @@ public class NutritionTrackingService : INutritionTrackingService
 
         return nutritionDay;
     }
+
+    public async Task InsertNutritionDay(string userId, NutritionDay nutritionDay)
+    {
+        var request = new RestRequest($"/api/NutritionData/insertnutrition/{authService.CurrentUser.Uid}/{nutritionDay}");
+
+        await nutritionApiClient.PutAsync<NutritionDay>(request, authService.CurrentUser.Credential.IdToken);
+    }
 }
