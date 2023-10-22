@@ -36,7 +36,7 @@ public class NutritionTracker : ObservableObject, INutritionTracker
     public async void AddFood(FoodItem food)
     {
         currentNutritionDay.AddFood(food);
-        //await nutritionRepository.UpdateNutritionDay(currentNutritionDay);
+        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
     }
 
     public void RemoveFood(FoodItem food)

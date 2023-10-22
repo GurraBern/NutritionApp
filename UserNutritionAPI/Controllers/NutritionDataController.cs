@@ -5,6 +5,7 @@ using Nutrition.Core;
 
 namespace UserNutritionAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class NutritionDataController : ControllerBase
@@ -16,7 +17,6 @@ namespace UserNutritionAPI.Controllers
             db = FirestoreDb.Create("nutritiontracker-f8aba");
         }
 
-        [Authorize]
         [HttpGet("getnutrition/{userid}/{dateToQuery}")]
         public async Task<NutritionDay> GetNutritionDay(string userId, DateTime dateToQuery)
         {
@@ -44,50 +44,42 @@ namespace UserNutritionAPI.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("insertnutrition/{userid}/{nutritionDay}")]
-        public async Task InsertNutritionDay(string userId, NutritionDay nutritionDay)
+        [HttpPost("insertnutrition/{userid}")]
+        public async Task<IActionResult> InsertNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
         {
-            try
-            {
-                DocumentReference userDocRef = db.Collection("Users").Document(userId);
+            if (nutritionDay == null)
+                return BadRequest("Invalid data. NutritionDay is required.");
 
-                CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
+            DocumentReference userDocRef = db.Collection("Users").Document(userId);
 
-                await nutritionDaysCollectionRef.AddAsync(nutritionDay);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
+
+            await nutritionDaysCollectionRef.AddAsync(nutritionDay);
+
+            return Ok();
         }
 
-        [Authorize]
-        [HttpPatch("updatenutrition/{userid}/{nutritionDay}")]
-        public async Task UpdateNutritionDay(string userId, NutritionDay nutritionDay)
+        [HttpPost("SaveNutritionDay/{userid}")]
+        public async Task<IActionResult> SaveNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
         {
-            try
-            {
-                CollectionReference nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
+           
+            CollectionReference nutritionDaysCollectionRef = db.Collection("Users").Document(userId).Collection("NutritionDays");
 
-                QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
-                    .WhereEqualTo("Date", nutritionDay.Date)
-                    .GetSnapshotAsync();
+            QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
+                .WhereEqualTo("Date", nutritionDay.Date)
+                .GetSnapshotAsync();
 
-                if (querySnapshot.Documents.Count > 0)
-                {
-                    DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
-                    await nutritionDayDocRef.SetAsync(nutritionDay);
-                }
-                else
-                {
-                    await InsertNutritionDay(userId, nutritionDay);
-                }
-            }
-            catch (Exception ex)
+            if (querySnapshot.Documents.Count > 0)
             {
-                throw ex;
+                DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
+                await nutritionDayDocRef.SetAsync(nutritionDay);
             }
+            else
+            {
+                await InsertNutritionDay(userId, nutritionDay);
+            }
+
+            return Ok();
         }
     }
 }
