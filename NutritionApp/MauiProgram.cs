@@ -25,51 +25,71 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             }).UseMauiCommunityToolkit();
 
-        builder.Services.AddSingleton<IRestClient>(provider =>
-        {
-            string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
-            return RestClientFactory.CreateRestClient(apiUrl);
-        });
-
-        var appSettingsPath = "NutritionApp.appsettings.json";
-        var assembly = IntrospectionExtensions.GetTypeInfo(typeof(MauiProgram)).Assembly;
-        var stream = assembly.GetManifestResourceStream(appSettingsPath);
-        builder.Configuration.AddJsonStream(stream);
-
-        builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
-        {
-            ApiKey = builder.Configuration["AppSettings:FirebaseApiKey"],
-            AuthDomain = builder.Configuration["AppSettings:AuthDomain"],
-            Providers = new FirebaseAuthProvider[]
-            {
-                new EmailProvider()
-            }
-        }));
-
-        builder.Services.AddScoped(sp => new NutritionApiClient("https://localhost:32768"));
-        builder.Services.AddScoped<INutritionTrackingService, NutritionTrackingService>();
-
-        builder.Services.AddSingleton<IAuthService, AuthService>();
-        builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
-        builder.Services.AddSingleton<ISettingsService, SettingsService>();
-        builder.Services.AddSingleton<INutritionService, NutritionService>();
-        builder.Services.AddSingleton<INutritionTracker, NutritionTracker>();
-
-        builder.Services.AddSingleton<NavigationService>();
-
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainViewModel>();
-
-        builder.Services.AddTransient<FoodDetailPage>();
-        builder.Services.AddTransient<FoodDetailViewModel>();
-
-        builder.Services.AddTransient<LoginPage>();
-        builder.Services.AddTransient<LoginViewModel>();
+        ConfigureAppSettings(builder);
+        RegisterServices(builder.Services, builder.Configuration);
+        RegisterViewModels(builder.Services);
+        RegisterPages(builder.Services);
 
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
 
         return builder.Build();
+    }
+
+    private static void ConfigureAppSettings(MauiAppBuilder builder)
+    {
+        var appSettingsPath = "NutritionApp.appsettings.json";
+        var assembly = IntrospectionExtensions.GetTypeInfo(typeof(MauiProgram)).Assembly;
+        var stream = assembly.GetManifestResourceStream(appSettingsPath);
+        builder.Configuration.AddJsonStream(stream);
+    }
+
+    private static void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
+    {
+        serviceCollection.AddTransient<INutritionTrackingService, NutritionTrackingService>();
+        serviceCollection.AddSingleton<IAuthService, AuthService>();
+        serviceCollection.AddSingleton<INutrientFactory, NutrientFactory>();
+        serviceCollection.AddSingleton<ISettingsService, SettingsService>();
+        serviceCollection.AddSingleton<INutritionService, NutritionService>();
+        serviceCollection.AddSingleton<INutritionTracker, NutritionTracker>();
+        serviceCollection.AddSingleton<NavigationService>();
+
+        serviceCollection.AddSingleton<IRestClient>(provider =>
+        {
+            string apiUrl = configuration["AppSettings:NutritionApiUrl"];
+            return RestClientFactory.CreateRestClient(apiUrl);
+        });
+
+        serviceCollection.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+        {
+            ApiKey = configuration["AppSettings:FirebaseApiKey"],
+            AuthDomain = configuration["AppSettings:AuthDomain"],
+            Providers = new FirebaseAuthProvider[]
+        {
+                new EmailProvider()
+        }
+        }));
+
+        serviceCollection.AddSingleton<INutritionApiClient>(serviceProvider =>
+        {
+            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+            var baseUrl = configuration["AppSettings:UserNutritionApiUrl"];
+            return new NutritionApiClient(baseUrl);
+        });
+    }
+
+    private static void RegisterViewModels(IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddSingleton<MainViewModel>();
+        serviceCollection.AddTransient<FoodDetailViewModel>();
+        serviceCollection.AddTransient<LoginViewModel>();
+    }
+
+    private static void RegisterPages(IServiceCollection serviceCollection)
+    {
+        serviceCollection.AddSingleton<MainPage>();
+        serviceCollection.AddTransient<FoodDetailPage>();
+        serviceCollection.AddTransient<LoginPage>();
     }
 }
