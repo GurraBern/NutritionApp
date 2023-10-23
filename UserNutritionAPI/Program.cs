@@ -11,9 +11,6 @@ builder.Services.AddControllers();
 builder.Services.AddFirebaseAuthentication();
 builder.Services.AddAuthorization();
 
-string path = AppDomain.CurrentDomain.BaseDirectory + @"nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json";
-Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", path);
-
 builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.GetApplicationDefault(),
