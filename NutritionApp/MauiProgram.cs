@@ -25,10 +25,10 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             }).UseMauiCommunityToolkit();
 
-        ConfigureAppSettings(builder);
-        RegisterServices(builder.Services, builder.Configuration);
-        RegisterViewModels(builder.Services);
-        RegisterPages(builder.Services);
+        builder.AddAppSettings();
+        builder.RegisterServices();
+        builder.RegisterViewModels();
+        builder.RegisterPages();
 
 #if DEBUG
         builder.Logging.AddDebug();
@@ -37,41 +37,33 @@ public static class MauiProgram
         return builder.Build();
     }
 
-    private static void ConfigureAppSettings(MauiAppBuilder builder)
+    private static void RegisterServices(this MauiAppBuilder builder)
     {
-        var appSettingsPath = "NutritionApp.appsettings.json";
-        var assembly = IntrospectionExtensions.GetTypeInfo(typeof(MauiProgram)).Assembly;
-        var stream = assembly.GetManifestResourceStream(appSettingsPath);
-        builder.Configuration.AddJsonStream(stream);
-    }
+        builder.Services.AddTransient<INutritionTrackingService, NutritionTrackingService>();
+        builder.Services.AddSingleton<IAuthService, AuthService>();
+        builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
+        builder.Services.AddSingleton<ISettingsService, SettingsService>();
+        builder.Services.AddSingleton<INutritionService, NutritionService>();
+        builder.Services.AddSingleton<INutritionTracker, NutritionTracker>();
+        builder.Services.AddSingleton<NavigationService>();
 
-    private static void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
-    {
-        serviceCollection.AddTransient<INutritionTrackingService, NutritionTrackingService>();
-        serviceCollection.AddSingleton<IAuthService, AuthService>();
-        serviceCollection.AddSingleton<INutrientFactory, NutrientFactory>();
-        serviceCollection.AddSingleton<ISettingsService, SettingsService>();
-        serviceCollection.AddSingleton<INutritionService, NutritionService>();
-        serviceCollection.AddSingleton<INutritionTracker, NutritionTracker>();
-        serviceCollection.AddSingleton<NavigationService>();
-
-        serviceCollection.AddSingleton<IRestClient>(provider =>
+        builder.Services.AddSingleton<IRestClient>(provider =>
         {
-            string apiUrl = configuration["AppSettings:NutritionApiUrl"];
+            string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
             return RestClientFactory.CreateRestClient(apiUrl);
         });
 
-        serviceCollection.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
+        builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
-            ApiKey = configuration["AppSettings:FirebaseApiKey"],
-            AuthDomain = configuration["AppSettings:AuthDomain"],
+            ApiKey = builder.Configuration["AppSettings:FirebaseApiKey"],
+            AuthDomain = builder.Configuration["AppSettings:AuthDomain"],
             Providers = new FirebaseAuthProvider[]
-        {
+            {
                 new EmailProvider()
-        }
+            }
         }));
 
-        serviceCollection.AddSingleton<INutritionApiClient>(serviceProvider =>
+        builder.Services.AddSingleton<INutritionApiClient>(serviceProvider =>
         {
             var configuration = serviceProvider.GetRequiredService<IConfiguration>();
             var baseUrl = configuration["AppSettings:UserNutritionApiUrl"];
@@ -79,17 +71,33 @@ public static class MauiProgram
         });
     }
 
-    private static void RegisterViewModels(IServiceCollection serviceCollection)
+    private static void RegisterViewModels(this MauiAppBuilder builder)
     {
-        serviceCollection.AddSingleton<MainViewModel>();
-        serviceCollection.AddTransient<FoodDetailViewModel>();
-        serviceCollection.AddTransient<LoginViewModel>();
+        builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddTransient<FoodDetailViewModel>();
+        builder.Services.AddTransient<LoginViewModel>();
     }
 
-    private static void RegisterPages(IServiceCollection serviceCollection)
+    private static void RegisterPages(this MauiAppBuilder builder)
     {
-        serviceCollection.AddSingleton<MainPage>();
-        serviceCollection.AddTransient<FoodDetailPage>();
-        serviceCollection.AddTransient<LoginPage>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddTransient<FoodDetailPage>();
+        builder.Services.AddTransient<LoginPage>();
+    }
+
+    private static void AddAppSettings(this MauiAppBuilder builder)
+    {
+        var environment = Environment.GetEnvironmentVariable("MAUI_ENVIRONMENT") ?? "Production";
+        using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"NutritionApp.appsettings.{environment}.json");
+
+        if (stream != null)
+        {
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonStream(stream)
+                .Build();
+
+            builder.Configuration.AddConfiguration(config);
+        }
+
     }
 }

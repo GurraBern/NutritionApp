@@ -49,14 +49,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.Development.json" />
 	  <None Remove="appsettings.json" />
+	  <None Remove="appsettings.Production.json" />
 	  <None Remove="nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json" />
 	  <None Remove="Resources\Images\chevron_left_icon.svg" />
 	  <None Remove="Resources\Images\right_chevron_arrow_round_icon.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json" />
+	  <Content Include="appsettings.Production.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="appsettings.Development.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+		<EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
