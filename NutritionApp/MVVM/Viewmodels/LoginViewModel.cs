@@ -17,34 +17,21 @@ public partial class LoginViewModel : BaseViewModel
 
     public LoginViewModel(IAuthService authService)
     {
-        //Initialize();
         this.authService = authService;
+        Initialize();
     }
 
-    //public async void Initialize()
-    //{
-    //    await AutoLogin();
-    //}
+    public async void Initialize()
+    {
+        await AutoLogin();
+    }
 
     public async Task AutoLogin()
     {
-        IsBusy = true;
-        string savedEmail = await SecureStorage.Default.GetAsync("oauth_token_email");
-        string savedPassword = await SecureStorage.Default.GetAsync("oauth_token_password");
-
-        if (string.IsNullOrEmpty(savedEmail) || string.IsNullOrEmpty(savedPassword))
-        {
-            IsBusy = false;
-            return;
-        }
-
-        Email = savedEmail;
-        Password = savedPassword;
-
-        await authService.Login(savedEmail, savedPassword);
+        await authService.TryAutoLogin();
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync("//Home");
+            await Shell.Current.GoToAsync("//MainPage");
 
         IsBusy = false;
     }
