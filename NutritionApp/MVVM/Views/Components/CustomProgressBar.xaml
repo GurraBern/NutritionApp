@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.CustomProgressBar">
     <VerticalStackLayout>
-        <Label x:Name="titleLabel"></Label>
-
         <AbsoluteLayout>
             <ProgressBar x:Name="progressBarA" Progress="0" ScaleY="1" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 2" AbsoluteLayout.LayoutFlags="All"/>
             <ProgressBar x:Name="progressBarB" Progress="0" ScaleY="1" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0, 0, 1, 2" AbsoluteLayout.LayoutFlags="All"/>

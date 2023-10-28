@@ -11,134 +11,131 @@
              BackgroundColor="{DynamicResource White}">
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="10"
-            Padding="20,0">
-            
-            <Grid HeightRequest="50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
 
-                <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
-                <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
-                <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
-            </Grid>
+            <VerticalStackLayout
+                Grid.Row="0"
+                Spacing="10"
+                Padding="20,0">
 
-            <SearchBar x:Name="searchBar"
-                    SearchCommand="{Binding PerformSearchCommand}"
-                    SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                    TextColor="Black"
-                    BackgroundColor="LightGrey"
-                    Placeholder="Search foods..."
-                    Unfocused="SearchBar_Unfocused"/>
+                <Grid HeightRequest="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                    <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+                    <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
+                    <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
+                </Grid>
+
+                
+            <!--<SearchBar x:Name="searchBar"
+                SearchCommand="{Binding PerformSearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
+                TextColor="Black"
+                BackgroundColor="LightGrey"
+                Placeholder="Search foods..."
+                Unfocused="SearchBar_Unfocused"/>
 
             <ListView x:Name="searchResults" 
-                    ItemsSource="{Binding SearchResults}"
-                    SelectionMode="Single"
-                    ItemSelected="SearchResultSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="modelCore:FoodItem">
-                        <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-                
-            <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}"></ActivityIndicator>
+                ItemsSource="{Binding SearchResults}"
+                SelectionMode="Single"
+                ItemSelected="SearchResultSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>-->
 
-            <toolkit:Expander>
-                <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="{Binding ConsumedFoodItems.Count, StringFormat='Todays Intake ({0} foods)'}"></Label>
-                </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="modelCore:FoodItem">
-                            <Grid Padding="10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
-                                <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </toolkit:Expander>
+                <Ellipse Stroke="LightGreen" WidthRequest="130"  HeightRequest="130" StrokeThickness="5"></Ellipse>
 
-            <toolkit:Expander IsExpanded="True">
-                <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Primary Nutrients"></Label>
-                </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding PrimaryNutrients}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+
+                <Label Text="SEE DETAILS +" FontAttributes="Bold" HorizontalOptions="Center">
+                    
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Border>
+                    <Grid HeightRequest="50" ColumnSpacing="25">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Title}"></Label>
                             <customComponents:CustomProgressBar
-                                Title="{Binding Title}"
                                 ProgressA="1"
-                                ProgressB="{Binding NutritionProgress}"
+                                ProgressB="{Binding Carbohydrates.NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </toolkit:Expander>
+                            <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
+                        </VerticalStackLayout>
 
-            <toolkit:Expander IsExpanded="False">
-                <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Vitamins"></Label>
-                </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding Vitamins}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label HorizontalOptions="Center" Text="{Binding Protein.Title}"></Label>
                             <customComponents:CustomProgressBar
-                                Title="{Binding Title}"
                                 ProgressA="1"
-                                ProgressB="{Binding NutritionProgress}"
+                                ProgressB="{Binding Protein.NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </toolkit:Expander>
+                            <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
+                        </VerticalStackLayout>
 
-            <toolkit:Expander IsExpanded="False">
-                <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Minerals"></Label>
-                </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding Minerals}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                        <VerticalStackLayout Grid.Column="2">
+                            <Label HorizontalOptions="Center" Text="{Binding Fat.Title}"></Label>
                             <customComponents:CustomProgressBar
-                                Title="{Binding Title}"
                                 ProgressA="1"
-                                ProgressB="{Binding NutritionProgress}"
+                                ProgressB="{Binding Fat.NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
                                 ProgressBarBColor="LimeGreen"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </toolkit:Expander>
-            
-            <toolkit:Expander IsExpanded="False">
-                <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Amino Acids"></Label>
-                </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding AminoAcids}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
-                            <customComponents:CustomProgressBar
-                                Title="{Binding Title}"
-                                ProgressA="1"
-                                ProgressB="{Binding NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
-                                ProgressBarBColor="LimeGreen"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </toolkit:Expander>
-        </VerticalStackLayout>
+                            <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <Border.Stroke>
+                        <Color>transparent</Color>
+                    </Border.Stroke>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5"/>
+                    </Border.StrokeShape>
+                    <Border.Shadow>
+                        <Shadow Offset="1,1" Opacity="0.6"/>
+                    </Border.Shadow>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
+                    </Border.GestureRecognizers>
+                </Border>
+
+                <Label Text="Breakfast"></Label>
+                <Label Text="Lunch"></Label>
+                <Label Text="Dinner"></Label>
+                <Label Text="Snack"></Label>
+            </VerticalStackLayout>
+
+            <Button
+                Grid.Row="1"
+                Text="+"
+                FontAttributes="Bold"
+                FontSize="50"
+                WidthRequest="80"
+                HeightRequest="80"
+                CornerRadius="90">
+                <Button.Shadow>
+                    <Shadow Offset="1,1" Opacity="0.5"/>
+                </Button.Shadow>
+            </Button>
+        </Grid>
     </ScrollView>
 </ContentPage>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
+             x:DataType="viewmodel:NutritionDetailViewModel"
+             x:Class="NutritionApp.MVVM.Views.NutritionDetailPage"
+             Title="NutritionDetailPage"
+             BackgroundColor="{DynamicResource White}">
+    <VerticalStackLayout>
+        
+        <toolkit:Expander IsExpanded="True">
+            <toolkit:Expander.Header>
+                <Label FontSize="Small" Text="Primary Nutrients"></Label>
+            </toolkit:Expander.Header>
+            <CollectionView ItemsSource="{Binding PrimaryNutrients}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" />
+                </CollectionView.ItemsLayout>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Nutrient">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Title}"></Label>
+                            <customComponents:CustomProgressBar
+                                ProgressA="1"
+                                ProgressB="{Binding NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen"/>
+                            <Label Text="{Binding Info}"></Label>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </toolkit:Expander>
+
+        <toolkit:Expander IsExpanded="False">
+            <toolkit:Expander.Header>
+                <Label FontSize="Small" Text="Vitamins"></Label>
+            </toolkit:Expander.Header>
+            <CollectionView ItemsSource="{Binding Vitamins}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Nutrient">
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </toolkit:Expander>
+
+        <toolkit:Expander IsExpanded="False">
+            <toolkit:Expander.Header>
+                <Label FontSize="Small" Text="Minerals"></Label>
+            </toolkit:Expander.Header>
+            <CollectionView ItemsSource="{Binding Minerals}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Nutrient">
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </toolkit:Expander>
+
+        <toolkit:Expander IsExpanded="False">
+            <toolkit:Expander.Header>
+                <Label FontSize="Small" Text="Amino Acids"></Label>
+            </toolkit:Expander.Header>
+            <CollectionView ItemsSource="{Binding AminoAcids}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Nutrient">
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </toolkit:Expander>
+        
+    </VerticalStackLayout>
+</ContentPage>

@@ -35,4 +35,9 @@ public partial class MainPage : ContentPage
     {
         vm.ClearSearchResults();
     }
+
+    private async void NavigateToNutritionDetails(object sender, TappedEventArgs e)
+    {
+        await navigationService.NavigateToNutritionDetails();
+    }
 }

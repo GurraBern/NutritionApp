@@ -23,4 +23,10 @@ public class NavigationService
         var foodDetailPage = new FoodDetailPage(foodDetailViewModel);
         await Shell.Current.Navigation.PushAsync(foodDetailPage);
     }
+
+    public async Task NavigateToNutritionDetails()
+    {
+        await Shell.Current.GoToAsync("//NutritionDetailPage");
+    }
+
 }
