@@ -1,22 +1,29 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using Nutrition.Core;
+using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels.Utils;
+using NutritionApp.MVVM.Views;
+using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public class NutritionDetailViewModel : BaseViewModel
+public partial class NutritionDetailViewModel : BaseViewModel
 {
+    private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
-
+    private NutritionDay nutritionDay;
     public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
+    public ObservableCollection<Nutrient> Fats { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
     public ObservableCollection<Nutrient> Minerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
-    public NutritionDetailViewModel(INutrientFactory nutrientFactory)
+    public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
+        this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
-
         SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
+        SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.vitamins, Vitamins);
         SetupNutrients(NutritionUtils.minerals, Minerals);
         SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
@@ -31,11 +38,19 @@ public class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    public void UpdateNutritionInformation()
+    public async Task UpdateNutritionInformation()
     {
+        nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
+
         foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
         {
-            //nutrient.SetProgress(SelectedNutritionDay.NutrientTotals[nutrient.Name], SelectedNutritionDay.NutrientTotals[nutrient.Name]);
+            nutrient.SetProgress(nutritionDay.NutrientTotals[nutrient.Name], nutritionDay.NutrientTotals[nutrient.Name]);
         }
+    }
+
+    [RelayCommand]
+    public static async Task GoBack()
+    {
+        await Shell.Current.GoToAsync(nameof(MainPage));
     }
 }

@@ -4,7 +4,12 @@ public class NutritionUtils
 {
     public static readonly List<string> mainNutrients = new()
     {
-        "Calories", "Protein", "Carbohydrates", "Fat", "SaturatedFat", "Cholesterol"
+         "Calories", "Carbohydrates", "Protein", "Fat"
+    };
+
+    public static readonly List<string> fats = new()
+    {
+        "Fat", "SaturatedFat", "Cholesterol", "TransFat", "MonounsaturatedFat", "PolyunsaturatedFat"
     };
 
     public static readonly List<string> vitamins = new()
