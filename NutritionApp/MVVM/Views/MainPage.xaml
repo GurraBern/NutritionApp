@@ -35,28 +35,7 @@
                     <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
                 </Grid>
 
-                
-            <!--<SearchBar x:Name="searchBar"
-                SearchCommand="{Binding PerformSearchCommand}"
-                SearchCommandParameter="{Binding Text, Source={x:Reference searchBar}}"
-                TextColor="Black"
-                BackgroundColor="LightGrey"
-                Placeholder="Search foods..."
-                Unfocused="SearchBar_Unfocused"/>
-
-            <ListView x:Name="searchResults" 
-                ItemsSource="{Binding SearchResults}"
-                SelectionMode="Single"
-                ItemSelected="SearchResultSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="modelCore:FoodItem">
-                    <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            </ListView>-->
-
                 <Ellipse Stroke="LightGreen" WidthRequest="130"  HeightRequest="130" StrokeThickness="5"></Ellipse>
-
                 <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
                 <Label Text="SEE DETAILS +" FontAttributes="Bold" HorizontalOptions="Center">
@@ -65,6 +44,7 @@
                         <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
                     </Label.GestureRecognizers>
                 </Label>
+                
                 <Border>
                     <Grid HeightRequest="50" ColumnSpacing="25">
                         <Grid.ColumnDefinitions>
@@ -118,10 +98,89 @@
                     </Border.GestureRecognizers>
                 </Border>
 
-                <Label Text="Breakfast"></Label>
-                <Label Text="Lunch"></Label>
-                <Label Text="Dinner"></Label>
-                <Label Text="Snack"></Label>
+                <toolkit:Expander IsExpanded="True">
+                    <toolkit:Expander.Header>
+                        <Label FontSize="Small" Text="Breakfast"/>
+
+                    </toolkit:Expander.Header>
+                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modelCore:FoodItem">
+                                <Grid Padding="10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
+                                    <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </toolkit:Expander>
+
+                <toolkit:Expander IsExpanded="True">
+                    <toolkit:Expander.Header>
+                        <Label FontSize="Small" Text="Lunch"/>
+
+                    </toolkit:Expander.Header>
+                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modelCore:FoodItem">
+                                <Grid Padding="10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
+                                    <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </toolkit:Expander>
+
+                <toolkit:Expander IsExpanded="True">
+                    <toolkit:Expander.Header>
+                        <Label FontSize="Small" Text="Dinner"/>
+
+                    </toolkit:Expander.Header>
+                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modelCore:FoodItem">
+                                <Grid Padding="10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
+                                    <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </toolkit:Expander>
+
+                <toolkit:Expander IsExpanded="True">
+                    <toolkit:Expander.Header>
+                        <Label FontSize="Small" Text="Snack"/>
+
+                    </toolkit:Expander.Header>
+                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modelCore:FoodItem">
+                                <Grid Padding="10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" VerticalOptions="Center" FontSize="Small" Text="{Binding Name}"/>
+                                    <Label Grid.Column="1" HorizontalTextAlignment="End" FontSize="Small" Text="{Binding Amount, StringFormat='{0} Grams'}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </toolkit:Expander>
             </VerticalStackLayout>
 
             <Button
@@ -131,7 +190,8 @@
                 FontSize="50"
                 WidthRequest="80"
                 HeightRequest="80"
-                CornerRadius="90">
+                CornerRadius="90"
+                Clicked="NavigateToAddFoodPage">
                 <Button.Shadow>
                     <Shadow Offset="1,1" Opacity="0.5"/>
                 </Button.Shadow>

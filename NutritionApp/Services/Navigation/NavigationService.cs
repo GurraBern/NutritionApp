@@ -29,4 +29,8 @@ public class NavigationService
         await Shell.Current.GoToAsync("//NutritionDetailPage");
     }
 
+    public async Task NavigateToAddFoodPage()
+    {
+        await Shell.Current.GoToAsync("//AddFoodPage");
+    }
 }

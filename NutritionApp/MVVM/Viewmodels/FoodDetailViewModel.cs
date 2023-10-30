@@ -12,9 +12,9 @@ public partial class FoodDetailViewModel : BaseViewModel
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
     private int amount = 100;
-    public ObservableCollection<Nutrient> MainNutrients { get; } = new();
+    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> Minerals { get; } = new();
+    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
     public ObservableCollection<Nutrient> Other { get; } = new();
     public FoodItem FoodItem { get; }
@@ -49,18 +49,18 @@ public partial class FoodDetailViewModel : BaseViewModel
     private void InitializeNutrients()
     {
         // Main Nutrients
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Calories", FoodItem.Calories));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Protein", FoodItem.Protein));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Carbohydrates", FoodItem.Carbohydrate));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Fiber", FoodItem.Fiber));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Sugars", FoodItem.Sugar));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Starch", FoodItem.Starch));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Fat", FoodItem.TotalFat));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("SaturatedFat", FoodItem.TotalSaturatedFat));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("TransFat", FoodItem.TotalTransFat));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("MonounsaturatedFat", FoodItem.TotalMonounsaturated));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("PolyunsaturatedFat", FoodItem.TotalPolyunsaturated));
-        MainNutrients.Add(nutrientFactory.CreateNutrient("Cholesterol", FoodItem.Cholesterol));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Calories", FoodItem.Calories));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Protein", FoodItem.Protein));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Carbohydrates", FoodItem.Carbohydrate));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Fiber", FoodItem.Fiber));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Sugars", FoodItem.Sugar));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Starch", FoodItem.Starch));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Fat", FoodItem.TotalFat));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("SaturatedFat", FoodItem.TotalSaturatedFat));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("TransFat", FoodItem.TotalTransFat));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("MonounsaturatedFat", FoodItem.TotalMonounsaturated));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("PolyunsaturatedFat", FoodItem.TotalPolyunsaturated));
+        PrimaryNutrients.Add(nutrientFactory.CreateNutrient("Cholesterol", FoodItem.Cholesterol));
 
         // Vitamins
         Vitamins.Add(nutrientFactory.CreateNutrient("VitaminA", FoodItem.VitaminA));
@@ -80,21 +80,21 @@ public partial class FoodDetailViewModel : BaseViewModel
         Vitamins.Add(nutrientFactory.CreateNutrient("VitaminK2", FoodItem.VitaminK2));
 
         // Minerals
-        Minerals.Add(nutrientFactory.CreateNutrient("Calcium", FoodItem.Calcium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Chromium", FoodItem.Chromium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Copper", FoodItem.Copper));
-        Minerals.Add(nutrientFactory.CreateNutrient("Fluoride", FoodItem.Fluoride));
-        Minerals.Add(nutrientFactory.CreateNutrient("Iodine", FoodItem.Iodine));
-        Minerals.Add(nutrientFactory.CreateNutrient("Iron", FoodItem.Iron));
-        Minerals.Add(nutrientFactory.CreateNutrient("Magnesium", FoodItem.Magnesium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Manganese", FoodItem.Manganese));
-        Minerals.Add(nutrientFactory.CreateNutrient("Molybdenum", FoodItem.Molybdenum));
-        Minerals.Add(nutrientFactory.CreateNutrient("Nickel", FoodItem.Nickel));
-        Minerals.Add(nutrientFactory.CreateNutrient("Phosphorus", FoodItem.Phosphorus));
-        Minerals.Add(nutrientFactory.CreateNutrient("Potassium", FoodItem.Potassium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Selenium", FoodItem.Selenium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Sodium", FoodItem.Sodium));
-        Minerals.Add(nutrientFactory.CreateNutrient("Zinc", FoodItem.Zinc));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Calcium", FoodItem.Calcium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Chromium", FoodItem.Chromium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Copper", FoodItem.Copper));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Fluoride", FoodItem.Fluoride));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Iodine", FoodItem.Iodine));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Iron", FoodItem.Iron));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Magnesium", FoodItem.Magnesium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Manganese", FoodItem.Manganese));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Molybdenum", FoodItem.Molybdenum));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Nickel", FoodItem.Nickel));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Phosphorus", FoodItem.Phosphorus));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Potassium", FoodItem.Potassium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Selenium", FoodItem.Selenium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Sodium", FoodItem.Sodium));
+        MacroMinerals.Add(nutrientFactory.CreateNutrient("Zinc", FoodItem.Zinc));
 
         // Amino Acids
         AminoAcids.Add(nutrientFactory.CreateNutrient("Alanine", FoodItem.Alanine));
@@ -138,7 +138,7 @@ public partial class FoodDetailViewModel : BaseViewModel
 
     private void UpdateAllOnPropertiesChanged()
     {
-        foreach (var nutrient in MainNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
+        foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(MacroMinerals).Concat(AminoAcids))
         {
             var nutrientAmount = Convert.ToDouble(Amount) * nutrient.foodItemValue / 100;
             nutrient.SetProgress(nutrientAmount, nutritionDay.NutrientTotals[nutrient.Name]);

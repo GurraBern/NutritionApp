@@ -16,7 +16,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
     public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
     public ObservableCollection<Nutrient> Fats { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> Minerals { get; } = new();
+    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
@@ -25,8 +25,8 @@ public partial class NutritionDetailViewModel : BaseViewModel
         SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
         SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.vitamins, Vitamins);
-        SetupNutrients(NutritionUtils.minerals, Minerals);
-        SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
+        SetupNutrients(NutritionUtils.macroMinerals, MacroMinerals);
+        //SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
     }
 
     private void SetupNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
@@ -42,7 +42,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
     {
         nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
 
-        foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
+        foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(MacroMinerals).Concat(AminoAcids))
         {
             nutrient.SetProgress(nutritionDay.NutrientTotals[nutrient.Name], nutritionDay.NutrientTotals[nutrient.Name]);
         }

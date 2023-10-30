@@ -19,7 +19,7 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
                     </CollectionView.ItemsLayout>
                 
                     <CollectionView.ItemTemplate>
@@ -40,13 +40,13 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Minerals"></Label>
+                    <Label FontSize="Small" Text="Macro Elements"></Label>
                 </toolkit:Expander.Header>
-                <CollectionView ItemsSource="{Binding Minerals}">
+                <CollectionView ItemsSource="{Binding MacroMinerals}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
                     </CollectionView.ItemsLayout>
-
+                    
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
@@ -69,9 +69,9 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding Vitamins}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="3" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
                     </CollectionView.ItemsLayout>
-
+                    
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
@@ -87,7 +87,6 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </toolkit:Expander>
-
 
             <Button Text="Back" Command="{Binding GoBackCommand}"></Button>
         </VerticalStackLayout>

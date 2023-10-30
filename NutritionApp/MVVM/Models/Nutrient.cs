@@ -21,7 +21,7 @@ public partial class Nutrient : ObservableObject
         set
         {
             if (SetProperty(ref _currentItemValue, value))
-                OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(Info));
         }
     }
 

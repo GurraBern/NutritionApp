@@ -14,21 +14,33 @@ public class NutritionUtils
 
     public static readonly List<string> vitamins = new()
     {
-        "VitaminA", "VitaminD", "VitaminE", "VitaminC", "VitaminK1", "VitaminK2", "Thiamin", "Riboflavin", "Niacin",
-        "PantothenicAcid", "VitaminB6", "Folate", "VitaminB12", "TocopherolAlpha", "Choline", "FolicAcid",
-        "CaroteneAlpha", "CaroteneBeta", "CryptoxanthinBeta", "LuteinZeaxanthin", "Lycopene"
+        "VitaminA", "VitaminC", "VitaminD", "VitaminE", "TocopherolAlpha", "VitaminK1", "VitaminK2", "Thiamin", "Riboflavin", "Niacin", "Choline",
+        "PantothenicAcid", "VitaminB6", "Biotin", "Folate", "VitaminB12"
     };
 
-    public static readonly List<string> minerals = new()
+    public static readonly List<string> macroMinerals = new()
     {
-        "Calcium", "Iron", "Zinc", "Sodium", "Sodium", "Magnesium", "Copper", "Manganese", "Phosphorous", "Selenium",
-        "Iodine", "Fluoride","Molybdenum", "Nickel", "Phosphorus", "Potassium"
+        "Calcium", "Sodium", "Iron", "Magnesium", "Potassium", "Zinc", "Selenium", "Iodine", "Copper", "Manganese",
+        "Fluoride", "Chromium", "Molybdenum", "Nickel", "Phosphorous"
     };
 
-    public static readonly List<string> aminoAcids = new()
+    public static readonly List<string> essentialAminoAcids = new()
     {
-        "Alanine", "Arginine", "Asparagine", "AsparticAcid", "Cystine", "GlutamicAcid", "Glutamine", "Glycine",
-        "Histidine", "Hydroxyproline", "Isoleucine", "Leucine", "Lysine", "Methionine", "Phenylalanine",
-        "Proline", "Serine", "Threonine", "Tryptophan", "Tyrosine", "Valine", "Theobromine"
+        "Histidine", "Isoleucine", "Leucine", "Lysine", "Methionine", "Phenylalanine", "Threonine", "Tryptophan", "Valine"
+    };
+
+    public static readonly List<string> conditionallyEssentialAminoAcids = new()
+    {
+        "Arginine", "Cystine", "Glutamine", "Glycine", "Proline", "Tyrosine"
+    };
+
+    public static readonly List<string> nonEssentialAminoAcids = new()
+    {
+        "Alanine", "AsparticAcid", "Asparagine", "GlutamicAcid", "Serine"
+    };
+
+    public static readonly List<string> other = new()
+    {
+        "CryptoxanthinBeta", "LuteinZeaxanthin", "Lycopene"
     };
 }

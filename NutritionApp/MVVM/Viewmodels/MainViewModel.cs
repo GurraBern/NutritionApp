@@ -11,13 +11,10 @@ public partial class MainViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
-    private readonly INutrientFactory nutrientFactory;
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
-    public ObservableCollection<NutritionDay> nutritionDays = new();
     public ObservableCollection<FoodItem> ConsumedFoodItems { get; } = new();
-
     public Nutrient Protein { get; }
     public Nutrient Carbohydrates { get; }
     public Nutrient Fat { get; }
@@ -27,7 +24,6 @@ public partial class MainViewModel : BaseViewModel
     {
         this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
-        this.nutrientFactory = nutrientFactory;
 
         Protein = nutrientFactory.CreateNutrient("Protein");
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");

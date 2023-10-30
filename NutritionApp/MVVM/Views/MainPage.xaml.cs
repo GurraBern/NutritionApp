@@ -1,5 +1,4 @@
-﻿using Nutrition.Core;
-using NutritionApp.MVVM.ViewModels;
+﻿using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.Views;
@@ -25,19 +24,14 @@ public partial class MainPage : ContentPage
         vm.ClearSearchResults();
     }
 
-    private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
-    {
-        var selectedFoodItem = e.SelectedItem as FoodItem;
-        await navigationService.NavigateToFoodDetailPage(selectedFoodItem);
-    }
-
-    private void SearchBar_Unfocused(object sender, FocusEventArgs e)
-    {
-        vm.ClearSearchResults();
-    }
-
     private async void NavigateToNutritionDetails(object sender, TappedEventArgs e)
     {
         await navigationService.NavigateToNutritionDetails();
+    }
+
+    private async void NavigateToAddFoodPage(object sender, EventArgs e)
+    {
+        await navigationService.NavigateToAddFoodPage();
+
     }
 }
