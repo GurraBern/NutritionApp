@@ -103,7 +103,7 @@
                         <Label FontSize="Small" Text="Breakfast"/>
 
                     </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                    <CollectionView ItemsSource="{Binding BreakfastFoods}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="modelCore:FoodItem">
                                 <Grid Padding="10,0">
@@ -124,7 +124,7 @@
                         <Label FontSize="Small" Text="Lunch"/>
 
                     </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                    <CollectionView ItemsSource="{Binding LunchFoods}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="modelCore:FoodItem">
                                 <Grid Padding="10,0">
@@ -145,7 +145,7 @@
                         <Label FontSize="Small" Text="Dinner"/>
 
                     </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                    <CollectionView ItemsSource="{Binding DinnerFoods}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="modelCore:FoodItem">
                                 <Grid Padding="10,0">
@@ -166,7 +166,7 @@
                         <Label FontSize="Small" Text="Snack"/>
 
                     </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding ConsumedFoodItems}">
+                    <CollectionView ItemsSource="{Binding SnacksFoods}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="modelCore:FoodItem">
                                 <Grid Padding="10,0">

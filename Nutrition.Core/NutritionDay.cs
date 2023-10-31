@@ -9,7 +9,16 @@ public class NutritionDay
     public string Date { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
     [FirestoreProperty]
-    public List<FoodItem> ConsumedFoodItems { get; set; } = new();
+    public List<FoodItem> BreakfastFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> LunchFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> DinnerFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> SnacksFoods { get; set; } = new();
 
     [FirestoreProperty]
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
@@ -95,8 +104,37 @@ public class NutritionDay
 
     public void AddFood(FoodItem food)
     {
-        ConsumedFoodItems.Add(food);
+        AddFoodToMeal(food);
         SumNutrients(food, NutrientTotals);
+    }
+
+    private void AddFoodToMeal(FoodItem food)
+    {
+        var mealOfDay = GetMealOfDay();
+        switch (mealOfDay)
+        {
+            case MealOfDay.Breakfast:
+                BreakfastFoods.Add(food);
+                break;
+            case MealOfDay.Lunch:
+                LunchFoods.Add(food);
+                break;
+            case MealOfDay.Dinner:
+                DinnerFoods.Add(food);
+                break;
+            case MealOfDay.Snacks:
+                SnacksFoods.Add(food);
+                break;
+        }
+    }
+
+    //Determine time of day and assign to correct list
+    private MealOfDay GetMealOfDay()
+    {
+        var dateTime = DateTime.Now;
+
+
+        return MealOfDay.Breakfast;
     }
 
     private static void SumNutrients(FoodItem food, Dictionary<string, double> nutrients)
@@ -171,4 +209,12 @@ public class NutritionDay
     }
 
     private static double CalculateNutrients(double nutrient, int amount) => nutrient / 100 * amount;
+
+    private enum MealOfDay
+    {
+        Breakfast,
+        Lunch,
+        Dinner,
+        Snacks
+    }
 }

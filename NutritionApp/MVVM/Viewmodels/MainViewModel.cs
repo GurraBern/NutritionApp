@@ -14,7 +14,10 @@ public partial class MainViewModel : BaseViewModel
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
-    public ObservableCollection<FoodItem> ConsumedFoodItems { get; } = new();
+    public ObservableCollection<FoodItem> BreakfastFoods { get; } = new();
+    public ObservableCollection<FoodItem> LunchFoods { get; } = new();
+    public ObservableCollection<FoodItem> DinnerFoods { get; } = new();
+    public ObservableCollection<FoodItem> SnacksFoods { get; } = new();
     public Nutrient Protein { get; }
     public Nutrient Carbohydrates { get; }
     public Nutrient Fat { get; }
@@ -43,15 +46,23 @@ public partial class MainViewModel : BaseViewModel
 
     public void UpdateNutritionInformation()
     {
-        ConsumedFoodItems.Clear();
-        foreach (var food in SelectedNutritionDay.ConsumedFoodItems)
-        {
-            ConsumedFoodItems.Add(food);
-        }
+        ClearAndCopy(SelectedNutritionDay.BreakfastFoods, BreakfastFoods);
+        ClearAndCopy(SelectedNutritionDay.LunchFoods, LunchFoods);
+        ClearAndCopy(SelectedNutritionDay.DinnerFoods, DinnerFoods);
+        ClearAndCopy(SelectedNutritionDay.SnacksFoods, SnacksFoods);
 
         Protein.SetProgress(SelectedNutritionDay.NutrientTotals[Protein.Name], SelectedNutritionDay.NutrientTotals[Protein.Name]);
         Carbohydrates.SetProgress(SelectedNutritionDay.NutrientTotals[Carbohydrates.Name], SelectedNutritionDay.NutrientTotals[Carbohydrates.Name]);
         Fat.SetProgress(SelectedNutritionDay.NutrientTotals[Fat.Name], SelectedNutritionDay.NutrientTotals[Fat.Name]);
+    }
+
+    private void ClearAndCopy(List<FoodItem> source, ObservableCollection<FoodItem> target)
+    {
+        target.Clear();
+        foreach (var food in source)
+        {
+            target.Add(food);
+        }
     }
 
     [RelayCommand]
