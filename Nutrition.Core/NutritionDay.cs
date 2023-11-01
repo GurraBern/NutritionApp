@@ -128,13 +128,30 @@ public class NutritionDay
         }
     }
 
-    //Determine time of day and assign to correct list
-    private MealOfDay GetMealOfDay()
+    private static MealOfDay GetMealOfDay()
     {
-        var dateTime = DateTime.Now;
+        var currentTime = DateTime.Now.TimeOfDay;
 
+        if (IsBetween(currentTime, new TimeSpan(5, 0, 0), new TimeSpan(10, 30, 0)))
+            return MealOfDay.Breakfast;
+        else if (IsBetween(currentTime, new TimeSpan(11, 0, 0), new TimeSpan(14, 0, 0)))
+            return MealOfDay.Lunch;
+        else if (IsBetween(currentTime, new TimeSpan(17, 0, 0), new TimeSpan(20, 0, 0)))
+            return MealOfDay.Dinner;
 
-        return MealOfDay.Breakfast;
+        return MealOfDay.Snacks;
+    }
+
+    private static bool IsBetween(TimeSpan time, TimeSpan start, TimeSpan end)
+    {
+        if (start <= end)
+        {
+            return start <= time && time <= end;
+        }
+        else
+        {
+            return start <= time || time <= end;
+        }
     }
 
     private static void SumNutrients(FoodItem food, Dictionary<string, double> nutrients)
