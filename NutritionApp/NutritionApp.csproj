@@ -90,6 +90,9 @@
 	  <Compile Update="MVVM\Views\FoodDetailPage.xaml.cs">
 	    <DependentUpon>FoodDetailPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="MVVM\Views\AddFoodPage.xaml.cs">
+	    <DependentUpon>AddFoodPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -100,6 +103,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\AddFoodPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\NutritionDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

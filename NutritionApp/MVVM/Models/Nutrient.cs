@@ -21,13 +21,15 @@ public partial class Nutrient : ObservableObject
         set
         {
             if (SetProperty(ref _currentItemValue, value))
-                OnPropertyChanged(nameof(Title));
+                OnPropertyChanged(nameof(Info));
         }
     }
 
     public string Name { get; }
+    public string CustomName { get; set; }
     public string unit = string.Empty;
-    public string Title => $"{Name} {Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
+    public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
+    public string Info => $"{Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
 
     public Nutrient(string name, double nutrientValue, ISettingsService settingsService)
     {

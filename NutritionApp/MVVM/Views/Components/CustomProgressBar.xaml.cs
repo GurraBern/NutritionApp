@@ -2,12 +2,6 @@ namespace NutritionApp.MVVM.Views;
 
 public partial class CustomProgressBar : ContentView
 {
-    public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomProgressBar), propertyChanged: (bindable, oldValue, newValue) =>
-    {
-        var control = (CustomProgressBar)bindable;
-        control.titleLabel.Text = newValue as string;
-    });
-
     public static readonly BindableProperty ProgressAProperty = BindableProperty.Create(nameof(ProgressA), typeof(double), typeof(CustomProgressBar), propertyChanged: (bindable, oldValue, newValue) =>
     {
         var control = (CustomProgressBar)bindable;
@@ -19,12 +13,6 @@ public partial class CustomProgressBar : ContentView
         var control = (CustomProgressBar)bindable;
         control.progressBarB.Progress = (double)newValue;
     });
-
-    public string Title
-    {
-        get => GetValue(TitleProperty) as string;
-        set => SetValue(TitleProperty, value);
-    }
 
     public static readonly BindableProperty ProgressBarAColorProperty =
     BindableProperty.Create(nameof(ProgressBarAColor), typeof(Color), typeof(CustomProgressBar), Color.FromRgb(0, 0, 0),

@@ -11,8 +11,13 @@ public class NutrientFactory : INutrientFactory
         this.settingsService = settingsService;
     }
 
-    public Nutrient CreateNutrient(string name, double foodValue)
+    public Nutrient CreateNutrient(string name, double foodValue, string customName)
     {
-        return new Nutrient(name, foodValue, settingsService);
+        var nutrient = new Nutrient(name, foodValue, settingsService)
+        {
+            CustomName = customName,
+        };
+
+        return nutrient;
     }
 }

@@ -9,7 +9,16 @@ public class NutritionDay
     public string Date { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd");
 
     [FirestoreProperty]
-    public List<FoodItem> ConsumedFoodItems { get; set; } = new();
+    public List<FoodItem> BreakfastFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> LunchFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> DinnerFoods { get; set; } = new();
+
+    [FirestoreProperty]
+    public List<FoodItem> SnacksFoods { get; set; } = new();
 
     [FirestoreProperty]
     public Dictionary<string, double> NutrientTotals { get; set; } = new()
@@ -95,8 +104,54 @@ public class NutritionDay
 
     public void AddFood(FoodItem food)
     {
-        ConsumedFoodItems.Add(food);
+        AddFoodToMeal(food);
         SumNutrients(food, NutrientTotals);
+    }
+
+    private void AddFoodToMeal(FoodItem food)
+    {
+        var mealOfDay = GetMealOfDay();
+        switch (mealOfDay)
+        {
+            case MealOfDay.Breakfast:
+                BreakfastFoods.Add(food);
+                break;
+            case MealOfDay.Lunch:
+                LunchFoods.Add(food);
+                break;
+            case MealOfDay.Dinner:
+                DinnerFoods.Add(food);
+                break;
+            case MealOfDay.Snacks:
+                SnacksFoods.Add(food);
+                break;
+        }
+    }
+
+    private static MealOfDay GetMealOfDay()
+    {
+        var currentTime = DateTime.Now.TimeOfDay;
+
+        if (IsBetween(currentTime, new TimeSpan(5, 0, 0), new TimeSpan(10, 30, 0)))
+            return MealOfDay.Breakfast;
+        else if (IsBetween(currentTime, new TimeSpan(11, 0, 0), new TimeSpan(14, 0, 0)))
+            return MealOfDay.Lunch;
+        else if (IsBetween(currentTime, new TimeSpan(17, 0, 0), new TimeSpan(20, 0, 0)))
+            return MealOfDay.Dinner;
+
+        return MealOfDay.Snacks;
+    }
+
+    private static bool IsBetween(TimeSpan time, TimeSpan start, TimeSpan end)
+    {
+        if (start <= end)
+        {
+            return start <= time && time <= end;
+        }
+        else
+        {
+            return start <= time || time <= end;
+        }
     }
 
     private static void SumNutrients(FoodItem food, Dictionary<string, double> nutrients)
@@ -171,4 +226,12 @@ public class NutritionDay
     }
 
     private static double CalculateNutrients(double nutrient, int amount) => nutrient / 100 * amount;
+
+    private enum MealOfDay
+    {
+        Breakfast,
+        Lunch,
+        Dinner,
+        Snacks
+    }
 }

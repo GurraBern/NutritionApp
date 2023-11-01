@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
-using NutritionApp.MVVM.Viewmodels.Utils;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
@@ -12,55 +11,57 @@ public partial class MainViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
-    private readonly INutrientFactory nutritionFactory;
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
-    public ObservableCollection<NutritionDay> nutritionDays = new();
-    public ObservableCollection<FoodItem> ConsumedFoodItems { get; } = new();
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> Minerals { get; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
+    public ObservableCollection<FoodItem> BreakfastFoods { get; } = new();
+    public ObservableCollection<FoodItem> LunchFoods { get; } = new();
+    public ObservableCollection<FoodItem> DinnerFoods { get; } = new();
+    public ObservableCollection<FoodItem> SnacksFoods { get; } = new();
+    public Nutrient Protein { get; }
+    public Nutrient Carbohydrates { get; }
+    public Nutrient Fat { get; }
 
-    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutritionFactory)
+
+    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
-        this.nutritionFactory = nutritionFactory;
 
-        SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
-        SetupNutrients(NutritionUtils.vitamins, Vitamins);
-        SetupNutrients(NutritionUtils.minerals, Minerals);
-        SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
+        Protein = nutrientFactory.CreateNutrient("Protein");
+        Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");
+        Carbohydrates.CustomName = "Carbs";
+        Fat = nutrientFactory.CreateNutrient("Fat");
     }
 
     public async Task AssignNutritionDay()
     {
+        IsBusy = true;
+
         SelectedNutritionDay = await nutritionTracker.GetSelectedNutritionDay();
         UpdateNutritionInformation();
+
+        IsBusy = false;
     }
 
     public void UpdateNutritionInformation()
     {
-        ConsumedFoodItems.Clear();
-        foreach (var food in SelectedNutritionDay.ConsumedFoodItems)
-        {
-            ConsumedFoodItems.Add(food);
-        }
+        ClearAndCopy(SelectedNutritionDay.BreakfastFoods, BreakfastFoods);
+        ClearAndCopy(SelectedNutritionDay.LunchFoods, LunchFoods);
+        ClearAndCopy(SelectedNutritionDay.DinnerFoods, DinnerFoods);
+        ClearAndCopy(SelectedNutritionDay.SnacksFoods, SnacksFoods);
 
-        foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(Minerals).Concat(AminoAcids))
-        {
-            nutrient.SetProgress(SelectedNutritionDay.NutrientTotals[nutrient.Name], SelectedNutritionDay.NutrientTotals[nutrient.Name]);
-        }
+        Protein.SetProgress(SelectedNutritionDay.NutrientTotals[Protein.Name], SelectedNutritionDay.NutrientTotals[Protein.Name]);
+        Carbohydrates.SetProgress(SelectedNutritionDay.NutrientTotals[Carbohydrates.Name], SelectedNutritionDay.NutrientTotals[Carbohydrates.Name]);
+        Fat.SetProgress(SelectedNutritionDay.NutrientTotals[Fat.Name], SelectedNutritionDay.NutrientTotals[Fat.Name]);
     }
 
-    private void SetupNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void ClearAndCopy(List<FoodItem> source, ObservableCollection<FoodItem> target)
     {
-        foreach (var name in nutrientNames)
+        target.Clear();
+        foreach (var food in source)
         {
-            var nutrient = nutritionFactory.CreateNutrient(name);
-            nutrientCollection.Add(nutrient);
+            target.Add(food);
         }
     }
 

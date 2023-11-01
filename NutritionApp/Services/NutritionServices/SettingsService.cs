@@ -114,7 +114,7 @@ public class SettingsService : ISettingsService
         { "Manganese", "mg" },
         { "Molybdenum", "mcg" },
         { "Nickel", "mcg" },
-        { "Phosphorus", "mg" },
+        { "Phosphorous", "mg" },
         { "Potassium", "mg" },
         { "Selenium", "mcg" },
         { "Sodium", "mg" },
