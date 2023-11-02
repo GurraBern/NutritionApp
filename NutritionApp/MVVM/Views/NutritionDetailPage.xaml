@@ -12,7 +12,10 @@
              BackgroundColor="{DynamicResource White}">
     <ScrollView>
         <VerticalStackLayout>
-        
+
+            <Button Text="detailed" Command="{Binding ShowDetailedNutrientsCommand}"></Button>
+            <Button Text="basic" Command="{Binding ShowBasicNutrientsCommand}"></Button>
+            
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
                     <Label FontSize="Small" Text="Primary Nutrients"></Label>
@@ -72,6 +75,31 @@
                         <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
                     </CollectionView.ItemsLayout>
                     
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Nutrient">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Title}"></Label>
+                                <customComponents:CustomProgressBar
+                                     ProgressA="1"
+                                     ProgressB="{Binding NutritionProgress}"
+                                     ProgressBarAColor="LightGrey"
+                                     ProgressBarBColor="LimeGreen"/>
+                                <Label Text="{Binding Info}"></Label>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </toolkit:Expander>
+
+            <toolkit:Expander IsExpanded="True">
+                <toolkit:Expander.Header>
+                    <Label FontSize="Small" Text="Essential Aminoacids"></Label>
+                </toolkit:Expander.Header>
+                <CollectionView ItemsSource="{Binding AminoAcids}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>

@@ -6,6 +6,7 @@ namespace NutritionApp.Services.NutritionServices;
 public class NutritionApiClient : INutritionApiClient
 {
     private readonly RestClient restClient;
+
     public NutritionApiClient(string baseUrl)
     {
         restClient = new RestClient(baseUrl);

@@ -22,14 +22,20 @@ public partial class NutritionDetailViewModel : BaseViewModel
     {
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
+
+        SetupAllNutrients();
+    }
+
+    private void SetupAllNutrients()
+    {
         SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
         SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.vitamins, Vitamins);
         SetupNutrients(NutritionUtils.macroMinerals, MacroMinerals);
-        //SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
+        SetupNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
     }
 
-    private void SetupNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
     {
         foreach (var name in nutrientNames)
         {
@@ -49,7 +55,34 @@ public partial class NutritionDetailViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public static async Task GoBack()
+    private async Task ShowDetailedNutrients()
+    {
+        SetupNutrients(NutritionUtils.fats, Fats);
+        SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
+
+        await UpdateNutritionInformation();
+    }
+
+    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<Nutrient> nutrients)
+    {
+        for (int i = 0; i < nutrients.Count; i++)
+        {
+            var nutrient = nutrients[i];
+            if (!matchingNutrientNames.Contains(nutrient.Name))
+                nutrients.RemoveAt(i);
+        }
+    }
+
+    [RelayCommand]
+    private async Task ShowBasicNutrients()
+    {
+        RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
+
+        await UpdateNutritionInformation();
+    }
+
+    [RelayCommand]
+    public async Task GoBack()
     {
         await Shell.Current.GoToAsync(nameof(MainPage));
     }
