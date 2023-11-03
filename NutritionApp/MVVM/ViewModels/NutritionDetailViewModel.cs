@@ -18,12 +18,23 @@ public partial class NutritionDetailViewModel : BaseViewModel
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
     public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
+    public SelectionCollection SelectionCollection { get; private set; } = new();
+
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
 
         SetupAllNutrients();
+        SetupOptions();
+    }
+
+    private void SetupOptions()
+    {
+        var basicOption = new OptionItem("Basic", new AsyncRelayCommand(ShowBasicNutrients));
+        var advancedOption = new OptionItem("Detailed", new AsyncRelayCommand(ShowDetailedNutrients));
+        SelectionCollection.Options.Add(basicOption);
+        SelectionCollection.Options.Add(advancedOption);
     }
 
     private void SetupAllNutrients()
@@ -54,15 +65,6 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    [RelayCommand]
-    private async Task ShowDetailedNutrients()
-    {
-        SetupNutrients(NutritionUtils.fats, Fats);
-        SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
-
-        await UpdateNutritionInformation();
-    }
-
     private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<Nutrient> nutrients)
     {
         for (int i = 0; i < nutrients.Count; i++)
@@ -73,12 +75,29 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    [RelayCommand]
+    private async Task ShowDetailedNutrients()
+    {
+        if (SelectionCollection.CanExecuteCommand)
+        {
+            SetupNutrients(NutritionUtils.fats, Fats);
+            SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
+
+            await UpdateNutritionInformation();
+        }
+
+        SelectionCollection.CanExecuteCommand = false;
+    }
+
     private async Task ShowBasicNutrients()
     {
-        RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
+        if (SelectionCollection.CanExecuteCommand)
+        {
+            RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
 
-        await UpdateNutritionInformation();
+            await UpdateNutritionInformation();
+        }
+
+        SelectionCollection.CanExecuteCommand = false;
     }
 
     [RelayCommand]

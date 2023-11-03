@@ -5,6 +5,7 @@ namespace NutritionApp.MVVM.Views;
 public partial class NutritionDetailPage : ContentPage
 {
     private readonly NutritionDetailViewModel vm;
+
     public NutritionDetailPage(NutritionDetailViewModel vm)
     {
         InitializeComponent();
@@ -16,5 +17,10 @@ public partial class NutritionDetailPage : ContentPage
     {
         base.OnAppearing();
         await vm.UpdateNutritionInformation();
+    }
+
+    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        vm.SelectionCollection.CanExecuteCommand = true;
     }
 }
