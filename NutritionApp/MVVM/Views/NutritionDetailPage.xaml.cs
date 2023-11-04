@@ -18,9 +18,4 @@ public partial class NutritionDetailPage : ContentPage
         base.OnAppearing();
         await vm.UpdateNutritionInformation();
     }
-
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        //vm.SelectedOption.Command;
-    }
 }

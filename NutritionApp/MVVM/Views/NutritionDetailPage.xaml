@@ -21,49 +21,19 @@
                             ItemsLayout="VerticalGrid, 2">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:OptionItem">
-                        <Border Style="{StaticResource BorderSelection}"
-                                HeightRequest="50">
+                        <Border Style="{StaticResource BorderSelection}" HeightRequest="50">
                             <Label x:Name="selectionLabel" 
                                    Text="{Binding Text}" 
                                    VerticalOptions="Center" 
-                                   HorizontalOptions="Center">
-                            </Label>
+                                   HorizontalOptions="Center"/>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-
-
-            <!--<HorizontalStackLayout>
-                <CollectionView ItemsSource="{Binding SelectionCollection.Options}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:OptionItem">
-                                <Label Text="{Binding Text}">
-                                    <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Command}" />
-                                    </Label.GestureRecognizers>
-                                </Label>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup Name="CommonStates">
-                        <VisualState Name="Normal"></VisualState>
-                        <VisualState Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor" Value="LightSkyBlue"></Setter>
-                            </VisualState.Setters>
-                        </VisualState>
-
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </HorizontalStackLayout>-->
-
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Primary Nutrients"></Label>
+                    <Label FontSize="Small" Text="Primary Nutrients"/>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                     <CollectionView.ItemsLayout>
@@ -73,13 +43,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Title}"></Label>
+                                <Label Text="{Binding Title}"/>
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
                                     ProgressBarBColor="LimeGreen"/>
-                                <Label Text="{Binding Info}"></Label>
+                                <Label Text="{Binding Info}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -88,7 +58,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Macro Elements"></Label>
+                    <Label FontSize="Small" Text="Macro Elements"/>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding MacroMinerals}">
                     <CollectionView.ItemsLayout>
@@ -98,13 +68,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Title}"></Label>
+                                <Label Text="{Binding Title}"/>
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
                                     ProgressBarBColor="LimeGreen"/>
-                                <Label Text="{Binding Info}"></Label>
+                                <Label Text="{Binding Info}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -113,7 +83,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Vitamins"></Label>
+                    <Label FontSize="Small" Text="Vitamins"/>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding Vitamins}">
                     <CollectionView.ItemsLayout>
@@ -123,13 +93,13 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Title}"></Label>
+                                <Label Text="{Binding Title}"/>
                                 <customComponents:CustomProgressBar
                                      ProgressA="1"
                                      ProgressB="{Binding NutritionProgress}"
                                      ProgressBarAColor="LightGrey"
                                      ProgressBarBColor="LimeGreen"/>
-                                <Label Text="{Binding Info}"></Label>
+                                <Label Text="{Binding Info}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -138,7 +108,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Essential Aminoacids"></Label>
+                    <Label FontSize="Small" Text="Essential Aminoacids"/>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding AminoAcids}">
                     <CollectionView.ItemsLayout>
@@ -148,20 +118,20 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Nutrient">
                             <VerticalStackLayout>
-                                <Label Text="{Binding Title}"></Label>
+                                <Label Text="{Binding Title}"/>
                                 <customComponents:CustomProgressBar
                                      ProgressA="1"
                                      ProgressB="{Binding NutritionProgress}"
                                      ProgressBarAColor="LightGrey"
                                      ProgressBarBColor="LimeGreen"/>
-                                <Label Text="{Binding Info}"></Label>
+                                <Label Text="{Binding Info}"/>
                             </VerticalStackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </toolkit:Expander>
 
-            <Button Text="Back" Command="{Binding GoBackCommand}"></Button>
+            <Button Text="Back" Command="{Binding GoBackCommand}"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
