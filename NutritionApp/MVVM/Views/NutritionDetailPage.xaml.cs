@@ -21,6 +21,6 @@ public partial class NutritionDetailPage : ContentPage
 
     private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        vm.SelectionCollection.CanExecuteCommand = true;
+        //vm.SelectedOption.Command;
     }
 }

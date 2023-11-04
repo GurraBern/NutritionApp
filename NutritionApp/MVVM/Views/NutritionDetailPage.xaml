@@ -11,28 +11,31 @@
              Title="NutritionDetailPage"
              BackgroundColor="{DynamicResource White}">
 
-    <ContentPage.Resources>
-        <Style TargetType="Grid">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="LightSkyBlue" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
-        </Style>
-    </ContentPage.Resources>
-
     <ScrollView>
         <VerticalStackLayout>
+            <CollectionView ItemsSource="{Binding Options}" 
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedOption}"
+                            SelectionChangedCommand="{Binding SelectedOption.Command}"
+                            HorizontalOptions="Fill"
+                            ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:OptionItem">
+                        <Border Style="{StaticResource BorderSelection}"
+                                HeightRequest="50">
+                            <Label x:Name="selectionLabel" 
+                                   Text="{Binding Text}" 
+                                   VerticalOptions="Center" 
+                                   HorizontalOptions="Center">
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            <HorizontalStackLayout>
+
+
+            <!--<HorizontalStackLayout>
                 <CollectionView ItemsSource="{Binding SelectionCollection.Options}" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:OptionItem">
@@ -56,7 +59,7 @@
 
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
-            </HorizontalStackLayout>
+            </HorizontalStackLayout>-->
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>

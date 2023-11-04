@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!--<Style x:Key="BorderSelection" TargetType="Border">
+    <Style x:Key="BorderSelection" TargetType="CollectionView">
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
@@ -12,7 +12,7 @@
                         <VisualState.Setters>
                             <Setter Property="BackgroundColor"
                                     Value="Transparent" />
-                            <Setter TargetName="label"
+                            <Setter TargetName="selectionLabel"
                                 Property="Label.TextColor"
                                 Value="Black" />
                         </VisualState.Setters>
@@ -21,7 +21,7 @@
                         <VisualState.Setters>
                             <Setter Property="BackgroundColor"
                                     Value="{StaticResource Primary}" />
-                            <Setter TargetName="label"
+                            <Setter TargetName="selectionLabel"
                                 Property="Label.TextColor"
                                 Value="White" />
                         </VisualState.Setters>
@@ -29,7 +29,16 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>-->
+    </Style>
+
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style TargetType="IndicatorView">
+        <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>
+        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}"/>
+    </Style>
 
     <Style TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"></Setter>
@@ -43,23 +52,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
-    </Style>
-
-    <Style TargetType="IndicatorView">
-        <Setter Property="IndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}"/>
-        <Setter Property="SelectedIndicatorColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray100}}"/>
-    </Style>
-
-    <!--<Style TargetType="Border">
-        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray500}}" />
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
-
-        <Setter Property="StrokeShape" Value="Rectangle"/>
-        <Setter Property="StrokeThickness" Value="1"/>
-    </Style>-->
 
     <Style TargetType="BoxView">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
