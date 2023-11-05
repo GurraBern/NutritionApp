@@ -14,7 +14,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
+    public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
     public ObservableCollection<Nutrient> Fats { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
     public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
@@ -37,8 +37,9 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private void SetupOptions()
     {
         var basicOption = new OptionItem("Basic", new AsyncRelayCommand(ShowBasicNutrients));
-        var advancedOption = new OptionItem("Detailed", new AsyncRelayCommand(ShowDetailedNutrients));
         Options.Add(basicOption);
+
+        var advancedOption = new OptionItem("Detailed", new AsyncRelayCommand(ShowDetailedNutrients));
         Options.Add(advancedOption);
 
         SelectedOption = basicOption;
@@ -82,19 +83,30 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    private async Task ShowDetailedNutrients()
+    public async Task ShowDetailedNutrients()
     {
         SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
 
+        SortAllNutrients();
+
         await UpdateNutritionInformation();
     }
 
-    private async Task ShowBasicNutrients()
+    public async Task ShowBasicNutrients()
     {
         RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
 
+        SortAllNutrients();
+
         await UpdateNutritionInformation();
+    }
+
+    private void SortAllNutrients()
+    {
+        PrimaryNutrients.SortByNutritionProgress();
+        MacroMinerals.SortByNutritionProgress();
+        Vitamins.SortByNutritionProgress();
     }
 
     [RelayCommand]

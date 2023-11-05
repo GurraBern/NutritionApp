@@ -5,14 +5,20 @@ namespace NutritionApp.MVVM.Models;
 
 public partial class Nutrient : ObservableObject
 {
-    private readonly double nutritionAmountNeeded;
-    public readonly double foodItemValue;
-    private readonly ISettingsService settingsService;
     [ObservableProperty]
     private double nutritionProgress;
 
     [ObservableProperty]
     private double nutritionPotentialProgress;
+
+    private readonly double nutritionAmountNeeded;
+    public readonly double foodItemValue;
+    public readonly int sortValue;
+    public string Name { get; }
+    public string CustomName { get; set; }
+    public string unit = string.Empty;
+    public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
+    public string Info => $"{Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
 
     private double _currentItemValue;
     public double CurrentItemValue
@@ -25,17 +31,10 @@ public partial class Nutrient : ObservableObject
         }
     }
 
-    public string Name { get; }
-    public string CustomName { get; set; }
-    public string unit = string.Empty;
-    public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
-    public string Info => $"{Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
-
     public Nutrient(string name, double nutrientValue, ISettingsService settingsService)
     {
         Name = name;
         foodItemValue = nutrientValue;
-        this.settingsService = settingsService;
         unit = settingsService.GetNutritionUnit(name);
         nutritionAmountNeeded = settingsService.GetNutritionNeed(name);
     }

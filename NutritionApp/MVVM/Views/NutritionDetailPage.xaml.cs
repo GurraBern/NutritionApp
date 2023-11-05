@@ -17,5 +17,6 @@ public partial class NutritionDetailPage : ContentPage
     {
         base.OnAppearing();
         await vm.UpdateNutritionInformation();
+        await vm.ShowBasicNutrients();
     }
 }
