@@ -57,7 +57,8 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"></Setter>
         <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
         <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
-        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
 
         <Setter Property="Shadow">
             <Setter.Value>
