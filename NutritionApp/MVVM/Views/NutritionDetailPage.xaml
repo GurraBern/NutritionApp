@@ -40,13 +40,13 @@
                     </toolkit:Expander.Header>
                     <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                         <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2"  HorizontalItemSpacing="5" VerticalItemSpacing="5"/>
+                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5"/>
                         </CollectionView.ItemsLayout>
                 
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Nutrient">
                                 <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout Padding="2">
                                         <Label Text="{Binding Title}"/>
                                         <customComponents:CustomProgressBar
                                             ProgressA="1"
@@ -73,7 +73,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Nutrient">
                                 <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout Padding="2">
                                         <Label Text="{Binding Title}"/>
                                         <customComponents:CustomProgressBar
                                             ProgressA="1"
@@ -100,7 +100,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Nutrient">
                                 <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout Padding="2">
                                         <Label Text="{Binding Title}"/>
                                         <customComponents:CustomProgressBar
                                              ProgressA="1"
@@ -127,7 +127,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Nutrient">
                                 <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout>
+                                    <VerticalStackLayout Padding="2">
                                         <Label Text="{Binding Title}"/>
                                         <customComponents:CustomProgressBar
                                              ProgressA="1"

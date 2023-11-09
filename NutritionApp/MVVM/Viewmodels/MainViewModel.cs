@@ -21,6 +21,7 @@ public partial class MainViewModel : BaseViewModel
     public Nutrient Protein { get; }
     public Nutrient Carbohydrates { get; }
     public Nutrient Fat { get; }
+    public Nutrient Calories { get; }
 
 
     public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
@@ -32,6 +33,7 @@ public partial class MainViewModel : BaseViewModel
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");
         Carbohydrates.CustomName = "Carbs";
         Fat = nutrientFactory.CreateNutrient("Fat");
+        Calories = nutrientFactory.CreateNutrient("Calories");
     }
 
     public async Task AssignNutritionDay()
@@ -54,6 +56,7 @@ public partial class MainViewModel : BaseViewModel
         Protein.SetProgress(SelectedNutritionDay.NutrientTotals[Protein.Name], SelectedNutritionDay.NutrientTotals[Protein.Name]);
         Carbohydrates.SetProgress(SelectedNutritionDay.NutrientTotals[Carbohydrates.Name], SelectedNutritionDay.NutrientTotals[Carbohydrates.Name]);
         Fat.SetProgress(SelectedNutritionDay.NutrientTotals[Fat.Name], SelectedNutritionDay.NutrientTotals[Fat.Name]);
+        Calories.SetProgress(SelectedNutritionDay.NutrientTotals[Calories.Name], SelectedNutritionDay.NutrientTotals[Calories.Name]);
     }
 
     private void ClearAndCopy(List<FoodItem> source, ObservableCollection<FoodItem> target)
