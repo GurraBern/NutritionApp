@@ -21,6 +21,8 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
 
         await vm.AssignNutritionDay();
+        vm.UpdateNutritionInformation();
+
         vm.ClearSearchResults();
     }
 

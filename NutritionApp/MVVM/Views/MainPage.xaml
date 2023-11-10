@@ -8,10 +8,17 @@
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
+             xmlns:converters="clr-namespace:NutritionApp.Converters"
              xmlns:controls="clr-namespace:CircularProgressBar.Controls"
-             BackgroundColor="{DynamicResource White}">
+             BackgroundColor="{DynamicResource CreamWhite}">
 
-    <ScrollView>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:DateToStringConverter x:Key="DateConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Margin="5">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -23,29 +30,26 @@
                 Spacing="10"
                 Padding="20,0">
 
-                <Grid HeightRequest="50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <Grid>
+                    <controls:CircularProgressBar
+                        Grid.Row="0"
+                        Progress="{Binding Calories.NutritionProgress}"
+                        ProgressColor="#E84855"
+                        ProgressLeftColor="#403F4C"
+                        Size="120"
+                        Thickness="5">
+                    </controls:CircularProgressBar>
 
-                    <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
-                    <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, StringFormat='{0:MMMM dd, yyyy}'}"></Label>
-                    <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
+                    <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            Text="{Binding Calories.Info}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            FontSize="Micro"/>
+                        <Label Text="KCAL" FontSize="Micro" HorizontalOptions="Center"/>
+                    </StackLayout>
+                    
                 </Grid>
-
-
-                <controls:CircularProgressBar
-                    Text="{Binding Calories.Info}"
-                    Progress="{Binding Calories.NutritionProgress}"
-                    ProgressColor="Green"
-                    ProgressLeftColor="LightGreen"
-                    Size="120"
-                    TextColor="DarkGreen"
-                    Thickness="5">
-                </controls:CircularProgressBar>
-
 
                 <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
@@ -102,6 +106,18 @@
                         <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
                     </Border.GestureRecognizers>
                 </Border>
+
+                <Grid HeightRequest="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                    <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, Converter={StaticResource DateConverter}}"></Label>
+                    <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
+                </Grid>
 
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>

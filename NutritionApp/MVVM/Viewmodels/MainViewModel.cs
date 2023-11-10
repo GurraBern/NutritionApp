@@ -23,7 +23,6 @@ public partial class MainViewModel : BaseViewModel
     public Nutrient Fat { get; }
     public Nutrient Calories { get; }
 
-
     public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionService = nutritionService;
@@ -34,6 +33,7 @@ public partial class MainViewModel : BaseViewModel
         Carbohydrates.CustomName = "Carbs";
         Fat = nutrientFactory.CreateNutrient("Fat");
         Calories = nutrientFactory.CreateNutrient("Calories");
+        Calories.unit = string.Empty;
     }
 
     public async Task AssignNutritionDay()
@@ -41,7 +41,6 @@ public partial class MainViewModel : BaseViewModel
         IsBusy = true;
 
         SelectedNutritionDay = await nutritionTracker.GetSelectedNutritionDay();
-        UpdateNutritionInformation();
 
         IsBusy = false;
     }
@@ -59,7 +58,7 @@ public partial class MainViewModel : BaseViewModel
         Calories.SetProgress(SelectedNutritionDay.NutrientTotals[Calories.Name], SelectedNutritionDay.NutrientTotals[Calories.Name]);
     }
 
-    private void ClearAndCopy(List<FoodItem> source, ObservableCollection<FoodItem> target)
+    private static void ClearAndCopy(List<FoodItem> source, ObservableCollection<FoodItem> target)
     {
         target.Clear();
         foreach (var food in source)
