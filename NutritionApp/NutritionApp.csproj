@@ -96,6 +96,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="MVVM\Views\Components\CircularProgressBar\CircularProgressBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\Components\CustomProgressBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels.Utils;
@@ -13,23 +14,47 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
+    public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
     public ObservableCollection<Nutrient> Fats { get; } = new();
     public ObservableCollection<Nutrient> Vitamins { get; } = new();
     public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
     public ObservableCollection<Nutrient> AminoAcids { get; } = new();
+
+    [ObservableProperty]
+    private OptionItem selectedOption;
+    public ObservableCollection<OptionItem> Options { get; private set; } = new();
+
+
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
+
+        SetupAllNutrients();
+        SetupOptions();
+    }
+
+    private void SetupOptions()
+    {
+        var basicOption = new OptionItem("Basic", new AsyncRelayCommand(ShowBasicNutrients));
+        Options.Add(basicOption);
+
+        var advancedOption = new OptionItem("Detailed", new AsyncRelayCommand(ShowDetailedNutrients));
+        Options.Add(advancedOption);
+
+        SelectedOption = basicOption;
+    }
+
+    private void SetupAllNutrients()
+    {
         SetupNutrients(NutritionUtils.mainNutrients, PrimaryNutrients);
         SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.vitamins, Vitamins);
         SetupNutrients(NutritionUtils.macroMinerals, MacroMinerals);
-        //SetupNutrients(NutritionUtils.aminoAcids, AminoAcids);
+        SetupNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
     }
 
-    private void SetupNutrients(List<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
     {
         foreach (var name in nutrientNames)
         {
@@ -48,8 +73,44 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
+    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<Nutrient> nutrients)
+    {
+        for (int i = 0; i < nutrients.Count; i++)
+        {
+            var nutrient = nutrients[i];
+            if (!matchingNutrientNames.Contains(nutrient.Name))
+                nutrients.RemoveAt(i);
+        }
+    }
+
+    public async Task ShowDetailedNutrients()
+    {
+        SetupNutrients(NutritionUtils.fats, Fats);
+        SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
+
+        SortAllNutrients();
+
+        await UpdateNutritionInformation();
+    }
+
+    public async Task ShowBasicNutrients()
+    {
+        RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
+
+        SortAllNutrients();
+
+        await UpdateNutritionInformation();
+    }
+
+    private void SortAllNutrients()
+    {
+        PrimaryNutrients.SortByNutritionProgress();
+        MacroMinerals.SortByNutritionProgress();
+        Vitamins.SortByNutritionProgress();
+    }
+
     [RelayCommand]
-    public static async Task GoBack()
+    public async Task GoBack()
     {
         await Shell.Current.GoToAsync(nameof(MainPage));
     }

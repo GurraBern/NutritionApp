@@ -24,6 +24,8 @@ public class NutritionUtils
         "Fluoride", "Chromium", "Molybdenum", "Nickel", "Phosphorous"
     };
 
+    public static IEnumerable<string> DetailedAminoAcids => conditionallyEssentialAminoAcids.Concat(nonEssentialAminoAcids);
+
     public static readonly List<string> essentialAminoAcids = new()
     {
         "Histidine", "Isoleucine", "Leucine", "Lysine", "Methionine", "Phenylalanine", "Threonine", "Tryptophan", "Valine"
