@@ -4,11 +4,7 @@ namespace NutritionApp.MVVM.Views.Components.CircularProgressBar.Drawables;
 
 public class CircularProgressBarDrawable : BindableObject, IDrawable, INotifyPropertyChanged
 {
-    public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(double), typeof(CircularProgressBarDrawable), propertyChanged: (bindable, oldValue, newValue) =>
-    {
-        var control = (CircularProgressBarDrawable)bindable;
-        control.Progress = (double)newValue;
-    });
+    public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(double), typeof(CircularProgressBarDrawable));
     public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(int), typeof(CircularProgressBarDrawable));
     public static readonly BindableProperty ThicknessProperty = BindableProperty.Create(nameof(Thickness), typeof(int), typeof(CircularProgressBarDrawable));
     public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create(nameof(ProgressColor), typeof(Color), typeof(CircularProgressBarDrawable));
