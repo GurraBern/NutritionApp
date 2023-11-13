@@ -119,6 +119,30 @@
                     <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
                 </Grid>
 
+
+                <Border Style="{StaticResource RoundBorder}" Padding="15">
+                    
+                    <Grid HeightRequest="60" Padding="10" ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="dotnet_bot.png" Grid.Column="0"></Image>
+                        <ImageButton Source="plus_circle_svgrepo_com.svg" Grid.Column="2" VerticalOptions="Center"></ImageButton>
+                        <VerticalStackLayout  Grid.Column="1">
+                            <Label Text="Breakfast" FontSize="Micro" FontAttributes="Bold"></Label>
+
+                            <HorizontalStackLayout>
+                                <Label Opacity="0.8" Text="Brocoli, Brocoli"></Label>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                    
+                </Border>
+
+
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>
                         <toolkit:Expander IsExpanded="True">
