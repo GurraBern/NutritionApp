@@ -122,10 +122,10 @@
 
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>
-                        <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}"></customComponents:MealView>
-                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}"></customComponents:MealView>
-                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}"></customComponents:MealView>
-                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}"></customComponents:MealView>
+                        <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
+                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
+                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
+                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>

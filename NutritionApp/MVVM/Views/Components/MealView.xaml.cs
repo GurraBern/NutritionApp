@@ -1,4 +1,5 @@
 using Nutrition.Core;
+using System.Windows.Input;
 
 namespace NutritionApp.MVVM.Views;
 
@@ -16,6 +17,9 @@ public partial class MealView : ContentView
         control.foodList.ItemsSource = (IEnumerable<FoodItem>)newValue;
     });
 
+    public static readonly BindableProperty CommandProperty = BindableProperty.Create(
+       nameof(Command), typeof(ICommand), typeof(MealView));
+
     public MealView()
     {
         InitializeComponent();
@@ -31,5 +35,11 @@ public partial class MealView : ContentView
     {
         get => (IEnumerable<FoodItem>)GetValue(MealProperty);
         set => SetValue(MealProperty, value);
+    }
+
+    public ICommand Command
+    {
+        get => (ICommand)GetValue(CommandProperty);
+        set => SetValue(CommandProperty, value);
     }
 }

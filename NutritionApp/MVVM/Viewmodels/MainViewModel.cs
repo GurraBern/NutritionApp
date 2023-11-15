@@ -107,4 +107,11 @@ public partial class MainViewModel : BaseViewModel
         SelectedNutritionDay = await nutritionTracker.PreviousDay();
         UpdateNutritionInformation();
     }
+
+    [RelayCommand]
+    public async Task AddFoodToBreakfast()
+    {
+        //SelectedNutritionDay = await nutritionTracker.AddFood();
+        UpdateNutritionInformation();
+    }
 }
