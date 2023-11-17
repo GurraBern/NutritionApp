@@ -11,7 +11,6 @@ public class NutritionTracker : ObservableObject, INutritionTracker
     private List<NutritionDay> NutritionDays = new();
     private readonly INutritionTrackingService nutritionDataProvider;
 
-
     public NutritionTracker(INutritionTrackingService nutritionDataProvider)
     {
         this.nutritionDataProvider = nutritionDataProvider;

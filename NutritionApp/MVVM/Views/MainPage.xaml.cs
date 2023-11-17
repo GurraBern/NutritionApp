@@ -1,19 +1,16 @@
 ﻿using NutritionApp.MVVM.ViewModels;
-using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.Views;
 
 public partial class MainPage : ContentPage
 {
-    private MainViewModel vm;
-    private readonly NavigationService navigationService;
+    private readonly MainViewModel vm;
 
-    public MainPage(MainViewModel vm, NavigationService navigationService)
+    public MainPage(MainViewModel vm)
     {
         InitializeComponent();
         BindingContext = vm;
         this.vm = vm;
-        this.navigationService = navigationService;
     }
 
     protected async override void OnAppearing()
@@ -21,17 +18,7 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
 
         await vm.AssignNutritionDay();
+        vm.UpdateNutritionInformation();
         vm.ClearSearchResults();
-    }
-
-    private async void NavigateToNutritionDetails(object sender, TappedEventArgs e)
-    {
-        await navigationService.NavigateToNutritionDetails();
-    }
-
-    private async void NavigateToAddFoodPage(object sender, EventArgs e)
-    {
-        await navigationService.NavigateToAddFoodPage();
-
     }
 }

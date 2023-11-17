@@ -15,6 +15,9 @@ public class FoodItem
     public string Creator { get; set; }
 
     [FirestoreProperty]
+    public MealOfDay MealOfDay { get; set; }
+
+    [FirestoreProperty]
     public int Amount { get; set; } = 100;
 
     [FirestoreProperty]

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
+             xmlns:views="clr-namespace:NutritionApp.MVVM.Views"       
+             x:DataType="views:MealView"
+             x:Class="NutritionApp.MVVM.Views.MealView"
+             x:Name="this">
+
+    <Grid HeightRequest="60" Padding="0" ColumnSpacing="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="50"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="dotnet_bot.png" Grid.Column="0"></Image>
+        <ImageButton Command="{Binding Source={x:Reference this}, Path=Command}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="1" HeightRequest="1"></ImageButton>
+        <VerticalStackLayout Grid.Column="1">
+            <Label x:Name="mealTitle" FontSize="Micro" FontAttributes="Bold"></Label>
+            <CollectionView ItemsLayout="HorizontalList" x:Name="foodList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="modelCore:FoodItem">
+                        <Label Text="{Binding Name, StringFormat='{0}, '}"></Label>
+                    </DataTemplate> 
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>

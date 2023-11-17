@@ -6,7 +6,7 @@
     xmlns:drawables="clr-namespace:NutritionApp.MVVM.Views.Components.CircularProgressBar.Drawables"
     x:Name="this">
 
-    <GraphicsView>
+    <GraphicsView x:Name="graphicsView">
         <GraphicsView.Drawable>
             <drawables:CircularProgressBarDrawable
                 Text="{Binding Text, Source={x:Reference this}}"

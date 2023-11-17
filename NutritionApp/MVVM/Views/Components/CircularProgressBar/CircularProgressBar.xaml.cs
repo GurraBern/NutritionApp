@@ -7,7 +7,7 @@ public partial class CircularProgressBar : ContentView
         InitializeComponent();
     }
 
-    public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(int), typeof(CircularProgressBar));
+    public static readonly BindableProperty ProgressProperty = BindableProperty.Create(nameof(Progress), typeof(double), typeof(CircularProgressBar));
     public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(int), typeof(CircularProgressBar));
     public static readonly BindableProperty ThicknessProperty = BindableProperty.Create(nameof(Thickness), typeof(int), typeof(CircularProgressBar));
     public static readonly BindableProperty ProgressColorProperty = BindableProperty.Create(nameof(ProgressColor), typeof(Color), typeof(CircularProgressBar));
@@ -15,9 +15,9 @@ public partial class CircularProgressBar : ContentView
     public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(CircularProgressBar));
     public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(string));
 
-    public int Progress
+    public double Progress
     {
-        get { return (int)GetValue(ProgressProperty); }
+        get { return (double)GetValue(ProgressProperty); }
         set { SetValue(ProgressProperty, value); }
     }
 
@@ -65,6 +65,10 @@ public partial class CircularProgressBar : ContentView
         {
             HeightRequest = Size;
             WidthRequest = Size;
+        }
+        else if (propertyName == ProgressProperty.PropertyName)
+        {
+            graphicsView.Invalidate();
         }
     }
 }
