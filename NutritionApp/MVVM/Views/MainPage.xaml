@@ -67,7 +67,7 @@
 
                         <Label Grid.Row="0" Grid.Column="1" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
+                                <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}"/>
                             </Label.GestureRecognizers>
                         </Label>
 
@@ -103,7 +103,7 @@
                     </Grid>
 
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NavigateToNutritionDetails"/>
+                        <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}"/>
                     </Border.GestureRecognizers>
                 </Border>
 
@@ -123,9 +123,9 @@
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>
                         <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
-                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
-                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
-                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
+                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodToLunchCommand}"/>
+                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodToDinnerCommand}"/>
+                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodToSnacksCommand}"/>
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>
@@ -138,7 +138,7 @@
                 WidthRequest="80"
                 HeightRequest="80"
                 CornerRadius="90"
-                Clicked="NavigateToAddFoodPage">
+                Command="{Binding NavigateToNutritionDetailsCommand}">
                 <Button.Shadow>
                     <Shadow Offset="1,1" Opacity="0.5"/>
                 </Button.Shadow>

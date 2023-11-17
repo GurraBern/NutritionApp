@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
+using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
@@ -9,8 +10,8 @@ namespace NutritionApp.MVVM.ViewModels;
 
 public partial class MainViewModel : BaseViewModel
 {
-    private readonly INutritionService nutritionService;
     private readonly INutritionTracker nutritionTracker;
+    private readonly NavigationService navigationService;
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
@@ -23,11 +24,10 @@ public partial class MainViewModel : BaseViewModel
     public Nutrient Fat { get; }
     public Nutrient Calories { get; }
 
-    public MainViewModel(INutritionService nutritionService, INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
+    public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, NavigationService navigationService)
     {
-        this.nutritionService = nutritionService;
         this.nutritionTracker = nutritionTracker;
-
+        this.navigationService = navigationService;
         Protein = nutrientFactory.CreateNutrient("Protein");
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");
         Carbohydrates.CustomName = "Carbs";
@@ -68,27 +68,6 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async Task PerformSearch(string query)
-    {
-        if (string.IsNullOrEmpty(query))
-            return;
-
-        IsBusy = true;
-
-        var searchResult = await nutritionService.GetSearchResults(query);
-        if (searchResult != null)
-        {
-            SearchResults.Clear();
-            foreach (var foodItem in searchResult)
-            {
-                SearchResults.Add(foodItem);
-            }
-        }
-
-        IsBusy = false;
-    }
-
-    [RelayCommand]
     public void ClearSearchResults()
     {
         SearchResults.Clear();
@@ -111,7 +90,30 @@ public partial class MainViewModel : BaseViewModel
     [RelayCommand]
     public async Task AddFoodToBreakfast()
     {
-        //SelectedNutritionDay = await nutritionTracker.AddFood();
-        UpdateNutritionInformation();
+        await navigationService.NavigateToAddFoodPage(MealOfDay.Breakfast);
+    }
+
+    [RelayCommand]
+    public async Task AddFoodToLunch()
+    {
+        await navigationService.NavigateToAddFoodPage(MealOfDay.Lunch);
+    }
+
+    [RelayCommand]
+    public async Task AddFoodToDinner()
+    {
+        await navigationService.NavigateToAddFoodPage(MealOfDay.Dinner);
+    }
+
+    [RelayCommand]
+    public async Task AddFoodToSnacks()
+    {
+        await navigationService.NavigateToAddFoodPage(MealOfDay.Snacks);
+    }
+
+    [RelayCommand]
+    public async Task NavigateToNutritionDetails()
+    {
+        await navigationService.NavigateToNutritionDetails();
     }
 }

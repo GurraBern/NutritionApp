@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services.NutritionServices;
@@ -6,9 +7,13 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
+[QueryProperty(nameof(MealOfDayString), nameof(MealOfDayString))]
 public partial class AddFoodViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
+
+    [ObservableProperty]
+    private string mealOfDayString;
 
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
 
@@ -31,6 +36,7 @@ public partial class AddFoodViewModel : BaseViewModel
             SearchResults.Clear();
             foreach (var foodItem in searchResult)
             {
+                foodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
                 SearchResults.Add(foodItem);
             }
         }

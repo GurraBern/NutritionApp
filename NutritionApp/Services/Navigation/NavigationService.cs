@@ -26,11 +26,11 @@ public class NavigationService
 
     public async Task NavigateToNutritionDetails()
     {
-        await Shell.Current.GoToAsync("//NutritionDetailPage");
+        await Shell.Current.GoToAsync($"//{nameof(NutritionDetailPage)}");
     }
 
-    public async Task NavigateToAddFoodPage()
+    public async Task NavigateToAddFoodPage(MealOfDay mealOfDay)
     {
-        await Shell.Current.GoToAsync("//AddFoodPage");
+        await Shell.Current.GoToAsync($"//{nameof(AddFoodPage)}?MealOfDayString={mealOfDay}");
     }
 }

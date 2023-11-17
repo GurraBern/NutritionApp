@@ -110,7 +110,7 @@ public class NutritionDay
 
     private void AddFoodToMeal(FoodItem food)
     {
-        var mealOfDay = GetMealOfDay();
+        var mealOfDay = (food.MealOfDay == MealOfDay.NoClassification) ? GetMealOfDay() : food.MealOfDay;
         switch (mealOfDay)
         {
             case MealOfDay.Breakfast:
@@ -226,12 +226,4 @@ public class NutritionDay
     }
 
     private static double CalculateNutrients(double nutrient, int amount) => nutrient / 100 * amount;
-
-    private enum MealOfDay
-    {
-        Breakfast,
-        Lunch,
-        Dinner,
-        Snacks
-    }
 }
