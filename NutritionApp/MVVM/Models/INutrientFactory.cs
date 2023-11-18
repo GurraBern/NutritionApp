@@ -2,5 +2,5 @@
 
 public interface INutrientFactory
 {
-    Nutrient CreateNutrient(string name, double foodValue = 0, string customName = "");
+    NutrientModel CreateNutrient(string name, double foodValue = 0, string customName = "", int roundingAmount = 0);
 }

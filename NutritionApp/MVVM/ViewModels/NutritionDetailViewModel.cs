@@ -14,11 +14,11 @@ public partial class NutritionDetailViewModel : BaseViewModel
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
-    public ObservableCollection<Nutrient> Fats { get; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
+    public ObservableCollection<NutrientModel> PrimaryNutrients { get; set; } = new();
+    public ObservableCollection<NutrientModel> Fats { get; } = new();
+    public ObservableCollection<NutrientModel> Vitamins { get; } = new();
+    public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
+    public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
 
     [ObservableProperty]
     private OptionItem selectedOption;
@@ -54,7 +54,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
         SetupNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
     }
 
-    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<NutrientModel> nutrientCollection)
     {
         foreach (var name in nutrientNames)
         {
@@ -73,7 +73,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<Nutrient> nutrients)
+    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<NutrientModel> nutrients)
     {
         for (int i = 0; i < nutrients.Count; i++)
         {

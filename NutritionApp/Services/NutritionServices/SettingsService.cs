@@ -2,6 +2,9 @@
 
 public class SettingsService : ISettingsService
 {
+
+
+
     private Dictionary<string, double> NutrientNeeds { get; } = new()
     {
         { "Calories", 2400 }, //kcal

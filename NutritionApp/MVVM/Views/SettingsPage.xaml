@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
+             x:DataType="viewmodel:SettingsViewModel"
+             x:Class="NutritionApp.MVVM.Views.SettingsPage"
+             Title="SettingsPage"
+             BackgroundColor="{DynamicResource CreamWhite}">
+    <VerticalStackLayout Padding="10">
+        <Border>
+            <VerticalStackLayout>
+                <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Header"></Label>
+
+                <CollectionView ItemsSource="{Binding NutritionSettings}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="modelCore:Nutrient">
+                            <Grid Padding="50,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding NutrientName}"></Label>
+                                <Entry Grid.Column="1" WidthRequest="70" Placeholder="amount" Text="{Binding Amount}"></Entry>
+                                <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Unit}"></Label>
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

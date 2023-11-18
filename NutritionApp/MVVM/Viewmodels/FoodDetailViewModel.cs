@@ -12,11 +12,11 @@ public partial class FoodDetailViewModel : BaseViewModel
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
     private int amount = 100;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
-    public ObservableCollection<Nutrient> Other { get; } = new();
+    public ObservableCollection<NutrientModel> PrimaryNutrients { get; } = new();
+    public ObservableCollection<NutrientModel> Vitamins { get; } = new();
+    public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
+    public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
+    public ObservableCollection<NutrientModel> Other { get; } = new();
     public FoodItem FoodItem { get; }
     public int Amount
     {

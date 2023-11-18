@@ -19,10 +19,10 @@ public partial class MainViewModel : BaseViewModel
     public ObservableCollection<FoodItem> LunchFoods { get; } = new();
     public ObservableCollection<FoodItem> DinnerFoods { get; } = new();
     public ObservableCollection<FoodItem> SnacksFoods { get; } = new();
-    public Nutrient Protein { get; }
-    public Nutrient Carbohydrates { get; }
-    public Nutrient Fat { get; }
-    public Nutrient Calories { get; }
+    public NutrientModel Protein { get; }
+    public NutrientModel Carbohydrates { get; }
+    public NutrientModel Fat { get; }
+    public NutrientModel Calories { get; }
 
     public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, NavigationService navigationService)
     {

@@ -28,7 +28,7 @@
             <VerticalStackLayout
                 Grid.Row="0"
                 Spacing="10"
-                Padding="20,0">
+                Padding="10,0">
 
                 <Grid>
                     <controls:CircularProgressBar
@@ -36,7 +36,7 @@
                         Progress="{Binding Calories.NutritionProgress}"
                         ProgressColor="#E84855"
                         ProgressLeftColor="#403F4C"
-                        Size="120"
+                        Size="150"
                         Thickness="5">
                     </controls:CircularProgressBar>
 
@@ -45,7 +45,7 @@
                             Text="{Binding Calories.Info}"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
-                            FontSize="Micro"/>
+                            FontSize="Medium"/>
                         <Label Text="KCAL" FontSize="Micro" HorizontalOptions="Center"/>
                     </StackLayout>
                     
@@ -109,9 +109,9 @@
 
                 <Grid HeightRequest="50">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="2*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>

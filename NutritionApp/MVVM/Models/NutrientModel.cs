@@ -3,7 +3,7 @@ using NutritionApp.Services.NutritionServices;
 
 namespace NutritionApp.MVVM.Models;
 
-public partial class Nutrient : ObservableObject
+public partial class NutrientModel : ObservableObject
 {
     [ObservableProperty]
     private double nutritionProgress;
@@ -18,7 +18,8 @@ public partial class Nutrient : ObservableObject
     public string CustomName { get; set; }
     public string unit = string.Empty;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
-    public string Info => $"{Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
+    public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutritionAmountNeeded} {unit}";
+    public int roundingAmount = 0;
 
     private double _currentItemValue;
     public double CurrentItemValue
@@ -31,7 +32,7 @@ public partial class Nutrient : ObservableObject
         }
     }
 
-    public Nutrient(string name, double nutrientValue, ISettingsService settingsService)
+    public NutrientModel(string name, double nutrientValue, ISettingsService settingsService)
     {
         Name = name;
         foodItemValue = nutrientValue;
