@@ -59,7 +59,8 @@ public partial class NutritionDetailViewModel : BaseViewModel
         foreach (var name in nutrientNames)
         {
             var nutrient = nutrientFactory.CreateNutrient(name);
-            nutrientCollection.Add(nutrient);
+            if (nutrient != null)
+                nutrientCollection.Add(nutrient);
         }
     }
 

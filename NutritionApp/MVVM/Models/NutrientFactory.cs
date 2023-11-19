@@ -11,13 +11,10 @@ public class NutrientFactory : INutrientFactory
         this.settingsService = settingsService;
     }
 
-    public NutrientModel CreateNutrient(string name, double foodValue, string customName, int roundingAmount)
+    public NutrientModel CreateNutrient(string name, double foodValue)
     {
-        var nutrient = new NutrientModel(name, foodValue, settingsService)
-        {
-            CustomName = customName,
-            roundingAmount = roundingAmount
-        };
+        var neededNutrient = settingsService.GetNutrientNeed(name);
+        var nutrient = new NutrientModel(neededNutrient, foodValue);
 
         return nutrient;
     }

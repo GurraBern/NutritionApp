@@ -6,8 +6,10 @@ public class Nutrient
     public string Unit { get; set; }
     public double Amount { get; set; }
 
-    public Nutrient()
+    public Nutrient(string nutrientName, string unit, double amount)
     {
-
+        NutrientName = nutrientName;
+        Unit = unit;
+        Amount = amount;
     }
 }

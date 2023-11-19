@@ -1,7 +1,9 @@
-﻿namespace NutritionApp.Services.NutritionServices;
+﻿using Nutrition.Core;
+
+namespace NutritionApp.Services.NutritionServices;
 
 public interface ISettingsService
 {
-    double GetNutritionNeed(string key);
-    string GetNutritionUnit(string key);
+    Nutrient GetNutrientNeed(string key);
+    IEnumerable<Nutrient> GetAllNutrientNeeds();
 }

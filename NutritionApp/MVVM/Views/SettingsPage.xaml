@@ -7,10 +7,10 @@
              x:Class="NutritionApp.MVVM.Views.SettingsPage"
              Title="SettingsPage"
              BackgroundColor="{DynamicResource CreamWhite}">
-    <VerticalStackLayout Padding="10">
+    <ScrollView Padding="10">
         <Border>
             <VerticalStackLayout>
-                <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Header"></Label>
+                <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Medium"></Label>
 
                 <CollectionView ItemsSource="{Binding NutritionSettings}">
                     <CollectionView.ItemTemplate>
@@ -33,5 +33,5 @@
                 
             </VerticalStackLayout>
         </Border>
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

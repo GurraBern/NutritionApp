@@ -14,7 +14,7 @@ public class NutritionUtils
 
     public static readonly List<string> vitamins = new()
     {
-        "VitaminA", "VitaminC", "VitaminD", "VitaminE", "TocopherolAlpha", "VitaminK1", "VitaminK2", "Thiamin", "Riboflavin", "Niacin", "Choline",
+        "VitaminA", "VitaminC", "VitaminD", "VitaminE", "VitaminK1", "VitaminK2", "Thiamin", "Riboflavin", "Niacin", "Choline",
         "PantothenicAcid", "VitaminB6", "Biotin", "Folate", "VitaminB12"
     };
 

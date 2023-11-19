@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using Nutrition.Core;
+using NutritionApp.MVVM.Viewmodels.Utils;
+using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
@@ -8,11 +10,14 @@ namespace NutritionApp.MVVM.ViewModels;
 public partial class SettingsViewModel : BaseViewModel
 {
     private const string NutrientsKey = "NutrientsSettings";
+    private readonly ISettingsService settingsService;
 
-    public ObservableCollection<Nutrient> NutritionSettings { get; } = new ObservableCollection<Nutrient>();
+    public ObservableCollection<Nutrient> NutritionSettings { get; } = new();
 
-    public SettingsViewModel()
+    public SettingsViewModel(ISettingsService settingsService)
     {
+        this.settingsService = settingsService;
+
         LoadNutrients();
     }
 
@@ -34,11 +39,14 @@ public partial class SettingsViewModel : BaseViewModel
 
     private async Task LoadNutrients()
     {
-        var settings = await SecureStorage.GetAsync(NutrientsKey);
-        if (settings != null)
-        {
-            var nutritionSettings = JsonConvert.DeserializeObject<ObservableCollection<Nutrient>>(settings);
-        }
+        var nutrients = settingsService.GetAllNutrientNeeds();
+        NutritionSettings.AddRange(nutrients);
+
+        //var settings = await SecureStorage.GetAsync(NutrientsKey);
+        //if (settings != null)
+        //{
+        //    var nutritionSettings = JsonConvert.DeserializeObject<ObservableCollection<Nutrient>>(settings);
+        //}
     }
 
     [RelayCommand]

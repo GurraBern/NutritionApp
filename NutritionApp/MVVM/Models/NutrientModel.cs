@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NutritionApp.Services.NutritionServices;
+using Nutrition.Core;
 
 namespace NutritionApp.MVVM.Models;
 
@@ -12,6 +12,7 @@ public partial class NutrientModel : ObservableObject
     private double nutritionPotentialProgress;
 
     private readonly double nutritionAmountNeeded;
+    private readonly Nutrient nutrient;
     public readonly double foodItemValue;
     public readonly int sortValue;
     public string Name { get; }
@@ -32,12 +33,14 @@ public partial class NutrientModel : ObservableObject
         }
     }
 
-    public NutrientModel(string name, double nutrientValue, ISettingsService settingsService)
+    public NutrientModel(Nutrient nutrient, double nutrientValue)
     {
-        Name = name;
+        Name = nutrient.NutrientName;
+        this.nutrient = nutrient;
         foodItemValue = nutrientValue;
-        unit = settingsService.GetNutritionUnit(name);
-        nutritionAmountNeeded = settingsService.GetNutritionNeed(name);
+        nutritionAmountNeeded = nutrient.Amount;
+        //unit = settingsService.GetNutritionUnit(name);
+        //var nutrientNeed = settingsService.GetNutrientNeed(name);
     }
 
     public void SetProgress(double amount, double nutritionTotal = 0)

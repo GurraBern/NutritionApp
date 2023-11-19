@@ -1,162 +1,90 @@
-﻿namespace NutritionApp.Services.NutritionServices;
+﻿using Nutrition.Core;
+
+namespace NutritionApp.Services.NutritionServices;
 
 public class SettingsService : ISettingsService
 {
-
-
-
-    private Dictionary<string, double> NutrientNeeds { get; } = new()
+    private Dictionary<string, Nutrient> NutrientNeeds { get; } = new()
     {
-        { "Calories", 2400 }, //kcal
-        { "Protein", 110 }, //g
-        { "Carbohydrates", 240 }, //g
-        { "Fiber", 35 }, //g
-        { "Sugars", 30 }, //g
-        { "Starch", 0 }, //g
-        { "Fat", 70 }, //g
-        { "TransFat", 2.2 }, //g //Bad nutrient
-        { "MonounsaturatedFat", 40 }, //g
-        { "PolyunsaturatedFat", 15 }, //g
-        { "SaturatedFat", 19 }, //g
-        { "Cholesterol", 300 }, //mg
-        { "VitaminA", 2999997 }, //IU
-        { "VitaminD",  49999.95}, //IU
-        { "VitaminE", 15 }, //mg
-        { "VitaminC", 90 }, //mg
-        { "VitaminK1", 120000 }, //mcg
-        { "VitaminK2", 250000 }, //mcg
-        { "Thiamin", 1.2 }, //mg
-        { "Riboflavin", 1.6 }, //mg
-        { "Niacin", 16 }, //mg
-        { "PantothenicAcid", 5 }, //mg
-        { "VitaminB6", 1.3 }, //mg
-        { "Biotin", 100 }, //mcg
-        { "Folate", 400 }, //mcg
-        { "VitaminB12", 2.4 }, //mcg
-        { "Choline", 550 }, //mg
-        { "FolicAcid", 400 }, // mcg
-        { "CaroteneAlpha", 900 }, //mcg
-        { "CaroteneBeta", 15000 }, //mcg
-        { "CryptoxanthinBeta", 200000 }, //mcg // RecommendedDosageUnknown
-        { "LuteinZeaxanthin", 10000 }, //mcg 
-        { "Lycopene", 21000 }, //mcg
-        { "Calcium", 1000 }, //mg
-        { "Chromium", 35 }, //mcg
-        { "Iron", 8 }, //mg
-        { "Zinc", 11 }, //mg
-        { "Sodium", 2.3 }, //mg
-        { "Magnesium", 400 }, //mg
-        { "Copper", 2 },//mg
-        { "Fluoride", 4000 }, //mcg
-        { "Iodine", 150 }, //mcg
-        { "Manganese", 2.3 }, //mg
-        { "Molybdenum", 45 }, //mcg
-        { "Nickel", 70 }, //mcg
-        { "Phosphorus", 700 }, //mg
-        { "Potassium", 3400 }, //mg
-        { "Phosphorous", 700 },//mg
-        { "Selenium", 55 }, //mcg
-        { "Alanine", 4 }, //g
-        { "Arginine", 15 }, //g
-        { "Asparagine", 5 }, //g
-        { "AsparticAcid", 3 }, //g
-        { "Cystine", 0.5 }, //g
-        { "GlutamicAcid", 15 }, //g
-        { "Glutamine", 6 }, //g
-        { "Glycine", 4 }, //g
-        { "Histidine", 0.7 }, //g
-        { "Isoleucine", 2.2 }, //g
-        { "Leucine", 2.8 }, //g
-        { "Lysine", 3 }, //g
-        { "Methionine", 1 }, //g
-        { "Phenylalanine", 2 }, //g
-        { "Proline", 2 }, //g
-        { "Serine", 8 }, //g
-        { "Threonine", 1 }, //g
-        { "Tryptophan", 1 }, //g
-        { "Tyrosine", 1 }, //g
-        { "Valine", 2 }, //g
-        { "Theobromine", 0.450 }, //g
-    };
-    private Dictionary<string, string> NutrientUnit { get; } = new()
-    {
-        { "Calories", "kcal" },
-        { "Protein", "g" },
-        { "Carbohydrates", "g" },
-        { "Fiber", "g" },
-        { "Sugars", "g" },
-        { "Starch", "g" },
-        { "Fat", "g" },
-        { "SaturatedFat", "g" },
-        { "TransFat", "g" },
-        { "MonounsaturatedFat", "g" },
-        { "PolyunsaturatedFat", "g" },
-        { "Cholesterol", "mg" },
-        { "VitaminA", "IU" },
-        { "Thiamin", "mg" },
-        { "Riboflavin", "mg" },
-        { "Niacin", "mg" },
-        { "PantothenicAcid", "mg" },
-        { "VitaminB6", "mg" },
-        { "Biotin", "mcg" },
-        { "Folate", "mcg" },
-        { "VitaminB12", "mcg" },
-        { "VitaminC", "mg" },
-        { "Choline", "mg" },
-        { "VitaminD", "IU" },
-        { "VitaminE", "mg" },
-        { "VitaminK1", "mcg" },
-        { "VitaminK2", "mcg" },
-        { "Calcium", "mg" },
-        { "Chromium", "mcg" },
-        { "Copper", "mg" },
-        { "Fluoride", "mcg" },
-        { "Iodine", "mcg" },
-        { "Iron", "mg" },
-        { "Magnesium", "mg" },
-        { "Manganese", "mg" },
-        { "Molybdenum", "mcg" },
-        { "Nickel", "mcg" },
-        { "Phosphorous", "mg" },
-        { "Potassium", "mg" },
-        { "Selenium", "mcg" },
-        { "Sodium", "mg" },
-        { "Zinc", "mg" },
-        { "Alanine", "g" },
-        { "Arginine", "g" },
-        { "Asparagine", "g" },
-        { "AsparticAcid", "g" },
-        { "Cystine", "g" },
-        { "GlutamicAcid", "g" },
-        { "Glutamine", "g" },
-        { "Glycine", "g" },
-        { "Histidine", "g" },
-        { "Isoleucine", "g" },
-        { "Leucine", "g" },
-        { "Lysine", "g" },
-        { "Methionine", "g" },
-        { "Phenylalanine", "g" },
-        { "Proline", "g" },
-        { "Serine", "g" },
-        { "Threonine", "g" },
-        { "Tryptophan", "g" },
-        { "Tyrosine", "g" },
-        { "Valine", "g" },
-        { "CaroteneAlpha", "mcg" },
-        { "CaroteneBeta", "mcg" },
-        { "CryptoxanthinBeta", "mcg" },
-        { "LuteinZeaxanthin", "mcg" },
-        { "Lycopene", "mcg" },
-        { "Theobromine", "g" }
+        { "Calories", new Nutrient("Calories", "kcal", 2400) },
+        { "Protein", new Nutrient("Protein", "g", 110) },
+        { "Carbohydrates", new Nutrient("Carbohydrates", "g", 240) },
+        { "Fiber", new Nutrient("Fiber", "g", 35) },
+        { "Sugars", new Nutrient("Sugars", "g", 30) },
+        { "Starch", new Nutrient("Starch", "g", 0) },
+        { "Fat", new Nutrient("Fat", "g", 70) },
+        { "TransFat", new Nutrient("TransFat", "g", 2.2) },
+        { "MonounsaturatedFat", new Nutrient("MonounsaturatedFat", "g", 40) },
+        { "PolyunsaturatedFat", new Nutrient("PolyunsaturatedFat", "g", 15) },
+        { "SaturatedFat", new Nutrient("SaturatedFat", "g", 19) },
+        { "Cholesterol", new Nutrient("Cholesterol", "mg", 300) },
+        { "VitaminA", new Nutrient("VitaminA", "IU", 2999997) },
+        { "VitaminD", new Nutrient("VitaminD", "IU", 49999.95) },
+        { "VitaminE", new Nutrient("VitaminE", "mg", 15) },
+        { "VitaminC", new Nutrient("VitaminC", "mg", 90) },
+        { "VitaminK1", new Nutrient("VitaminK1", "mcg", 120000) },
+        { "VitaminK2", new Nutrient("VitaminK2", "mcg", 250000) },
+        { "Thiamin", new Nutrient("Thiamin", "mg", 1.2) },
+        { "Riboflavin", new Nutrient("Riboflavin", "mg", 1.6) },
+        { "Niacin", new Nutrient("Niacin", "mg", 16) },
+        { "PantothenicAcid", new Nutrient("PantothenicAcid", "mg", 5) },
+        { "VitaminB6", new Nutrient("VitaminB6", "mg", 1.3) },
+        { "Biotin", new Nutrient("Biotin", "mcg", 100) },
+        { "Folate", new Nutrient("Folate", "mcg", 400) },
+        { "VitaminB12", new Nutrient("VitaminB12", "mcg", 2.4) },
+        { "Choline", new Nutrient("Choline", "mg", 550) },
+        { "FolicAcid", new Nutrient("FolicAcid", "mcg", 400) },
+        { "CaroteneAlpha", new Nutrient("CaroteneAlpha", "mcg", 900) },
+        { "CaroteneBeta", new Nutrient("CaroteneBeta", "mcg", 15000) },
+        { "CryptoxanthinBeta", new Nutrient("CryptoxanthinBeta", "mcg", 200000) },
+        { "LuteinZeaxanthin", new Nutrient("LuteinZeaxanthin", "mcg", 10000) },
+        { "Lycopene", new Nutrient("Lycopene", "mcg", 21000) },
+        { "Calcium", new Nutrient("Calcium", "mg", 1000) },
+        { "Chromium", new Nutrient("Chromium", "mcg", 35) },
+        { "Iron", new Nutrient("Iron", "mg", 8) },
+        { "Zinc", new Nutrient("Zinc", "mg", 11) },
+        { "Sodium", new Nutrient("Sodium", "mg", 2.3) },
+        { "Magnesium", new Nutrient("Magnesium", "mg", 400) },
+        { "Copper", new Nutrient("Copper", "mg", 2) },
+        { "Fluoride", new Nutrient("Fluoride", "mcg", 4000) },
+        { "Iodine", new Nutrient("Iodine", "mcg", 150) },
+        { "Manganese", new Nutrient("Manganese", "mg", 2.3) },
+        { "Molybdenum", new Nutrient("Molybdenum", "mcg", 45) },
+        { "Nickel", new Nutrient("Nickel", "mcg", 70) },
+        { "Phosphorus", new Nutrient("Phosphorus", "mg", 700) },
+        { "Potassium", new Nutrient("Potassium", "mg", 3400) },
+        { "Phosphorous", new Nutrient("Phosphorous", "mg", 700) },
+        { "Selenium", new Nutrient("Selenium", "mcg", 55) },
+        { "Alanine", new Nutrient("Alanine", "g", 4) },
+        { "Arginine", new Nutrient("Arginine", "g", 15) },
+        { "Asparagine", new Nutrient("Asparagine", "g", 5) },
+        { "AsparticAcid", new Nutrient("AsparticAcid", "g", 3) },
+        { "Cystine", new Nutrient("Cystine", "g", 0.5) },
+        { "GlutamicAcid", new Nutrient("GlutamicAcid", "g", 15) },
+        { "Glutamine", new Nutrient("Glutamine", "g", 6) },
+        { "Glycine", new Nutrient("Glycine", "g", 4) },
+        { "Histidine", new Nutrient("Histidine", "g", 0.7) },
+        { "Isoleucine", new Nutrient("Isoleucine", "g", 2.2) },
+        { "Leucine", new Nutrient("Leucine", "g", 2.8) },
+        { "Lysine", new Nutrient("Lysine", "g", 3) },
+        { "Methionine", new Nutrient("Methionine", "g", 1) },
+        { "Phenylalanine", new Nutrient("Phenylalanine", "g", 2) },
+        { "Proline", new Nutrient("Proline", "g", 2) },
+        { "Serine", new Nutrient("Serine", "g", 8) },
+        { "Threonine", new Nutrient("Threonine", "g", 1) },
+        { "Tryptophan", new Nutrient("Tryptophan", "g", 1) },
+        { "Tyrosine", new Nutrient("Tyrosine", "g", 1) },
+        { "Valine", new Nutrient("Valine", "g", 2) },
+        { "Theobromine", new Nutrient("Theobromine", "g", 0.450) },
     };
 
-    public double GetNutritionNeed(string key)
+    public Nutrient GetNutrientNeed(string key)
     {
-        return NutrientNeeds.TryGetValue(key, out var valueExist) ? valueExist : 0;
+        return NutrientNeeds.TryGetValue(key, out var valueExist) ? valueExist : null;
     }
 
-    public string GetNutritionUnit(string key)
+    public IEnumerable<Nutrient> GetAllNutrientNeeds()
     {
-        return NutrientUnit.TryGetValue(key, out var valueExist) ? valueExist : "";
+        return NutrientNeeds.Values;
     }
 }

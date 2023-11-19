@@ -135,7 +135,7 @@
                 Source="plus_circle_svgrepo_com.png"
                 WidthRequest="80"
                 HeightRequest="80"
-                Margin="25,25"
+                Margin="25"
                 CornerRadius="15"
                 Command="{Binding AddFoodCommand}"
                 CommandParameter="{x:Static modelCore:MealOfDay.NoClassification}"
