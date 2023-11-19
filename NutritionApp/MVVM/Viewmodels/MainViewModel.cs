@@ -88,27 +88,9 @@ public partial class MainViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async Task AddFoodToBreakfast()
+    public async Task AddFood(MealOfDay mealOfDay)
     {
-        await navigationService.NavigateToAddFoodPage(MealOfDay.Breakfast);
-    }
-
-    [RelayCommand]
-    public async Task AddFoodToLunch()
-    {
-        await navigationService.NavigateToAddFoodPage(MealOfDay.Lunch);
-    }
-
-    [RelayCommand]
-    public async Task AddFoodToDinner()
-    {
-        await navigationService.NavigateToAddFoodPage(MealOfDay.Dinner);
-    }
-
-    [RelayCommand]
-    public async Task AddFoodToSnacks()
-    {
-        await navigationService.NavigateToAddFoodPage(MealOfDay.Snacks);
+        await navigationService.NavigateToAddFoodPage(mealOfDay);
     }
 
     [RelayCommand]

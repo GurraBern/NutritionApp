@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.MainPage"
-             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"     
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
@@ -122,27 +122,24 @@
 
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>
-                        <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodToBreakfastCommand}"/>
-                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodToLunchCommand}"/>
-                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodToDinnerCommand}"/>
-                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodToSnacksCommand}"/>
+                        <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Breakfast}"/>
+                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Lunch}"/>
+                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Dinner}"/>
+                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Snacks}"/>
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>
 
-            <Button
+            <ImageButton
                 Grid.Row="1"
-                Text="+"
-                FontAttributes="Bold"
-                FontSize="50"
+                Source="plus_circle_svgrepo_com.png"
                 WidthRequest="80"
                 HeightRequest="80"
-                CornerRadius="90"
-                Command="{Binding NavigateToNutritionDetailsCommand}">
-                <Button.Shadow>
-                    <Shadow Offset="1,1" Opacity="0.5"/>
-                </Button.Shadow>
-            </Button>
+                Margin="25,25"
+                CornerRadius="15"
+                Command="{Binding AddFoodCommand}"
+                CommandParameter="{x:Static modelCore:MealOfDay.NoClassification}"
+                HorizontalOptions="End"/>
         </Grid>
     </ScrollView>
 </ContentPage>

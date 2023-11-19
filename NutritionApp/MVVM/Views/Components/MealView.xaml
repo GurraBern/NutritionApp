@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <Image Source="dotnet_bot.png" Grid.Column="0"></Image>
-        <ImageButton Aspect="AspectFill"  Command="{Binding Source={x:Reference this}, Path=Command}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="35" HeightRequest="35"></ImageButton>
+        <ImageButton Aspect="AspectFill" Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding Source={x:Reference this}, Path=CommandParameter}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="35" HeightRequest="35"></ImageButton>
         <VerticalStackLayout Grid.Column="1">
             <Label x:Name="mealTitle" FontSize="Small" FontAttributes="Bold"></Label>
             <CollectionView ItemsLayout="HorizontalList" x:Name="foodList">
