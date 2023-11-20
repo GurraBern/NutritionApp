@@ -2,36 +2,53 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
-             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:SettingsViewModel"
              x:Class="NutritionApp.MVVM.Views.SettingsPage"
              Title="SettingsPage"
              BackgroundColor="{DynamicResource CreamWhite}">
     <ScrollView Padding="10">
-        <Border>
-            <VerticalStackLayout>
-                <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Medium"></Label>
+        <VerticalStackLayout>
+            <Border>
+                <VerticalStackLayout>
+                    <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Medium"></Label>
 
-                <CollectionView ItemsSource="{Binding NutritionSettings}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="modelCore:Nutrient">
-                            <Grid Padding="50,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                    <ColumnDefinition Width="50"></ColumnDefinition>
-                                    <ColumnDefinition Width="50"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
+                    <CollectionView ItemsSource="{Binding NutritionSettings}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="modelCore:Nutrient">
+                                <Grid Padding="50,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding NutrientName}"></Label>
-                                <Entry Grid.Column="1" WidthRequest="70" Placeholder="amount" Text="{Binding Amount}"></Entry>
-                                <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Unit}"></Label>
+                                    <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding NutrientName}"></Label>
+                                    <Entry Grid.Column="1" WidthRequest="70" Placeholder="amount" Text="{Binding Amount}"></Entry>
+                                    <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Unit}"></Label>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-                
-            </VerticalStackLayout>
-        </Border>
+                    <Button Text="Save" Command="{Binding SaveNutrientsCommand}"></Button>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border>
+                <VerticalStackLayout>
+                    <Label Text="Meal Time Intervals" HorizontalOptions="Center" FontSize="Medium"></Label>
+
+                    <Label TextColor="Black" Text="Breakfast Time" />
+                    <TimePicker TextColor="Black" x:Name="breakfastTimePicker" Format="HH:mm" />
+
+                    <Label TextColor="Black" Text="Lunch Time" />
+                    <TimePicker TextColor="Black" x:Name="lunchTimePicker" Format="HH:mm" />
+
+                    <Label TextColor="Black" Text="Dinner Time" />
+                    <TimePicker TextColor="Black" x:Name="dinnerTimePicker" Format="HH:mm" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

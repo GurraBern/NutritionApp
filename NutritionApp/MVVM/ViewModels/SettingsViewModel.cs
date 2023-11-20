@@ -21,38 +21,38 @@ public partial class SettingsViewModel : BaseViewModel
         LoadNutrients();
     }
 
-    public void AddOrUpdateNutrient(Nutrient nutrient)
+    private void LoadNutrients()
     {
-        var existingNutrient = NutritionSettings.FirstOrDefault(n => n.NutrientName == nutrient.NutrientName);
+        var storedNutrients = Preferences.Get(NutrientsKey, "");
 
-        if (existingNutrient != null)
+        if (!string.IsNullOrEmpty(storedNutrients))
         {
-            existingNutrient.Amount = nutrient.Amount;
+            var nutrients = JsonConvert.DeserializeObject<ObservableCollection<Nutrient>>(storedNutrients);
+            NutritionSettings.AddRange(nutrients);
         }
         else
         {
-            NutritionSettings.Add(nutrient);
+            var defaultNutrients = settingsService.GetAllNutrientNeeds();
+            NutritionSettings.AddRange(defaultNutrients);
         }
-
-        SaveNutrients();
-    }
-
-    private async Task LoadNutrients()
-    {
-        var nutrients = settingsService.GetAllNutrientNeeds();
-        NutritionSettings.AddRange(nutrients);
-
-        //var settings = await SecureStorage.GetAsync(NutrientsKey);
-        //if (settings != null)
-        //{
-        //    var nutritionSettings = JsonConvert.DeserializeObject<ObservableCollection<Nutrient>>(settings);
-        //}
     }
 
     [RelayCommand]
-    private async Task SaveNutrients()
+    private void SaveNutrients()
     {
         var serializedNutrients = JsonConvert.SerializeObject(NutritionSettings);
-        await SecureStorage.SetAsync(NutrientsKey, serializedNutrients);
+        Preferences.Set(NutrientsKey, serializedNutrients);
+    }
+
+    [RelayCommand]
+    private void UseDefaultNutrientNeeds()
+    {
+        NutritionSettings.Clear();
+
+        var defaultNutrients = settingsService.GetAllNutrientNeeds();
+        NutritionSettings.AddRange(defaultNutrients);
+
+        var serializedNutrients = JsonConvert.SerializeObject(NutritionSettings);
+        Preferences.Set(NutrientsKey, serializedNutrients);
     }
 }
