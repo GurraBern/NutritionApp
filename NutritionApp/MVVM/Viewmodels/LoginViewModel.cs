@@ -35,7 +35,7 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
         await authService.TryAutoLogin();
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync(nameof(MainPage));
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
 
         IsBusy = false;
     }

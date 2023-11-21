@@ -36,20 +36,71 @@
             </Border>
 
             <Border>
-                <VerticalStackLayout>
-                    <Label Text="Meal Time Intervals" HorizontalOptions="Center" FontSize="Medium"></Label>
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Meal Time Intervals" HorizontalOptions="Center" FontSize="Large" />
 
-                    <Label TextColor="Black" Text="Breakfast Time" />
-                    <HorizontalStackLayout>
-                        <TimePicker TextColor="Black" x:Name="breakfastTimePicker" Format="HH:mm" />
-                        <TimePicker TextColor="Black" x:Name="breakfastTimePicker2" Format="HH:mm" />
-                    </HorizontalStackLayout>
+                    <Border>
+                        <VerticalStackLayout>
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
 
-                    <Label TextColor="Black" Text="Lunch Time" />
-                    <TimePicker TextColor="Black" x:Name="lunchTimePicker" Format="HH:mm" />
+                                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Breakfast Time" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Breakfast.StartTime, Mode=TwoWay}" />
+                                <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Breakfast.EndTime, Mode=TwoWay}" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
 
-                    <Label TextColor="Black" Text="Dinner Time" />
-                    <TimePicker TextColor="Black" x:Name="dinnerTimePicker" Format="HH:mm" />
+                    <Border>
+                        <VerticalStackLayout>
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Lunch Time" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Lunch.StartTime, Mode=TwoWay}" />
+                                <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Lunch.EndTime, Mode=TwoWay}" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border>
+                        <VerticalStackLayout>
+                            <Grid ColumnSpacing="20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Dinner Time" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Dinner.StartTime, Mode=TwoWay}" />
+                                <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Dinner.EndTime, Mode=TwoWay}" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
                 </VerticalStackLayout>
             </Border>
         </VerticalStackLayout>
