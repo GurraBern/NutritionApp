@@ -9,29 +9,38 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class NutritionDetailViewModel : BaseViewModel
+public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitialization
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
+
+    [ObservableProperty]
+    private OptionItem selectedOption;
+
     public ObservableCollection<NutrientModel> PrimaryNutrients { get; set; } = new();
     public ObservableCollection<NutrientModel> Fats { get; } = new();
     public ObservableCollection<NutrientModel> Vitamins { get; } = new();
     public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
     public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
-
-    [ObservableProperty]
-    private OptionItem selectedOption;
     public ObservableCollection<OptionItem> Options { get; private set; } = new();
-
+    public Task Initialization { get; private set; }
 
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
 
+        Initialization = InitializeAsync();
+    }
+
+    private async Task InitializeAsync()
+    {
         SetupAllNutrients();
         SetupOptions();
+
+        await UpdateNutritionInformation();
+        await ShowBasicNutrients();
     }
 
     private void SetupOptions()

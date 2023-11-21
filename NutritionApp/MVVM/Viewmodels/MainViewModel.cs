@@ -8,12 +8,14 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class MainViewModel : BaseViewModel
+public partial class MainViewModel : BaseViewModel, IAsyncInitialization
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly NavigationService navigationService;
+
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
+
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
     public ObservableCollection<FoodItem> BreakfastFoods { get; } = new();
     public ObservableCollection<FoodItem> LunchFoods { get; } = new();
@@ -23,6 +25,8 @@ public partial class MainViewModel : BaseViewModel
     public NutrientModel Carbohydrates { get; }
     public NutrientModel Fat { get; }
     public NutrientModel Calories { get; }
+
+    public Task Initialization { get; private set; }
 
     public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, NavigationService navigationService)
     {
@@ -34,6 +38,15 @@ public partial class MainViewModel : BaseViewModel
         Fat = nutrientFactory.CreateNutrient("Fat");
         Calories = nutrientFactory.CreateNutrient("Calories");
         Calories.unit = string.Empty;
+
+        Initialization = InitializeAsync();
+    }
+
+    private async Task InitializeAsync()
+    {
+        await AssignNutritionDay();
+        UpdateNutritionInformation();
+        ClearSearchResults();
     }
 
     public async Task AssignNutritionDay()

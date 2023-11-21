@@ -1,10 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class LoginViewModel : BaseViewModel
+public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
 {
     //private readonly IToastService _toastService;
 
@@ -13,15 +14,18 @@ public partial class LoginViewModel : BaseViewModel
 
     [ObservableProperty]
     private string _password;
+
     private readonly IAuthService authService;
+    public Task Initialization { get; private set; }
 
     public LoginViewModel(IAuthService authService)
     {
         this.authService = authService;
-        Initialize();
+
+        Initialization = InitializeAsync();
     }
 
-    public async void Initialize()
+    private async Task InitializeAsync()
     {
         await AutoLogin();
     }
@@ -31,7 +35,7 @@ public partial class LoginViewModel : BaseViewModel
         await authService.TryAutoLogin();
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync(nameof(MainPage));
 
         IsBusy = false;
     }
@@ -42,7 +46,7 @@ public partial class LoginViewModel : BaseViewModel
         await authService.Login(Email, Password);
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync(nameof(MainPage));
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
     }
@@ -53,7 +57,7 @@ public partial class LoginViewModel : BaseViewModel
         await authService.SignUp(Email, Password);
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync(nameof(MainPage));
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
     }

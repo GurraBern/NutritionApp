@@ -40,7 +40,10 @@
                     <Label Text="Meal Time Intervals" HorizontalOptions="Center" FontSize="Medium"></Label>
 
                     <Label TextColor="Black" Text="Breakfast Time" />
-                    <TimePicker TextColor="Black" x:Name="breakfastTimePicker" Format="HH:mm" />
+                    <HorizontalStackLayout>
+                        <TimePicker TextColor="Black" x:Name="breakfastTimePicker" Format="HH:mm" />
+                        <TimePicker TextColor="Black" x:Name="breakfastTimePicker2" Format="HH:mm" />
+                    </HorizontalStackLayout>
 
                     <Label TextColor="Black" Text="Lunch Time" />
                     <TimePicker TextColor="Black" x:Name="lunchTimePicker" Format="HH:mm" />
