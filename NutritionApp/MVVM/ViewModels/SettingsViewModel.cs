@@ -13,19 +13,18 @@ public partial class SettingsViewModel : BaseViewModel
     private const string BreakfastKey = "BreakfastTimeslot";
     private const string LunchKey = "LunchTimeslot";
     private const string DinnerKey = "DinnerTimeslot";
-
     private readonly ISettingsService settingsService;
-
     public ObservableCollection<Nutrient> NutritionSettings { get; } = [];
-    public TimePeriod BreakfastTimeslots { get; set; } = new TimePeriod(TimeSpan.FromHours(6), TimeSpan.FromHours(10));
-    public TimePeriod LunchTimeslots { get; set; } = new TimePeriod(TimeSpan.FromHours(11), TimeSpan.FromHours(14));
-    public TimePeriod DinnerTimeslots { get; set; } = new TimePeriod(TimeSpan.FromHours(17), TimeSpan.FromHours(20));
+    public TimePeriod BreakfastTimePeriod { get; set; } = new(TimeSpan.FromHours(6), TimeSpan.FromHours(10));
+    public TimePeriod LunchTimePeriod { get; set; } = new(TimeSpan.FromHours(11), TimeSpan.FromHours(14));
+    public TimePeriod DinnerTimePeriod { get; set; } = new(TimeSpan.FromHours(17), TimeSpan.FromHours(20));
 
     public SettingsViewModel(ISettingsService settingsService)
     {
         this.settingsService = settingsService;
 
         LoadNutrients();
+        LoadMealTimeslots();
     }
 
     private void LoadNutrients()
@@ -44,6 +43,25 @@ public partial class SettingsViewModel : BaseViewModel
         }
     }
 
+    private void LoadMealTimeslots()
+    {
+        LoadAndSetTimePeriod(BreakfastKey, BreakfastTimePeriod);
+        LoadAndSetTimePeriod(LunchKey, LunchTimePeriod);
+        LoadAndSetTimePeriod(DinnerKey, DinnerTimePeriod);
+    }
+
+    private static void LoadAndSetTimePeriod(string key, TimePeriod targetTimePeriod)
+    {
+        var timePeriodJson = Preferences.Get(key, "");
+        if (!string.IsNullOrEmpty(timePeriodJson))
+        {
+            var deserializedTimePeriod = JsonConvert.DeserializeObject<TimePeriod>(timePeriodJson);
+
+            targetTimePeriod.StartTime = deserializedTimePeriod.StartTime;
+            targetTimePeriod.EndTime = deserializedTimePeriod.EndTime;
+        }
+    }
+
     [RelayCommand]
     private void SaveNutrients()
     {
@@ -54,12 +72,13 @@ public partial class SettingsViewModel : BaseViewModel
     [RelayCommand]
     private void SaveMealTimeslots()
     {
-        var breakfastTimeslots = JsonConvert.SerializeObject(BreakfastTimeslots);
-        var lunchTimeslots = JsonConvert.SerializeObject(LunchTimeslots);
-        var dinnerTimeslots = JsonConvert.SerializeObject(DinnerTimeslots);
-
+        var breakfastTimeslots = JsonConvert.SerializeObject(BreakfastTimePeriod);
         Preferences.Set(BreakfastKey, breakfastTimeslots);
+
+        var lunchTimeslots = JsonConvert.SerializeObject(LunchTimePeriod);
         Preferences.Set(LunchKey, lunchTimeslots);
+
+        var dinnerTimeslots = JsonConvert.SerializeObject(DinnerTimePeriod);
         Preferences.Set(DinnerKey, dinnerTimeslots);
     }
 
@@ -75,7 +94,7 @@ public partial class SettingsViewModel : BaseViewModel
         Preferences.Set(NutrientsKey, serializedNutrients);
     }
 
-    public struct TimePeriod(TimeSpan startTime, TimeSpan endTime)
+    public class TimePeriod(TimeSpan startTime, TimeSpan endTime)
     {
         public TimeSpan StartTime { get; set; } = startTime;
         public TimeSpan EndTime { get; set; } = endTime;

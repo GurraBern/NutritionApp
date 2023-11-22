@@ -53,9 +53,9 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Breakfast Time" />
-                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Breakfast.StartTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding BreakfastTimePeriod.StartTime, Mode=TwoWay}" />
                                 <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
-                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Breakfast.EndTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding BreakfastTimePeriod.EndTime, Mode=TwoWay}" />
                             </Grid>
                         </VerticalStackLayout>
                     </Border>
@@ -74,9 +74,9 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Lunch Time" />
-                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Lunch.StartTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding LunchTimePeriod.StartTime, Mode=TwoWay}" />
                                 <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
-                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Lunch.EndTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding LunchTimePeriod.EndTime, Mode=TwoWay}" />
                             </Grid>
                         </VerticalStackLayout>
                     </Border>
@@ -95,10 +95,11 @@
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" TextColor="Black" HorizontalOptions="Center" FontSize="Medium" Text="Dinner Time" />
-                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Dinner.StartTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="End" Grid.Column="0" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding DinnerTimePeriod.StartTime, Mode=TwoWay}" />
                                 <Label Grid.Column="1" Grid.Row="1" FontSize="Medium" Text="To" HorizontalOptions="Center" VerticalOptions="Center" />
-                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding Dinner.EndTime, Mode=TwoWay}" />
+                                <TimePicker HorizontalOptions="Start" Grid.Column="2" Grid.Row="1" TextColor="Black" FontSize="Medium" Format="HH:mm" Time="{Binding DinnerTimePeriod.EndTime, Mode=TwoWay}" />
                             </Grid>
+                            <Button Text="Save" Command="{Binding SaveMealTimeslotsCommand}"></Button>
                         </VerticalStackLayout>
                     </Border>
                 </VerticalStackLayout>
