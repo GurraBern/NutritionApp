@@ -14,7 +14,7 @@ public static class ListExtensions
         }
     }
 
-    public static void SortByNutritionProgress(this ObservableCollection<Nutrient> observableCollection)
+    public static void SortByNutritionProgress(this ObservableCollection<NutrientModel> observableCollection)
     {
         var sortedList = observableCollection
             .OrderByDescending(nu => nu.NutritionProgress)

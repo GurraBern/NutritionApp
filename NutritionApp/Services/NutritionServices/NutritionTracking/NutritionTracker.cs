@@ -8,12 +8,14 @@ public class NutritionTracker : ObservableObject, INutritionTracker
     private int dayIndex = 0;
     private bool isInitialized = false;
     private NutritionDay currentNutritionDay;
-    private List<NutritionDay> NutritionDays = new();
+    private List<NutritionDay> NutritionDays = [];
     private readonly INutritionTrackingService nutritionDataProvider;
+    private readonly ISettingsService settingsService;
 
-    public NutritionTracker(INutritionTrackingService nutritionDataProvider)
+    public NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService)
     {
         this.nutritionDataProvider = nutritionDataProvider;
+        this.settingsService = settingsService;
     }
 
     public async Task Initialize()
@@ -34,8 +36,12 @@ public class NutritionTracker : ObservableObject, INutritionTracker
 
     public async void AddFood(FoodItem food)
     {
-        currentNutritionDay.AddFood(food);
-        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+        var mealPeriod = settingsService.GetMealPeriod(food.MealOfDay);
+        if (mealPeriod != null)
+        {
+            currentNutritionDay.AddFood(food);
+            await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+        }
     }
 
     public void RemoveFood(FoodItem food)

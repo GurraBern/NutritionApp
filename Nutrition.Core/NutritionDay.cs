@@ -99,7 +99,6 @@ public class NutritionDay
 
     public NutritionDay()
     {
-
     }
 
     public void AddFood(FoodItem food)
@@ -116,12 +115,15 @@ public class NutritionDay
             case MealOfDay.Breakfast:
                 BreakfastFoods.Add(food);
                 break;
+
             case MealOfDay.Lunch:
                 LunchFoods.Add(food);
                 break;
+
             case MealOfDay.Dinner:
                 DinnerFoods.Add(food);
                 break;
+
             case MealOfDay.Snacks:
                 SnacksFoods.Add(food);
                 break;

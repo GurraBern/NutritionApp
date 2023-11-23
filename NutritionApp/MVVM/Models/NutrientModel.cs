@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using NutritionApp.Services.NutritionServices;
+using Nutrition.Core;
 
 namespace NutritionApp.MVVM.Models;
 
-public partial class Nutrient : ObservableObject
+public partial class NutrientModel : ObservableObject
 {
     [ObservableProperty]
     private double nutritionProgress;
@@ -12,13 +12,15 @@ public partial class Nutrient : ObservableObject
     private double nutritionPotentialProgress;
 
     private readonly double nutritionAmountNeeded;
+    private readonly Nutrient nutrient;
     public readonly double foodItemValue;
     public readonly int sortValue;
     public string Name { get; }
     public string CustomName { get; set; }
     public string unit = string.Empty;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
-    public string Info => $"{Math.Round(CurrentItemValue, 2)}/{nutritionAmountNeeded} {unit}";
+    public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutritionAmountNeeded} {unit}";
+    public int roundingAmount = 0;
 
     private double _currentItemValue;
     public double CurrentItemValue
@@ -31,12 +33,14 @@ public partial class Nutrient : ObservableObject
         }
     }
 
-    public Nutrient(string name, double nutrientValue, ISettingsService settingsService)
+    public NutrientModel(Nutrient nutrient, double nutrientValue)
     {
-        Name = name;
+        Name = nutrient.NutrientName;
+        this.nutrient = nutrient;
         foodItemValue = nutrientValue;
-        unit = settingsService.GetNutritionUnit(name);
-        nutritionAmountNeeded = settingsService.GetNutritionNeed(name);
+        nutritionAmountNeeded = nutrient.Amount;
+        //unit = settingsService.GetNutritionUnit(name);
+        //var nutrientNeed = settingsService.GetNutrientNeed(name);
     }
 
     public void SetProgress(double amount, double nutritionTotal = 0)

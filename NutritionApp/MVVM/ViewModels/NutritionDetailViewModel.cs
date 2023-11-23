@@ -9,29 +9,38 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class NutritionDetailViewModel : BaseViewModel
+public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitialization
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; set; } = new();
-    public ObservableCollection<Nutrient> Fats { get; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
 
     [ObservableProperty]
     private OptionItem selectedOption;
-    public ObservableCollection<OptionItem> Options { get; private set; } = new();
 
+    public ObservableCollection<NutrientModel> PrimaryNutrients { get; set; } = new();
+    public ObservableCollection<NutrientModel> Fats { get; } = new();
+    public ObservableCollection<NutrientModel> Vitamins { get; } = new();
+    public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
+    public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
+    public ObservableCollection<OptionItem> Options { get; private set; } = new();
+    public Task Initialization { get; private set; }
 
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
 
+        Initialization = InitializeAsync();
+    }
+
+    private async Task InitializeAsync()
+    {
         SetupAllNutrients();
         SetupOptions();
+
+        await UpdateNutritionInformation();
+        await ShowBasicNutrients();
     }
 
     private void SetupOptions()
@@ -54,12 +63,13 @@ public partial class NutritionDetailViewModel : BaseViewModel
         SetupNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
     }
 
-    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<Nutrient> nutrientCollection)
+    private void SetupNutrients(IEnumerable<string> nutrientNames, ObservableCollection<NutrientModel> nutrientCollection)
     {
         foreach (var name in nutrientNames)
         {
             var nutrient = nutrientFactory.CreateNutrient(name);
-            nutrientCollection.Add(nutrient);
+            if (nutrient != null)
+                nutrientCollection.Add(nutrient);
         }
     }
 
@@ -73,7 +83,7 @@ public partial class NutritionDetailViewModel : BaseViewModel
         }
     }
 
-    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<Nutrient> nutrients)
+    private static void RemoveNonMatchingNutrients(IEnumerable<string> matchingNutrientNames, ObservableCollection<NutrientModel> nutrients)
     {
         for (int i = 0; i < nutrients.Count; i++)
         {

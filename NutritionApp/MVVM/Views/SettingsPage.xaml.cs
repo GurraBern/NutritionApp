@@ -2,9 +2,9 @@ using NutritionApp.MVVM.ViewModels;
 
 namespace NutritionApp.MVVM.Views;
 
-public partial class NutritionDetailPage : ContentPage
+public partial class SettingsPage : ContentPage
 {
-    public NutritionDetailPage(NutritionDetailViewModel vm)
+    public SettingsPage(SettingsViewModel vm)
     {
         InitializeComponent();
         BindingContext = vm;

@@ -1,23 +1,25 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
+using NutritionApp.MVVM.Views;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class FoodDetailViewModel : BaseViewModel
+public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
     private NutritionDay nutritionDay;
     private int amount = 100;
-    public ObservableCollection<Nutrient> PrimaryNutrients { get; } = new();
-    public ObservableCollection<Nutrient> Vitamins { get; } = new();
-    public ObservableCollection<Nutrient> MacroMinerals { get; } = new();
-    public ObservableCollection<Nutrient> AminoAcids { get; } = new();
-    public ObservableCollection<Nutrient> Other { get; } = new();
+    public ObservableCollection<NutrientModel> PrimaryNutrients { get; } = new();
+    public ObservableCollection<NutrientModel> Vitamins { get; } = new();
+    public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
+    public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
+    public ObservableCollection<NutrientModel> Other { get; } = new();
     public FoodItem FoodItem { get; }
+
     public int Amount
     {
         get => amount;
@@ -32,14 +34,18 @@ public partial class FoodDetailViewModel : BaseViewModel
         }
     }
 
+    public Task Initialization { get; private set; }
+
     public FoodDetailViewModel(FoodItem foodItem, INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
     {
         FoodItem = foodItem;
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
+
+        Initialization = InitializeAsync();
     }
 
-    public async Task Initialize()
+    public async Task InitializeAsync()
     {
         InitializeNutrients();
         nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
@@ -133,7 +139,7 @@ public partial class FoodDetailViewModel : BaseViewModel
         FoodItem.Amount = Amount;
         nutritionTracker.AddFood(FoodItem);
 
-        await Shell.Current.GoToAsync("//MainPage");
+        await Shell.Current.GoToAsync(nameof(MainPage));
     }
 
     private void UpdateAllOnPropertiesChanged()

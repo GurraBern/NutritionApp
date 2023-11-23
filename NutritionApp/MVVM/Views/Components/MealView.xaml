@@ -15,13 +15,13 @@
         </Grid.ColumnDefinitions>
 
         <Image Source="dotnet_bot.png" Grid.Column="0"></Image>
-        <ImageButton Command="{Binding Source={x:Reference this}, Path=Command}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="1" HeightRequest="1"></ImageButton>
+        <ImageButton Aspect="AspectFill" Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding Source={x:Reference this}, Path=CommandParameter}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="35" HeightRequest="35"></ImageButton>
         <VerticalStackLayout Grid.Column="1">
-            <Label x:Name="mealTitle" FontSize="Micro" FontAttributes="Bold"></Label>
+            <Label x:Name="mealTitle" FontSize="Small" FontAttributes="Bold"></Label>
             <CollectionView ItemsLayout="HorizontalList" x:Name="foodList">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="modelCore:FoodItem">
-                        <Label Text="{Binding Name, StringFormat='{0}, '}"></Label>
+                        <Label Text="{Binding Name, StringFormat='{0}, '}" FontSize="Micro"></Label>
                     </DataTemplate> 
                 </CollectionView.ItemTemplate>
             </CollectionView>

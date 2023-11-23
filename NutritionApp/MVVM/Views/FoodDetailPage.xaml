@@ -33,7 +33,7 @@
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                        <DataTemplate x:DataType="model:NutrientModel">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Title}"></Label>
                                 <customComponents:CustomProgressBar
@@ -58,7 +58,7 @@
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                        <DataTemplate x:DataType="model:NutrientModel">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Title}"></Label>
                                 <customComponents:CustomProgressBar
@@ -83,7 +83,7 @@
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Nutrient">
+                        <DataTemplate x:DataType="model:NutrientModel">
                             <VerticalStackLayout>
                                 <Label Text="{Binding Title}"></Label>
                                 <customComponents:CustomProgressBar

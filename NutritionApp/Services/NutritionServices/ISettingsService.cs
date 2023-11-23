@@ -1,7 +1,13 @@
-﻿namespace NutritionApp.Services.NutritionServices;
+﻿using Nutrition.Core;
+using NutritionApp.MVVM.Models;
+
+namespace NutritionApp.Services.NutritionServices;
 
 public interface ISettingsService
 {
-    double GetNutritionNeed(string key);
-    string GetNutritionUnit(string key);
+    Nutrient GetNutrientNeed(string key);
+
+    IEnumerable<Nutrient> GetAllNutrientNeeds();
+
+    TimePeriod GetMealPeriod(MealOfDay mealOfDay);
 }
