@@ -1,4 +1,6 @@
-﻿using Nutrition.Core;
+﻿using Newtonsoft.Json;
+using Nutrition.Core;
+using NutritionApp.MVVM.Models;
 
 namespace NutritionApp.Services.NutritionServices;
 
@@ -78,6 +80,31 @@ public class SettingsService : ISettingsService
         { "Theobromine", new Nutrient("Theobromine", "g", 0.450) },
     };
 
+    private Dictionary<MealOfDay, TimePeriod> MealPeriods { get; } = new()
+    {
+        { MealOfDay.Breakfast, new TimePeriod(TimeSpan.FromHours(6), TimeSpan.FromHours(10)) },
+        { MealOfDay.Lunch, new TimePeriod(TimeSpan.FromHours(11), TimeSpan.FromHours(14)) },
+        { MealOfDay.Dinner, new TimePeriod(TimeSpan.FromHours(17), TimeSpan.FromHours(20)) },
+    };
+
+    public SettingsService()
+    {
+        LoadAndSetTimePeriod(MealOfDay.Breakfast);
+        LoadAndSetTimePeriod(MealOfDay.Lunch);
+        LoadAndSetTimePeriod(MealOfDay.Dinner);
+    }
+
+    private void LoadAndSetTimePeriod(MealOfDay mealOfDay)
+    {
+        Preferences.Clear();
+        var timePeriodJson = Preferences.Get(mealOfDay.ToString(), "");
+        if (!string.IsNullOrEmpty(timePeriodJson))
+        {
+            var deserializedTimePeriod = JsonConvert.DeserializeObject<TimePeriod>(timePeriodJson);
+            MealPeriods[mealOfDay] = deserializedTimePeriod;
+        }
+    }
+
     public Nutrient GetNutrientNeed(string key)
     {
         return NutrientNeeds.TryGetValue(key, out var valueExist) ? valueExist : null;
@@ -86,5 +113,10 @@ public class SettingsService : ISettingsService
     public IEnumerable<Nutrient> GetAllNutrientNeeds()
     {
         return NutrientNeeds.Values;
+    }
+
+    public TimePeriod GetMealPeriod(MealOfDay mealOfDay)
+    {
+        return MealPeriods.TryGetValue(mealOfDay, out var valueExist) ? valueExist : null;
     }
 }
