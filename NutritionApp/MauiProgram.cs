@@ -39,7 +39,7 @@ public static class MauiProgram
 
     private static void RegisterServices(this MauiAppBuilder builder)
     {
-        builder.Services.AddTransient<INutritionTrackingService, NutritionTrackingService>();
+        builder.Services.AddTransient<INutritionTrackingService, UserNutritionTrackingService>();
         builder.Services.AddSingleton<IAuthService, AuthService>();
         builder.Services.AddSingleton<INutrientFactory, NutrientFactory>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
@@ -65,9 +65,14 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<INutritionApiClient>(serviceProvider =>
         {
-            var configuration = serviceProvider.GetRequiredService<IConfiguration>();
-            var baseUrl = configuration["AppSettings:UserNutritionApiUrl"];
-            return new NutritionApiClient(baseUrl);
+            string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
+            return new NutritionApiClient(apiUrl);
+        });
+
+        builder.Services.AddSingleton<IUserNutritionApiClient>(serviceProvider =>
+        {
+            var baseUrl = builder.Configuration["AppSettings:UserNutritionApiUrl"];
+            return new UserNutritionApiClient(baseUrl);
         });
     }
 
@@ -104,6 +109,5 @@ public static class MauiProgram
 
             builder.Configuration.AddConfiguration(config);
         }
-
     }
 }
