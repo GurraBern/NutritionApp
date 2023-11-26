@@ -3,11 +3,11 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionApiClient : INutritionApiClient
+public class UserNutritionApiClient : IUserNutritionApiClient
 {
     private readonly RestClient restClient;
 
-    public NutritionApiClient(string baseUrl)
+    public UserNutritionApiClient(string baseUrl)
     {
         restClient = new RestClient(baseUrl);
     }

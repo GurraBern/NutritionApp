@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.MainPage"
-             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"     
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
@@ -28,84 +28,7 @@
             <VerticalStackLayout
                 Grid.Row="0"
                 Spacing="10"
-                Padding="10,0">
-
-                <Grid>
-                    <controls:CircularProgressBar
-                        Grid.Row="0"
-                        Progress="{Binding Calories.NutritionProgress}"
-                        ProgressColor="#E84855"
-                        ProgressLeftColor="#403F4C"
-                        Size="150"
-                        Thickness="5">
-                    </controls:CircularProgressBar>
-
-                    <StackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label
-                            Text="{Binding Calories.Info}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            FontSize="Medium"/>
-                        <Label Text="KCAL" FontSize="Micro" HorizontalOptions="Center"/>
-                    </StackLayout>
-                    
-                </Grid>
-
-                <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
-
-                <Border Style="{StaticResource RoundBorder}">
-                    <Grid ColumnSpacing="15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"></RowDefinition>
-                            <RowDefinition Height="3*"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="1" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-
-                        <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                            <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Title}"></Label>
-                            <customComponents:CustomProgressBar
-                                    ProgressA="1"
-                                    ProgressB="{Binding Carbohydrates.NutritionProgress}"
-                                    ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen"/>
-                            <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-                            <Label HorizontalOptions="Center" Text="{Binding Protein.Title}"></Label>
-                            <customComponents:CustomProgressBar
-                                ProgressA="1"
-                                ProgressB="{Binding Protein.NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
-                                ProgressBarBColor="LimeGreen"/>
-                            <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
-                        </VerticalStackLayout>
-
-                        <VerticalStackLayout Grid.Row="1" Grid.Column="2">
-                            <Label HorizontalOptions="Center" Text="{Binding Fat.Title}"></Label>
-                            <customComponents:CustomProgressBar
-                                ProgressA="1"
-                                ProgressB="{Binding Fat.NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
-                                ProgressBarBColor="LimeGreen"/>
-                            <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
-                        </VerticalStackLayout>
-                    </Grid>
-
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}"/>
-                    </Border.GestureRecognizers>
-                </Border>
+                Padding="20,0">
 
                 <Grid HeightRequest="50">
                     <Grid.ColumnDefinitions>
@@ -115,31 +38,122 @@
                     </Grid.ColumnDefinitions>
 
                     <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
-                    <Label VerticalTextAlignment="Center" HorizontalOptions="Center" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, Converter={StaticResource DateConverter}}"></Label>
+                    <Label VerticalTextAlignment="Center" HorizontalOptions="Center" FontSize="Small" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, Converter={StaticResource DateConverter}}"></Label>
                     <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
                 </Grid>
 
+                <Border Style="{StaticResource RoundBorder}">
+                    <VerticalStackLayout Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
+                                <Label Text="EATEN" FontSize="Micro" FontAttributes="Bold"></Label>
+                                <Label Text="{Binding Calories.CurrentItemValue}" FontSize="Small" HorizontalOptions="Center"></Label>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
+                                <Label Text="BURNED" FontSize="Micro" FontAttributes="Bold"></Label>
+                                <Label Text="0" FontSize="Small" HorizontalOptions="Center"></Label>
+                            </VerticalStackLayout>
+
+                            <controls:CircularProgressBar
+                                Grid.ColumnSpan="2"
+                                Progress="{Binding Calories.NutritionProgress}"
+                                ProgressColor="#E84855"
+                                ProgressLeftColor="#403F4C"
+                                Size="150"
+                                Thickness="10">
+                            </controls:CircularProgressBar>
+
+                            <StackLayout Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding Calories.NutritionLeft}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    FontSize="Small" />
+                                <Label Text="KCAL LEFT" TextColor="#403F4C" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Center" />
+                            </StackLayout>
+                        </Grid>
+
+                        <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+
+                        <Grid ColumnSpacing="15" Margin="0,20,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="3*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.ColumnSpan="3" Grid.Row="0" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                                <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Title}"></Label>
+                                <customComponents:CustomProgressBar
+                                    ProgressA="1"
+                                    ProgressB="{Binding Carbohydrates.NutritionProgress}"
+                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarBColor="LimeGreen" />
+                                <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                                <Label HorizontalOptions="Center" Text="{Binding Protein.Title}"></Label>
+                                <customComponents:CustomProgressBar
+                                ProgressA="1"
+                                ProgressB="{Binding Protein.NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen" />
+                                <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+                                <Label HorizontalOptions="Center" Text="{Binding Fat.Title}"></Label>
+                                <customComponents:CustomProgressBar
+                                ProgressA="1"
+                                ProgressB="{Binding Fat.NutritionProgress}"
+                                ProgressBarAColor="LightGrey"
+                                ProgressBarBColor="LimeGreen" />
+                                <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}" />
+                    </Border.GestureRecognizers>
+                </Border>
 
                 <Border Style="{StaticResource RoundBorder}" Padding="15">
                     <VerticalStackLayout>
-                        <customComponents:MealView Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Breakfast}"/>
-                        <customComponents:MealView Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Lunch}"/>
-                        <customComponents:MealView Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Dinner}"/>
-                        <customComponents:MealView Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Snacks}"/>
+                        <customComponents:MealView ImageSource="bread_icon.png" Text="Breakfast" Meal="{Binding BreakfastFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Breakfast}" />
+                        <customComponents:MealView ImageSource="food_dinner_icon.png" Text="Lunch" Meal="{Binding LunchFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Lunch}" />
+                        <customComponents:MealView ImageSource="dish_cap_line_icon.png" Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Dinner}" />
+                        <customComponents:MealView ImageSource="snacks_icon.png" Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Snacks}" />
                     </VerticalStackLayout>
                 </Border>
             </VerticalStackLayout>
 
             <ImageButton
                 Grid.Row="1"
-                Source="plus_circle_svgrepo_com.png"
+                Source="plus_circle_green.png"
                 WidthRequest="80"
                 HeightRequest="80"
                 Margin="25"
                 CornerRadius="15"
                 Command="{Binding AddFoodCommand}"
                 CommandParameter="{x:Static modelCore:MealOfDay.NoClassification}"
-                HorizontalOptions="End"/>
+                HorizontalOptions="End" />
         </Grid>
     </ScrollView>
 </ContentPage>

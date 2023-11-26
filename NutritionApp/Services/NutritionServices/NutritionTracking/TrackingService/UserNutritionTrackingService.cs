@@ -3,12 +3,12 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionTrackingService : INutritionTrackingService
+public class UserNutritionTrackingService : INutritionTrackingService
 {
-    private readonly INutritionApiClient nutritionApiClient;
+    private readonly IUserNutritionApiClient nutritionApiClient;
     private readonly IAuthService authService;
 
-    public NutritionTrackingService(INutritionApiClient nutritionApiClient, IAuthService authService)
+    public UserNutritionTrackingService(IUserNutritionApiClient nutritionApiClient, IAuthService authService)
     {
         this.nutritionApiClient = nutritionApiClient;
         this.authService = authService;

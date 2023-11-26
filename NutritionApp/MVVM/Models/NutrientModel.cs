@@ -20,6 +20,7 @@ public partial class NutrientModel : ObservableObject
     public string unit = string.Empty;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
     public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutritionAmountNeeded} {unit}";
+    public string NutritionLeft => (nutritionAmountNeeded - CurrentItemValue).ToString();
     public int roundingAmount = 0;
 
     private double _currentItemValue;
@@ -29,7 +30,10 @@ public partial class NutrientModel : ObservableObject
         set
         {
             if (SetProperty(ref _currentItemValue, value))
+            {
                 OnPropertyChanged(nameof(Info));
+                OnPropertyChanged(nameof(NutritionLeft));
+            }
         }
     }
 
@@ -39,8 +43,6 @@ public partial class NutrientModel : ObservableObject
         this.nutrient = nutrient;
         foodItemValue = nutrientValue;
         nutritionAmountNeeded = nutrient.Amount;
-        //unit = settingsService.GetNutritionUnit(name);
-        //var nutrientNeed = settingsService.GetNutrientNeed(name);
     }
 
     public void SetProgress(double amount, double nutritionTotal = 0)

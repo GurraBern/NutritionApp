@@ -2,7 +2,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
-             xmlns:views="clr-namespace:NutritionApp.MVVM.Views"       
+             xmlns:views="clr-namespace:NutritionApp.MVVM.Views"
              x:DataType="views:MealView"
              x:Class="NutritionApp.MVVM.Views.MealView"
              x:Name="this">
@@ -14,15 +14,15 @@
             <ColumnDefinition Width="50"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Image Source="dotnet_bot.png" Grid.Column="0"></Image>
+        <Image WidthRequest="40" Source="{Binding Source={x:Reference this}, Path=ImageSource}" Grid.Column="0"></Image>
         <ImageButton Aspect="AspectFill" Command="{Binding Source={x:Reference this}, Path=Command}" CommandParameter="{Binding Source={x:Reference this}, Path=CommandParameter}" Source="plus_circle_svgrepo_com.png" Grid.Column="2" WidthRequest="35" HeightRequest="35"></ImageButton>
-        <VerticalStackLayout Grid.Column="1">
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
             <Label x:Name="mealTitle" FontSize="Small" FontAttributes="Bold"></Label>
             <CollectionView ItemsLayout="HorizontalList" x:Name="foodList">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="modelCore:FoodItem">
                         <Label Text="{Binding Name, StringFormat='{0}, '}" FontSize="Micro"></Label>
-                    </DataTemplate> 
+                    </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>

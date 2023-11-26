@@ -23,6 +23,9 @@ public partial class MealView : ContentView
     public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
         nameof(CommandParameter), typeof(MealOfDay), typeof(MealView));
 
+    public static readonly BindableProperty ImageSourceProperty =
+                BindableProperty.Create(nameof(ImageSource), typeof(string), typeof(MealView));
+
     public MealView()
     {
         InitializeComponent();
@@ -50,5 +53,11 @@ public partial class MealView : ContentView
     {
         get => (MealOfDay)GetValue(CommandParameterProperty);
         set => SetValue(CommandParameterProperty, value);
+    }
+
+    public string ImageSource
+    {
+        get { return (string)GetValue(ImageSourceProperty); }
+        set { SetValue(ImageSourceProperty, value); }
     }
 }

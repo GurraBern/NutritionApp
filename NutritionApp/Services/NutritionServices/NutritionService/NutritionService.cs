@@ -5,10 +5,13 @@ namespace NutritionApp.Services.NutritionServices;
 
 public class NutritionService : INutritionService
 {
-    private readonly IRestClient client;
-    public NutritionService(IRestClient client)
+    private readonly INutritionApiClient client;
+    private readonly IAuthService authService;
+
+    public NutritionService(INutritionApiClient client, IAuthService authService)
     {
         this.client = client;
+        this.authService = authService;
     }
 
     public async Task<IEnumerable<FoodItem>> GetSearchResults(string query)
@@ -16,7 +19,7 @@ public class NutritionService : INutritionService
         try
         {
             var request = new RestRequest($"api/Food/name/{query}");
-            var searchResults = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            var searchResults = await client.GetAsync(request, authService.CurrentUser.Credential.IdToken);
             return searchResults;
         }
         catch (Exception e)
@@ -30,7 +33,7 @@ public class NutritionService : INutritionService
         try
         {
             var request = new RestRequest("api/Food");
-            var foods = await client.GetAsync<IEnumerable<FoodItem>>(request);
+            var foods = await client.GetAsync(request, authService.CurrentUser.Credential.IdToken);
             return foods;
         }
         catch (Exception e)

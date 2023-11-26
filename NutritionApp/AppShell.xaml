@@ -12,10 +12,8 @@
     <ShellContent Route="AddFoodPage" Title="AddFoodPage" ContentTemplate="{DataTemplate views:AddFoodPage}"></ShellContent>
 
     <TabBar>
-        <Tab>
-            <ShellContent Route="MainPage" Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}"></ShellContent>
-            <ShellContent Route="NutritionDetailPage" Title="Nutrition" ContentTemplate="{DataTemplate views:NutritionDetailPage}"></ShellContent>
-            <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
-        </Tab>
+        <ShellContent Route="MainPage" Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}"></ShellContent>
+        <ShellContent Route="NutritionDetailPage" Title="Nutrition" ContentTemplate="{DataTemplate views:NutritionDetailPage}"></ShellContent>
+        <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
     </TabBar>
 </Shell>
