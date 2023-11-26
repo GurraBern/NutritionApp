@@ -10,7 +10,17 @@ namespace NutritionApp.Converters
             {
                 DateTime parsedDate = DateTime.ParseExact(date, "yyyy-MM-dd", null);
 
-                string formattedDate = parsedDate.ToString("dddd, dd MMMM");
+                if (parsedDate.Date == DateTime.Now.Date)
+                {
+                    return "Today";
+                }
+                else if (parsedDate.Date == DateTime.Now.Date.AddDays(-1))
+                {
+                    return "Yesterday";
+                }
+
+                string formattedDate = parsedDate.ToString("dddd, dd MMM");
+
                 return formattedDate;
             }
 
