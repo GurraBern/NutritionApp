@@ -4,32 +4,56 @@
              x:Class="NutritionApp.MVVM.Views.AddFoodPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
-             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"       
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:AddFoodViewModel"
              Title="AddFoodPage"
-             BackgroundColor="{DynamicResource White}">
-    <VerticalStackLayout>
-        <SearchBar x:Name="searchbar"
-            SearchCommand="{Binding PerformSearchCommand}"
-            SearchCommandParameter="{Binding Text, Source={x:Reference searchbar}}"
-            TextColor="Black"
-            BackgroundColor="LightGrey"
-            Placeholder="search foods..."
-            Unfocused="SearchBar_Unfocused"/>
-        
+             BackgroundColor="{DynamicResource CreamWhite}">
+
+    <VerticalStackLayout Padding="20" Spacing="10">
+
+        <Border>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="45" />
+            </Border.StrokeShape>
+
+            <SearchBar x:Name="searchbar"
+                SearchCommand="{Binding PerformSearchCommand}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference searchbar}}"
+                TextColor="Black"
+                BackgroundColor="LightGrey"
+                Placeholder="search foods..."
+                Unfocused="SearchBar_Unfocused">
+            </SearchBar>
+        </Border>
+
         <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
-        <ListView x:Name="searchresults" 
-            ItemsSource="{Binding SearchResults}"
-            SelectionMode="Single"
-            ItemSelected="SearchResultSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="modelCore:FoodItem">
-                    <TextCell Text="{Binding Name}" Detail="{Binding Calories, StringFormat='{0} kcal'}" DetailColor="Black" TextColor="Black"></TextCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <VerticalStackLayout>
+            <Label Text="Recent" FontSize="Micro" FontAttributes="Bold"></Label>
+            <CollectionView x:Name="searchresults"
+                ItemsSource="{Binding SearchResults}"
+                SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                </CollectionView.ItemsLayout>
 
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="modelCore:FoodItem">
+                        <Border Style="{StaticResource RoundSquareBorder}" Padding="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="50"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"></Label>
+                                <ImageButton Source="plus_circle_svgrepo_com.png" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
         <Button Text="Back" Command="{Binding GoBackCommand}"></Button>
     </VerticalStackLayout>
 </ContentPage>

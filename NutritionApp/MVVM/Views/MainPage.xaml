@@ -92,13 +92,13 @@
                                 <RowDefinition Height="3*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <Label Grid.ColumnSpan="3" Grid.Row="0" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center">
+                            <Label Grid.ColumnSpan="3" Grid.Row="0" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center" Margin="0, 20, 0, 20">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
 
-                            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
                                 <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Title}"></Label>
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
@@ -108,7 +108,7 @@
                                 <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
                             </VerticalStackLayout>
 
-                            <VerticalStackLayout Grid.Row="1" Grid.Column="0">
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5">
                                 <Label HorizontalOptions="Center" Text="{Binding Protein.Title}"></Label>
                                 <customComponents:CustomProgressBar
                                 ProgressA="1"
@@ -118,7 +118,7 @@
                                 <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
                             </VerticalStackLayout>
 
-                            <VerticalStackLayout Grid.Row="1" Grid.Column="2">
+                            <VerticalStackLayout Grid.Row="1" Grid.Column="2" Spacing="5">
                                 <Label HorizontalOptions="Center" Text="{Binding Fat.Title}"></Label>
                                 <customComponents:CustomProgressBar
                                 ProgressA="1"

@@ -1,4 +1,5 @@
 ﻿using Nutrition.Core;
+using NutritionApp.Data;
 using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
@@ -7,11 +8,13 @@ public class NutritionService : INutritionService
 {
     private readonly INutritionApiClient client;
     private readonly IAuthService authService;
+    private readonly IDataRepository dataRepository;
 
-    public NutritionService(INutritionApiClient client, IAuthService authService)
+    public NutritionService(INutritionApiClient client, IAuthService authService, IDataRepository dataRepository)
     {
         this.client = client;
         this.authService = authService;
+        this.dataRepository = dataRepository;
     }
 
     public async Task<IEnumerable<FoodItem>> GetSearchResults(string query)

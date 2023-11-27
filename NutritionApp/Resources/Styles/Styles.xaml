@@ -74,6 +74,20 @@
         </Setter>
     </Style>
 
+    <Style x:Key="RoundSquareBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"></Setter>
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Padding" Value="5"/>
+
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="Black" Radius="2" Opacity="0.2" Offset="1,1" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="BoxView">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
@@ -301,7 +315,7 @@
     </Style>
 
     <Style TargetType="SearchBar">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter Property="PlaceholderColor" Value="{StaticResource Gray500}" />
         <Setter Property="CancelButtonColor" Value="{StaticResource Gray500}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -321,6 +335,12 @@
                     </VisualState>
                 </VisualStateGroup>
             </VisualStateGroupList>
+        </Setter>
+
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="Black" Radius="5" Opacity="0.8" Offset="1,1" />
+            </Setter.Value>
         </Setter>
     </Style>
 
