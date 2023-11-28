@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Maui;
+﻿using AutoMapper;
+using CommunityToolkit.Maui;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Nutrition.Core;
 using NutritionApp.Data;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
@@ -30,6 +32,17 @@ public static class MauiProgram
         builder.RegisterServices();
         builder.RegisterViewModels();
         builder.RegisterPages();
+
+        var configuration = new MapperConfiguration(cfg =>
+        {
+            cfg.CreateMap<FoodItem, SearchFoodItem>();
+            cfg.CreateMap<SearchFoodItem, FoodItem>();
+        });
+
+        builder.Services.AddTransient<IMapper>(mapper =>
+        {
+            return configuration.CreateMapper();
+        });
 
 #if DEBUG
         builder.Logging.AddDebug();

@@ -1,31 +1,44 @@
-﻿using SQLite;
+﻿using AutoMapper;
+using Nutrition.Core;
+using SQLite;
 
 namespace NutritionApp.Data;
 
 public class LocalDataRepository : IDataRepository
 {
-    private SQLiteConnection db;
+    private readonly SQLiteConnection db;
+    private readonly IMapper mapper;
 
-    public LocalDataRepository()
+    public LocalDataRepository(IMapper mapper)
     {
         var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "NutritionApp.db");
 
         db = new SQLiteConnection(databasePath);
-        db.CreateTable<FoodItemDto>();
+        db.CreateTable<FoodItem>();
         db.CreateTable<SearchFoodItem>();
+        this.mapper = mapper;
     }
 
-    public void GetRecentFoodItems()
+    public IEnumerable<FoodItem> GetRecentFoodItems()
     {
-        var query = db.Table<SearchFoodItem>().Where(v => v.Name.StartsWith("t"));
+        var searchFoodItems = db.Query<SearchFoodItem>("SELECT * FROM search_history ORDER BY search_time DESC LIMIT 10");
+
+        var foodItems = mapper.Map<IEnumerable<FoodItem>>(searchFoodItems);
+
+        return foodItems;
     }
 
-    public void InsertFoodItem(FoodItemDto foodItem)
+    public void AddToSearchHistory(FoodItem foodItem)
     {
-        db.Insert(foodItem);
+        var searchFoodItem = mapper.Map<SearchFoodItem>(foodItem);
+
+        db.Insert(searchFoodItem);
     }
 }
 
 public interface IDataRepository
 {
+    IEnumerable<FoodItem> GetRecentFoodItems();
+
+    void AddToSearchHistory(FoodItem foodItem);
 }

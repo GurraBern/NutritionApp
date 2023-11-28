@@ -3,7 +3,7 @@ using SQLite;
 
 namespace NutritionApp.Data;
 
-public class FoodItemDto
+internal class FoodItemDto
 {
     [PrimaryKey, AutoIncrement]
     public int PrimaryKey { get; set; }

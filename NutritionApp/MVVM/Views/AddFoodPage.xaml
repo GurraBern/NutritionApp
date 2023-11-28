@@ -7,7 +7,8 @@
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:AddFoodViewModel"
              Title="AddFoodPage"
-             BackgroundColor="{DynamicResource CreamWhite}">
+             BackgroundColor="{DynamicResource CreamWhite}"
+             x:Name="this">
 
     <VerticalStackLayout Padding="20" Spacing="10">
 
@@ -47,7 +48,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"></Label>
-                                <ImageButton Source="plus_circle_svgrepo_com.png" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
+                                <ImageButton Source="plus_circle_svgrepo_com.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
                             </Grid>
                         </Border>
                     </DataTemplate>
