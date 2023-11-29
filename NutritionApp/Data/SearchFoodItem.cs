@@ -6,5 +6,5 @@ namespace NutritionApp.Data;
 internal class SearchFoodItem : FoodItemDto
 {
     [Column("search_time")]
-    public DateTime SearchTime { get; set; }
+    public DateTime SearchTime { get; set; } = DateTime.Now;
 }

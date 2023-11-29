@@ -10,4 +10,6 @@ public interface ISettingsService
     IEnumerable<Nutrient> GetAllNutrientNeeds();
 
     TimePeriod GetMealPeriod(MealOfDay mealOfDay);
+
+    MealOfDay GetCurrentMealPeriod();
 }

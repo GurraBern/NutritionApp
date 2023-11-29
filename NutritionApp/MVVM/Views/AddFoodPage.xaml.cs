@@ -16,8 +16,8 @@ public partial class AddFoodPage : ContentPage
         this.navigationService = navigationService;
     }
 
-    private void SearchBar_Unfocused(object sender, FocusEventArgs e)
+    private void searchbar_Focused(object sender, FocusEventArgs e)
     {
-        vm.ClearSearchResults();
+        vm.Initialize();
     }
 }

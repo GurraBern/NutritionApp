@@ -11,7 +11,7 @@ public class LocalDataRepository : IDataRepository
 
     public LocalDataRepository(IMapper mapper)
     {
-        var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "NutritionApp.db");
+        var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NutritionApp.db");
 
         db = new SQLiteConnection(databasePath);
         db.CreateTable<FoodItem>();

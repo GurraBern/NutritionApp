@@ -85,6 +85,7 @@ public class SettingsService : ISettingsService
         { MealOfDay.Breakfast, new TimePeriod(TimeSpan.FromHours(6), TimeSpan.FromHours(10)) },
         { MealOfDay.Lunch, new TimePeriod(TimeSpan.FromHours(11), TimeSpan.FromHours(14)) },
         { MealOfDay.Dinner, new TimePeriod(TimeSpan.FromHours(17), TimeSpan.FromHours(20)) },
+        { MealOfDay.Snacks, new TimePeriod(TimeSpan.FromHours(15), TimeSpan.FromHours(16)) },
     };
 
     public SettingsService()
@@ -118,5 +119,18 @@ public class SettingsService : ISettingsService
     public TimePeriod GetMealPeriod(MealOfDay mealOfDay)
     {
         return MealPeriods.TryGetValue(mealOfDay, out var valueExist) ? valueExist : null;
+    }
+
+    public MealOfDay GetCurrentMealPeriod()
+    {
+        foreach (var mealPeriod in MealPeriods)
+        {
+            if (mealPeriod.Value.ContainsTime(DateTime.Now))
+            {
+                return mealPeriod.Key;
+            }
+        }
+
+        return MealOfDay.NoClassification;
     }
 }

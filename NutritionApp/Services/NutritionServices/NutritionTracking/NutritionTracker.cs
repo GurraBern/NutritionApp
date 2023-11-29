@@ -41,12 +41,10 @@ public class NutritionTracker : ObservableObject, INutritionTracker
     {
         dataRepository.AddToSearchHistory(food);
 
-        var mealPeriod = settingsService.GetMealPeriod(food.MealOfDay);
-        if (mealPeriod != null)
-        {
-            currentNutritionDay.AddFood(food);
-            await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
-        }
+        food.MealOfDay = settingsService.GetCurrentMealPeriod();
+
+        currentNutritionDay.AddFood(food);
+        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
     }
 
     public void RemoveFood(FoodItem food)
