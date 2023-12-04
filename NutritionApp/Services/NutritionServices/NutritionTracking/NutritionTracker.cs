@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
 using NutritionApp.Data;
 
@@ -45,6 +46,8 @@ public class NutritionTracker : ObservableObject, INutritionTracker
 
         currentNutritionDay.AddFood(food);
         await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+
+        WeakReferenceMessenger.Default.Send(food);
     }
 
     public void RemoveFood(FoodItem food)

@@ -20,10 +20,11 @@ public partial class NutrientModel : ObservableObject
     public string unit = string.Empty;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
     public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutritionAmountNeeded} {unit}";
-    public string NutritionLeft => (nutritionAmountNeeded - CurrentItemValue).ToString();
+    public string NutritionLeft => CurrentItemValue < nutritionAmountNeeded ? (nutritionAmountNeeded - CurrentItemValue).ToString() : "0";
     public int roundingAmount = 0;
 
     private double _currentItemValue;
+
     public double CurrentItemValue
     {
         get { return _currentItemValue; }

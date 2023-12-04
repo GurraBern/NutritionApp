@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
@@ -8,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class MainViewModel : BaseViewModel, IAsyncInitialization
+public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecipient<FoodItem>
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly NavigationService navigationService;
@@ -40,6 +41,8 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization
         Calories.unit = string.Empty;
 
         Initialization = InitializeAsync();
+
+        WeakReferenceMessenger.Default.Register(this);
     }
 
     private async Task InitializeAsync()
@@ -110,5 +113,10 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization
     public async Task NavigateToNutritionDetails()
     {
         await navigationService.NavigateToNutritionDetails();
+    }
+
+    public void Receive(FoodItem message)
+    {
+        UpdateNutritionInformation();
     }
 }

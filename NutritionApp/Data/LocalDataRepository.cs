@@ -11,12 +11,13 @@ public class LocalDataRepository : IDataRepository
 
     public LocalDataRepository(IMapper mapper)
     {
-        var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NutritionApp.db");
+        this.mapper = mapper;
+
+        var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "NutritionApp.db3");
 
         db = new SQLiteConnection(databasePath);
         db.CreateTable<FoodItem>();
         db.CreateTable<SearchFoodItem>();
-        this.mapper = mapper;
     }
 
     public IEnumerable<FoodItem> GetRecentFoodItems()
