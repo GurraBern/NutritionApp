@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
+using NutritionApp.Data;
+using NutritionApp.MVVM.Viewmodels.Utils;
 using NutritionApp.MVVM.Views;
+using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
@@ -11,15 +14,32 @@ namespace NutritionApp.MVVM.ViewModels;
 public partial class AddFoodViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
+    private readonly IDataRepository dataRepository;
+    private readonly NavigationService navigationService;
 
     [ObservableProperty]
     private string mealOfDayString;
 
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
 
-    public AddFoodViewModel(INutritionService nutritionService)
+    public AddFoodViewModel(INutritionService nutritionService, IDataRepository dataRepository, NavigationService navigationService)
     {
         this.nutritionService = nutritionService;
+        this.dataRepository = dataRepository;
+        this.navigationService = navigationService;
+
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        LoadFrequentlyUsedFoodItems();
+    }
+
+    private void LoadFrequentlyUsedFoodItems()
+    {
+        var foodItems = dataRepository.GetRecentFoodItems();
+        SearchResults.AddRange(foodItems);
     }
 
     [RelayCommand]
@@ -42,6 +62,13 @@ public partial class AddFoodViewModel : BaseViewModel
         }
 
         IsBusy = false;
+    }
+
+    [RelayCommand]
+    public async Task SelectFood(FoodItem selectedFoodItem)
+    {
+        if (selectedFoodItem != null)
+            await navigationService.NavigateToFoodDetailPage(selectedFoodItem);
     }
 
     [RelayCommand]

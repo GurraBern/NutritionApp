@@ -1,4 +1,3 @@
-using Nutrition.Core;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.Services;
 
@@ -17,14 +16,8 @@ public partial class AddFoodPage : ContentPage
         this.navigationService = navigationService;
     }
 
-    private async void SearchResultSelected(object sender, SelectedItemChangedEventArgs e)
+    private void searchbar_Focused(object sender, FocusEventArgs e)
     {
-        var selectedFoodItem = e.SelectedItem as FoodItem;
-        await navigationService.NavigateToFoodDetailPage(selectedFoodItem);
-    }
-
-    private void SearchBar_Unfocused(object sender, FocusEventArgs e)
-    {
-        vm.ClearSearchResults();
+        vm.Initialize();
     }
 }

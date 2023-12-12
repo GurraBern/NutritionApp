@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
+using NutritionApp.Data;
 
 namespace NutritionApp.Services.NutritionServices;
 
@@ -11,11 +13,13 @@ public class NutritionTracker : ObservableObject, INutritionTracker
     private List<NutritionDay> NutritionDays = [];
     private readonly INutritionTrackingService nutritionDataProvider;
     private readonly ISettingsService settingsService;
+    private readonly IDataRepository dataRepository;
 
-    public NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService)
+    public NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService, IDataRepository dataRepository)
     {
         this.nutritionDataProvider = nutritionDataProvider;
         this.settingsService = settingsService;
+        this.dataRepository = dataRepository;
     }
 
     public async Task Initialize()
@@ -36,12 +40,14 @@ public class NutritionTracker : ObservableObject, INutritionTracker
 
     public async void AddFood(FoodItem food)
     {
-        var mealPeriod = settingsService.GetMealPeriod(food.MealOfDay);
-        if (mealPeriod != null)
-        {
-            currentNutritionDay.AddFood(food);
-            await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
-        }
+        dataRepository.AddToSearchHistory(food);
+
+        food.MealOfDay = settingsService.GetCurrentMealPeriod();
+
+        currentNutritionDay.AddFood(food);
+        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+
+        WeakReferenceMessenger.Default.Send(food);
     }
 
     public void RemoveFood(FoodItem food)

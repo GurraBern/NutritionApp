@@ -56,22 +56,23 @@ public class CircularProgressBarDrawable : BindableObject, IDrawable, INotifyPro
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
+        int progress = (int)(Progress * 100);
         float effectiveSize = Size - Thickness;
         float x = Thickness / 2;
         float y = Thickness / 2;
 
-        if (Progress < 0)
+        if (progress < 0)
         {
-            Progress = 0;
+            progress = 0;
         }
-        else if (Progress > 1)
+        else if (progress > 100)
         {
-            Progress = 1;
+            progress = 100;
         }
 
-        if (Progress < 1)
+        if (progress < 100)
         {
-            float angle = CircularProgressBarDrawable.GetAngle(Progress);
+            float angle = GetAngle(progress);
 
             canvas.StrokeColor = ProgressLeftColor;
             canvas.StrokeSize = Thickness;
@@ -96,25 +97,25 @@ public class CircularProgressBarDrawable : BindableObject, IDrawable, INotifyPro
         canvas.DrawString($"{Text}", x, verticalPosition, effectiveSize, effectiveSize / 4, HorizontalAlignment.Center, VerticalAlignment.Center);
     }
 
-    private static float GetAngle(double progress)
+    private float GetAngle(int progress)
     {
         float factor = 90f / 25f;
 
-        if (progress > 0.75f)
+        if (progress > 75)
         {
-            return (float)(-180 - (progress - 0.75f) * factor);
+            return -180 - ((progress - 75) * factor);
         }
-        else if (progress > 0.50)
+        else if (progress > 50)
         {
-            return (float)(-90 - (progress - 0.50f) * factor);
+            return -90 - ((progress - 50) * factor);
         }
-        else if (progress > 0.25)
+        else if (progress > 25)
         {
-            return (float)(0 - (progress - 0.25) * factor);
+            return 0 - ((progress - 25) * factor);
         }
         else
         {
-            return (float)(90 - progress * factor);
+            return 90 - (progress * factor);
         }
     }
 }
