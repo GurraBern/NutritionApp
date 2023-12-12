@@ -22,7 +22,7 @@ public class LocalDataRepository : IDataRepository
 
     public IEnumerable<FoodItem> GetRecentFoodItems()
     {
-        var searchFoodItems = db.Query<SearchFoodItem>("SELECT * FROM search_history ORDER BY search_time DESC LIMIT 10");
+        var searchFoodItems = db.Query<SearchFoodItem>("SELECT * FROM search_history GROUP BY Id ORDER BY search_time DESC LIMIT 10");
 
         var foodItems = mapper.Map<IEnumerable<FoodItem>>(searchFoodItems);
 

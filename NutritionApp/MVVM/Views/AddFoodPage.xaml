@@ -50,6 +50,9 @@
                                     <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"></Label>
                                     <ImageButton Source="plus_circle_svgrepo_com.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
                                 </Grid>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                </Border.GestureRecognizers>
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
