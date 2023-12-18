@@ -35,11 +35,22 @@ public class LocalDataRepository : IDataRepository
 
         db.Insert(searchFoodItem);
     }
+
+    public IEnumerable<FoodItem> SearchRecentFoodItems(string query)
+    {
+        var searchFoodItems = db.Query<SearchFoodItem>("SELECT * FROM search_history WHERE Name LIKE ? GROUP BY Id ORDER BY search_time DESC LIMIT 10", "%" + query + "%");
+
+        var foodItems = mapper.Map<IEnumerable<FoodItem>>(searchFoodItems);
+
+        return foodItems;
+    }
 }
 
 public interface IDataRepository
 {
     IEnumerable<FoodItem> GetRecentFoodItems();
+
+    IEnumerable<FoodItem> SearchRecentFoodItems(string query);
 
     void AddToSearchHistory(FoodItem foodItem);
 }

@@ -20,4 +20,10 @@ public partial class AddFoodPage : ContentPage
     {
         vm.Initialize();
     }
+
+    private void searchbar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        vm.ClearSearchResults();
+        vm.SearchRecent(searchbar.Text);
+    }
 }

@@ -42,6 +42,12 @@ public partial class AddFoodViewModel : BaseViewModel
         SearchResults.AddRange(foodItems);
     }
 
+    public void SearchRecent(string query)
+    {
+        var foodItems = dataRepository.SearchRecentFoodItems(query);
+        SearchResults.AddRange(foodItems);
+    }
+
     [RelayCommand]
     public async Task PerformSearch(string query)
     {
