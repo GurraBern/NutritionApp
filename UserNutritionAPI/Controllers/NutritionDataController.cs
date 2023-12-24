@@ -10,7 +10,7 @@ namespace UserNutritionAPI.Controllers
     [Route("api/[controller]")]
     public class NutritionDataController : ControllerBase
     {
-        private FirestoreDb db;
+        private readonly FirestoreDb db;
 
         public NutritionDataController()
         {

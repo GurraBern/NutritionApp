@@ -18,12 +18,12 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
     [ObservableProperty]
     private OptionItem selectedOption;
 
-    public ObservableCollection<NutrientModel> PrimaryNutrients { get; set; } = new();
-    public ObservableCollection<NutrientModel> Fats { get; } = new();
-    public ObservableCollection<NutrientModel> Vitamins { get; } = new();
-    public ObservableCollection<NutrientModel> MacroMinerals { get; } = new();
-    public ObservableCollection<NutrientModel> AminoAcids { get; } = new();
-    public ObservableCollection<OptionItem> Options { get; private set; } = new();
+    public ObservableCollection<NutrientModel> PrimaryNutrients { get; set; } = [];
+    public ObservableCollection<NutrientModel> Fats { get; } = [];
+    public ObservableCollection<NutrientModel> Vitamins { get; } = [];
+    public ObservableCollection<NutrientModel> MacroMinerals { get; } = [];
+    public ObservableCollection<NutrientModel> AminoAcids { get; } = [];
+    public ObservableCollection<OptionItem> Options { get; private set; } = [];
     public Task Initialization { get; private set; }
 
     public NutritionDetailViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
@@ -68,6 +68,7 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
         foreach (var name in nutrientNames)
         {
             var nutrient = nutrientFactory.CreateNutrient(name);
+            nutrient.roundingAmount = 4;
             if (nutrient != null)
                 nutrientCollection.Add(nutrient);
         }

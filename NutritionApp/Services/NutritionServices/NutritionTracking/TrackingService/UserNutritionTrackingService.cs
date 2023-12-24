@@ -3,17 +3,8 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class UserNutritionTrackingService : INutritionTrackingService
+public class UserNutritionTrackingService(IUserNutritionApiClient nutritionApiClient, IAuthService authService) : INutritionTrackingService
 {
-    private readonly IUserNutritionApiClient nutritionApiClient;
-    private readonly IAuthService authService;
-
-    public UserNutritionTrackingService(IUserNutritionApiClient nutritionApiClient, IAuthService authService)
-    {
-        this.nutritionApiClient = nutritionApiClient;
-        this.authService = authService;
-    }
-
     public async Task<NutritionDay> GetNutritionDay(DateTime dateToQuery)
     {
         var request = new RestRequest($"/api/NutritionData/getnutrition/{authService.CurrentUser.Uid}/{dateToQuery}");

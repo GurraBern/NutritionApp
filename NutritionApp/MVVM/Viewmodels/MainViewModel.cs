@@ -17,11 +17,11 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
 
-    public ObservableCollection<FoodItem> SearchResults { get; } = new();
-    public ObservableCollection<FoodItem> BreakfastFoods { get; } = new();
-    public ObservableCollection<FoodItem> LunchFoods { get; } = new();
-    public ObservableCollection<FoodItem> DinnerFoods { get; } = new();
-    public ObservableCollection<FoodItem> SnacksFoods { get; } = new();
+    public ObservableCollection<FoodItem> SearchResults { get; } = [];
+    public ObservableCollection<FoodItem> BreakfastFoods { get; } = [];
+    public ObservableCollection<FoodItem> LunchFoods { get; } = [];
+    public ObservableCollection<FoodItem> DinnerFoods { get; } = [];
+    public ObservableCollection<FoodItem> SnacksFoods { get; } = [];
     public NutrientModel Protein { get; }
     public NutrientModel Carbohydrates { get; }
     public NutrientModel Fat { get; }

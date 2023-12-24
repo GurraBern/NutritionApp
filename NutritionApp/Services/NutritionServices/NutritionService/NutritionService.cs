@@ -3,17 +3,8 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionService : INutritionService
+public class NutritionService(INutritionApiClient client, IAuthService authService) : INutritionService
 {
-    private readonly INutritionApiClient client;
-    private readonly IAuthService authService;
-
-    public NutritionService(INutritionApiClient client, IAuthService authService)
-    {
-        this.client = client;
-        this.authService = authService;
-    }
-
     public async Task<IEnumerable<FoodItem>> GetSearchResults(string query)
     {
         try

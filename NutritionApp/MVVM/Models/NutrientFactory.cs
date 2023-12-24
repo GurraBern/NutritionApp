@@ -2,15 +2,8 @@
 
 namespace NutritionApp.MVVM.Models;
 
-public class NutrientFactory : INutrientFactory
+public class NutrientFactory(ISettingsService settingsService) : INutrientFactory
 {
-    private readonly ISettingsService settingsService;
-
-    public NutrientFactory(ISettingsService settingsService)
-    {
-        this.settingsService = settingsService;
-    }
-
     public NutrientModel CreateNutrient(string name, double foodValue)
     {
         var neededNutrient = settingsService.GetNutrientNeed(name);

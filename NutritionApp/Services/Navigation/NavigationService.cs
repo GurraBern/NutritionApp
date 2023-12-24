@@ -6,17 +6,8 @@ using NutritionApp.Services.NutritionServices;
 
 namespace NutritionApp.Services;
 
-public class NavigationService
+public class NavigationService(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
 {
-    private readonly INutritionTracker nutritionTracker;
-    private readonly INutrientFactory nutrientFactory;
-
-    public NavigationService(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
-    {
-        this.nutritionTracker = nutritionTracker;
-        this.nutrientFactory = nutrientFactory;
-    }
-
     public async Task NavigateToFoodDetailPage(FoodItem foodItem)
     {
         var foodDetailViewModel = new FoodDetailViewModel(foodItem, nutritionTracker, nutrientFactory);

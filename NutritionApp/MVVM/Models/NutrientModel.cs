@@ -3,7 +3,7 @@ using Nutrition.Core;
 
 namespace NutritionApp.MVVM.Models;
 
-public partial class NutrientModel : ObservableObject
+public partial class NutrientModel(Nutrient nutrient, double nutrientValue) : ObservableObject
 {
     [ObservableProperty]
     private double nutritionProgress;
@@ -11,11 +11,10 @@ public partial class NutrientModel : ObservableObject
     [ObservableProperty]
     private double nutritionPotentialProgress;
 
-    private readonly double nutritionAmountNeeded;
-    private readonly Nutrient nutrient;
-    public readonly double foodItemValue;
+    private readonly double nutritionAmountNeeded = nutrient.Amount;
+    public readonly double foodItemValue = nutrientValue;
     public readonly int sortValue;
-    public string Name { get; }
+    public string Name { get; } = nutrient.NutrientName;
     public string CustomName { get; set; }
     public string unit = string.Empty;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
@@ -36,14 +35,6 @@ public partial class NutrientModel : ObservableObject
                 OnPropertyChanged(nameof(NutritionLeft));
             }
         }
-    }
-
-    public NutrientModel(Nutrient nutrient, double nutrientValue)
-    {
-        Name = nutrient.NutrientName;
-        this.nutrient = nutrient;
-        foodItemValue = nutrientValue;
-        nutritionAmountNeeded = nutrient.Amount;
     }
 
     public void SetProgress(double amount, double nutritionTotal = 0)

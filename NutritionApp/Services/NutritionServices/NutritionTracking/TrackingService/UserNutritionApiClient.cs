@@ -3,14 +3,9 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class UserNutritionApiClient : IUserNutritionApiClient
+public class UserNutritionApiClient(string baseUrl) : IUserNutritionApiClient
 {
-    private readonly RestClient restClient;
-
-    public UserNutritionApiClient(string baseUrl)
-    {
-        restClient = new RestClient(baseUrl);
-    }
+    private readonly RestClient restClient = new(baseUrl);
 
     public async Task<NutritionDay> GetAsync(RestRequest request, string bearerToken)
     {

@@ -21,7 +21,7 @@ public partial class AddFoodViewModel : BaseViewModel
     [ObservableProperty]
     private string mealOfDayString;
 
-    public ObservableCollection<FoodItem> SearchResults { get; } = new();
+    public ObservableCollection<FoodItem> SearchResults { get; } = [];
 
     public AddFoodViewModel(INutritionService nutritionService, IDataRepository dataRepository, IToastService toastService, NavigationService navigationService)
     {

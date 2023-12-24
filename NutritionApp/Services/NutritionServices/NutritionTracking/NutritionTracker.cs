@@ -5,22 +5,12 @@ using NutritionApp.Data;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionTracker : ObservableObject, INutritionTracker
+public class NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService, IDataRepository dataRepository) : ObservableObject, INutritionTracker
 {
     private int dayIndex = 0;
     private bool isInitialized = false;
     private NutritionDay currentNutritionDay;
-    private List<NutritionDay> NutritionDays = [];
-    private readonly INutritionTrackingService nutritionDataProvider;
-    private readonly ISettingsService settingsService;
-    private readonly IDataRepository dataRepository;
-
-    public NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService, IDataRepository dataRepository)
-    {
-        this.nutritionDataProvider = nutritionDataProvider;
-        this.settingsService = settingsService;
-        this.dataRepository = dataRepository;
-    }
+    private readonly List<NutritionDay> NutritionDays = [];
 
     public async Task Initialize()
     {
