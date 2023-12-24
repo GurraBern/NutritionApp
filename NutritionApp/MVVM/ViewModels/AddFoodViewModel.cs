@@ -15,6 +15,7 @@ public partial class AddFoodViewModel : BaseViewModel
 {
     private readonly INutritionService nutritionService;
     private readonly IDataRepository dataRepository;
+    private readonly IToastService toastService;
     private readonly NavigationService navigationService;
 
     [ObservableProperty]
@@ -22,10 +23,11 @@ public partial class AddFoodViewModel : BaseViewModel
 
     public ObservableCollection<FoodItem> SearchResults { get; } = new();
 
-    public AddFoodViewModel(INutritionService nutritionService, IDataRepository dataRepository, NavigationService navigationService)
+    public AddFoodViewModel(INutritionService nutritionService, IDataRepository dataRepository, IToastService toastService, NavigationService navigationService)
     {
         this.nutritionService = nutritionService;
         this.dataRepository = dataRepository;
+        this.toastService = toastService;
         this.navigationService = navigationService;
 
         Initialize();
@@ -55,16 +57,22 @@ public partial class AddFoodViewModel : BaseViewModel
             return;
 
         IsBusy = true;
-
-        var searchResult = await nutritionService.GetSearchResults(query);
-        if (searchResult != null)
+        try
         {
-            SearchResults.Clear();
-            foreach (var foodItem in searchResult)
+            var searchResult = await nutritionService.GetSearchResults(query);
+            if (searchResult != null)
             {
-                foodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
-                SearchResults.Add(foodItem);
+                SearchResults.Clear();
+                foreach (var foodItem in searchResult)
+                {
+                    foodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
+                    SearchResults.Add(foodItem);
+                }
             }
+        }
+        catch (Exception)
+        {
+            await toastService.MakeToast("Service is not available");
         }
 
         IsBusy = false;

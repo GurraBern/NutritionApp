@@ -22,8 +22,9 @@ public class NutritionService : INutritionService
             var searchResults = await client.GetAsync(request, authService.CurrentUser.Credential.IdToken);
             return searchResults;
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
+            //TODO add logging
             throw;
         }
     }
