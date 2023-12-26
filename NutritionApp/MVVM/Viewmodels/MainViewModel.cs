@@ -115,6 +115,12 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
         await navigationService.NavigateToNutritionDetails();
     }
 
+    [RelayCommand]
+    public async Task NavigateToMealDetails()
+    {
+        await navigationService.NavigateToMealDetails();
+    }
+
     public void Receive(FoodItem message)
     {
         UpdateNutritionInformation();

@@ -24,4 +24,9 @@ public class NavigationService(INutritionTracker nutritionTracker, INutrientFact
     {
         await Shell.Current.GoToAsync($"//{nameof(AddFoodPage)}?MealOfDayString={mealOfDay}");
     }
+
+    public async Task NavigateToMealDetails()
+    {
+        await Shell.Current.GoToAsync($"{nameof(MealDetailView)}");
+    }
 }

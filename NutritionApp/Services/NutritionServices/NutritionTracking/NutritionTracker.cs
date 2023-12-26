@@ -42,7 +42,9 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
 
     public void RemoveFood(FoodItem food)
     {
-        //nutritionDay.Remove(food);
+        currentNutritionDay.RemoveFood(food);
+
+        WeakReferenceMessenger.Default.Send(food);
     }
 
     public NutritionDay NextDay()

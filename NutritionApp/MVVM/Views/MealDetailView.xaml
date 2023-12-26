@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutritionApp.MVVM.Views.MealDetailView"
+             Title="MealDetailView"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
+             x:DataType="viewmodel:MealDetailViewModel"
+             BackgroundColor="{DynamicResource CreamWhite}"
+             x:Name="this">
+    <VerticalStackLayout>
+
+        <Label Text="Breakfast" FontSize="Large"></Label>
+        <CollectionView ItemsSource="{Binding BreakFastFoodItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}"></Label>
+                        <Button Text="Remove" TextColor="Black"></Button>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Lunch" FontSize="Large"></Label>
+        <CollectionView ItemsSource="{Binding LunchFoodItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}"></Label>
+                        <Button Text="Remove" TextColor="Black"></Button>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Dinner" FontSize="Large"></Label>
+        <CollectionView ItemsSource="{Binding DinnerFoodItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <Grid HeightRequest="50" VerticalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Text="{Binding Name}" Grid.Column="0" VerticalOptions="Center" FontSize="Small"></Label>
+                        <HorizontalStackLayout Grid.Column="1">
+                            <Entry Text="{Binding Amount}" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"></Entry>
+                            <Label Text="g" VerticalOptions="Center" HorizontalOptions="Start" FontSize="Small"></Label>
+                        </HorizontalStackLayout>
+                        <ImageButton Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveFoodItemCommand}" CommandParameter="{Binding .}" Source="cross_symbol_icon.png" WidthRequest="5" HeightRequest="5" Grid.Column="2" Aspect="AspectFill"></ImageButton>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Snacks" FontSize="Large"></Label>
+        <CollectionView ItemsSource="{Binding SnacksFoodItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Name}"></Label>
+                        <Button Text="Remove" TextColor="Black"></Button>
+                    </HorizontalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Save"></Button>
+    </VerticalStackLayout>
+</ContentPage>
