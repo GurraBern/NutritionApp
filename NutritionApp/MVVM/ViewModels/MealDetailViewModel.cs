@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.MVVM.Viewmodels.Utils;
+using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
@@ -9,6 +10,7 @@ namespace NutritionApp.MVVM.ViewModels
     public partial class MealDetailViewModel : BaseViewModel
     {
         private readonly INutritionTracker nutritionTracker;
+        private readonly NavigationService navigationService;
         private NutritionDay nutritionDay;
         public ObservableCollection<FoodItem> BreakFastFoodItems { get; } = [];
         public ObservableCollection<FoodItem> LunchFoodItems { get; } = [];
@@ -16,9 +18,10 @@ namespace NutritionApp.MVVM.ViewModels
         public ObservableCollection<FoodItem> SnacksFoodItems { get; } = [];
         public Task Initialization { get; private set; }
 
-        public MealDetailViewModel(INutritionTracker nutritionTracker)
+        public MealDetailViewModel(INutritionTracker nutritionTracker, NavigationService navigationService)
         {
             this.nutritionTracker = nutritionTracker;
+            this.navigationService = navigationService;
             Initialization = InitializeAsync();
         }
 
@@ -41,6 +44,12 @@ namespace NutritionApp.MVVM.ViewModels
         {
             nutritionTracker.RemoveFood(foodItem);
             UpdateFoodItems();
+        }
+
+        [RelayCommand]
+        private async Task OpenFoodDetail(FoodItem foodItem)
+        {
+            await navigationService.NavigateToFoodDetailPage(foodItem);
         }
     }
 }
