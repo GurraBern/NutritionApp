@@ -2,6 +2,7 @@
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Views;
+using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
@@ -19,6 +20,8 @@ public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
     public ObservableCollection<NutrientModel> AminoAcids { get; } = [];
     public ObservableCollection<NutrientModel> Other { get; } = [];
     public FoodItem FoodItem { get; }
+    public string ButtonText => PageMode == PageMode.Add ? "Add" : "Edit";
+    public PageMode PageMode { get; set; }
 
     public int Amount
     {
@@ -41,6 +44,7 @@ public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
         FoodItem = foodItem;
         this.nutritionTracker = nutritionTracker;
         this.nutrientFactory = nutrientFactory;
+        Amount = FoodItem.Amount;
 
         Initialization = InitializeAsync();
     }
@@ -134,10 +138,26 @@ public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
     }
 
     [RelayCommand]
-    public async Task AddFood()
+    private async Task AddOrEdit()
+    {
+        if (PageMode == PageMode.Add)
+            await AddFood();
+        else
+            await EditFood();
+    }
+
+    private async Task AddFood()
     {
         FoodItem.Amount = Amount;
-        nutritionTracker.AddFood(FoodItem);
+        await nutritionTracker.AddFood(FoodItem);
+
+        await Shell.Current.GoToAsync(nameof(MainPage));
+    }
+
+    private async Task EditFood()
+    {
+        FoodItem.Amount = Amount;
+        await nutritionTracker.UpdateFood(FoodItem);
 
         await Shell.Current.GoToAsync(nameof(MainPage));
     }

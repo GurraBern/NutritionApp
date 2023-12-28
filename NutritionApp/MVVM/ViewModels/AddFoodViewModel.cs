@@ -51,7 +51,7 @@ public partial class AddFoodViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async Task PerformSearch(string query)
+    private async Task PerformSearch(string query)
     {
         if (string.IsNullOrEmpty(query))
             return;
@@ -65,7 +65,6 @@ public partial class AddFoodViewModel : BaseViewModel
                 SearchResults.Clear();
                 foreach (var foodItem in searchResult)
                 {
-                    foodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
                     SearchResults.Add(foodItem);
                 }
             }
@@ -79,20 +78,21 @@ public partial class AddFoodViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async Task SelectFood(FoodItem selectedFoodItem)
+    private async Task SelectFood(FoodItem selectedFoodItem)
     {
+        selectedFoodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
+
         if (selectedFoodItem != null)
-            await navigationService.NavigateToFoodDetailPage(selectedFoodItem);
+            await navigationService.NavigateToFoodDetailPage(selectedFoodItem, PageMode.Add);
     }
 
-    [RelayCommand]
     public void ClearSearchResults()
     {
         SearchResults.Clear();
     }
 
     [RelayCommand]
-    public static async Task GoBack()
+    private static async Task GoBack()
     {
         await Shell.Current.GoToAsync(nameof(MainPage));
     }

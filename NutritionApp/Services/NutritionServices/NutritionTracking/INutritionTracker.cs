@@ -4,9 +4,11 @@ namespace NutritionApp.Services.NutritionServices;
 
 public interface INutritionTracker
 {
-    void AddFood(FoodItem food);
+    Task AddFood(FoodItem food);
 
-    void RemoveFood(FoodItem food);
+    Task RemoveFood(FoodItem food);
+
+    Task UpdateFood(FoodItem food);
 
     Task<NutritionDay> GetSelectedNutritionDay();
 

@@ -140,6 +140,7 @@ public class NutritionDay
     private void AddFoodToMeal(FoodItem food)
     {
         var mealOfDay = (food.MealOfDay == MealOfDay.NoClassification) ? GetMealOfDay() : food.MealOfDay;
+        food.MealOfDay = mealOfDay;
         switch (mealOfDay)
         {
             case MealOfDay.Breakfast:

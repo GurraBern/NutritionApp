@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutritionApp.MVVM.Views.FoodDetailPage"
-             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels" 
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:FoodDetailViewModel"
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
@@ -29,7 +29,7 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
@@ -40,7 +40,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen"/>
+                                    ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>
@@ -54,7 +54,7 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding MacroMinerals}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
@@ -65,7 +65,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen"/>
+                                    ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>
@@ -79,7 +79,7 @@
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding Vitamins}">
                     <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10"/>
+                        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
@@ -90,7 +90,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen"/>
+                                    ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>
@@ -98,10 +98,7 @@
                 </CollectionView>
             </toolkit:Expander>
 
-
-
-            <Button Margin="0,5" Command="{Binding AddFoodCommand}" Text="ADD"></Button>
-
+            <Button Margin="0,5" Command="{Binding AddOrEditCommand}" Text="{Binding ButtonText}"></Button>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
