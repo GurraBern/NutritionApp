@@ -141,6 +141,10 @@
                         <customComponents:MealView ImageSource="dish_cap_line_icon.png" Text="Dinner" Meal="{Binding DinnerFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Dinner}" />
                         <customComponents:MealView ImageSource="snacks_icon.png" Text="Snacks" Meal="{Binding SnacksFoods}" Command="{Binding AddFoodCommand}" CommandParameter="{x:Static modelCore:MealOfDay.Snacks}" />
                     </VerticalStackLayout>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToMealDetailsCommand}" />
+                    </Border.GestureRecognizers>
                 </Border>
             </VerticalStackLayout>
 

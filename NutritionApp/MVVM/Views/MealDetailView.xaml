@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutritionApp.MVVM.Views.MealDetailView"
+             Title="MealDetailView"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
+             xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
+             x:DataType="viewmodel:MealDetailViewModel"
+             BackgroundColor="{DynamicResource CreamWhite}"
+             x:Name="this">
+    <VerticalStackLayout Padding="15">
+
+        <Border>
+            <VerticalStackLayout>
+                <Label HorizontalOptions="Center" Text="{Binding Calories.Title}"></Label>
+                <customComponents:CustomProgressBar
+                    ProgressA="1"
+                    ProgressB="{Binding Calories.NutritionProgress}"
+                    ProgressBarAColor="LightGrey"
+                    ProgressBarBColor="LimeGreen" />
+                <Label HorizontalOptions="Center" Text="{Binding Calories.Info}"></Label>
+
+                <Grid ColumnSpacing="15" Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                        <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Title}"></Label>
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding Carbohydrates.NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen" />
+                        <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5">
+                        <Label HorizontalOptions="Center" Text="{Binding Protein.Title}"></Label>
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding Protein.NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen" />
+                        <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="1" Grid.Column="2" Spacing="5">
+                        <Label HorizontalOptions="Center" Text="{Binding Fat.Title}"></Label>
+                        <customComponents:CustomProgressBar
+                            ProgressA="1"
+                            ProgressB="{Binding Fat.NutritionProgress}"
+                            ProgressBarAColor="LightGrey"
+                            ProgressBarBColor="LimeGreen" />
+                        <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <Label Text="Meals" FontSize="Large" Margin="0,0,15,0"></Label>
+
+                <Label Text="Breakfast" FontSize="Medium"></Label>
+                <CollectionView ItemsSource="{Binding BreakFastFoodItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="modelCore:FoodItem">
+                            <Border Style="{StaticResource RoundBorder}" Padding="10">
+                                <Grid HeightRequest="60" VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="50"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="40"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" FontSize="Small"></Label>
+                                    <VerticalStackLayout Grid.Row="1">
+                                        <Label Text="{Binding Calories, StringFormat='{0} kcal'}" FontSize="Micro"></Label>
+                                        <Label Text="{Binding Amount, StringFormat='{0} g'}" FontSize="Micro"></Label>
+                                    </VerticalStackLayout>
+
+                                    <ImageButton Grid.RowSpan="2" Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveFoodItemCommand}" CommandParameter="{Binding .}" Source="cross_symbol_icon.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" Grid.Column="2" Aspect="AspectFill"></ImageButton>
+                                </Grid>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenFoodDetailCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Border>
+
+        <Label Text="Lunch" FontSize="Medium"></Label>
+        <CollectionView ItemsSource="{Binding LunchFoodItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                   ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <Border Style="{StaticResource RoundBorder}" Padding="10">
+                        <Grid HeightRequest="60" VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" FontSize="Small"></Label>
+                            <VerticalStackLayout Grid.Row="1">
+                                <Label Text="{Binding Calories, StringFormat='{0} kcal'}" FontSize="Micro"></Label>
+                                <Label Text="{Binding Amount, StringFormat='{0} g'}" FontSize="Micro"></Label>
+                            </VerticalStackLayout>
+
+                            <ImageButton Grid.RowSpan="2" Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveFoodItemCommand}" CommandParameter="{Binding .}" Source="cross_symbol_icon.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" Grid.Column="2" Aspect="AspectFill"></ImageButton>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenFoodDetailCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Dinner" FontSize="Medium"></Label>
+        <CollectionView ItemsSource="{Binding DinnerFoodItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                           ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <Border Style="{StaticResource RoundBorder}" Padding="10">
+                        <Grid HeightRequest="60" VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" FontSize="Small"></Label>
+                            <VerticalStackLayout Grid.Row="1">
+                                <Label Text="{Binding Calories, StringFormat='{0} kcal'}" FontSize="Micro"></Label>
+                                <Label Text="{Binding Amount, StringFormat='{0} g'}" FontSize="Micro"></Label>
+                            </VerticalStackLayout>
+
+                            <ImageButton Grid.RowSpan="2" Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveFoodItemCommand}" CommandParameter="{Binding .}" Source="cross_symbol_icon.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" Grid.Column="2" Aspect="AspectFill"></ImageButton>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenFoodDetailCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Text="Snacks" FontSize="Medium"></Label>
+        <CollectionView ItemsSource="{Binding SnacksFoodItems}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                   ItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="modelCore:FoodItem">
+                    <Border Style="{StaticResource RoundBorder}" Padding="10">
+                        <Grid HeightRequest="60" VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="40"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="{Binding Name}" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" FontSize="Micro"></Label>
+                            <VerticalStackLayout Grid.Row="1">
+                                <Label Text="{Binding Calories, StringFormat='{0} kcal'}" FontSize="Default"></Label>
+                                <Label Text="{Binding Amount, StringFormat='{0} g'}" FontSize="Default"></Label>
+                            </VerticalStackLayout>
+
+                            <ImageButton Grid.RowSpan="2" Command="{Binding Source={x:Reference this}, Path=BindingContext.RemoveFoodItemCommand}" CommandParameter="{Binding .}" Source="cross_symbol_icon.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" Grid.Column="2" Aspect="AspectFill"></ImageButton>
+                        </Grid>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.OpenFoodDetailCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

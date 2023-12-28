@@ -28,11 +28,12 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
         NutritionDays.Add(currentNutritionDay);
     }
 
-    public async void AddFood(FoodItem food)
+    public async Task AddFood(FoodItem food)
     {
         dataRepository.AddToSearchHistory(food);
 
-        food.MealOfDay = settingsService.GetCurrentMealPeriod();
+        if (food.MealOfDay == MealOfDay.NoClassification)
+            food.MealOfDay = settingsService.GetCurrentMealPeriod();
 
         currentNutritionDay.AddFood(food);
         await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
@@ -40,9 +41,22 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
         WeakReferenceMessenger.Default.Send(food);
     }
 
-    public void RemoveFood(FoodItem food)
+    public async Task RemoveFood(FoodItem food)
     {
-        //nutritionDay.Remove(food);
+        currentNutritionDay.RemoveFood(food);
+        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+
+        WeakReferenceMessenger.Default.Send(food);
+    }
+
+    public async Task UpdateFood(FoodItem food)
+    {
+        currentNutritionDay.RemoveFood(food);
+        currentNutritionDay.AddFood(food);
+
+        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+
+        WeakReferenceMessenger.Default.Send(food);
     }
 
     public NutritionDay NextDay()

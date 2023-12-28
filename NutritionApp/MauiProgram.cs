@@ -100,6 +100,7 @@ public static class MauiProgram
         builder.Services.AddTransient<NutritionDetailViewModel>();
         builder.Services.AddTransient<AddFoodViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
+        builder.Services.AddTransient<MealDetailViewModel>();
     }
 
     private static void RegisterPages(this MauiAppBuilder builder)
@@ -110,6 +111,7 @@ public static class MauiProgram
         builder.Services.AddTransient<NutritionDetailPage>();
         builder.Services.AddTransient<AddFoodPage>();
         builder.Services.AddTransient<SettingsPage>();
+        builder.Services.AddTransient<MealDetailView>();
     }
 
     private static void AddAppSettings(this MauiAppBuilder builder)

@@ -8,9 +8,13 @@ namespace NutritionApp.Services;
 
 public class NavigationService(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory)
 {
-    public async Task NavigateToFoodDetailPage(FoodItem foodItem)
+    public async Task NavigateToFoodDetailPage(FoodItem foodItem, PageMode pageMode = PageMode.Add)
     {
-        var foodDetailViewModel = new FoodDetailViewModel(foodItem, nutritionTracker, nutrientFactory);
+        var foodDetailViewModel = new FoodDetailViewModel(foodItem, nutritionTracker, nutrientFactory)
+        {
+            PageMode = pageMode
+        };
+
         var foodDetailPage = new FoodDetailPage(foodDetailViewModel);
         await Shell.Current.Navigation.PushAsync(foodDetailPage);
     }
@@ -24,4 +28,15 @@ public class NavigationService(INutritionTracker nutritionTracker, INutrientFact
     {
         await Shell.Current.GoToAsync($"//{nameof(AddFoodPage)}?MealOfDayString={mealOfDay}");
     }
+
+    public async Task NavigateToMealDetails()
+    {
+        await Shell.Current.GoToAsync($"{nameof(MealDetailView)}");
+    }
+}
+
+public enum PageMode
+{
+    Add,
+    Edit
 }
