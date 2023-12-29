@@ -52,17 +52,17 @@
         <Setter Property="StrokeShape" Value="RoundRectangle" />
         <Setter Property="StrokeThickness" Value="1" />
 
-        <!--<Setter Property="Shadow">
+        <Setter Property="Shadow">
             <Setter.Value>
                 <Shadow Brush="Black" Radius="10" Opacity="0.2" Offset="0,1" />
             </Setter.Value>
-        </Setter>-->
+        </Setter>
     </Style>
     
 
     <Style x:Key="RoundBorder" TargetType="Border">
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}"></Setter>
-        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource BackgroundColor}}"></Setter>
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource BackgroundColor}}" />
         <Setter Property="StrokeShape" Value="RoundRectangle 10,10,10,10" />
         <Setter Property="StrokeThickness" Value="1"/>
         <Setter Property="Padding" Value="5"/>
@@ -227,7 +227,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource DarkText}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
@@ -237,7 +237,7 @@
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Color5}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

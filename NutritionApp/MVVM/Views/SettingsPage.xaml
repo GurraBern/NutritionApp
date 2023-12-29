@@ -6,7 +6,7 @@
              x:DataType="viewmodel:SettingsViewModel"
              x:Class="NutritionApp.MVVM.Views.SettingsPage"
              Title="SettingsPage"
-             BackgroundColor="{DynamicResource CreamWhite}">
+             BackgroundColor="{DynamicResource BackgroundPrimary}">
     <ScrollView Padding="10">
         <VerticalStackLayout>
             <Border>

@@ -7,7 +7,7 @@
              xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
              x:DataType="viewmodel:MealDetailViewModel"
-             BackgroundColor="{DynamicResource CreamWhite}"
+             BackgroundColor="{DynamicResource BackgroundPrimary}"
              x:Name="this">
     <VerticalStackLayout Padding="15">
 

@@ -10,7 +10,7 @@
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
              xmlns:converters="clr-namespace:NutritionApp.Converters"
              xmlns:controls="clr-namespace:CircularProgressBar.Controls"
-             BackgroundColor="{DynamicResource CreamWhite}">
+             BackgroundColor="{DynamicResource BackgroundPrimary}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -37,9 +37,9 @@
                         <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <ImageButton Scale="-0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                    <ImageButton Scale="0.5" Source="angle_circle_left_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
                     <Label VerticalTextAlignment="Center" HorizontalOptions="Center" FontSize="Small" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, Converter={StaticResource DateConverter}}"></Label>
-                    <ImageButton Scale="0.5" Source="right_chevron_arrow_round_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
+                    <ImageButton Scale="-0.5" Source="angle_circle_left_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
                 </Grid>
 
                 <Border Style="{StaticResource RoundBorder}">
@@ -63,8 +63,8 @@
                             <controls:CircularProgressBar
                                 Grid.ColumnSpan="2"
                                 Progress="{Binding Calories.NutritionProgress}"
-                                ProgressColor="#E84855"
-                                ProgressLeftColor="#403F4C"
+                                ProgressColor="{StaticResource Red}"
+                                ProgressLeftColor="{StaticResource Primary}"
                                 Size="150"
                                 Thickness="10">
                             </controls:CircularProgressBar>
@@ -75,7 +75,7 @@
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center"
                                     FontSize="Small" />
-                                <Label Text="KCAL LEFT" TextColor="#403F4C" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Center" />
+                                <Label Text="KCAL LEFT" TextColor="{StaticResource Red}" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Center" />
                             </StackLayout>
                         </Grid>
 
@@ -104,7 +104,7 @@
                                     ProgressA="1"
                                     ProgressB="{Binding Carbohydrates.NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen" />
+                                    ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
                             </VerticalStackLayout>
 
@@ -114,7 +114,7 @@
                                 ProgressA="1"
                                 ProgressB="{Binding Protein.NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
-                                ProgressBarBColor="LimeGreen" />
+                                ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
                             </VerticalStackLayout>
 
@@ -124,7 +124,7 @@
                                 ProgressA="1"
                                 ProgressB="{Binding Fat.NutritionProgress}"
                                 ProgressBarAColor="LightGrey"
-                                ProgressBarBColor="LimeGreen" />
+                                ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
                             </VerticalStackLayout>
                         </Grid>
@@ -148,7 +148,7 @@
                 </Border>
             </VerticalStackLayout>
 
-            <ImageButton
+            <!--<ImageButton
                 Grid.Row="1"
                 Source="plus_circle_green.png"
                 WidthRequest="80"
@@ -157,7 +157,7 @@
                 CornerRadius="15"
                 Command="{Binding AddFoodCommand}"
                 CommandParameter="{x:Static modelCore:MealOfDay.NoClassification}"
-                HorizontalOptions="End" />
+                HorizontalOptions="End" />-->
         </Grid>
     </ScrollView>
 </ContentPage>

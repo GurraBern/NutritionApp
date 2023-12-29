@@ -7,7 +7,7 @@
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
              xmlns:customComponents="clr-namespace:NutritionApp.MVVM.Views"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             BackgroundColor="{DynamicResource White}"
+             BackgroundColor="{DynamicResource BackgroundPrimary}"
              Title="FoodDetailPage">
 
     <ScrollView>
