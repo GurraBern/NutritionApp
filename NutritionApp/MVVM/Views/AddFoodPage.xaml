@@ -23,7 +23,6 @@
                     TextColor="Black"
                     BackgroundColor="LightGrey"
                     Placeholder="search foods..."
-                    Focused="searchbar_Focused"
                     TextChanged="searchbar_TextChanged">
                 </SearchBar>
             </Border>

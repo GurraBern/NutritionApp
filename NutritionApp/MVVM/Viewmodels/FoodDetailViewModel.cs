@@ -151,7 +151,8 @@ public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
         FoodItem.Amount = Amount;
         await nutritionTracker.AddFood(FoodItem);
 
-        await Shell.Current.GoToAsync(nameof(MainPage));
+        await Shell.Current.Navigation.PopAsync();
+        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
 
     private async Task EditFood()
@@ -159,7 +160,8 @@ public partial class FoodDetailViewModel : BaseViewModel, IAsyncInitialization
         FoodItem.Amount = Amount;
         await nutritionTracker.UpdateFood(FoodItem);
 
-        await Shell.Current.GoToAsync(nameof(MainPage));
+        await Shell.Current.Navigation.PopAsync();
+        await Shell.Current.GoToAsync("..");
     }
 
     private void UpdateAllOnPropertiesChanged()

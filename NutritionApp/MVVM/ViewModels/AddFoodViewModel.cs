@@ -41,7 +41,9 @@ public partial class AddFoodViewModel : BaseViewModel
     private void LoadFrequentlyUsedFoodItems()
     {
         var foodItems = dataRepository.GetRecentFoodItems();
-        SearchResults.AddRange(foodItems);
+
+        if (!foodItems.Equals(SearchResults))
+            SearchResults.AddRange(foodItems);
     }
 
     public void SearchRecent(string query)
@@ -94,6 +96,6 @@ public partial class AddFoodViewModel : BaseViewModel
     [RelayCommand]
     private static async Task GoBack()
     {
-        await Shell.Current.GoToAsync(nameof(MainPage));
+        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
 }
