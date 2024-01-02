@@ -11,9 +11,9 @@
              Title="NutritionDetailPage"
              BackgroundColor="{DynamicResource BackgroundPrimary}">
 
-    <ScrollView Padding="10, 0">
-        <Border Padding="10, 0">
-            <VerticalStackLayout>
+    <ScrollView BackgroundColor="{StaticResource BackgroundPrimary}" Padding="20,0">
+        <!--<Border Padding="10, 0" BackgroundColor="Blue">-->
+            <VerticalStackLayout BackgroundColor="{StaticResource BackgroundColor}">
                 <CollectionView ItemsSource="{Binding Options}"
                                 SelectionMode="Single"
                                 SelectedItem="{Binding SelectedOption}"
@@ -39,17 +39,15 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutrientModel">
-                            <!--<Border Style="{StaticResource RoundBorder}">-->
                             <VerticalStackLayout Padding="2">
                                 <Label Text="{Binding Title}" />
                                 <customComponents:CustomProgressBar
-                        ProgressA="1"
-                        ProgressB="{Binding NutritionProgress}"
-                        ProgressBarAColor="LightGrey"
-                        ProgressBarBColor="LimeGreen" />
+                                    ProgressA="1"
+                                    ProgressB="{Binding NutritionProgress}"
+                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
-                            <!--</Border>-->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -61,17 +59,15 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutrientModel">
-                            <!--<Border Style="{StaticResource RoundBorder}">-->
                             <VerticalStackLayout Padding="2">
                                 <Label Text="{Binding Title}" />
                                 <customComponents:CustomProgressBar
-                        ProgressA="1"
-                        ProgressB="{Binding NutritionProgress}"
-                        ProgressBarAColor="LightGrey"
-                        ProgressBarBColor="LimeGreen" />
+                                    ProgressA="1"
+                                    ProgressB="{Binding NutritionProgress}"
+                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
-                            <!--</Border>-->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -83,17 +79,15 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutrientModel">
-                            <!--<Border Style="{StaticResource RoundBorder}">-->
                             <VerticalStackLayout Padding="2">
                                 <Label Text="{Binding Title}" />
                                 <customComponents:CustomProgressBar
-                         ProgressA="1"
-                         ProgressB="{Binding NutritionProgress}"
-                         ProgressBarAColor="LightGrey"
-                         ProgressBarBColor="LimeGreen" />
+                                     ProgressA="1"
+                                     ProgressB="{Binding NutritionProgress}"
+                                     ProgressBarAColor="LightGrey"
+                                     ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
-                            <!--</Border>-->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -105,131 +99,21 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:NutrientModel">
-                            <!--<Border Style="{StaticResource RoundBorder}">-->
                             <VerticalStackLayout Padding="2">
                                 <Label Text="{Binding Title}" />
                                 <customComponents:CustomProgressBar
-                         ProgressA="1"
-                         ProgressB="{Binding NutritionProgress}"
-                         ProgressBarAColor="LightGrey"
-                         ProgressBarBColor="LimeGreen" />
+                                     ProgressA="1"
+                                     ProgressB="{Binding NutritionProgress}"
+                                     ProgressBarAColor="LightGrey"
+                                     ProgressBarBColor="LimeGreen" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
-                            <!--</Border>-->
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <!--<toolkit:Expander IsExpanded="True" Margin="0,15,0,0">
-                    <toolkit:Expander.Header>
-                        <Label FontSize="Small" Text="Primary Nutrients" />
-                    </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding PrimaryNutrients}">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Nutrient">
-                                <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout Padding="2">
-                                        <Label Text="{Binding Title}" />
-                                        <customComponents:CustomProgressBar
-                                            ProgressA="1"
-                                            ProgressB="{Binding NutritionProgress}"
-                                            ProgressBarAColor="LightGrey"
-                                            ProgressBarBColor="LimeGreen" />
-                                        <Label Text="{Binding Info}" />
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </toolkit:Expander>-->
-
-                <!--<toolkit:Expander IsExpanded="True" Margin="0,20,0,0">
-                    <toolkit:Expander.Header>
-                        <Label FontSize="Small" Text="Macro Elements" />
-                    </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding MacroMinerals}">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Nutrient">
-                                <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout Padding="2">
-                                        <Label Text="{Binding Title}" />
-                                        <customComponents:CustomProgressBar
-                                            ProgressA="1"
-                                            ProgressB="{Binding NutritionProgress}"
-                                            ProgressBarAColor="LightGrey"
-                                            ProgressBarBColor="LimeGreen" />
-                                        <Label Text="{Binding Info}" />
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </toolkit:Expander>-->
-
-                <!--<toolkit:Expander IsExpanded="True" Margin="0,20,0,0">
-                    <toolkit:Expander.Header>
-                        <Label FontSize="Small" Text="Vitamins" />
-                    </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding Vitamins}">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Nutrient">
-                                <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout Padding="2">
-                                        <Label Text="{Binding Title}" />
-                                        <customComponents:CustomProgressBar
-                                             ProgressA="1"
-                                             ProgressB="{Binding NutritionProgress}"
-                                             ProgressBarAColor="LightGrey"
-                                             ProgressBarBColor="LimeGreen" />
-                                        <Label Text="{Binding Info}" />
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </toolkit:Expander>-->
-
-                <!--<toolkit:Expander IsExpanded="True" Margin="0,20,0,0">
-                    <toolkit:Expander.Header>
-                        <Label FontSize="Small" Text="Essential Aminoacids" />
-                    </toolkit:Expander.Header>
-                    <CollectionView ItemsSource="{Binding AminoAcids}">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="model:Nutrient">
-                                <Border Style="{StaticResource RoundBorder}">
-                                    <VerticalStackLayout Padding="2">
-                                        <Label Text="{Binding Title}" />
-                                        <customComponents:CustomProgressBar
-                                             ProgressA="1"
-                                             ProgressB="{Binding NutritionProgress}"
-                                             ProgressBarAColor="LightGrey"
-                                             ProgressBarBColor="LimeGreen" />
-                                        <Label Text="{Binding Info}" />
-                                    </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </toolkit:Expander>-->
-
                 <Button Text="Back" Command="{Binding GoBackCommand}" />
             </VerticalStackLayout>
-        </Border>
+        <!--</Border>-->
     </ScrollView>
 </ContentPage>
