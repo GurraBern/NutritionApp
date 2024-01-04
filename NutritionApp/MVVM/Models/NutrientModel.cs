@@ -11,15 +11,13 @@ public partial class NutrientModel(Nutrient nutrient, double nutrientValue) : Ob
     [ObservableProperty]
     private double nutritionPotentialProgress;
 
-    private readonly double nutritionAmountNeeded = nutrient.Amount;
     public readonly double foodItemValue = nutrientValue;
-    public readonly int sortValue;
     public string Name { get; } = nutrient.NutrientName;
     public string CustomName { get; set; }
-    public string unit = string.Empty;
+    public bool ShowUnit { get; set; } = true;
     public string Title => $"{(string.IsNullOrEmpty(CustomName) ? Name : CustomName)}";
-    public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutritionAmountNeeded} {unit}";
-    public string NutritionLeft => CurrentItemValue < nutritionAmountNeeded ? Math.Round(nutritionAmountNeeded - CurrentItemValue, roundingAmount).ToString() : "0";
+    public string Info => $"{Math.Round(CurrentItemValue, roundingAmount)}/{nutrient.Amount} {(ShowUnit ? nutrient.Unit : "")}";
+    public string NutritionLeft => CurrentItemValue < nutrient.Amount ? Math.Round(nutrient.Amount - CurrentItemValue, roundingAmount).ToString() : "0";
     public int roundingAmount = 0;
 
     private double _currentItemValue;
@@ -39,6 +37,7 @@ public partial class NutrientModel(Nutrient nutrient, double nutrientValue) : Ob
 
     public void SetProgress(double amount, double nutritionTotal = 0)
     {
+        var nutritionAmountNeeded = nutrient.Amount;
         NutritionProgress = nutritionTotal / nutritionAmountNeeded;
         CurrentItemValue = amount;
     }
@@ -50,6 +49,7 @@ public partial class NutrientModel(Nutrient nutrient, double nutrientValue) : Ob
 
     private double CalculateProgress(double amount, double total)
     {
+        var nutritionAmountNeeded = nutrient.Amount;
         return (total + amount) / nutritionAmountNeeded;
     }
 }

@@ -51,12 +51,12 @@
                             </Grid.ColumnDefinitions>
 
                             <VerticalStackLayout Grid.Column="0" HorizontalOptions="Start">
-                                <Label Text="EATEN" FontSize="Micro" FontAttributes="Bold"></Label>
+                                <Label Text="EATEN" FontSize="Micro" FontAttributes="Bold" TextColor="{StaticResource Red}"></Label>
                                 <Label Text="{Binding Calories.CurrentItemValue}" FontSize="Small" HorizontalOptions="Center"></Label>
                             </VerticalStackLayout>
 
                             <VerticalStackLayout Grid.Column="1" HorizontalOptions="End">
-                                <Label Text="BURNED" FontSize="Micro" FontAttributes="Bold"></Label>
+                                <Label Text="BURNED" FontSize="Micro" FontAttributes="Bold" TextColor="{StaticResource Red}"></Label>
                                 <Label Text="0" FontSize="Small" HorizontalOptions="Center"></Label>
                             </VerticalStackLayout>
 
