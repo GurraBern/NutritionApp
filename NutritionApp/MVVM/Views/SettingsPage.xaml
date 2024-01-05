@@ -9,24 +9,25 @@
              BackgroundColor="{DynamicResource BackgroundPrimary}">
     <ScrollView Padding="10">
         <VerticalStackLayout>
-            <Border>
+            <Border Style="{StaticResource RoundBorder}">
                 <VerticalStackLayout>
                     <Label Text="Daily Nutrition Goal" HorizontalOptions="Center" FontSize="Medium"></Label>
 
-                    <CollectionView ItemsSource="{Binding NutritionSettings}">
+                    <CollectionView ItemsSource="{Binding NutritionSettings}" Margin="0,0,0,20">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
+                        </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="modelCore:Nutrient">
-                                <Grid Padding="50,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="50"></ColumnDefinition>
-                                        <ColumnDefinition Width="50"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Grid.Column="0" VerticalOptions="Center" Text="{Binding NutrientName}"></Label>
-                                    <Entry Grid.Column="1" WidthRequest="70" Placeholder="amount" Text="{Binding Amount}"></Entry>
-                                    <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Unit}"></Label>
-                                </Grid>
+                                <Border Style="{StaticResource RoundBorder}">
+                                    <StackLayout>
+                                        <Label Grid.Column="0" HorizontalOptions="Center" Text="{Binding NutrientName}" FontSize="Small"></Label>
+                                        <HorizontalStackLayout HorizontalOptions="Center">
+                                            <Entry Grid.Column="1" WidthRequest="70" Placeholder="amount" Text="{Binding Amount}"></Entry>
+                                            <Label Grid.Column="2" VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Unit}"></Label>
+                                        </HorizontalStackLayout>
+                                    </StackLayout>
+                                </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>

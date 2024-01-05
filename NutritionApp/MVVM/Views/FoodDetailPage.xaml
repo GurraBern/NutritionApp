@@ -25,7 +25,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Primary Nutrients"></Label>
+                    <Label FontSize="Small" Text="Primary Nutrients" TextColor="{StaticResource Red}"></Label>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding PrimaryNutrients}">
                     <CollectionView.ItemsLayout>
@@ -40,7 +40,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen" />
+                                    ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>
@@ -50,7 +50,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Macro Elements"></Label>
+                    <Label FontSize="Small" Text="Macro Elements" TextColor="{StaticResource Red}"></Label>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding MacroMinerals}">
                     <CollectionView.ItemsLayout>
@@ -65,7 +65,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen" />
+                                    ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>
@@ -75,7 +75,7 @@
 
             <toolkit:Expander IsExpanded="True">
                 <toolkit:Expander.Header>
-                    <Label FontSize="Small" Text="Vitamins"></Label>
+                    <Label FontSize="Small" Text="Vitamins" TextColor="{StaticResource Red}"></Label>
                 </toolkit:Expander.Header>
                 <CollectionView ItemsSource="{Binding Vitamins}">
                     <CollectionView.ItemsLayout>
@@ -90,7 +90,7 @@
                                     ProgressA="{Binding NutritionPotentialProgress}"
                                     ProgressB="{Binding NutritionProgress}"
                                     ProgressBarAColor="LightGrey"
-                                    ProgressBarBColor="LimeGreen" />
+                                    ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}"></Label>
                             </VerticalStackLayout>
                         </DataTemplate>

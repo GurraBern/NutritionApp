@@ -39,7 +39,6 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -54,13 +53,10 @@
 	  <None Remove="appsettings.Production.json" />
 	  <None Remove="nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json" />
 	  <None Remove="Resources\Images\bread_icon.svg" />
-	  <None Remove="Resources\Images\carrot_vegetable_icon.png" />
-	  <None Remove="Resources\Images\chevron_left_icon.svg" />
 	  <None Remove="Resources\Images\cross_symbol_icon.svg" />
 	  <None Remove="Resources\Images\dish_cap_line_icon.svg" />
 	  <None Remove="Resources\Images\food_dinner_icon.svg" />
 	  <None Remove="Resources\Images\plus_circle_green.svg" />
-	  <None Remove="Resources\Images\right_chevron_arrow_round_icon.svg" />
 	  <None Remove="Resources\Images\snacks_icon.svg" />
 	</ItemGroup>
 

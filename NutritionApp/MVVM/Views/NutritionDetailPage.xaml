@@ -31,7 +31,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Common" FontSize="Large" HorizontalOptions="Center"></Label>
+            <Label Text="Common" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource Red}"></Label>
             <CollectionView ItemsSource="{Binding PrimaryNutrients}" Margin="0,0,0,20">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
@@ -54,7 +54,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Minerals" FontSize="Large" HorizontalOptions="Center"></Label>
+            <Label Text="Minerals" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource Red}"></Label>
             <CollectionView ItemsSource="{Binding MacroMinerals}" Margin="0,0,0,20">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
@@ -77,7 +77,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Vitamins" FontSize="Large" HorizontalOptions="Center"></Label>
+            <Label Text="Vitamins" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource Red}"></Label>
             <CollectionView ItemsSource="{Binding Vitamins}" Margin="0,0,0,20">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
@@ -100,7 +100,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="Amino Acids" FontSize="Large" HorizontalOptions="Center"></Label>
+            <Label Text="Amino Acids" FontSize="Large" HorizontalOptions="Center" TextColor="{StaticResource Red}"></Label>
             <CollectionView ItemsSource="{Binding AminoAcids}" Margin="0,0,0,20">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="5" VerticalItemSpacing="5" />
