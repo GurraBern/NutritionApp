@@ -18,7 +18,7 @@
                     ProgressA="1"
                     ProgressB="{Binding Calories.NutritionProgress}"
                     ProgressBarAColor="LightGrey"
-                    ProgressBarBColor="LimeGreen" />
+                    ProgressBarBColor="{StaticResource Red}" />
                 <Label HorizontalOptions="Center" Text="{Binding Calories.Info}"></Label>
 
                 <Grid ColumnSpacing="15" Margin="0,20,0,0">
@@ -38,7 +38,7 @@
                             ProgressA="1"
                             ProgressB="{Binding Carbohydrates.NutritionProgress}"
                             ProgressBarAColor="LightGrey"
-                            ProgressBarBColor="LimeGreen" />
+                            ProgressBarBColor="{StaticResource Red}" />
                         <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
                     </VerticalStackLayout>
 
@@ -48,7 +48,7 @@
                             ProgressA="1"
                             ProgressB="{Binding Protein.NutritionProgress}"
                             ProgressBarAColor="LightGrey"
-                            ProgressBarBColor="LimeGreen" />
+                            ProgressBarBColor="{StaticResource Red}" />
                         <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
                     </VerticalStackLayout>
 
@@ -58,7 +58,7 @@
                             ProgressA="1"
                             ProgressB="{Binding Fat.NutritionProgress}"
                             ProgressBarAColor="LightGrey"
-                            ProgressBarBColor="LimeGreen" />
+                            ProgressBarBColor="{StaticResource Red}" />
                         <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
                     </VerticalStackLayout>
                 </Grid>
