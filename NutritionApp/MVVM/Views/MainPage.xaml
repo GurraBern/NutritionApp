@@ -147,17 +147,6 @@
                     </Border.GestureRecognizers>
                 </Border>
             </VerticalStackLayout>
-
-            <!--<ImageButton
-                Grid.Row="1"
-                Source="plus_circle_green.png"
-                WidthRequest="80"
-                HeightRequest="80"
-                Margin="25"
-                CornerRadius="15"
-                Command="{Binding AddFoodCommand}"
-                CommandParameter="{x:Static modelCore:MealOfDay.NoClassification}"
-                HorizontalOptions="End" />-->
         </Grid>
     </ScrollView>
 </ContentPage>

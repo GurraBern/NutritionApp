@@ -56,7 +56,9 @@
 	  <None Remove="Resources\Images\cross_symbol_icon.svg" />
 	  <None Remove="Resources\Images\dish_cap_line_icon.svg" />
 	  <None Remove="Resources\Images\food_dinner_icon.svg" />
+	  <None Remove="Resources\Images\plus_circle.svg" />
 	  <None Remove="Resources\Images\plus_circle_green.svg" />
+	  <None Remove="Resources\Images\plus_round_line_icon.svg" />
 	  <None Remove="Resources\Images\snacks_icon.svg" />
 	</ItemGroup>
 

@@ -10,55 +10,62 @@
              BackgroundColor="{DynamicResource BackgroundPrimary}"
              x:Name="this">
 
-    <ScrollView Padding="20">
-        <VerticalStackLayout Spacing="10">
-            <Border>
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="45" />
-                </Border.StrokeShape>
+    <VerticalStackLayout Padding="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
 
-                <SearchBar x:Name="searchbar"
-                    SearchCommand="{Binding PerformSearchCommand}"
-                    SearchCommandParameter="{Binding Text, Source={x:Reference searchbar}}"
-                    TextColor="Black"
-                    BackgroundColor="LightGrey"
-                    Placeholder="search foods..."
-                    TextChanged="searchbar_TextChanged">
-                </SearchBar>
-            </Border>
+            <ScrollView>
+                <VerticalStackLayout Spacing="10" Grid.Row="0">
+                    <Border>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="45" />
+                        </Border.StrokeShape>
 
-            <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+                        <SearchBar x:Name="searchbar"
+                            SearchCommand="{Binding PerformSearchCommand}"
+                            SearchCommandParameter="{Binding Text, Source={x:Reference searchbar}}"
+                            Placeholder="search foods..."
+                            TextChanged="searchbar_TextChanged">
+                        </SearchBar>
+                    </Border>
 
-            <VerticalStackLayout>
-                <Label Text="Recent" FontSize="Micro" FontAttributes="Bold"></Label>
-                <CollectionView x:Name="searchresults"
-                    ItemsSource="{Binding SearchResults}"
-                    SelectionMode="None">
-                    <CollectionView.ItemsLayout>
-                        <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
-                    </CollectionView.ItemsLayout>
+                    <ActivityIndicator Color="{StaticResource Red}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="modelCore:FoodItem">
-                            <Border Style="{StaticResource RoundSquareBorder}" Padding="10">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
-                                        <ColumnDefinition Width="50"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout>
+                        <Label Text="Recent" FontSize="Micro" FontAttributes="Bold"></Label>
+                        <CollectionView x:Name="searchresults"
+                            ItemsSource="{Binding SearchResults}"
+                            SelectionMode="None">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
 
-                                    <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"></Label>
-                                    <ImageButton Source="plus_circle_svgrepo_com.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
-                                </Grid>
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
-                                </Border.GestureRecognizers>
-                            </Border>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </VerticalStackLayout>
-            <Button Text="Back" Command="{Binding GoBackCommand}"></Button>
-        </VerticalStackLayout>
-    </ScrollView>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="modelCore:FoodItem">
+                                    <Border Style="{StaticResource RoundBorder}" Padding="10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Grid.Column="0" Text="{Binding Name}" VerticalOptions="Center"></Label>
+                                            <ImageButton Source="plus_round_line_icon.png" Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}" Grid.Column="1" HeightRequest="30" WidthRequest="30" Aspect="AspectFit"></ImageButton>
+                                        </Grid>
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=BindingContext.SelectFoodCommand}" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                        </Border.GestureRecognizers>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+            <Button VerticalOptions="End" Grid.Row="1" Text="Back" Command="{Binding GoBackCommand}"></Button>
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
