@@ -7,7 +7,7 @@ namespace NutritionApp.MVVM.ViewModels;
 
 public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
 {
-    //private readonly IToastService _toastService;
+    private readonly IToastService toastService;
 
     [ObservableProperty]
     private string _email;
@@ -18,10 +18,10 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
     private readonly IAuthService authService;
     public Task Initialization { get; private set; }
 
-    public LoginViewModel(IAuthService authService)
+    public LoginViewModel(IAuthService authService, IToastService toastService)
     {
         this.authService = authService;
-
+        this.toastService = toastService;
         Initialization = InitializeAsync();
     }
 
@@ -43,25 +43,32 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
     [RelayCommand]
     private async Task SignIn()
     {
-        await authService.Login(Email, Password);
+        try
+        {
+            await authService.Login(Email, Password);
 
-        if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
-        //else
-        //    await _toastService.MakeToast("Email or password is incorrect");
+            if (authService.CurrentUser != null)
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        }
+        catch (Exception)
+        {
+            await toastService.MakeToast("Email or password is incorrect");
+        }
     }
 
     [RelayCommand]
     private async Task SignUp()
     {
-        await authService.SignUp(Email, Password);
+        try
+        {
+            await authService.SignUp(Email, Password);
 
-        if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync(nameof(MainPage));
-        //else
-        //    await _toastService.MakeToast("Email or password is incorrect");
+            if (authService.CurrentUser != null)
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+        }
+        catch (Exception)
+        {
+            await toastService.MakeToast("Could not create account");
+        }
     }
-
-    //[RelayCommand]
-    //private async Task NavigateToSignUpPage() => await Shell.Current.GoToAsync(nameof(SignupPage));
 }
