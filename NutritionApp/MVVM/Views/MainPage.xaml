@@ -38,6 +38,7 @@
                     </Grid.ColumnDefinitions>
 
                     <ImageButton Scale="0.5" Source="angle_circle_left_icon.png" Grid.Column="0" Command="{Binding PreviousDayCommand}"></ImageButton>
+                    <ActivityIndicator Grid.Column="1" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
                     <Label VerticalTextAlignment="Center" HorizontalOptions="Center" FontSize="Small" Grid.Column="1" Text="{Binding SelectedNutritionDay.Date, Converter={StaticResource DateConverter}}"></Label>
                     <ImageButton Scale="-0.5" Source="angle_circle_left_icon.png" Grid.Column="2" Command="{Binding NextDayCommand}"></ImageButton>
                 </Grid>
@@ -78,8 +79,6 @@
                                 <Label Text="KCAL LEFT" TextColor="{StaticResource Red}" FontAttributes="Bold" FontSize="Small" HorizontalOptions="Center" />
                             </StackLayout>
                         </Grid>
-
-                        <ActivityIndicator Color="LightSeaGreen" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
                         <Grid ColumnSpacing="15" Margin="0,20,0,0">
                             <Grid.ColumnDefinitions>

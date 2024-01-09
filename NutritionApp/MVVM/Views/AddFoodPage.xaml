@@ -32,7 +32,7 @@
                         </SearchBar>
                     </Border>
 
-                    <ActivityIndicator Color="{StaticResource Red}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"></ActivityIndicator>
 
                     <VerticalStackLayout>
                         <Label Text="Recent" FontSize="Micro" FontAttributes="Bold"></Label>

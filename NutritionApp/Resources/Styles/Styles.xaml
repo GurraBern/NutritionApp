@@ -38,7 +38,7 @@
     </Style>
 
     <Style TargetType="ActivityIndicator">
-        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Red}, Dark={StaticResource Red}}" />
     </Style>
 
     <Style TargetType="IndicatorView">
