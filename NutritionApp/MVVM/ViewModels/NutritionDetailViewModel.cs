@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels.Utils;
@@ -9,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitialization
+public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitialization, IRecipient<FoodItem>
 {
     private readonly INutritionTracker nutritionTracker;
     private readonly INutrientFactory nutrientFactory;
@@ -32,23 +33,27 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
         this.nutrientFactory = nutrientFactory;
 
         Initialization = InitializeAsync();
+
+        WeakReferenceMessenger.Default.Register(this);
     }
 
     private async Task InitializeAsync()
     {
+        nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
+
         SetupAllNutrients();
         SetupOptions();
 
-        await UpdateNutritionInformation();
-        await ShowBasicNutrients();
+        UpdateNutritionInformation();
+        ShowBasicNutrients();
     }
 
     private void SetupOptions()
     {
-        var basicOption = new OptionItem("Basic", new AsyncRelayCommand(ShowBasicNutrients));
+        var basicOption = new OptionItem("Basic", new RelayCommand(ShowBasicNutrients));
         Options.Add(basicOption);
 
-        var advancedOption = new OptionItem("Detailed", new AsyncRelayCommand(ShowDetailedNutrients));
+        var advancedOption = new OptionItem("Detailed", new RelayCommand(ShowDetailedNutrients));
         Options.Add(advancedOption);
 
         SelectedOption = basicOption;
@@ -74,10 +79,8 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
         }
     }
 
-    public async Task UpdateNutritionInformation()
+    public void UpdateNutritionInformation()
     {
-        nutritionDay = await nutritionTracker.GetSelectedNutritionDay();
-
         foreach (var nutrient in PrimaryNutrients.Concat(Vitamins).Concat(MacroMinerals).Concat(AminoAcids))
         {
             nutrient.SetProgress(nutritionDay.NutrientTotals[nutrient.Name], nutritionDay.NutrientTotals[nutrient.Name]);
@@ -94,23 +97,23 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
         }
     }
 
-    public async Task ShowDetailedNutrients()
+    public void ShowDetailedNutrients()
     {
         SetupNutrients(NutritionUtils.fats, Fats);
         SetupNutrients(NutritionUtils.DetailedAminoAcids, AminoAcids);
 
         SortAllNutrients();
 
-        await UpdateNutritionInformation();
+        //UpdateNutritionInformation();
     }
 
-    public async Task ShowBasicNutrients()
+    public void ShowBasicNutrients()
     {
         RemoveNonMatchingNutrients(NutritionUtils.essentialAminoAcids, AminoAcids);
 
         SortAllNutrients();
 
-        await UpdateNutritionInformation();
+        //UpdateNutritionInformation();
     }
 
     private void SortAllNutrients()
@@ -124,5 +127,10 @@ public partial class NutritionDetailViewModel : BaseViewModel, IAsyncInitializat
     public async Task GoBack()
     {
         await Shell.Current.GoToAsync(nameof(MainPage));
+    }
+
+    public void Receive(FoodItem message)
+    {
+        UpdateNutritionInformation();
     }
 }

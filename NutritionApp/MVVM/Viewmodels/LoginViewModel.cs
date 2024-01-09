@@ -46,7 +46,7 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
         await authService.Login(Email, Password);
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync(nameof(MainPage));
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         //else
         //    await _toastService.MakeToast("Email or password is incorrect");
     }

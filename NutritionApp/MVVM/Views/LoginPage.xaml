@@ -4,9 +4,10 @@
              x:Class="NutritionApp.MVVM.Views.LoginPage"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:LoginViewModel"
-             Title="LoginPage">
+             Title="LoginPage"
+             BackgroundColor="{DynamicResource BackgroundPrimary}">
 
-    <VerticalStackLayout BackgroundColor="White">
+    <VerticalStackLayout>
 
         <Grid VerticalOptions="Start" Margin="15,50">
             <Grid.RowDefinitions>

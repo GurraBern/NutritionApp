@@ -38,7 +38,6 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
         Carbohydrates.CustomName = "Carbs";
         Fat = nutrientFactory.CreateNutrient("Fat");
         Calories = nutrientFactory.CreateNutrient("Calories");
-        Calories.unit = string.Empty;
 
         Initialization = InitializeAsync();
 
