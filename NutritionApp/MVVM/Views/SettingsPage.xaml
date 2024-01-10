@@ -14,7 +14,7 @@
                 <VerticalStackLayout>
                     <Label Text="Settings" HorizontalOptions="Center" FontSize="Header"></Label>
 
-                    <toolkit:Expander IsExpanded="False">
+                    <toolkit:Expander IsExpanded="False" ExpandedChanged="Expander_ExpandedChanged" x:Name="nutritionSettingsExpander">
                         <toolkit:Expander.Header>
                             <Label FontSize="Large" HorizontalOptions="Center" Text="Nutrition ⮟" TextColor="{StaticResource Red}"></Label>
                         </toolkit:Expander.Header>
@@ -42,7 +42,7 @@
                         </VerticalStackLayout>
                     </toolkit:Expander>
 
-                    <toolkit:Expander IsExpanded="False">
+                    <toolkit:Expander IsExpanded="False" ExpandedChanged="Expander_ExpandedChanged" x:Name="mealTimesExpander">
                         <toolkit:Expander.Header>
                             <Label FontSize="Large" HorizontalOptions="Center" Text="Meal Times ⮟" TextColor="{StaticResource Red}"></Label>
                         </toolkit:Expander.Header>
