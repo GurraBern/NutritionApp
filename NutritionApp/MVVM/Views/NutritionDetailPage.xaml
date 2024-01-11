@@ -45,7 +45,7 @@
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding NutritionProgress}"
-                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                     ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
@@ -68,7 +68,7 @@
                                 <customComponents:CustomProgressBar
                                 ProgressA="1"
                                 ProgressB="{Binding NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
+                                ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                 ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
@@ -91,7 +91,7 @@
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding NutritionProgress}"
-                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                     ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>
@@ -114,7 +114,7 @@
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding NutritionProgress}"
-                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                     ProgressBarBColor="{StaticResource Red}" />
                                 <Label Text="{Binding Info}" />
                             </VerticalStackLayout>

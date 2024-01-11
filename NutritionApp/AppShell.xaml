@@ -6,14 +6,16 @@
     xmlns:local="clr-namespace:NutritionApp"
     xmlns:views="clr-namespace:NutritionApp.MVVM.Views"
     Shell.FlyoutBehavior="Disabled"
-    Shell.NavBarIsVisible="False">
+    Shell.NavBarIsVisible="True"
+    Shell.BackgroundColor="{StaticResource BackgroundPrimary}">
 
     <ShellContent Route="Login" Title="Login" ContentTemplate="{DataTemplate views:LoginPage}"></ShellContent>
     <ShellContent Route="AddFoodPage" Title="AddFoodPage" ContentTemplate="{DataTemplate views:AddFoodPage}"></ShellContent>
+    <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
 
     <TabBar>
         <ShellContent Route="MainPage" Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}"></ShellContent>
         <ShellContent Route="NutritionDetailPage" Title="Nutrition" ContentTemplate="{DataTemplate views:NutritionDetailPage}"></ShellContent>
-        <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
+        <!--<ShellContent Route="" Title="My Progress" ></ShellContent>-->
     </TabBar>
 </Shell>

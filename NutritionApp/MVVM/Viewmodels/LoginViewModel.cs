@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.ViewModels;
@@ -17,11 +16,13 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
 
     private readonly IAuthService authService;
     public Task Initialization { get; private set; }
+    public NavigationService NavigationService { get; }
 
-    public LoginViewModel(IAuthService authService, IToastService toastService)
+    public LoginViewModel(IAuthService authService, IToastService toastService, NavigationService navigationService)
     {
         this.authService = authService;
         this.toastService = toastService;
+        NavigationService = navigationService;
         Initialization = InitializeAsync();
     }
 
@@ -35,7 +36,7 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
         await authService.TryAutoLogin();
 
         if (authService.CurrentUser != null)
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            await NavigationService.NavigateToDashboard();
 
         IsBusy = false;
     }
@@ -48,7 +49,7 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
             await authService.Login(Email, Password);
 
             if (authService.CurrentUser != null)
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                await NavigationService.NavigateToDashboard();
         }
         catch (Exception)
         {
@@ -64,7 +65,7 @@ public partial class LoginViewModel : BaseViewModel, IAsyncInitialization
             await authService.SignUp(Email, Password);
 
             if (authService.CurrentUser != null)
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                await NavigationService.NavigateToDashboard();
         }
         catch (Exception)
         {

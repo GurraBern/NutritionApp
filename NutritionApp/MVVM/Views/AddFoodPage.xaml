@@ -65,7 +65,7 @@
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </ScrollView>
-            <Button VerticalOptions="End" Grid.Row="1" Text="Back" Command="{Binding GoBackCommand}"></Button>
+            <Button VerticalOptions="End" Grid.Row="1" Text="Back" Command="{Binding NavigationService.NavigateToDashboardCommand}"></Button>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

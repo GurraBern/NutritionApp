@@ -17,6 +17,14 @@
             <converters:DateToStringConverter x:Key="DateConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource BackgroundPrimary}" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="user_4250.png" />
+        <ToolbarItem IconImageSource="setting_line_icon.png" Command="{Binding NavigationService.NavigateToSettingsCommand}" />
+    </ContentPage.ToolbarItems>
 
     <ScrollView Margin="5">
         <Grid>
@@ -65,7 +73,7 @@
                                 Grid.ColumnSpan="2"
                                 Progress="{Binding Calories.NutritionProgress}"
                                 ProgressColor="{StaticResource Red}"
-                                ProgressLeftColor="{StaticResource Primary}"
+                                ProgressLeftColor="{StaticResource BackgroundPrimary}"
                                 Size="150"
                                 Thickness="10">
                             </controls:CircularProgressBar>
@@ -93,7 +101,7 @@
 
                             <Label Grid.ColumnSpan="3" Grid.Row="0" Text="SEE DETAILS" FontSize="Micro" FontAttributes="Bold" HorizontalOptions="Center" Margin="0, 20, 0, 20">
                                 <Label.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}" />
+                                    <TapGestureRecognizer Command="{Binding NavigationService.NavigateToNutritionDetailsCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
 
@@ -102,7 +110,7 @@
                                 <customComponents:CustomProgressBar
                                     ProgressA="1"
                                     ProgressB="{Binding Carbohydrates.NutritionProgress}"
-                                    ProgressBarAColor="LightGrey"
+                                    ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                     ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Carbohydrates.Info}" Grid.Row="1"></Label>
                             </VerticalStackLayout>
@@ -112,7 +120,7 @@
                                 <customComponents:CustomProgressBar
                                 ProgressA="1"
                                 ProgressB="{Binding Protein.NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
+                                ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                 ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Protein.Info}"></Label>
                             </VerticalStackLayout>
@@ -122,14 +130,14 @@
                                 <customComponents:CustomProgressBar
                                 ProgressA="1"
                                 ProgressB="{Binding Fat.NutritionProgress}"
-                                ProgressBarAColor="LightGrey"
+                                ProgressBarAColor="{StaticResource BackgroundPrimary}"
                                 ProgressBarBColor="{StaticResource Red}" />
                                 <Label HorizontalOptions="Center" Text="{Binding Fat.Info}" Grid.Row="1"></Label>
                             </VerticalStackLayout>
                         </Grid>
                     </VerticalStackLayout>
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToNutritionDetailsCommand}" />
+                        <TapGestureRecognizer Command="{Binding NavigationService.NavigateToNutritionDetailsCommand}" />
                     </Border.GestureRecognizers>
                 </Border>
 
@@ -142,7 +150,7 @@
                     </VerticalStackLayout>
 
                     <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding NavigateToMealDetailsCommand}" />
+                        <TapGestureRecognizer Command="{Binding NavigationService.NavigateToMealDetailsCommand}" />
                     </Border.GestureRecognizers>
                 </Border>
             </VerticalStackLayout>

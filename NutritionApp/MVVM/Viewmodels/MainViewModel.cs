@@ -12,7 +12,6 @@ namespace NutritionApp.MVVM.ViewModels;
 public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecipient<FoodItem>
 {
     private readonly INutritionTracker nutritionTracker;
-    private readonly NavigationService navigationService;
 
     [ObservableProperty]
     private NutritionDay selectedNutritionDay;
@@ -27,12 +26,13 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     public NutrientModel Fat { get; }
     public NutrientModel Calories { get; }
 
+    public NavigationService NavigationService { get; }
     public Task Initialization { get; private set; }
 
     public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, NavigationService navigationService)
     {
         this.nutritionTracker = nutritionTracker;
-        this.navigationService = navigationService;
+        this.NavigationService = navigationService;
         Protein = nutrientFactory.CreateNutrient("Protein");
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");
         Carbohydrates.CustomName = "Carbs";
@@ -105,19 +105,7 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     [RelayCommand]
     public async Task AddFood(MealOfDay mealOfDay)
     {
-        await navigationService.NavigateToAddFoodPage(mealOfDay);
-    }
-
-    [RelayCommand]
-    public async Task NavigateToNutritionDetails()
-    {
-        await navigationService.NavigateToNutritionDetails();
-    }
-
-    [RelayCommand]
-    public async Task NavigateToMealDetails()
-    {
-        await navigationService.NavigateToMealDetails();
+        await NavigationService.NavigateToAddFoodPage(mealOfDay);
     }
 
     public void Receive(FoodItem message)

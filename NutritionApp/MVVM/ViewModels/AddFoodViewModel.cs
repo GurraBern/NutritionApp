@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
 using NutritionApp.Data;
 using NutritionApp.MVVM.Viewmodels.Utils;
-using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
@@ -16,19 +15,19 @@ public partial class AddFoodViewModel : BaseViewModel
     private readonly INutritionService nutritionService;
     private readonly IDataRepository dataRepository;
     private readonly IToastService toastService;
-    private readonly NavigationService navigationService;
 
     [ObservableProperty]
     private string mealOfDayString;
 
     public ObservableCollection<FoodItem> SearchResults { get; } = [];
+    public NavigationService NavigationService { get; }
 
     public AddFoodViewModel(INutritionService nutritionService, IDataRepository dataRepository, IToastService toastService, NavigationService navigationService)
     {
         this.nutritionService = nutritionService;
         this.dataRepository = dataRepository;
         this.toastService = toastService;
-        this.navigationService = navigationService;
+        this.NavigationService = navigationService;
 
         Initialize();
     }
@@ -85,17 +84,11 @@ public partial class AddFoodViewModel : BaseViewModel
         selectedFoodItem.MealOfDay = Enum.TryParse(MealOfDayString?.ToString(), out MealOfDay meal) ? meal : MealOfDay.NoClassification;
 
         if (selectedFoodItem != null)
-            await navigationService.NavigateToFoodDetailPage(selectedFoodItem, PageMode.Add);
+            await NavigationService.NavigateToFoodDetailPage(selectedFoodItem, PageMode.Add);
     }
 
     public void ClearSearchResults()
     {
         SearchResults.Clear();
-    }
-
-    [RelayCommand]
-    private static async Task GoBack()
-    {
-        await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
 }
