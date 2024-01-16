@@ -49,6 +49,12 @@ public partial class NavigationService(INutritionTracker nutritionTracker, INutr
     {
         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
     }
+
+    [RelayCommand]
+    public async Task NavigateToUserPages()
+    {
+        await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
+    }
 }
 
 public enum PageMode

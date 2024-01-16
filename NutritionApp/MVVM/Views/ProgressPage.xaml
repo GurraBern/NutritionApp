@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             x:DataType="viewmodel:ProgressViewModel"
+             x:Class="NutritionApp.MVVM.Views.ProgressPage"
+             Title="ProgressPage"
+             BackgroundColor="{StaticResource BackgroundPrimary}">
+    <VerticalStackLayout>
+
+        <Border Style="{StaticResource RoundBorder}">
+            <VerticalStackLayout>
+                <!--Weight Graph-->
+
+                <Label Text="BMI Calculator"></Label>
+                <Border Style="{StaticResource RoundBorder}">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding BMI}"></Label>
+                        <Border StrokeThickness="4">
+                            <Border.Stroke>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
+                                    <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
+                                    <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
+                                    <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Stroke>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

@@ -22,11 +22,12 @@ public static class MauiProgram
     {
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            }).UseMauiCommunityToolkit();
+            });
 
         builder.AddAppSettings();
         builder.RegisterServices();
@@ -101,6 +102,8 @@ public static class MauiProgram
         builder.Services.AddTransient<AddFoodViewModel>();
         builder.Services.AddTransient<SettingsViewModel>();
         builder.Services.AddTransient<MealDetailViewModel>();
+        builder.Services.AddTransient<UserPagesViewModel>();
+        builder.Services.AddTransient<ProgressViewModel>();
     }
 
     private static void RegisterPages(this MauiAppBuilder builder)
@@ -112,6 +115,8 @@ public static class MauiProgram
         builder.Services.AddTransient<AddFoodPage>();
         builder.Services.AddTransient<SettingsPage>();
         builder.Services.AddTransient<MealDetailView>();
+        builder.Services.AddTransient<UserPage>();
+        builder.Services.AddTransient<ProgressPage>();
     }
 
     private static void AddAppSettings(this MauiAppBuilder builder)

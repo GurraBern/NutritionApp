@@ -12,10 +12,11 @@
     <ShellContent Route="Login" Title="Login" ContentTemplate="{DataTemplate views:LoginPage}"></ShellContent>
     <ShellContent Route="AddFoodPage" Title="AddFoodPage" ContentTemplate="{DataTemplate views:AddFoodPage}"></ShellContent>
     <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
+    <ShellContent Route="UserPage" Title="User" ContentTemplate="{DataTemplate views:UserPage}"></ShellContent>
 
     <TabBar>
         <ShellContent Route="MainPage" Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}"></ShellContent>
         <ShellContent Route="NutritionDetailPage" Title="Nutrition" ContentTemplate="{DataTemplate views:NutritionDetailPage}"></ShellContent>
-        <!--<ShellContent Route="" Title="My Progress" ></ShellContent>-->
+        <ShellContent Route="ProgressPage" Title="Progress" ContentTemplate="{DataTemplate views:ProgressPage}"></ShellContent>
     </TabBar>
 </Shell>

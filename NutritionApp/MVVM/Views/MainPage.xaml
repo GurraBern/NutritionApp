@@ -22,7 +22,7 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="user_4250.png" />
+        <ToolbarItem IconImageSource="user_4250.png" Command="{Binding NavigationService.NavigateToUserPagesCommand}" />
         <ToolbarItem IconImageSource="setting_line_icon.png" Command="{Binding NavigationService.NavigateToSettingsCommand}" />
     </ContentPage.ToolbarItems>
 
