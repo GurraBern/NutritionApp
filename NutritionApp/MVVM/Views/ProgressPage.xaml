@@ -7,29 +7,43 @@
              x:Class="NutritionApp.MVVM.Views.ProgressPage"
              Title="ProgressPage"
              BackgroundColor="{StaticResource BackgroundPrimary}">
-    <VerticalStackLayout>
+    <VerticalStackLayout Padding="20">
+        <!--TODO Weight Graph-->
+
+        <VerticalStackLayout Margin="0,10">
+            <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                <Label Text="{Binding TargetMeasurements.StartingWeight, StringFormat='{0} kg'}" FontSize="Small"></Label>
+                <Label Text="{Binding BodyMeasurements.Weight, StringFormat='{0} kg'}" FontSize="Large" TextColor="White"></Label>
+                <Label Text="{Binding TargetMeasurements.TargetWeight, StringFormat='{0} kg'}" FontSize="Small"></Label>
+            </FlexLayout>
+            <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}"></ProgressBar>
+        </VerticalStackLayout>
+
+        <Label Text="BMI" Margin="0,10" FontSize="Small"></Label>
+        <Border Style="{StaticResource RoundBorder}" Margin="0,0,0,30">
+            <VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding BMI}" FontSize="Small"></Label>
+                    <Border StrokeThickness="4">
+                        <Border.Stroke>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
+                                <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
+                                <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
+                                <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
+                            </LinearGradientBrush>
+                        </Border.Stroke>
+                    </Border>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+            <Label Text="History" Margin="0,10" FontSize="Small"></Label>
+            <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
+        </FlexLayout>
 
         <Border Style="{StaticResource RoundBorder}">
-            <VerticalStackLayout>
-                <!--Weight Graph-->
-
-                <Label Text="BMI Calculator"></Label>
-                <Border Style="{StaticResource RoundBorder}">
-                    <VerticalStackLayout>
-                        <Label Text="{Binding BMI}"></Label>
-                        <Border StrokeThickness="4">
-                            <Border.Stroke>
-                                <LinearGradientBrush EndPoint="1,0">
-                                    <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
-                                    <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
-                                    <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
-                                    <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
-                                </LinearGradientBrush>
-                            </Border.Stroke>
-                        </Border>
-                    </VerticalStackLayout>
-                </Border>
-            </VerticalStackLayout>
         </Border>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,16 +1,12 @@
-﻿using NutritionApp.Services;
+﻿using NutritionApp.Components;
+using NutritionApp.MVVM.Models;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public class ProgressViewModel(IUserDetailService userDetailService)
+public class ProgressViewModel(UserDetails userDetails)
 {
-    public double BMI { get; set; } = CalculateBMI(74.5f, 1.68f);
-    public double Height { get; set; } = userDetailService.GetHeight();
-    public double Weight { get; set; } = userDetailService.GetWeight();
-
-    public static double CalculateBMI(float weight, float height)
-    {
-        var bmi = weight / Math.Pow(height, 2);
-        return Math.Round(bmi, 2);
-    }
+    public BodyMeasurements BodyMeasurements { get; set; } = userDetails.BodyMeasurements;
+    public TargetMeasurements TargetMeasurements { get; set; } = userDetails.TargetMeasurements;
+    public double BMI { get; set; } = userDetails.BMI;
+    public double WeightProgress { get; set; } = userDetails.WeightProgress;
 }

@@ -1,9 +1,12 @@
-﻿namespace NutritionApp.Services
+﻿using NutritionApp.Components;
+using NutritionApp.MVVM.Models;
+
+namespace NutritionApp.Services
 {
     public interface IUserDetailService
     {
-        double GetWeight();
+        public BodyMeasurements GetBodyMeasurements();
 
-        double GetHeight();
+        public TargetMeasurements GetTargetMeasurements();
     }
 }

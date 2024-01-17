@@ -5,6 +5,7 @@ using Firebase.Auth.Providers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Nutrition.Core;
+using NutritionApp.Components;
 using NutritionApp.Data;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
@@ -63,6 +64,8 @@ public static class MauiProgram
         builder.Services.AddSingleton<IDataRepository, LocalDataRepository>();
         builder.Services.AddSingleton<IToastService, ToastService>();
         builder.Services.AddSingleton<NavigationService>();
+        builder.Services.AddTransient<IUserDetailService, UserDetailService>();
+        builder.Services.AddScoped<UserDetails>();
 
         builder.Services.AddSingleton<IRestClient>(provider =>
         {
