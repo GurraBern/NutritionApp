@@ -52,6 +52,9 @@
 	  <None Remove="appsettings.json" />
 	  <None Remove="appsettings.Production.json" />
 	  <None Remove="nutritiontracker-f8aba-firebase-adminsdk-5c3g1-0ea3e21e69.json" />
+	  <None Remove="Resources\Fonts\UbuntuSans-Bold.ttf" />
+	  <None Remove="Resources\Fonts\UbuntuSans-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\UbuntuSans-Regular.ttf" />
 	  <None Remove="Resources\Images\bread_icon.svg" />
 	  <None Remove="Resources\Images\cross_symbol_icon.svg" />
 	  <None Remove="Resources\Images\dish_cap_line_icon.svg" />
@@ -132,7 +135,10 @@
 	  <MauiXaml Update="MVVM\Views\NutritionDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\ProgressPage.xaml">
+	  <MauiXaml Update="MVVM\Views\ProgressViews\AddWeightPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\ProgressViews\ProgressPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\SettingsPage.xaml">

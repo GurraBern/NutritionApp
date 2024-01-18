@@ -22,7 +22,8 @@ namespace NutritionApp.Services
             {
                 StartingWeight = 76,
                 TargetWeight = 70,
-                TargetCreated = DateTime.Now
+                TargetCreationDate = DateTime.Now,
+                TargetEndDate = DateTime.Now.AddMonths(7),
             };
         }
     }

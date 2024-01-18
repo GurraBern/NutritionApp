@@ -28,6 +28,8 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("UbuntuSans-ExtraBold.ttf", "UbuntuSansExtraBold");
+                fonts.AddFont("UbuntuSans-Regular.ttf", "UbuntuSansRegular");
             });
 
         builder.AddAppSettings();

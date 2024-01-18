@@ -12,11 +12,41 @@
 
         <VerticalStackLayout Margin="0,10">
             <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
-                <Label Text="{Binding TargetMeasurements.StartingWeight, StringFormat='{0} kg'}" FontSize="Small"></Label>
-                <Label Text="{Binding BodyMeasurements.Weight, StringFormat='{0} kg'}" FontSize="Large" TextColor="White"></Label>
-                <Label Text="{Binding TargetMeasurements.TargetWeight, StringFormat='{0} kg'}" FontSize="Small"></Label>
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TargetMeasurements.StartingWeight}" FontSize="Medium" />
+                                <Span Text="kg" FontSize="Caption" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding TargetMeasurements.TargetCreationDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                </VerticalStackLayout>
+
+                <Label TextColor="White">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding BodyMeasurements.Weight}" FontSize="Header" />
+                            <Span Text="kg" FontSize="Micro" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TargetMeasurements.TargetWeight}" FontSize="Medium" />
+                                <Span Text="kg" FontSize="Caption" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding TargetMeasurements.TargetEndDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                </VerticalStackLayout>
             </FlexLayout>
-            <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}"></ProgressBar>
+
+            <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}" Margin="0,10,0,0"></ProgressBar>
         </VerticalStackLayout>
 
         <Label Text="BMI" Margin="0,10" FontSize="Small"></Label>
@@ -43,7 +73,6 @@
             <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
         </FlexLayout>
 
-        <Border Style="{StaticResource RoundBorder}">
-        </Border>
+        <Button Text="NEW WEIGHT" Command="{Binding NavigationService.NavigateToAddWeightPageCommand}"></Button>
     </VerticalStackLayout>
 </ContentPage>

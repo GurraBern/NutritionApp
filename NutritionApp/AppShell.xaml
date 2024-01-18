@@ -13,6 +13,7 @@
     <ShellContent Route="AddFoodPage" Title="AddFoodPage" ContentTemplate="{DataTemplate views:AddFoodPage}"></ShellContent>
     <ShellContent Route="SettingsPage" Title="Settings" ContentTemplate="{DataTemplate views:SettingsPage}"></ShellContent>
     <ShellContent Route="UserPage" Title="User" ContentTemplate="{DataTemplate views:UserPage}"></ShellContent>
+    <ShellContent Route="AddWeightPage" Title="New Weight" ContentTemplate="{DataTemplate views:AddWeightPage}"></ShellContent>
 
     <TabBar>
         <ShellContent Route="MainPage" Title="Dashboard" ContentTemplate="{DataTemplate views:MainPage}"></ShellContent>

@@ -39,5 +39,6 @@ public class TargetMeasurements
 {
     public double TargetWeight { get; set; }
     public double StartingWeight { get; set; }
-    public DateTime TargetCreated { get; set; }
+    public DateTime TargetCreationDate { get; set; }
+    public DateTime TargetEndDate { get; set; }
 }
