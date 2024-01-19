@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui;
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Microcharts.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Nutrition.Core;
@@ -24,6 +25,7 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseMicrocharts()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
