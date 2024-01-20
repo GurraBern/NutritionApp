@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace NutritionApp.Data;
+namespace NutritionApp.Data.Dto;
 
 [Table("search_history")]
 internal class SearchFoodItem : FoodItemDto

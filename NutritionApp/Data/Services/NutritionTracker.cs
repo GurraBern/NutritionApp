@@ -5,7 +5,7 @@ using NutritionApp.Data;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionTracker(INutritionTrackingService nutritionDataProvider, ISettingsService settingsService, IDataRepository dataRepository) : ObservableObject, INutritionTracker
+public class NutritionTracker(INutritionTrackingService nutritionTrackingService, ISettingsService settingsService, IDataRepository dataRepository) : ObservableObject, INutritionTracker
 {
     private int dayIndex = 0;
     private bool isInitialized = false;
@@ -24,7 +24,7 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
 
     public async Task SetupNutritionDay()
     {
-        currentNutritionDay = await nutritionDataProvider.GetNutritionDay(DateTime.UtcNow);
+        currentNutritionDay = await nutritionTrackingService.GetNutritionDay(DateTime.UtcNow);
         NutritionDays.Add(currentNutritionDay);
     }
 
@@ -36,7 +36,7 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
             food.MealOfDay = settingsService.GetCurrentMealPeriod();
 
         currentNutritionDay.AddFood(food);
-        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -44,7 +44,7 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
     public async Task RemoveFood(FoodItem food)
     {
         currentNutritionDay.RemoveFood(food);
-        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -54,7 +54,7 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
         currentNutritionDay.RemoveFood(food);
         currentNutritionDay.AddFood(food);
 
-        await nutritionDataProvider.SaveNutritionDay(currentNutritionDay);
+        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -74,7 +74,7 @@ public class NutritionTracker(INutritionTrackingService nutritionDataProvider, I
         dayIndex++;
         if (dayIndex >= NutritionDays.Count)
         {
-            var nutritionDay = await nutritionDataProvider.GetNutritionDay(DateTime.UtcNow.AddDays(-dayIndex));
+            var nutritionDay = await nutritionTrackingService.GetNutritionDay(DateTime.UtcNow.AddDays(-dayIndex));
             NutritionDays.Add(nutritionDay);
         }
 

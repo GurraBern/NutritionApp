@@ -1,5 +1,5 @@
-﻿using NutritionApp.Components;
-using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
+using NutritionApp.Components;
 
 namespace NutritionApp.Services
 {
@@ -8,5 +8,7 @@ namespace NutritionApp.Services
         public BodyMeasurements GetBodyMeasurements();
 
         public TargetMeasurements GetTargetMeasurements();
+
+        public Task AddNewWeight(double weight);
     }
 }

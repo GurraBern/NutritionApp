@@ -3,9 +3,9 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class UserNutritionApiClient(string baseUrl) : IUserNutritionApiClient
+public class UserNutritionApiClient(IRestClient restClient) : IUserNutritionApiClient
 {
-    private readonly RestClient restClient = new(baseUrl);
+    private readonly IRestClient restClient = restClient;
 
     public async Task<NutritionDay> GetAsync(RestRequest request, string bearerToken)
     {
@@ -18,4 +18,11 @@ public class UserNutritionApiClient(string baseUrl) : IUserNutritionApiClient
         request.AddHeader("Authorization", $"Bearer {bearerToken}");
         return await restClient.PostAsync<NutritionDay>(request);
     }
+}
+
+public interface IUserNutritionApiClient
+{
+    Task<NutritionDay> GetAsync(RestRequest request, string bearerToken);
+
+    Task<NutritionDay> PostAsync(RestRequest request, string bearerToken);
 }

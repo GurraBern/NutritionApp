@@ -8,12 +8,15 @@ using Microsoft.Extensions.Logging;
 using Nutrition.Core;
 using NutritionApp.Components;
 using NutritionApp.Data;
+using NutritionApp.Data.Dto;
+using NutritionApp.Data.Services.ApiClients;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using RestSharp;
+using Syncfusion.Maui.Core.Hosting;
 using System.Reflection;
 
 namespace NutritionApp;
@@ -26,6 +29,7 @@ public static class MauiProgram
         builder.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseMicrocharts()
+            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -69,12 +73,13 @@ public static class MauiProgram
         builder.Services.AddSingleton<IToastService, ToastService>();
         builder.Services.AddSingleton<NavigationService>();
         builder.Services.AddTransient<IUserDetailService, UserDetailService>();
+        builder.Services.AddTransient<IUserMeasurementsApiClient, UserMeasurementsApiClient>();
         builder.Services.AddScoped<UserDetails>();
 
         builder.Services.AddSingleton<IRestClient>(provider =>
         {
             string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
-            return RestClientFactory.CreateRestClient(apiUrl);
+            return CreateRestClient(apiUrl);
         });
 
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
@@ -96,8 +101,11 @@ public static class MauiProgram
         builder.Services.AddSingleton<IUserNutritionApiClient>(serviceProvider =>
         {
             var baseUrl = builder.Configuration["AppSettings:UserNutritionApiUrl"];
-            return new UserNutritionApiClient(baseUrl);
+            var restClient = new RestClient(baseUrl);
+            return new UserNutritionApiClient(restClient);
         });
+
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["AppSettings:SyncFusion"]);
     }
 
     private static void RegisterViewModels(this MauiAppBuilder builder)
@@ -111,6 +119,7 @@ public static class MauiProgram
         builder.Services.AddTransient<MealDetailViewModel>();
         builder.Services.AddTransient<UserPagesViewModel>();
         builder.Services.AddTransient<ProgressViewModel>();
+        builder.Services.AddTransient<AddWeightViewModel>();
     }
 
     private static void RegisterPages(this MauiAppBuilder builder)
@@ -124,6 +133,7 @@ public static class MauiProgram
         builder.Services.AddTransient<MealDetailView>();
         builder.Services.AddTransient<UserPage>();
         builder.Services.AddTransient<ProgressPage>();
+        builder.Services.AddTransient<AddWeightPage>();
     }
 
     private static void AddAppSettings(this MauiAppBuilder builder)
@@ -139,5 +149,11 @@ public static class MauiProgram
 
             builder.Configuration.AddConfiguration(config);
         }
+    }
+
+    private static IRestClient CreateRestClient(string baseUrl)
+    {
+        var options = new RestClientOptions(baseUrl);
+        return new RestClient(options);
     }
 }

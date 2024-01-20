@@ -91,6 +91,7 @@
 		<PackageReference Include="SkiaSharp" Version="2.88.7" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
+		<PackageReference Include="Syncfusion.Maui.Charts" Version="24.1.46" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -137,10 +138,10 @@
 	  <MauiXaml Update="MVVM\Views\NutritionDetailPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\ProgressViews\AddWeightPage.xaml">
+	  <MauiXaml Update="MVVM\Views\Progress\AddWeightPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="MVVM\Views\ProgressViews\ProgressPage.xaml">
+	  <MauiXaml Update="MVVM\Views\Progress\ProgressPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MVVM\Views\SettingsPage.xaml">

@@ -1,4 +1,4 @@
-﻿using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
 using NutritionApp.Services;
 
 namespace NutritionApp.Components;

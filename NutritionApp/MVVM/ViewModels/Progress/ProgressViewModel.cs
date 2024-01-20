@@ -1,5 +1,5 @@
-﻿using NutritionApp.Components;
-using NutritionApp.MVVM.Models;
+﻿using Nutrition.Core;
+using NutritionApp.Components;
 using NutritionApp.Services;
 
 namespace NutritionApp.MVVM.ViewModels;
