@@ -2,9 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
+using NutritionApp.Components;
+using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
-using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;
@@ -25,13 +26,15 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     public NutrientModel Carbohydrates { get; }
     public NutrientModel Fat { get; }
     public NutrientModel Calories { get; }
-
+    public BodyMeasurements BodyMeasurements { get; }
+    public UserDetails UserDetails { get; }
     public NavigationService NavigationService { get; }
     public Task Initialization { get; private set; }
 
-    public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, NavigationService navigationService)
+    public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, UserDetails userDetails, NavigationService navigationService)
     {
         this.nutritionTracker = nutritionTracker;
+        UserDetails = userDetails;
         this.NavigationService = navigationService;
         Protein = nutrientFactory.CreateNutrient("Protein");
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");

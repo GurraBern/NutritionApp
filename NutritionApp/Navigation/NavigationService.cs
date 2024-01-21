@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Nutrition.Core;
+using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.ViewModels;
 using NutritionApp.MVVM.Views;
-using NutritionApp.Services.NutritionServices;
 
 namespace NutritionApp.Services;
 
@@ -48,6 +48,18 @@ public partial class NavigationService(INutritionTracker nutritionTracker, INutr
     public async Task NavigateToDashboard()
     {
         await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+    }
+
+    [RelayCommand]
+    public async Task NavigateToUserPages()
+    {
+        await Shell.Current.GoToAsync($"//{nameof(UserPage)}");
+    }
+
+    [RelayCommand]
+    public async Task NavigateToAddWeightPage()
+    {
+        await Shell.Current.GoToAsync($"//{nameof(AddWeightPage)}");
     }
 }
 

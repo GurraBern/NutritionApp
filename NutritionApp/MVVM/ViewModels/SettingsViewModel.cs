@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Newtonsoft.Json;
 using Nutrition.Core;
+using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels.Utils;
-using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;

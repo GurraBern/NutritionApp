@@ -3,13 +3,13 @@ using RestSharp;
 
 namespace NutritionApp.Services.NutritionServices;
 
-public class NutritionApiClient(string baseUrl) : INutritionApiClient
+public class NutritionApiClient(IRestClient restClient) : INutritionApiClient
 {
-    private readonly IRestClient restClient = new RestClient(baseUrl);
+    private readonly IRestClient _restClient = restClient;
 
     public async Task<IEnumerable<FoodItem>> GetAsync(RestRequest request, string bearerToken)
     {
         request.AddHeader("Authorization", $"Bearer {bearerToken}");
-        return await restClient.GetAsync<IEnumerable<FoodItem>>(request);
+        return await _restClient.GetAsync<IEnumerable<FoodItem>>(request);
     }
 }

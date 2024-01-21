@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutritionApp.MVVM.Views.UserPage"
+             Title="UserPages"
+             BackgroundColor="{DynamicResource BackgroundPrimary}">
+    <VerticalStackLayout>
+
+        <Border Style="{StaticResource RoundBorder}" Padding="15">
+            <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                <Label Text="Weight" FontSize="Small" VerticalOptions="Center"></Label>
+                <ImageButton Scale="-0.7" Source="angle_circle_left_icon.png" HorizontalOptions="End"></ImageButton>
+            </FlexLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

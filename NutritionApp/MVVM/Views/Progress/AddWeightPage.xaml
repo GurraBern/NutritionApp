@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:converters="clr-namespace:NutritionApp.Converters"
+             x:DataType="viewmodel:AddWeightViewModel"
+             x:Class="NutritionApp.MVVM.Views.AddWeightPage"
+             Title="AddWeightPage"
+             BackgroundColor="{StaticResource BackgroundPrimary}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <VerticalStackLayout>
+        <Entry x:Name="weightEntry" Placeholder="new weight"></Entry>
+        <Button Text="ADD" Command="{Binding AddNewWeightCommand}" CommandParameter="{Binding Source={x:Reference weightEntry}, Path=Text, Converter={StaticResource StringToDoubleConverter}}"></Button>    </VerticalStackLayout>
+</ContentPage>

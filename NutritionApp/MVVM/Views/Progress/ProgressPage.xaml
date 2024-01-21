@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
+             xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             x:DataType="viewmodel:ProgressViewModel"
+             x:Class="NutritionApp.MVVM.Views.ProgressPage"
+             Title="ProgressPage"
+             BackgroundColor="{StaticResource BackgroundPrimary}">
+    <VerticalStackLayout Padding="20">
+        <!--TODO Weight Graph-->
+
+        <micro:ChartView x:Name="chartView" HeightRequest="200"></micro:ChartView>
+
+        <!--<chart:SfCartesianChart>
+            <chart:SfCartesianChart.XAxes>
+                <chart:CategoryAxis />
+            </chart:SfCartesianChart.XAxes>
+
+            <chart:SfCartesianChart.YAxes>
+                <chart:NumericalAxis />
+            </chart:SfCartesianChart.YAxes>
+
+            <chart:SplineSeries XBindingPath="Demand"
+						ItemsSource="{Binding Data}"
+						YBindingPath="Year2010"
+						Type="Cardinal" />
+        </chart:SfCartesianChart>-->
+
+        <VerticalStackLayout Margin="0,10">
+            <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TargetMeasurements.StartingWeight}" FontSize="Medium" />
+                                <Span Text="kg" FontSize="Caption" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding TargetMeasurements.TargetCreationDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                </VerticalStackLayout>
+
+                <Label TextColor="White">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding BodyMeasurements.Weight}" FontSize="Header" />
+                            <Span Text="kg" FontSize="Micro" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <VerticalStackLayout>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TargetMeasurements.TargetWeight}" FontSize="Medium" />
+                                <Span Text="kg" FontSize="Caption" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding TargetMeasurements.TargetEndDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                </VerticalStackLayout>
+            </FlexLayout>
+
+            <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}" Margin="0,10,0,0"></ProgressBar>
+        </VerticalStackLayout>
+
+        <Label Text="BMI" Margin="0,10" FontSize="Small"></Label>
+        <Border Style="{StaticResource RoundBorder}" Margin="0,0,0,30">
+            <VerticalStackLayout>
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="{Binding BMI}" FontSize="Small"></Label>
+                    <Border StrokeThickness="4">
+                        <Border.Stroke>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
+                                <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
+                                <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
+                                <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
+                            </LinearGradientBrush>
+                        </Border.Stroke>
+                    </Border>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+
+        <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+            <Label Text="History" Margin="0,10" FontSize="Small"></Label>
+            <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
+        </FlexLayout>
+
+        <Button Text="NEW WEIGHT" Command="{Binding NavigationService.NavigateToAddWeightPageCommand}"></Button>
+    </VerticalStackLayout>
+</ContentPage>

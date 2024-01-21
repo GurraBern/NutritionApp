@@ -12,6 +12,7 @@
     <Color x:Key="Red">#b25f82</Color>
     <Color x:Key="Color5">#EACDC2</Color>
     <Color x:Key="DarkText">#b3b5b9</Color>
+    <Color x:Key="DarkBackgroundText">#5a5b5e</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
     <Color x:Key="Gray100">#E1E1E1</Color>

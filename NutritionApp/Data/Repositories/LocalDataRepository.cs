@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Nutrition.Core;
+using NutritionApp.Data.Dto;
 using SQLite;
 
 namespace NutritionApp.Data;
