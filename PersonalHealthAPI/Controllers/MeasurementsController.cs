@@ -1,9 +1,4 @@
-﻿using Google.Cloud.Firestore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Nutrition.Core;
-
-namespace UserNutritionAPI.Controllers;
+﻿namespace PersonalhealthAPI.Controllers;
 
 [Authorize]
 [ApiController]
