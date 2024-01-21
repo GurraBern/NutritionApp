@@ -3,9 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
 using NutritionApp.Components;
+using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
-using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;

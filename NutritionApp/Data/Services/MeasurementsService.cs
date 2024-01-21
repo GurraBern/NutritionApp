@@ -1,14 +1,13 @@
 ﻿using Nutrition.Core;
 using NutritionApp.Components;
-using NutritionApp.Data.Services;
-using NutritionApp.Data.Services.ApiClients;
+using NutritionApp.Services;
 using RestSharp;
 
-namespace NutritionApp.Services
+namespace NutritionApp.Data.Services
 {
-    public class UserDetailService(IUserMeasurementsApiClient apiClient, IAuthService authService) : BaseService(authService), IUserDetailService
+    public class MeasurementsService(IPersonalHealthApiClient<BodyMeasurements> apiClient, IAuthService authService) : BaseService(authService), IMeasurementsService
     {
-        private readonly IUserMeasurementsApiClient apiClient = apiClient;
+        private readonly IPersonalHealthApiClient<BodyMeasurements> _apiClient = apiClient;
 
         public async Task AddNewWeight(double weight)
         {
@@ -20,7 +19,7 @@ namespace NutritionApp.Services
             var request = new RestRequest($"api/Measurements/{UserId}");
             request.AddJsonBody(measurements);
 
-            await apiClient.PostAsync(request, IdToken);
+            await _apiClient.PostAsync(request, IdToken);
         }
 
         public BodyMeasurements GetBodyMeasurements()

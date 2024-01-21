@@ -1,17 +1,16 @@
 ﻿using Nutrition.Core;
-using NutritionApp.Data.Services;
+using NutritionApp.Services;
 using RestSharp;
 
-namespace NutritionApp.Services.NutritionServices;
+namespace NutritionApp.Data.Services;
 
-public class UserNutritionTrackingService(IUserNutritionApiClient nutritionApiClient, IAuthService authService) : BaseService(authService), INutritionTrackingService
+public class NutritionTrackingService(IPersonalHealthApiClient<NutritionDay> nutritionApiClient, IAuthService authService) : BaseService(authService), INutritionTrackingService
 {
-    private readonly IUserNutritionApiClient nutritionApiClient = nutritionApiClient;
+    private readonly IPersonalHealthApiClient<NutritionDay> nutritionApiClient = nutritionApiClient;
 
     public async Task<NutritionDay> GetNutritionDay(DateTime dateToQuery)
     {
         var request = new RestRequest($"api/Nutrition/day/{UserId}/{dateToQuery}");
-
         var nutritionDay = await nutritionApiClient.GetAsync(request, IdToken);
 
         return nutritionDay;
@@ -19,7 +18,7 @@ public class UserNutritionTrackingService(IUserNutritionApiClient nutritionApiCl
 
     public async Task SaveNutritionDay(NutritionDay nutritionDay)
     {
-        var request = new RestRequest($"api/Nutrition/day/{UserId}");
+        var request = new RestRequest($"api/Nutrition/day/save/{UserId}");
         request.AddJsonBody(nutritionDay);
 
         await nutritionApiClient.PostAsync(request, IdToken);

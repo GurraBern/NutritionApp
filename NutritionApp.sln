@@ -5,9 +5,9 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NutritionApp", "NutritionApp\NutritionApp.csproj", "{23649576-A032-4351-A0CD-97A3D915FB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserNutritionAPI", "UserNutritionAPI\UserNutritionAPI.csproj", "{CC74CB3D-65E8-4D60-85E4-BBB4F6E24788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalHealthAPI", "UserNutritionAPI\PersonalHealthAPI.csproj", "{CC74CB3D-65E8-4D60-85E4-BBB4F6E24788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nutrition.Core", "Nutrition.Core\Nutrition.Core.csproj", "{5CC2557E-DA7C-4429-9F40-198E1E8155CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nutrition.Core", "Nutrition.Core\Nutrition.Core.csproj", "{5CC2557E-DA7C-4429-9F40-198E1E8155CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

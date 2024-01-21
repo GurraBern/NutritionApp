@@ -2,10 +2,10 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
+using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.MVVM.Viewmodels.Utils;
 using NutritionApp.MVVM.Views;
-using NutritionApp.Services.NutritionServices;
 using System.Collections.ObjectModel;
 
 namespace NutritionApp.MVVM.ViewModels;

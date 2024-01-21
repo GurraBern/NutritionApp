@@ -44,7 +44,7 @@ public class NutritionController : ControllerBase
         }
     }
 
-    [HttpPost("nutrition/day/{userid}")]
+    [HttpPost("day/create/{userid}")]
     public async Task<IActionResult> CreateNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
     {
         if (nutritionDay == null)
@@ -59,7 +59,7 @@ public class NutritionController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("nutrition/day/{userid}")]
+    [HttpPost("day/save/{userid}")]
     public async Task<IActionResult> SaveNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
     {
         CollectionReference nutritionDaysCollectionRef = _db.Collection("Users").Document(userId).Collection("NutritionDays");

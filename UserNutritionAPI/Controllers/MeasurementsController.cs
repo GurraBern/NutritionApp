@@ -18,16 +18,16 @@ public class MeasurementsController : ControllerBase
     }
 
     [HttpPost("{userid}")]
-    public async Task<IActionResult> CreateMeasurements(string userId, [FromBody] BodyMeasurements bodyMeasurements)
+    public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurements bodyMeasurements)
     {
         if (bodyMeasurements == null)
             return BadRequest("Invalid data. BodyMeasurements is required.");
 
-        DocumentReference userDocRef = _db.Collection("Users").Document(userId);
+        DocumentReference userDocRef = _db.Collection("Users").Document(userid);
 
-        CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("BodyMeasurements");
+        CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
 
-        await nutritionDaysCollectionRef.AddAsync(bodyMeasurements);
+        await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
 
         return Ok();
     }

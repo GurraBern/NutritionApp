@@ -1,6 +1,6 @@
 ﻿using Nutrition.Core;
 
-namespace NutritionApp.Services.NutritionServices;
+namespace NutritionApp.Data.Services;
 
 public interface INutritionTracker
 {

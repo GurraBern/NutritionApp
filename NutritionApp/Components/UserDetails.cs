@@ -1,21 +1,21 @@
 ﻿using Nutrition.Core;
-using NutritionApp.Services;
+using NutritionApp.Data.Services;
 
 namespace NutritionApp.Components;
 
 public class UserDetails
 {
-    private readonly IUserDetailService _userDetailService;
+    private readonly IMeasurementsService _measurementsService;
     public BodyMeasurements BodyMeasurements { get; }
     public TargetMeasurements TargetMeasurements { get; }
     public double BMI { get; }
     public double WeightProgress { get; }
 
-    public UserDetails(IUserDetailService userDetailService)
+    public UserDetails(IMeasurementsService measurementsService)
     {
-        _userDetailService = userDetailService;
-        BodyMeasurements = userDetailService.GetBodyMeasurements();
-        TargetMeasurements = userDetailService.GetTargetMeasurements();
+        _measurementsService = measurementsService;
+        BodyMeasurements = measurementsService.GetBodyMeasurements();
+        TargetMeasurements = measurementsService.GetTargetMeasurements();
         BMI = CalculateBMI(BodyMeasurements.Weight, BodyMeasurements.Height);
         WeightProgress = CalculateWeightProgess();
     }

@@ -2,7 +2,7 @@
 using Nutrition.Core;
 using NutritionApp.MVVM.Models;
 
-namespace NutritionApp.Services.NutritionServices;
+namespace NutritionApp.Data.Services;
 
 public class SettingsService : ISettingsService
 {

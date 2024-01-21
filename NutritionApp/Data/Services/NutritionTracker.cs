@@ -1,12 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
-using NutritionApp.Data;
 
-namespace NutritionApp.Services.NutritionServices;
+namespace NutritionApp.Data.Services;
 
 public class NutritionTracker(INutritionTrackingService nutritionTrackingService, ISettingsService settingsService, IDataRepository dataRepository) : ObservableObject, INutritionTracker
 {
+    private readonly INutritionTrackingService _nutritionTrackingService = nutritionTrackingService;
+    private readonly ISettingsService _settingsService = settingsService;
+    private readonly IDataRepository _dataRepository = dataRepository;
     private int dayIndex = 0;
     private bool isInitialized = false;
     private NutritionDay currentNutritionDay;
@@ -24,19 +26,19 @@ public class NutritionTracker(INutritionTrackingService nutritionTrackingService
 
     public async Task SetupNutritionDay()
     {
-        currentNutritionDay = await nutritionTrackingService.GetNutritionDay(DateTime.UtcNow);
+        currentNutritionDay = await _nutritionTrackingService.GetNutritionDay(DateTime.UtcNow);
         NutritionDays.Add(currentNutritionDay);
     }
 
     public async Task AddFood(FoodItem food)
     {
-        dataRepository.AddToSearchHistory(food);
+        _dataRepository.AddToSearchHistory(food);
 
         if (food.MealOfDay == MealOfDay.NoClassification)
-            food.MealOfDay = settingsService.GetCurrentMealPeriod();
+            food.MealOfDay = _settingsService.GetCurrentMealPeriod();
 
         currentNutritionDay.AddFood(food);
-        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
+        await _nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -44,7 +46,7 @@ public class NutritionTracker(INutritionTrackingService nutritionTrackingService
     public async Task RemoveFood(FoodItem food)
     {
         currentNutritionDay.RemoveFood(food);
-        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
+        await _nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -54,7 +56,7 @@ public class NutritionTracker(INutritionTrackingService nutritionTrackingService
         currentNutritionDay.RemoveFood(food);
         currentNutritionDay.AddFood(food);
 
-        await nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
+        await _nutritionTrackingService.SaveNutritionDay(currentNutritionDay);
 
         WeakReferenceMessenger.Default.Send(food);
     }
@@ -74,7 +76,7 @@ public class NutritionTracker(INutritionTrackingService nutritionTrackingService
         dayIndex++;
         if (dayIndex >= NutritionDays.Count)
         {
-            var nutritionDay = await nutritionTrackingService.GetNutritionDay(DateTime.UtcNow.AddDays(-dayIndex));
+            var nutritionDay = await _nutritionTrackingService.GetNutritionDay(DateTime.UtcNow.AddDays(-dayIndex));
             NutritionDays.Add(nutritionDay);
         }
 
