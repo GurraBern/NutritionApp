@@ -16,7 +16,6 @@ using NutritionApp.MVVM.Views;
 using NutritionApp.Services;
 using NutritionApp.Services.NutritionServices;
 using RestSharp;
-using Syncfusion.Maui.Core.Hosting;
 using System.Reflection;
 
 namespace NutritionApp;
@@ -29,7 +28,6 @@ public static class MauiProgram
         builder.UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseMicrocharts()
-            .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -93,12 +91,6 @@ public static class MauiProgram
             ]
         }));
 
-        //builder.Services.AddSingleton<IRestClient>(provider =>
-        //{
-        //    string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
-        //    return CreateRestClient(apiUrl);
-        //});
-
         builder.Services.AddSingleton<INutritionApiClient>(serviceProvider =>
         {
             string nutritionApiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
@@ -106,45 +98,9 @@ public static class MauiProgram
             return new NutritionApiClient(nutritionRestClient);
         });
 
-
-        //TODO move to separate method: API Clients
-        //string personalHealthApiUrl = builder.Configuration["AppSettings:PersonalHealthApiUrl"];
-        //var personalHealthApiClient = new RestClient(personalHealthApiUrl);
-
-        //builder.Services.AddTransient<IPersonalHealthApiClient<NutritionDay>>(serviceProvider =>
-        //{
-        //    return new PersonalHealthApiClient<NutritionDay>(personalHealthApiClient);
-        //});
-
-        //builder.Services.AddTransient<IPersonalHealthApiClient<BodyMeasurements>>(serviceProvider =>
-        //{
-        //    return new PersonalHealthApiClient<BodyMeasurements>(personalHealthApiClient);
-        //});
-
-
-
         var personalHealthApiClient = new RestClient(builder.Configuration["AppSettings:PersonalHealthApiUrl"]);
         builder.RegisterPersonalHealthApiClient<NutritionDay>(personalHealthApiClient);
         builder.RegisterPersonalHealthApiClient<BodyMeasurements>(personalHealthApiClient);
-
-
-        //builder.Services.AddTransient<IUserMeasurementsApiClient, UserMeasurementsApiClient>();
-
-        //builder.Services.AddSingleton<INutritionApiClient>(serviceProvider =>
-        //{
-        //    string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
-        //    return new NutritionApiClient(apiUrl);
-        //});
-
-
-        //builder.Services.AddSingleton<IUserNutritionApiClient>(serviceProvider =>
-        //{
-        //    var baseUrl = builder.Configuration["AppSettings:UserNutritionApiUrl"];
-        //    var restClient = new RestClient(baseUrl);
-        //    return new UserNutritionApiClient(restClient);
-        //});
-
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["AppSettings:SyncFusion"]);
     }
 
     private static void RegisterViewModels(this MauiAppBuilder builder)

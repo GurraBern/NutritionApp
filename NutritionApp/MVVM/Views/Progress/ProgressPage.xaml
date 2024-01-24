@@ -4,7 +4,7 @@
              xmlns:model="clr-namespace:NutritionApp.MVVM.Models"
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
-             xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
+             xmlns:local="clr-namespace:NutritionApp.MVVM.ViewModels"
              x:DataType="viewmodel:ProgressViewModel"
              x:Class="NutritionApp.MVVM.Views.ProgressPage"
              Title="ProgressPage"
