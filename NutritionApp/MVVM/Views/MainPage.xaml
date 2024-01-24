@@ -65,7 +65,7 @@
                                 <Label HorizontalOptions="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding UserDetails.BodyMeasurements.Weight}" FontSize="Large" />
+                                            <Span Text="{Binding BodyMeasurements.Weight}" FontSize="Large" />
                                             <Span Text="kg" FontSize="Caption"/>
                                         </FormattedString>
                                     </Label.FormattedText>

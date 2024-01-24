@@ -26,7 +26,7 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     public NutrientModel Carbohydrates { get; }
     public NutrientModel Fat { get; }
     public NutrientModel Calories { get; }
-    public BodyMeasurements BodyMeasurements { get; }
+    public BodyMeasurement BodyMeasurements { get; }
     public UserDetails UserDetails { get; }
     public NavigationService NavigationService { get; }
     public Task Initialization { get; private set; }
@@ -42,6 +42,7 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
         Fat = nutrientFactory.CreateNutrient("Fat");
         Calories = nutrientFactory.CreateNutrient("Calories");
 
+        BodyMeasurements = userDetails.BodyMeasurements.FirstOrDefault();
         Initialization = InitializeAsync();
 
         WeakReferenceMessenger.Default.Register(this);

@@ -100,7 +100,7 @@ public static class MauiProgram
 
         var personalHealthApiClient = new RestClient(builder.Configuration["AppSettings:PersonalHealthApiUrl"]);
         builder.RegisterPersonalHealthApiClient<NutritionDay>(personalHealthApiClient);
-        builder.RegisterPersonalHealthApiClient<BodyMeasurements>(personalHealthApiClient);
+        builder.RegisterPersonalHealthApiClient<BodyMeasurement>(personalHealthApiClient);
     }
 
     private static void RegisterViewModels(this MauiAppBuilder builder)

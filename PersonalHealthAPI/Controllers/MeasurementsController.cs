@@ -18,7 +18,7 @@ public class MeasurementsController : ControllerBase
     }
 
     [HttpPost("{userid}")]
-    public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurements bodyMeasurements)
+    public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurement bodyMeasurements)
     {
         if (bodyMeasurements == null)
             return BadRequest("Invalid data. BodyMeasurements is required.");
@@ -30,5 +30,18 @@ public class MeasurementsController : ControllerBase
         await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
 
         return Ok();
+    }
+
+    [HttpGet("{userid}")]
+    public async Task<ActionResult<IEnumerable<BodyMeasurement>>> GetMeasurements(string userid)
+    {
+        DocumentReference userDocRef = _db.Collection("Users").Document(userid);
+
+        CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
+
+        var querySnapshot = await bodyMeasurementsCollectionRef.GetSnapshotAsync();
+
+        var bodyMeasurements = querySnapshot.Documents.ToList();
+        return Ok(bodyMeasurements);
     }
 }

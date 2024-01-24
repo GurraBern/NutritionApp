@@ -3,7 +3,7 @@
 namespace Nutrition.Core;
 
 [FirestoreData]
-public class BodyMeasurements
+public class BodyMeasurement
 {
     [FirestoreProperty]
     public double Height { get; set; }

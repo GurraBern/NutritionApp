@@ -5,13 +5,13 @@ using RestSharp;
 
 namespace NutritionApp.Data.Services
 {
-    public class MeasurementsService(IPersonalHealthApiClient<BodyMeasurements> apiClient, IAuthService authService) : BaseService(authService), IMeasurementsService
+    public class MeasurementsService(IPersonalHealthApiClient<BodyMeasurement> apiClient, IAuthService authService) : BaseService(authService), IMeasurementsService
     {
-        private readonly IPersonalHealthApiClient<BodyMeasurements> _apiClient = apiClient;
+        private readonly IPersonalHealthApiClient<BodyMeasurement> _apiClient = apiClient;
 
         public async Task AddNewWeight(double weight)
         {
-            var measurements = new BodyMeasurements()
+            var measurements = new BodyMeasurement()
             {
                 Weight = weight
             };
@@ -22,14 +22,13 @@ namespace NutritionApp.Data.Services
             await _apiClient.PostAsync(request, IdToken);
         }
 
-        public BodyMeasurements GetBodyMeasurements()
+        public async Task<IEnumerable<BodyMeasurement>> GetBodyMeasurements()
         {
-            //TODO fetch from database
-            return new BodyMeasurements()
-            {
-                Height = 1.75,
-                Weight = 75
-            };
+            var request = new RestRequest($"api/Measurements/{UserId}");
+
+            var bodyMeasurements = await _apiClient.GetListAsync(request, IdToken);
+
+            return bodyMeasurements;
         }
 
         public TargetMeasurements GetTargetMeasurements()

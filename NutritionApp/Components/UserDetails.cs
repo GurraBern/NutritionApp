@@ -6,17 +6,22 @@ namespace NutritionApp.Components;
 public class UserDetails
 {
     private readonly IMeasurementsService _measurementsService;
-    public BodyMeasurements BodyMeasurements { get; }
+    public IEnumerable<BodyMeasurement> BodyMeasurements { get; }
     public TargetMeasurements TargetMeasurements { get; }
     public double BMI { get; }
+    public double Weight { get; }
     public double WeightProgress { get; }
 
     public UserDetails(IMeasurementsService measurementsService)
     {
         _measurementsService = measurementsService;
-        BodyMeasurements = measurementsService.GetBodyMeasurements();
+        BodyMeasurements = await measurementsService.GetBodyMeasurements();
         TargetMeasurements = measurementsService.GetTargetMeasurements();
-        BMI = CalculateBMI(BodyMeasurements.Weight, BodyMeasurements.Height);
+
+        var bodyMeasurement = BodyMeasurements.FirstOrDefault();
+        Weight = bodyMeasurement.Weight;
+
+        BMI = CalculateBMI(bodyMeasurement.Weight, bodyMeasurement.Height);
         WeightProgress = CalculateWeightProgess();
     }
 
@@ -29,7 +34,7 @@ public class UserDetails
     private double CalculateWeightProgess()
     {
         var targetWeight = TargetMeasurements.TargetWeight;
-        var currentWeight = BodyMeasurements.Weight;
+        var currentWeight = BodyMeasurements.FirstOrDefault().Weight;
         var startingWeight = TargetMeasurements.StartingWeight;
         return (currentWeight - startingWeight) / (targetWeight - startingWeight);
     }

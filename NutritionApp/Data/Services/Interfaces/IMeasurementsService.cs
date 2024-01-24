@@ -6,7 +6,7 @@ namespace NutritionApp.Data.Services;
 public interface IMeasurementsService
 
 {
-    public BodyMeasurements GetBodyMeasurements();
+    public Task<IEnumerable<BodyMeasurement>> GetBodyMeasurements();
 
     public TargetMeasurements GetTargetMeasurements();
 

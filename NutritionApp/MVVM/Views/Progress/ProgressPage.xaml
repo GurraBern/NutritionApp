@@ -12,22 +12,7 @@
     <VerticalStackLayout Padding="20">
         <!--TODO Weight Graph-->
 
-        <micro:ChartView x:Name="chartView" HeightRequest="200"></micro:ChartView>
-
-        <!--<chart:SfCartesianChart>
-            <chart:SfCartesianChart.XAxes>
-                <chart:CategoryAxis />
-            </chart:SfCartesianChart.XAxes>
-
-            <chart:SfCartesianChart.YAxes>
-                <chart:NumericalAxis />
-            </chart:SfCartesianChart.YAxes>
-
-            <chart:SplineSeries XBindingPath="Demand"
-						ItemsSource="{Binding Data}"
-						YBindingPath="Year2010"
-						Type="Cardinal" />
-        </chart:SfCartesianChart>-->
+        <micro:ChartView Chart="{Binding LineChart}" x:Name="chartView" HeightRequest="200"></micro:ChartView>
 
         <VerticalStackLayout Margin="0,10">
             <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
@@ -46,7 +31,7 @@
                 <Label TextColor="White">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{Binding BodyMeasurements.Weight}" FontSize="Header" />
+                            <Span Text="{Binding BodyMeasurement.Weight}" FontSize="Header" />
                             <Span Text="kg" FontSize="Micro" />
                         </FormattedString>
                     </Label.FormattedText>
