@@ -20,28 +20,48 @@ public class MeasurementsController : ControllerBase
     [HttpPost("{userid}")]
     public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurement bodyMeasurements)
     {
-        if (bodyMeasurements == null)
-            return BadRequest("Invalid data. BodyMeasurements is required.");
+        try
+        {
+            if (bodyMeasurements == null)
+                return BadRequest("Invalid data. BodyMeasurements is required.");
 
-        DocumentReference userDocRef = _db.Collection("Users").Document(userid);
+            DocumentReference userDocRef = _db.Collection("Users").Document(userid);
 
-        CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
+            CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
 
-        await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
+            await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
 
-        return Ok();
+            return Ok();
+
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
     }
 
     [HttpGet("{userid}")]
     public async Task<ActionResult<IEnumerable<BodyMeasurement>>> GetMeasurements(string userid)
     {
-        DocumentReference userDocRef = _db.Collection("Users").Document(userid);
+        try
+        {
+            DocumentReference userDocRef = _db.Collection("Users").Document(userid);
 
-        CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
+            CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
 
-        var querySnapshot = await bodyMeasurementsCollectionRef.GetSnapshotAsync();
+            var querySnapshot = await bodyMeasurementsCollectionRef.GetSnapshotAsync();
 
-        var bodyMeasurements = querySnapshot.Documents.ToList();
-        return Ok(bodyMeasurements);
+            var bodyMeasurements = querySnapshot.Documents
+                .Select(x => x.ConvertTo<BodyMeasurement>())
+                .ToList();
+
+            return Ok(bodyMeasurements);
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
     }
 }

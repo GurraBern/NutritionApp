@@ -1,5 +1,4 @@
 ﻿using Nutrition.Core;
-using NutritionApp.Components;
 using NutritionApp.Services;
 using RestSharp;
 
@@ -31,10 +30,10 @@ namespace NutritionApp.Data.Services
             return bodyMeasurements;
         }
 
-        public TargetMeasurements GetTargetMeasurements()
+        public TargetMeasurement GetTargetMeasurements()
         {
             //TODO fetch from database
-            return new TargetMeasurements()
+            return new TargetMeasurement()
             {
                 StartingWeight = 76,
                 TargetWeight = 70,

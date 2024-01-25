@@ -8,7 +8,7 @@ public class StringToDoubleConverter : IValueConverter
     {
         if (value is string stringValue)
         {
-            if (double.TryParse(stringValue, out double result))
+            if (double.TryParse(stringValue, CultureInfo.InvariantCulture, out double result))
             {
                 return result;
             }

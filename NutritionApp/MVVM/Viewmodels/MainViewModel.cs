@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Nutrition.Core;
-using NutritionApp.Components;
+using NutritionApp.Data.Context.Interfaces;
 using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
@@ -27,14 +27,14 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
     public NutrientModel Fat { get; }
     public NutrientModel Calories { get; }
     public BodyMeasurement BodyMeasurements { get; }
-    public UserDetails UserDetails { get; }
+    public IUserContext UserContext { get; }
     public NavigationService NavigationService { get; }
     public Task Initialization { get; private set; }
 
-    public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, UserDetails userDetails, NavigationService navigationService)
+    public MainViewModel(INutritionTracker nutritionTracker, INutrientFactory nutrientFactory, IUserContext userContext, NavigationService navigationService)
     {
         this.nutritionTracker = nutritionTracker;
-        UserDetails = userDetails;
+        UserContext = userContext;
         this.NavigationService = navigationService;
         Protein = nutrientFactory.CreateNutrient("Protein");
         Carbohydrates = nutrientFactory.CreateNutrient("Carbohydrates");
@@ -42,7 +42,7 @@ public partial class MainViewModel : BaseViewModel, IAsyncInitialization, IRecip
         Fat = nutrientFactory.CreateNutrient("Fat");
         Calories = nutrientFactory.CreateNutrient("Calories");
 
-        BodyMeasurements = userDetails.BodyMeasurements.FirstOrDefault();
+        //BodyMeasurements = userDetails.BodyMeasurements.FirstOrDefault();
         Initialization = InitializeAsync();
 
         WeakReferenceMessenger.Default.Register(this);

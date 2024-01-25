@@ -6,8 +6,9 @@ using Microcharts.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Nutrition.Core;
-using NutritionApp.Components;
 using NutritionApp.Data;
+using NutritionApp.Data.Context;
+using NutritionApp.Data.Context.Interfaces;
 using NutritionApp.Data.Dto;
 using NutritionApp.Data.Services;
 using NutritionApp.MVVM.Models;
@@ -71,16 +72,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IToastService, ToastService>();
         builder.Services.AddSingleton<NavigationService>();
         builder.Services.AddTransient<IMeasurementsService, MeasurementsService>();
-        builder.Services.AddScoped<UserDetails>();
-
-
-
-        //builder.Services.AddSingleton<IRestClient>(provider =>
-        //{
-        //    string apiUrl = builder.Configuration["AppSettings:NutritionApiUrl"];
-        //    return CreateRestClient(apiUrl);
-        //});
-
+        builder.Services.AddSingleton<IUserContext, UserContext>();
         builder.Services.AddSingleton(new FirebaseAuthClient(new FirebaseAuthConfig()
         {
             ApiKey = builder.Configuration["AppSettings:FirebaseApiKey"],
