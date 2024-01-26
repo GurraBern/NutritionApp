@@ -30,6 +30,15 @@ namespace NutritionApp.Data.Services
             return bodyMeasurements;
         }
 
+        public async Task<BodyMeasurement> GetBodyMeasurement()
+        {
+            var request = new RestRequest($"api/Measurements/{UserId}/latest");
+
+            var bodyMeasurement = await _apiClient.GetAsync(request, IdToken);
+
+            return bodyMeasurement;
+        }
+
         public TargetMeasurement GetTargetMeasurements()
         {
             //TODO fetch from database
@@ -40,6 +49,15 @@ namespace NutritionApp.Data.Services
                 TargetCreationDate = DateTime.Now,
                 TargetEndDate = DateTime.Now.AddMonths(7),
             };
+        }
+
+        public async Task<BodyMeasurement> GetLatestBodyMeasurement()
+        {
+            var request = new RestRequest($"api/Measurements/{UserId}/latest");
+
+            var bodyMeasurement = await _apiClient.GetAsync(request, IdToken);
+
+            return bodyMeasurement;
         }
     }
 }

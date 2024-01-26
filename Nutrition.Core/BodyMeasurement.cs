@@ -10,4 +10,7 @@ public class BodyMeasurement
 
     [FirestoreProperty]
     public double Weight { get; set; }
+
+    [FirestoreProperty]
+    public DateTime DateTime { get; set; } = DateTime.UtcNow;
 }

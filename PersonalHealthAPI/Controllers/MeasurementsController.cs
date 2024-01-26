@@ -31,8 +31,11 @@ public class MeasurementsController : ControllerBase
 
             await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
 
-            return Ok();
+            var latestBodyMeasurementsCollectionRef = userDocRef.Collection("LatestUserDetails").Document("LatestBodyMeasurements");
 
+            await latestBodyMeasurementsCollectionRef.SetAsync(bodyMeasurements);
+
+            return Ok();
         }
         catch (Exception ex)
         {
@@ -57,6 +60,26 @@ public class MeasurementsController : ControllerBase
                 .ToList();
 
             return Ok(bodyMeasurements);
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
+    }
+
+    [HttpGet("{userid}/latest")]
+    public async Task<ActionResult<BodyMeasurement>> GetLatestMeasurement(string userid)
+    {
+        try
+        {
+            var latestBodyMeasurementsCollectionRef = _db.Collection("Users").Document(userid).Collection("LatestUserDetails");
+
+            QuerySnapshot querySnapshot = await latestBodyMeasurementsCollectionRef.GetSnapshotAsync();
+
+            var bodyMeasurement = querySnapshot.Documents.FirstOrDefault()?.ConvertTo<BodyMeasurement>();
+
+            return Ok(bodyMeasurement);
         }
         catch (Exception ex)
         {

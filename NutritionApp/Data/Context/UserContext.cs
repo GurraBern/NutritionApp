@@ -9,6 +9,7 @@ public class UserContext : IUserContext, IAsyncInitialization
 {
     private readonly IMeasurementsService _measurementsService;
     public IEnumerable<BodyMeasurement> BodyMeasurements { get; set; }
+    public BodyMeasurement CurrentBodyMeasurement { get; set; }
     public TargetMeasurement TargetMeasurement { get; set; }
     public double BMI { get; set; }
     public double Weight { get; set; }
@@ -26,13 +27,13 @@ public class UserContext : IUserContext, IAsyncInitialization
     private async Task InitializeAsync()
     {
         BodyMeasurements = await _measurementsService.GetBodyMeasurements();
+        CurrentBodyMeasurement = await _measurementsService.GetLatestBodyMeasurement();
         var bodyMeasurement = BodyMeasurements.FirstOrDefault();
         Weight = bodyMeasurement.Weight;
         BMI = CalculateBMI(bodyMeasurement.Weight, bodyMeasurement.Height);
         TargetMeasurement = _measurementsService.GetTargetMeasurements();
 
         WeightProgress = CalculateWeightProgess();
-
     }
 
     private static double CalculateBMI(double weight, double height)
