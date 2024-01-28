@@ -28,9 +28,8 @@ public class UserContext : IUserContext, IAsyncInitialization
     {
         BodyMeasurements = await _measurementsService.GetBodyMeasurements();
         CurrentBodyMeasurement = await _measurementsService.GetLatestBodyMeasurement();
-        var bodyMeasurement = BodyMeasurements.FirstOrDefault();
-        Weight = bodyMeasurement.Weight;
-        BMI = CalculateBMI(bodyMeasurement.Weight, bodyMeasurement.Height);
+        Weight = CurrentBodyMeasurement.Weight;
+        BMI = CalculateBMI(CurrentBodyMeasurement.Weight, CurrentBodyMeasurement.Height);
         TargetMeasurement = _measurementsService.GetTargetMeasurements();
 
         WeightProgress = CalculateWeightProgess();
@@ -45,7 +44,7 @@ public class UserContext : IUserContext, IAsyncInitialization
     private double CalculateWeightProgess()
     {
         var targetWeight = TargetMeasurement.TargetWeight;
-        var currentWeight = BodyMeasurements.FirstOrDefault().Weight;
+        var currentWeight = CurrentBodyMeasurement.Weight;
         var startingWeight = TargetMeasurement.StartingWeight;
         return (currentWeight - startingWeight) / (targetWeight - startingWeight);
     }

@@ -5,12 +5,12 @@
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:local="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
              x:DataType="viewmodel:ProgressViewModel"
              x:Class="NutritionApp.MVVM.Views.ProgressPage"
              Title="ProgressPage"
              BackgroundColor="{StaticResource BackgroundPrimary}">
     <VerticalStackLayout Padding="20">
-        <!--TODO Weight Graph-->
 
         <micro:ChartView Chart="{Binding LineChart}" x:Name="chartView" HeightRequest="200"></micro:ChartView>
 
@@ -76,6 +76,35 @@
             <Label Text="History" Margin="0,10" FontSize="Small"></Label>
             <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
         </FlexLayout>
+        
+        <CollectionView ItemsSource="{Binding BodyMeasurements}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:BodyMeasurementExtended">
+                    <Border Style="{StaticResource RoundBorder}" Padding="15,0">
+                        <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                            <VerticalStackLayout>
+                                <Label Text="Today"></Label>
+                                <Label Text="{Binding Difference, StringFormat='{0} kg'}" FontSize="Caption"></Label>
+                            </VerticalStackLayout>
+
+                            <Label TextColor="White">
+                                <Label.FormattedText>
+                                    <FormattedString >
+                                        <Span Text="{Binding Weight}" FontSize="Medium"/>
+                                        <Span Text=" " />
+                                        <Span Text="kg" FontSize="Caption" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </FlexLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <Button Text="NEW WEIGHT" Command="{Binding NavigationService.NavigateToAddWeightPageCommand}"></Button>
     </VerticalStackLayout>

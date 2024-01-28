@@ -2,6 +2,7 @@
 using Microcharts;
 using Nutrition.Core;
 using NutritionApp.Data.Context.Interfaces;
+using NutritionApp.MVVM.Models;
 using NutritionApp.Services;
 using SkiaSharp;
 
@@ -10,7 +11,7 @@ namespace NutritionApp.MVVM.ViewModels;
 public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
 {
     private readonly IUserContext _userContext;
-    public IEnumerable<BodyMeasurement> BodyMeasurements { get; set; }
+    public IEnumerable<BodyMeasurementExtended> BodyMeasurements { get; set; }
     public TargetMeasurement TargetMeasurements { get; set; }
     public double BMI { get; set; }
     public double WeightProgress { get; set; }
@@ -32,10 +33,13 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
 
     private async Task InitializationAsync()
     {
+        var bodyMeasurements = _userContext.BodyMeasurements;
+        BodyMeasurements = ConvertToExtendedBodyMeasurements(bodyMeasurements);
+
         try
         {
             var chartEntries = new List<ChartEntry>();
-            foreach (var bodyMeasurement in _userContext.BodyMeasurements)
+            foreach (var bodyMeasurement in bodyMeasurements)
             {
                 var chartEntry = new ChartEntry((float)bodyMeasurement.Weight)
                 {
@@ -79,6 +83,25 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
         {
             throw;
         }
+    }
 
+    private IEnumerable<BodyMeasurementExtended> ConvertToExtendedBodyMeasurements(IEnumerable<BodyMeasurement> bodyMeasurements)
+    {
+        var extendedMeasurements = new List<BodyMeasurementExtended>();
+        var previousBodyMeasurement = 0.0;
+
+        foreach (var measurement in bodyMeasurements)
+        {
+            var extendedMeasurement = new BodyMeasurementExtended(measurement);
+
+            if (previousBodyMeasurement != 0.0)
+                extendedMeasurement.Difference = Math.Abs(extendedMeasurement.Weight - previousBodyMeasurement);
+
+            previousBodyMeasurement = extendedMeasurement.Weight;
+
+            extendedMeasurements.Add(extendedMeasurement);
+        }
+
+        return extendedMeasurements;
     }
 }
