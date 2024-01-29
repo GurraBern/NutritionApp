@@ -8,7 +8,7 @@ namespace NutritionApp.Data.Context;
 public class UserContext : IUserContext, IAsyncInitialization
 {
     private readonly IMeasurementsService _measurementsService;
-    public IEnumerable<BodyMeasurement> BodyMeasurements { get; set; }
+    public ICollection<BodyMeasurement> BodyMeasurements { get; set; }
     public BodyMeasurement CurrentBodyMeasurement { get; set; }
     public TargetMeasurement TargetMeasurement { get; set; }
     public double BMI { get; set; }
@@ -22,6 +22,12 @@ public class UserContext : IUserContext, IAsyncInitialization
         _measurementsService = measurementsService;
 
         Initialization = InitializeAsync();
+    }
+
+    public void AddBodyMeasurement(BodyMeasurement bodyMeasurement)
+    {
+        BodyMeasurements.Add(bodyMeasurement);
+        _measurementsService.AddNewWeight(bodyMeasurement.Weight);
     }
 
     private async Task InitializeAsync()

@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Microcharts;
 using Nutrition.Core;
 using NutritionApp.Data.Context.Interfaces;
@@ -8,7 +9,7 @@ using SkiaSharp;
 
 namespace NutritionApp.MVVM.ViewModels;
 
-public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
+public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization, IRecipient<AddWeightViewModel>
 {
     private readonly IUserContext _userContext;
     public IEnumerable<BodyMeasurementExtended> BodyMeasurements { get; set; }
@@ -27,23 +28,39 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
     {
         _userContext = userContext;
         NavigationService = navigationService;
+        BodyMeasurements = ConvertToExtendedBodyMeasurements;
+        TargetMeasurements = _userContext.TargetMeasurement;
+        BodyMeasurement = _userContext.CurrentBodyMeasurement;
+        WeightProgress = _userContext.WeightProgress;
+        BMI = _userContext.BMI;
 
-        Initialization = InitializationAsync();
+        SetupChart();
+        WeakReferenceMessenger.Default.Register(this);
     }
 
-    private async Task InitializationAsync()
+    private void UpdateChart()
     {
-        var bodyMeasurements = _userContext.BodyMeasurements;
-        BodyMeasurements = ConvertToExtendedBodyMeasurements(bodyMeasurements);
+        SetupChart(); //Throws error now, completly reassign object?
+    }
 
+    private void SetupChart()
+    {
         try
         {
             var chartEntries = new List<ChartEntry>();
+
+            var bodyMeasurements = _userContext.BodyMeasurements
+                .GroupBy(date => date.DateTime.ToString("MM/dd"))
+                .Select(x => x.OrderBy(y => y.DateTime).Last())
+                .OrderBy(y => y.DateTime)
+                .ToList();
+
             foreach (var bodyMeasurement in bodyMeasurements)
             {
                 var chartEntry = new ChartEntry((float)bodyMeasurement.Weight)
                 {
                     Color = SKColor.FromHsl(335, 35, 54),
+                    ValueLabel = bodyMeasurement.DateTime.ToString("MM/dd")
                 };
 
                 chartEntries.Add(chartEntry);
@@ -58,13 +75,12 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
                 ValueLabelOrientation = Orientation.Horizontal,
                 ShowYAxisLines = true,
                 ShowYAxisText = true,
-                ValueLabelTextSize = 6,
+                ValueLabelTextSize = 16,
                 LineAreaAlpha = 0,
                 PointMode = PointMode.Circle,
                 PointSize = 5,
                 YAxisMaxTicks = 5,
                 LabelOrientation = Orientation.Horizontal,
-                ValueLabelOption = ValueLabelOption.None,
                 EnableYFadeOutGradient = true,
                 YAxisTextPaint = new SKPaint
                 {
@@ -78,6 +94,8 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
                 MinValue = 67,
                 YAxisPosition = Position.Left
             };
+
+            //LineChart.Entries = new List<ChartEntry>();
         }
         catch (Exception ex)
         {
@@ -85,23 +103,30 @@ public partial class ProgressViewModel : BaseViewModel, IAsyncInitialization
         }
     }
 
-    private IEnumerable<BodyMeasurementExtended> ConvertToExtendedBodyMeasurements(IEnumerable<BodyMeasurement> bodyMeasurements)
+    public void Receive(AddWeightViewModel message)
     {
-        var extendedMeasurements = new List<BodyMeasurementExtended>();
-        var previousBodyMeasurement = 0.0;
+        UpdateChart();
+    }
 
-        foreach (var measurement in bodyMeasurements)
+    private IEnumerable<BodyMeasurementExtended> ConvertToExtendedBodyMeasurements
+    {
+        get
         {
-            var extendedMeasurement = new BodyMeasurementExtended(measurement);
+            var extendedMeasurements = new List<BodyMeasurementExtended>();
+            BodyMeasurementExtended previousMeasurement = null;
 
-            if (previousBodyMeasurement != 0.0)
-                extendedMeasurement.Difference = Math.Abs(extendedMeasurement.Weight - previousBodyMeasurement);
+            foreach (var measurement in _userContext.BodyMeasurements)
+            {
+                var extendedMeasurement = new BodyMeasurementExtended(measurement);
 
-            previousBodyMeasurement = extendedMeasurement.Weight;
+                if (previousMeasurement != null)
+                    previousMeasurement.Difference = Math.Abs(extendedMeasurement.Weight - previousMeasurement.Weight);
 
-            extendedMeasurements.Add(extendedMeasurement);
+                previousMeasurement = extendedMeasurement;
+                extendedMeasurements.Add(extendedMeasurement);
+            }
+
+            return extendedMeasurements;
         }
-
-        return extendedMeasurements;
     }
 }

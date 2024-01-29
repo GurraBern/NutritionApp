@@ -51,9 +51,9 @@ public class MeasurementsController : ControllerBase
         {
             DocumentReference userDocRef = _db.Collection("Users").Document(userid);
 
-            CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
+            var query = userDocRef.Collection("BodyMeasurements").OrderByDescending("DateTime");
 
-            var querySnapshot = await bodyMeasurementsCollectionRef.GetSnapshotAsync();
+            var querySnapshot = await query.GetSnapshotAsync();
 
             var bodyMeasurements = querySnapshot.Documents
                 .Select(x => x.ConvertTo<BodyMeasurement>())
