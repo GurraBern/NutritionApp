@@ -4,9 +4,10 @@ namespace NutritionApp.Data.Context.Interfaces;
 
 public interface IUserContext
 {
-    IEnumerable<BodyMeasurement> BodyMeasurements { get; }
+    ICollection<BodyMeasurement> BodyMeasurements { get; }
     TargetMeasurement TargetMeasurement { get; }
     BodyMeasurement CurrentBodyMeasurement { get; set; }
     double BMI { get; set; }
     double WeightProgress { get; set; }
+    Task AddBodyMeasurement(BodyMeasurement bodyMeasurement);
 }

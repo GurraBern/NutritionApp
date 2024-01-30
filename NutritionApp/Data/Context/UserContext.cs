@@ -24,15 +24,15 @@ public class UserContext : IUserContext, IAsyncInitialization
         Initialization = InitializeAsync();
     }
 
-    public void AddBodyMeasurement(BodyMeasurement bodyMeasurement)
+    public async Task AddBodyMeasurement(BodyMeasurement bodyMeasurement)
     {
         BodyMeasurements.Add(bodyMeasurement);
-        _measurementsService.AddNewWeight(bodyMeasurement.Weight);
+        await _measurementsService.AddNewWeight(bodyMeasurement.Weight);
     }
 
     private async Task InitializeAsync()
     {
-        BodyMeasurements = await _measurementsService.GetBodyMeasurements();
+        BodyMeasurements = (await _measurementsService.GetBodyMeasurements()).ToList();
         CurrentBodyMeasurement = await _measurementsService.GetLatestBodyMeasurement();
         Weight = CurrentBodyMeasurement.Weight;
         BMI = CalculateBMI(CurrentBodyMeasurement.Weight, CurrentBodyMeasurement.Height);
