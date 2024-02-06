@@ -18,17 +18,73 @@ public class MeasurementsController : ControllerBase
     }
 
     [HttpPost("{userid}")]
-    public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurements bodyMeasurements)
+    public async Task<IActionResult> CreateMeasurements(string userid, [FromBody] BodyMeasurement bodyMeasurements)
     {
-        if (bodyMeasurements == null)
-            return BadRequest("Invalid data. BodyMeasurements is required.");
+        try
+        {
+            if (bodyMeasurements == null)
+                return BadRequest("Invalid data. BodyMeasurements is required.");
 
-        DocumentReference userDocRef = _db.Collection("Users").Document(userid);
+            DocumentReference userDocRef = _db.Collection("Users").Document(userid);
 
-        CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
+            CollectionReference bodyMeasurementsCollectionRef = userDocRef.Collection("BodyMeasurements");
 
-        await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
+            await bodyMeasurementsCollectionRef.AddAsync(bodyMeasurements);
 
-        return Ok();
+            var latestBodyMeasurementsCollectionRef = userDocRef.Collection("LatestUserDetails").Document("LatestBodyMeasurements");
+
+            await latestBodyMeasurementsCollectionRef.SetAsync(bodyMeasurements);
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
+    }
+
+    [HttpGet("{userid}")]
+    public async Task<ActionResult<IEnumerable<BodyMeasurement>>> GetMeasurements(string userid)
+    {
+        try
+        {
+            DocumentReference userDocRef = _db.Collection("Users").Document(userid);
+
+            var query = userDocRef.Collection("BodyMeasurements").OrderByDescending("DateTime");
+
+            var querySnapshot = await query.GetSnapshotAsync();
+
+            var bodyMeasurements = querySnapshot.Documents
+                .Select(x => x.ConvertTo<BodyMeasurement>())
+                .ToList();
+
+            return Ok(bodyMeasurements);
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
+    }
+
+    [HttpGet("{userid}/latest")]
+    public async Task<ActionResult<BodyMeasurement>> GetLatestMeasurement(string userid)
+    {
+        try
+        {
+            var latestBodyMeasurementsCollectionRef = _db.Collection("Users").Document(userid).Collection("LatestUserDetails");
+
+            QuerySnapshot querySnapshot = await latestBodyMeasurementsCollectionRef.GetSnapshotAsync();
+
+            var bodyMeasurement = querySnapshot.Documents.FirstOrDefault()?.ConvertTo<BodyMeasurement>();
+
+            return Ok(bodyMeasurement);
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
     }
 }

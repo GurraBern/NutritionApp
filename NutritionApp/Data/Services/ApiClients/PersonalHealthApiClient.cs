@@ -17,6 +17,12 @@ public class PersonalHealthApiClient<T>(IRestClient restClient) : IPersonalHealt
         request.AddHeader("Authorization", $"Bearer {bearerToken}");
         return await restClient.PostAsync<T>(request);
     }
+
+    public async Task<IEnumerable<T>> GetListAsync(RestRequest request, string bearerToken)
+    {
+        request.AddHeader("Authorization", $"Bearer {bearerToken}");
+        return await restClient.GetAsync<IEnumerable<T>>(request);
+    }
 }
 
 public interface IPersonalHealthApiClient<T>
@@ -24,4 +30,6 @@ public interface IPersonalHealthApiClient<T>
     Task<T> GetAsync(RestRequest request, string bearerToken);
 
     Task<T> PostAsync(RestRequest request, string bearerToken);
+
+    Task<IEnumerable<T>> GetListAsync(RestRequest request, string bearerToken);
 }

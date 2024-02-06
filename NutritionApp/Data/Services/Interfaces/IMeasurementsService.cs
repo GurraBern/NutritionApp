@@ -1,14 +1,15 @@
 ﻿using Nutrition.Core;
-using NutritionApp.Components;
 
 namespace NutritionApp.Data.Services;
 
 public interface IMeasurementsService
 
 {
-    public BodyMeasurements GetBodyMeasurements();
+    public Task<IEnumerable<BodyMeasurement>> GetBodyMeasurements();
 
-    public TargetMeasurements GetTargetMeasurements();
+    public Task<BodyMeasurement> GetLatestBodyMeasurement();
+
+    public TargetMeasurement GetTargetMeasurements();
 
     public Task AddNewWeight(double weight);
 }

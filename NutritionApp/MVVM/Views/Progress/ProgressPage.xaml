@@ -5,93 +5,108 @@
              xmlns:viewmodel="clr-namespace:NutritionApp.MVVM.ViewModels"
              xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              xmlns:local="clr-namespace:NutritionApp.MVVM.ViewModels"
+             xmlns:modelCore="clr-namespace:Nutrition.Core;assembly=Nutrition.Core"
              x:DataType="viewmodel:ProgressViewModel"
              x:Class="NutritionApp.MVVM.Views.ProgressPage"
              Title="ProgressPage"
              BackgroundColor="{StaticResource BackgroundPrimary}">
-    <VerticalStackLayout Padding="20">
-        <!--TODO Weight Graph-->
+    <ScrollView Padding="20">
+        <VerticalStackLayout>
+            <micro:ChartView Chart="{Binding WeightChart}" x:Name="chartView" HeightRequest="200"></micro:ChartView>
 
-        <micro:ChartView x:Name="chartView" HeightRequest="200"></micro:ChartView>
+            <VerticalStackLayout Margin="0,10">
+                <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                    <VerticalStackLayout>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding TargetMeasurements.StartingWeight}" FontSize="Medium" />
+                                    <Span Text="kg" FontSize="Caption" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="{Binding TargetMeasurements.TargetCreationDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                    </VerticalStackLayout>
 
-        <!--<chart:SfCartesianChart>
-            <chart:SfCartesianChart.XAxes>
-                <chart:CategoryAxis />
-            </chart:SfCartesianChart.XAxes>
+                    <Label TextColor="White">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding BodyMeasurement.Weight}" FontSize="Header" />
+                                <Span Text="kg" FontSize="Micro" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
 
-            <chart:SfCartesianChart.YAxes>
-                <chart:NumericalAxis />
-            </chart:SfCartesianChart.YAxes>
+                    <VerticalStackLayout>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding TargetMeasurements.TargetWeight}" FontSize="Medium" />
+                                    <Span Text="kg" FontSize="Caption" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Text="{Binding TargetMeasurements.TargetEndDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
+                    </VerticalStackLayout>
+                </FlexLayout>
 
-            <chart:SplineSeries XBindingPath="Demand"
-						ItemsSource="{Binding Data}"
-						YBindingPath="Year2010"
-						Type="Cardinal" />
-        </chart:SfCartesianChart>-->
+                <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}" Margin="0,10,0,0"></ProgressBar>
+            </VerticalStackLayout>
 
-        <VerticalStackLayout Margin="0,10">
+            <Label Text="BMI" Margin="0,10" FontSize="Small"></Label>
+            <Border Style="{StaticResource RoundBorder}" Margin="0,0,0,30">
+                <VerticalStackLayout>
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="{Binding BMI}" FontSize="Small"></Label>
+                        <Border StrokeThickness="4">
+                            <Border.Stroke>
+                                <LinearGradientBrush EndPoint="1,0">
+                                    <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
+                                    <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
+                                    <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
+                                    <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Stroke>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
             <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
-                <VerticalStackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding TargetMeasurements.StartingWeight}" FontSize="Medium" />
-                                <Span Text="kg" FontSize="Caption" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label Text="{Binding TargetMeasurements.TargetCreationDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
-                </VerticalStackLayout>
-
-                <Label TextColor="White">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{Binding BodyMeasurements.Weight}" FontSize="Header" />
-                            <Span Text="kg" FontSize="Micro" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-
-                <VerticalStackLayout>
-                    <Label>
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{Binding TargetMeasurements.TargetWeight}" FontSize="Medium" />
-                                <Span Text="kg" FontSize="Caption" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label Text="{Binding TargetMeasurements.TargetEndDate, StringFormat='{0:dd MMM yyyy}'}" TextColor="{StaticResource DarkBackgroundText}" FontFamily=""></Label>
-                </VerticalStackLayout>
+                <Label Text="History" Margin="0,10" FontSize="Small"></Label>
+                <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
             </FlexLayout>
 
-            <ProgressBar Progress="{Binding WeightProgress}" ProgressColor="{StaticResource Red}" Margin="0,10,0,0"></ProgressBar>
+            <CollectionView ItemsSource="{Binding BodyMeasurements}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="5"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:BodyMeasurementExtended">
+                        <Border Style="{StaticResource RoundBorder}" Padding="15,0">
+                            <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding DateTime, StringFormat='{0:dd MMM yyyy}'}"></Label>
+                                    <Label Text="{Binding Difference, StringFormat='{0} kg'}" FontSize="Caption"></Label>
+                                </VerticalStackLayout>
+
+                                <Label TextColor="White">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Weight}" FontSize="Medium"/>
+                                            <Span Text=" " />
+                                            <Span Text="kg" FontSize="Caption" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </FlexLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="NEW WEIGHT" Command="{Binding NavigationService.NavigateToAddWeightPageCommand}"></Button>
         </VerticalStackLayout>
-
-        <Label Text="BMI" Margin="0,10" FontSize="Small"></Label>
-        <Border Style="{StaticResource RoundBorder}" Margin="0,0,0,30">
-            <VerticalStackLayout>
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="{Binding BMI}" FontSize="Small"></Label>
-                    <Border StrokeThickness="4">
-                        <Border.Stroke>
-                            <LinearGradientBrush EndPoint="1,0">
-                                <GradientStop Color="#4034eb" Offset="0.1"></GradientStop>
-                                <GradientStop Color="#46eb34" Offset="0.3"></GradientStop>
-                                <GradientStop Color="#ebc934" Offset="0.5"></GradientStop>
-                                <GradientStop Color="#eb4034" Offset="0.7"></GradientStop>
-                            </LinearGradientBrush>
-                        </Border.Stroke>
-                    </Border>
-                </VerticalStackLayout>
-            </VerticalStackLayout>
-        </Border>
-
-        <FlexLayout Direction="Row" HeightRequest="50" JustifyContent="SpaceBetween" AlignItems="Center">
-            <Label Text="History" Margin="0,10" FontSize="Small"></Label>
-            <Label Text="See All" HorizontalOptions="End" TextColor="{StaticResource Red}"></Label>
-        </FlexLayout>
-
-        <Button Text="NEW WEIGHT" Command="{Binding NavigationService.NavigateToAddWeightPageCommand}"></Button>
-    </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

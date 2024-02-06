@@ -1,17 +1,16 @@
 ﻿using Nutrition.Core;
-using NutritionApp.Components;
 using NutritionApp.Services;
 using RestSharp;
 
 namespace NutritionApp.Data.Services
 {
-    public class MeasurementsService(IPersonalHealthApiClient<BodyMeasurements> apiClient, IAuthService authService) : BaseService(authService), IMeasurementsService
+    public class MeasurementsService(IPersonalHealthApiClient<BodyMeasurement> apiClient, IAuthService authService) : BaseService(authService), IMeasurementsService
     {
-        private readonly IPersonalHealthApiClient<BodyMeasurements> _apiClient = apiClient;
+        private readonly IPersonalHealthApiClient<BodyMeasurement> _apiClient = apiClient;
 
         public async Task AddNewWeight(double weight)
         {
-            var measurements = new BodyMeasurements()
+            var measurements = new BodyMeasurement()
             {
                 Weight = weight
             };
@@ -22,26 +21,43 @@ namespace NutritionApp.Data.Services
             await _apiClient.PostAsync(request, IdToken);
         }
 
-        public BodyMeasurements GetBodyMeasurements()
+        public async Task<IEnumerable<BodyMeasurement>> GetBodyMeasurements()
         {
-            //TODO fetch from database
-            return new BodyMeasurements()
-            {
-                Height = 1.75,
-                Weight = 75
-            };
+            var request = new RestRequest($"api/Measurements/{UserId}");
+
+            var bodyMeasurements = await _apiClient.GetListAsync(request, IdToken);
+
+            return bodyMeasurements;
         }
 
-        public TargetMeasurements GetTargetMeasurements()
+        public async Task<BodyMeasurement> GetBodyMeasurement()
+        {
+            var request = new RestRequest($"api/Measurements/{UserId}/latest");
+
+            var bodyMeasurement = await _apiClient.GetAsync(request, IdToken);
+
+            return bodyMeasurement;
+        }
+
+        public TargetMeasurement GetTargetMeasurements()
         {
             //TODO fetch from database
-            return new TargetMeasurements()
+            return new TargetMeasurement()
             {
                 StartingWeight = 76,
                 TargetWeight = 70,
                 TargetCreationDate = DateTime.Now,
                 TargetEndDate = DateTime.Now.AddMonths(7),
             };
+        }
+
+        public async Task<BodyMeasurement> GetLatestBodyMeasurement()
+        {
+            var request = new RestRequest($"api/Measurements/{UserId}/latest");
+
+            var bodyMeasurement = await _apiClient.GetAsync(request, IdToken);
+
+            return bodyMeasurement;
         }
     }
 }

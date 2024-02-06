@@ -40,6 +40,7 @@ public class NutritionController : ControllerBase
         }
         catch (Exception ex)
         {
+            //TODO add logging
             throw;
         }
     }
@@ -47,37 +48,54 @@ public class NutritionController : ControllerBase
     [HttpPost("day/create/{userid}")]
     public async Task<IActionResult> CreateNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
     {
-        if (nutritionDay == null)
-            return BadRequest("Invalid data. NutritionDay is required.");
+        try
+        {
+            if (nutritionDay == null)
+                return BadRequest("Invalid data. NutritionDay is required.");
 
-        DocumentReference userDocRef = _db.Collection("Users").Document(userId);
+            DocumentReference userDocRef = _db.Collection("Users").Document(userId);
 
-        CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
+            CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
 
-        await nutritionDaysCollectionRef.AddAsync(nutritionDay);
+            await nutritionDaysCollectionRef.AddAsync(nutritionDay);
 
-        return Ok();
+            return Ok();
+
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
     }
 
     [HttpPost("day/save/{userid}")]
     public async Task<IActionResult> SaveNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
     {
-        CollectionReference nutritionDaysCollectionRef = _db.Collection("Users").Document(userId).Collection("NutritionDays");
-
-        QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
-            .WhereEqualTo("Date", nutritionDay.Date)
-            .GetSnapshotAsync();
-
-        if (querySnapshot.Documents.Count > 0)
+        try
         {
-            DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
-            await nutritionDayDocRef.SetAsync(nutritionDay);
-        }
-        else
-        {
-            await CreateNutritionDay(userId, nutritionDay);
-        }
+            CollectionReference nutritionDaysCollectionRef = _db.Collection("Users").Document(userId).Collection("NutritionDays");
 
-        return Ok();
+            QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
+                .WhereEqualTo("Date", nutritionDay.Date)
+                .GetSnapshotAsync();
+
+            if (querySnapshot.Documents.Count > 0)
+            {
+                DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
+                await nutritionDayDocRef.SetAsync(nutritionDay);
+            }
+            else
+            {
+                await CreateNutritionDay(userId, nutritionDay);
+            }
+
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            //TODO add logging
+            throw;
+        }
     }
 }
