@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nutrition.Core", "Nutrition
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalHealthAPI", "PersonalHealthAPI\PersonalHealthAPI.csproj", "{7ACBE3A8-B685-4D0B-B9F5-C03297600945}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{40008F77-206A-4375-BE45-DD2BEA9A15FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Core", "NutritionTrackR.Core\NutritionTrackR.Core.csproj", "{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Persistence", "NutritionTrackR.Persistence\NutritionTrackR.Persistence.csproj", "{7D7C5DC3-971C-4D03-8DCF-2188944417C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Contracts", "NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj", "{4D29A247-1E07-4926-81E4-C5CF51251FB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,11 +37,28 @@ Global
 		{7ACBE3A8-B685-4D0B-B9F5-C03297600945}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACBE3A8-B685-4D0B-B9F5-C03297600945}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACBE3A8-B685-4D0B-B9F5-C03297600945}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7C5DC3-971C-4D03-8DCF-2188944417C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7C5DC3-971C-4D03-8DCF-2188944417C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7C5DC3-971C-4D03-8DCF-2188944417C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7C5DC3-971C-4D03-8DCF-2188944417C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D29A247-1E07-4926-81E4-C5CF51251FB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D29A247-1E07-4926-81E4-C5CF51251FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D29A247-1E07-4926-81E4-C5CF51251FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D29A247-1E07-4926-81E4-C5CF51251FB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09} = {40008F77-206A-4375-BE45-DD2BEA9A15FD}
+		{7D7C5DC3-971C-4D03-8DCF-2188944417C1} = {40008F77-206A-4375-BE45-DD2BEA9A15FD}
+		{4D29A247-1E07-4926-81E4-C5CF51251FB5} = {40008F77-206A-4375-BE45-DD2BEA9A15FD}
 	EndGlobalSection
 EndGlobal

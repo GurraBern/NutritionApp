@@ -69,10 +69,6 @@
 	  <EmbeddedResource Include="appsettings.Production.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
-	  <EmbeddedResource Include="appsettings.Development.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-		<EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
