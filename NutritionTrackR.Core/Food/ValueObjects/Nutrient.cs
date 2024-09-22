@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Core.Food.ValueObjects;
 
-public class Nutrient 
+public class Nutrient
 {
     public string Name { get; }
     public Weight Weight { get; }

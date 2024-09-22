@@ -5,25 +5,43 @@ namespace NutritionTrackR.Core.Food.ValueObjects;
 public class Weight
 {
     public decimal Value { get; }
-    public MeasurementSystem MeasurementSystem { get; }
+    public Unit Unit { get; }
+    
+    private Weight(){}
  
-    private Weight(decimal weight, MeasurementSystem measurementSystem)
+    private Weight(decimal weight, Unit unit)
     {
         Value = weight;
-        MeasurementSystem = measurementSystem;
+        Unit = unit;
     }
 
-    public static Result<Weight> Create(decimal amount, MeasurementSystem measurementSystem)
+    public static Result<Weight> Create(decimal amount, Unit unit)
     {
-        if (amount < 0)
-            Result.Fail("Weight cannot be negative");
+        if (amount <= 0)
+            return Result.Fail("Weight must be greater than zero");
 
-        var weight = new Weight(amount, measurementSystem);
+        var weight = new Weight(amount, unit);
         
         return Result.Ok(weight);
     }
     
-    //TODO Add method for comparing with both metric and imperial system
+    public static string GetAbbreviation(Unit unit) => unit switch
+    {
+        Unit.Grams => "g",
+        Unit.Milligram => "mg",
+        Unit.Microgram => "μg",
+        _ => string.Empty
+    };
+}
+
+public enum Unit
+{
+   Serving,
+   Grams,
+   Milligram,
+   Microgram,
+   Pound,
+   Ounce
 }
 
 public enum MeasurementSystem
@@ -31,5 +49,3 @@ public enum MeasurementSystem
     Metric = 1,
     Imperial = 2
 }
-
-

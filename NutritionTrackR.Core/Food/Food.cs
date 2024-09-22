@@ -5,14 +5,14 @@ namespace NutritionTrackR.Core.Food;
 
 public class Food : Entity
 {
-    public string Name { get; }
-    public IList<Nutrient> Nutrients { get; }
+    public string Name { get; set;  }
+    public List<Nutrient> Nutrients { get; set; } = [];
 
-    public Food(string name, IList<Nutrient> nutrients)
+    public Food() { }
+    
+    public Food(string name, List<Nutrient> nutrients)
     {
         Name = name;
         Nutrients = nutrients;
     }
 }
-
-// TODO Ensure no one can change nutrient through reference

@@ -28,8 +28,9 @@ public static class CreateFood
               List<Nutrient> nutrients = [];
               foreach (var nutrient in request.Nutrients)
               {
-                     var weight = Weight.Create(nutrient.Weight, request.MeasurementSystem).Value;
-                     nutrients.Add(Nutrient.Create(nutrient.Name, weight).Value);
+                     var weight = Weight.Create(nutrient.Weight, nutrient.Unit);
+                     if(weight.IsSuccess)
+                            nutrients.Add(Nutrient.Create(nutrient.Name, weight.Value).Value);
               }
 
               return nutrients;

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Food;
 
 namespace NutritionTrackR.Persistence;
 
 public class NutritionDbContext : DbContext
 {
+    public DbSet<Food> Foods { get; init; }
+    
     public NutritionDbContext(DbContextOptions<NutritionDbContext> options) : base(options)
     {
     }
@@ -14,9 +15,5 @@ public class NutritionDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(NutritionDbContext).Assembly);
-        
-        modelBuilder.Entity<Food>().ToCollection("foods");
     }
-
-    public DbSet<Food> Foods { get; set; }
 }
