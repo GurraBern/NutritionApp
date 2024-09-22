@@ -4,8 +4,8 @@ namespace NutritionTrackR.Core.Food.ValueObjects;
 
 public class Nutrient
 {
-    public string Name { get; }
-    public Weight Weight { get; }
+    public string Name { get; private set; }
+    public Weight Weight { get; private set; }
     
     private Nutrient() { }
     

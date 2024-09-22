@@ -11,7 +11,12 @@ public class CreateFoodCommandHandler(IFoodRepository repository, IUnitOfWork un
 {
     public async Task<Result> Handle(CreateFoodCommand command, CancellationToken cancellationToken)
     {
-        await repository.CreateFood(new Food(command.Name, command.Nutrients));
+        var result = Food.Create(command.Name, command.Nutrients);
+
+        if (result.IsFailed)
+            return Result.Fail(result.Errors);
+        
+        await repository.CreateFood(result.Value);
         
         await unitOfWork.Save();
         

@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Food\Queries\" />
       <Folder Include="Person\Events\" />
       <Folder Include="Extensions\" />
     </ItemGroup>

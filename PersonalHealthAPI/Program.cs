@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.Commands;
+using NutritionTrackR.Core.Food.Queries;
 using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Persistence;
@@ -44,18 +45,20 @@ builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 
 //MediatR Handlers
-
 builder.Services.AddMediatR(cfg =>
     {
         cfg.RegisterServicesFromAssembly(typeof(MediatRMarker).Assembly);
-    })
-    .AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodCommandHandler>();
+    });
 
+builder.Services
+    .AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodCommandHandler>()
+    .AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>();
 
 var app = builder.Build();
 
 //Map Endpoints
 app.MapCreateFood();
+app.MapGetFoods();
 
 if (app.Environment.IsDevelopment())
 {

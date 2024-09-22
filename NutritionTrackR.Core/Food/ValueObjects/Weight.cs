@@ -4,8 +4,8 @@ namespace NutritionTrackR.Core.Food.ValueObjects;
 
 public class Weight
 {
-    public decimal Value { get; }
-    public Unit Unit { get; }
+    public decimal Value { get; private set; }
+    public Unit Unit { get; private set; }
     
     private Weight(){}
  
@@ -25,7 +25,7 @@ public class Weight
         return Result.Ok(weight);
     }
     
-    public static string GetAbbreviation(Unit unit) => unit switch
+    public static string Abbreviation(Unit unit) => unit switch
     {
         Unit.Grams => "g",
         Unit.Milligram => "mg",

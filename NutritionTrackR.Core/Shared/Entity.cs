@@ -6,5 +6,5 @@ public abstract class Entity
 {
     public ObjectId Id { get; set; }
 
-    public List<BaseDomainEvent> Events = [];
+    // public List<BaseDomainEvent> Events { get; set; } = [];
 }
