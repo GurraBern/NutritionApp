@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Food;
+using NutritionTrackR.Core.NutrientTracking;
 
 namespace NutritionTrackR.Persistence;
 
 public class NutritionDbContext : DbContext
 {
     public DbSet<Food> Foods { get; init; }
+    public DbSet<NutritionDay> NutritionDays { get; init; }
     
     public NutritionDbContext(DbContextOptions<NutritionDbContext> options) : base(options)
     {

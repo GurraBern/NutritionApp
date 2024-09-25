@@ -18,7 +18,7 @@ public class CreateFoodCommandHandler(IFoodRepository repository, IUnitOfWork un
         
         await repository.CreateFood(result.Value);
         
-        await unitOfWork.Save();
+        await unitOfWork.SaveAsync();
         
         return Result.Ok();
     }

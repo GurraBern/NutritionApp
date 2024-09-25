@@ -9,14 +9,15 @@ using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Persistence;
 using NutritionTrackR.Persistence.Repositories;
+using PersonalHealthAPI.Extensions;
 using PersonalHealthAPI.Features.Food;
+using PersonalHealthAPI.Features.NutrientTracking;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(); //TODO remove use minmal api instead
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
 // builder.Services.AddFirebaseAuthentication();
 builder.Services.AddAuthorization();
 
@@ -27,38 +28,16 @@ builder.Services.AddAuthorization();
 
 // builder.Services.AddSingleton(FirestoreDb.Create("nutritiontracker-f8aba"));
 
-//Settings
-builder.Services
-    .AddOptions<DatabaseSettings>()
-    .Bind(builder.Configuration.GetSection(nameof(DatabaseSettings)))
-    .ValidateDataAnnotations();
+builder.SetupPersistence();
 
-builder.Services.AddDbContext<NutritionDbContext>((serviceProvider, options) =>
-{
-    var settings = serviceProvider.GetRequiredService<IOptions<DatabaseSettings>>();
-    options.UseMongoDB(settings.Value.ConnectionString, "NutritionTrackR");
-});
-
-
-//Repositories
-builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
-builder.Services.AddScoped<IFoodRepository, FoodRepository>();
-
-//MediatR Handlers
-builder.Services.AddMediatR(cfg =>
-    {
-        cfg.RegisterServicesFromAssembly(typeof(MediatRMarker).Assembly);
-    });
-
-builder.Services
-    .AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodCommandHandler>()
-    .AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>();
+builder.SetupHandlersAndMediatR();
 
 var app = builder.Build();
 
 //Map Endpoints
 app.MapCreateFood();
 app.MapGetFoods();
+app.MapTrackFood();
 
 if (app.Environment.IsDevelopment())
 {

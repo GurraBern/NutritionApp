@@ -3,7 +3,7 @@
 namespace Nutrition.Core;
 
 [FirestoreData]
-public class NutritionDay
+public class NutritionDayV1
 {
     [FirestoreProperty]
     public string Date { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd");
@@ -97,7 +97,7 @@ public class NutritionDay
         { "Theobromine", 0 }
     };
 
-    public NutritionDay()
+    public NutritionDayV1()
     {
     }
 

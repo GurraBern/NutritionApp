@@ -1,18 +1,26 @@
-﻿using NutritionTrackR.Core.Food.ValueObjects;
+﻿using FluentResults;
+using NutritionTrackR.Core.Food.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.Food;
 
 public class Food : Entity
 {
-    public string Name { get; set;  }
-    public List<Nutrient> Nutrients { get; set; } = [];
+    public string Name { get; private set;  }
+    public List<Nutrient> Nutrients { get; private set; } = [];
 
-    public Food() { }
+    private Food() { }
     
-    public Food(string name, List<Nutrient> nutrients)
+    private Food(string name, List<Nutrient> nutrients)
     {
         Name = name;
         Nutrients = nutrients;
+    }
+
+    public static Result<Food> Create(string name, List<Nutrient> nutrients)
+    {
+        var food = new Food(name, nutrients);
+
+        return food;
     }
 }

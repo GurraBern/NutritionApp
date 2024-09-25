@@ -9,6 +9,7 @@ namespace PersonalHealthAPI.Features.Food;
 
 public static class CreateFood
 {
+       //TODO improve endpoint, 201 created
        public static void MapCreateFood(this WebApplication app)
        {
               app.MapPost("api/v1/food", async ([FromBody] CreateFoodRequest request, IMediator mediator) =>

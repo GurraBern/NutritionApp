@@ -7,6 +7,7 @@ using MediatR;
 
 public static class GetFoods 
 {
+	//TODO better return type
 	public static void MapGetFoods(this WebApplication app)
 	{
 		app.MapGet("api/v1/food", async (IMediator mediator) =>

@@ -10,9 +10,9 @@ public interface INutritionTracker
 
     Task UpdateFood(FoodItem food);
 
-    Task<NutritionDay> GetSelectedNutritionDay();
+    Task<NutritionDayV1> GetSelectedNutritionDay();
 
-    NutritionDay NextDay();
+    NutritionDayV1 NextDay();
 
-    Task<NutritionDay> PreviousDay();
+    Task<NutritionDayV1> PreviousDay();
 }

@@ -4,11 +4,11 @@ using RestSharp;
 
 namespace NutritionApp.Data.Services;
 
-public class NutritionTrackingService(IPersonalHealthApiClient<NutritionDay> nutritionApiClient, IAuthService authService) : BaseService(authService), INutritionTrackingService
+public class NutritionTrackingService(IPersonalHealthApiClient<NutritionDayV1> nutritionApiClient, IAuthService authService) : BaseService(authService), INutritionTrackingService
 {
-    private readonly IPersonalHealthApiClient<NutritionDay> nutritionApiClient = nutritionApiClient;
+    private readonly IPersonalHealthApiClient<NutritionDayV1> nutritionApiClient = nutritionApiClient;
 
-    public async Task<NutritionDay> GetNutritionDay(DateTime dateToQuery)
+    public async Task<NutritionDayV1> GetNutritionDay(DateTime dateToQuery)
     {
         var request = new RestRequest($"api/Nutrition/day/{UserId}/{dateToQuery}");
         var nutritionDay = await nutritionApiClient.GetAsync(request, IdToken);
@@ -16,10 +16,10 @@ public class NutritionTrackingService(IPersonalHealthApiClient<NutritionDay> nut
         return nutritionDay;
     }
 
-    public async Task SaveNutritionDay(NutritionDay nutritionDay)
+    public async Task SaveNutritionDay(NutritionDayV1 nutritionDayV1)
     {
         var request = new RestRequest($"api/Nutrition/day/save/{UserId}");
-        request.AddJsonBody(nutritionDay);
+        request.AddJsonBody(nutritionDayV1);
 
         await nutritionApiClient.PostAsync(request, IdToken);
     }

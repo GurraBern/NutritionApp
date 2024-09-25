@@ -18,7 +18,7 @@ public class NutritionController : ControllerBase
     }
 
     [HttpGet("day/{userid}/{dateToQuery}")]
-    public async Task<ActionResult<NutritionDay>> GetNutritionDay(string userId, DateTime dateToQuery)
+    public async Task<ActionResult<NutritionDayV1>> GetNutritionDay(string userId, DateTime dateToQuery)
     {
         try
         {
@@ -31,7 +31,7 @@ public class NutritionController : ControllerBase
                 .GetSnapshotAsync();
 
             var nutritionDay = querySnapshot.Documents
-                .Select(doc => doc.ConvertTo<NutritionDay>()).FirstOrDefault() ?? new NutritionDay()
+                .Select(doc => doc.ConvertTo<NutritionDayV1>()).FirstOrDefault() ?? new NutritionDayV1()
                 {
                     Date = date
                 };
@@ -46,18 +46,18 @@ public class NutritionController : ControllerBase
     }
 
     [HttpPost("day/create/{userid}")]
-    public async Task<IActionResult> CreateNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
+    public async Task<IActionResult> CreateNutritionDay(string userId, [FromBody] NutritionDayV1 nutritionDayV1)
     {
         try
         {
-            if (nutritionDay == null)
+            if (nutritionDayV1 == null)
                 return BadRequest("Invalid data. NutritionDay is required.");
 
             DocumentReference userDocRef = _db.Collection("Users").Document(userId);
 
             CollectionReference nutritionDaysCollectionRef = userDocRef.Collection("NutritionDays");
 
-            await nutritionDaysCollectionRef.AddAsync(nutritionDay);
+            await nutritionDaysCollectionRef.AddAsync(nutritionDayV1);
 
             return Ok();
 
@@ -70,24 +70,24 @@ public class NutritionController : ControllerBase
     }
 
     [HttpPost("day/save/{userid}")]
-    public async Task<IActionResult> SaveNutritionDay(string userId, [FromBody] NutritionDay nutritionDay)
+    public async Task<IActionResult> SaveNutritionDay(string userId, [FromBody] NutritionDayV1 nutritionDayV1)
     {
         try
         {
             CollectionReference nutritionDaysCollectionRef = _db.Collection("Users").Document(userId).Collection("NutritionDays");
 
             QuerySnapshot querySnapshot = await nutritionDaysCollectionRef
-                .WhereEqualTo("Date", nutritionDay.Date)
+                .WhereEqualTo("Date", nutritionDayV1.Date)
                 .GetSnapshotAsync();
 
             if (querySnapshot.Documents.Count > 0)
             {
                 DocumentReference nutritionDayDocRef = querySnapshot.Documents[0]?.Reference;
-                await nutritionDayDocRef.SetAsync(nutritionDay);
+                await nutritionDayDocRef.SetAsync(nutritionDayV1);
             }
             else
             {
-                await CreateNutritionDay(userId, nutritionDay);
+                await CreateNutritionDay(userId, nutritionDayV1);
             }
 
             return Ok();
