@@ -1,6 +1,6 @@
-﻿using NutritionTrackR.Core.Food.Events;
+﻿using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.ValueObjects;
-using NutritionTrackR.Core.NutritionDay.Events;
+using NutritionTrackR.Core.NutrientTracking.Events;
 using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.NutrientTracking;

@@ -1,8 +1,9 @@
 ﻿using MediatR;
-using NutritionTrackR.Contracts;
+using NutritionTrackR.Contracts.NutritionTracking;
+using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.Commands;
-using NutritionTrackR.Core.Food.Events;
 using NutritionTrackR.Core.Food.ValueObjects;
+using Unit = NutritionTrackR.Core.Food.ValueObjects.Unit;
 
 namespace PersonalHealthAPI.Features.NutrientTracking;
 
@@ -12,16 +13,17 @@ public static class TrackFood
 	{
 		app.MapPost("api/v1/food-entry", async (IMediator mediator, FoodEntryRequest request) =>
 		{
-			var weight = Weight.Create(request.Weight, request.Unit);
-			if (weight.IsFailed)
+			var weight = Weight.Create(request.Weight, (Unit)request.Unit);
+			if (weight.IsFailure)
 			{
-				//TODO return error message
-				return;
+				return Results.BadRequest(weight.Error);
 			}
 
-			var command = new AddFoodEntryCommand(request.FoodId, weight.Value, request.MealType ?? MealType.Unclassified);
+			var command = new AddFoodEntryCommand(request.FoodId, weight.Data, (MealType)request.MealType);
 
 			await mediator.Send(command);
+			
+			return Results.Created();
 		});
 	}
 }

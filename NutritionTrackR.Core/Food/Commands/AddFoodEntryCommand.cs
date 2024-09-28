@@ -1,8 +1,7 @@
-﻿using FluentResults;
-using MediatR;
-using NutritionTrackR.Core.Food.Events;
+﻿using MediatR;
 using NutritionTrackR.Core.Food.ValueObjects;
 using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Food.Commands;
 
@@ -15,7 +14,7 @@ public class AddFoodEntryCommandHandler(IMediator mediator, INutritionDayReposit
 		var nutritionDay = await repository.GetById(command.FoodId);
 		if (nutritionDay is null)
 		{
-			nutritionDay = new NutrientTracking.NutritionDay();
+			nutritionDay = new NutritionDay();
 			await repository.Create(nutritionDay);
 		}
 		
@@ -30,6 +29,6 @@ public class AddFoodEntryCommandHandler(IMediator mediator, INutritionDayReposit
 
 		nutritionDay.ClearDomainEvents(); //TODO will this be a bug if I don't do save async
 
-		return Result.Ok();
+		return Result.Success();
 	}
 }

@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\NutritionTrackR.Core\NutritionTrackR.Core.csproj" />
-    </ItemGroup>
-
 </Project>

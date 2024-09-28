@@ -1,5 +1,4 @@
-﻿using FluentResults;
-using MediatR;
+﻿using MediatR;
 using NutritionTrackR.Core.Food.ValueObjects;
 using NutritionTrackR.Core.Shared.Abstractions;
 
@@ -13,13 +12,13 @@ public class CreateFoodCommandHandler(IFoodRepository repository, IUnitOfWork un
     {
         var result = Food.Create(command.Name, command.Nutrients);
 
-        if (result.IsFailed)
-            return Result.Fail(result.Errors);
+        if (result.IsSuccess)
+            return Result.Failure(result.Error);
         
-        await repository.CreateFood(result.Value);
+        await repository.CreateFood(result.Data);
         
         await unitOfWork.SaveAsync();
         
-        return Result.Ok();
+        return Result.Success();
     }
 }

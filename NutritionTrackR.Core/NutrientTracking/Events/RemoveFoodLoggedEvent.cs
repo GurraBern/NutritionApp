@@ -1,8 +1,8 @@
-﻿using NutritionTrackR.Core.Food.Events;
+﻿using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
-namespace NutritionTrackR.Core.NutritionDay.Events;
+namespace NutritionTrackR.Core.NutrientTracking.Events;
 
 public class RemoveFoodLoggedEvent : BaseDomainEvent
 {

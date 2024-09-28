@@ -1,15 +1,14 @@
-﻿using FluentResults;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NutritionTrackR.Contracts;
+using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Food.Commands;
 using NutritionTrackR.Core.Food.ValueObjects;
+using Unit = NutritionTrackR.Core.Food.ValueObjects.Unit;
 
 namespace PersonalHealthAPI.Features.Food;
 
 public static class CreateFood
 {
-       //TODO improve endpoint, 201 created
        public static void MapCreateFood(this WebApplication app)
        {
               app.MapPost("api/v1/food", async ([FromBody] CreateFoodRequest request, IMediator mediator) =>
@@ -19,8 +18,8 @@ public static class CreateFood
                      var command = new CreateFoodCommand(request.FoodName, nutrients);
 
                      await mediator.Send(command);
-                     
-                     return Result.Ok(); 
+
+                     return Results.Created();
               });
        }
 
@@ -29,9 +28,9 @@ public static class CreateFood
               List<Nutrient> nutrients = [];
               foreach (var nutrient in request.Nutrients)
               {
-                     var weight = Weight.Create(nutrient.Weight, nutrient.Unit);
+                     var weight = Weight.Create(nutrient.Weight, (Unit)nutrient.Unit);
                      if(weight.IsSuccess)
-                            nutrients.Add(Nutrient.Create(nutrient.Name, weight.Value).Value);
+                            nutrients.Add(Nutrient.Create(nutrient.Name, weight.Data).Data);
               }
 
               return nutrients;

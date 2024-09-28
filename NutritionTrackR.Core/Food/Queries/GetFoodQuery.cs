@@ -1,5 +1,5 @@
-﻿using FluentResults;
-using MediatR;
+﻿using MediatR;
+using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Food.Queries;
 
@@ -11,6 +11,6 @@ public class GetFoodsHandler(IFoodRepository repository) : IRequestHandler<GetFo
 	{
 		var foods = await repository.GetAll(query.Filter);
 
-		return Result.Ok(foods);
+		return Result.Success(foods);
 	}
 }
