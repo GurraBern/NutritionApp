@@ -1,6 +1,5 @@
 ﻿using FluentResults;
 using MediatR;
-using NutritionTrackR.Core.Food.Events;
 using NutritionTrackR.Core.Food.ValueObjects;
 using NutritionTrackR.Core.NutrientTracking;
 
@@ -15,7 +14,7 @@ public class AddFoodEntryCommandHandler(IMediator mediator, INutritionDayReposit
 		var nutritionDay = await repository.GetById(command.FoodId);
 		if (nutritionDay is null)
 		{
-			nutritionDay = new NutrientTracking.NutritionDay();
+			nutritionDay = new NutritionDay();
 			await repository.Create(nutritionDay);
 		}
 		

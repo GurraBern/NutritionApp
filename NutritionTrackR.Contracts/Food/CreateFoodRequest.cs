@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Core.Food.ValueObjects;
 
-namespace NutritionTrackR.Contracts;
+namespace NutritionTrackR.Contracts.Food;
 
 public class CreateFoodRequest
 {

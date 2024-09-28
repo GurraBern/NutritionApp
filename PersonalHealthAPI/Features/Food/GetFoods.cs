@@ -1,13 +1,12 @@
 ﻿using NutritionTrackR.Core.Food.Queries;
+using MediatR;
+using NutritionTrackR.Contracts.Food;
+using NutritionTrackR.Contracts.Shared;
 
 namespace PersonalHealthAPI.Features.Food;
 
-using FluentResults;
-using MediatR;
-
-public static class GetFoods 
+public static class GetFoods
 {
-	//TODO better return type
 	public static void MapGetFoods(this WebApplication app)
 	{
 		app.MapGet("api/v1/food", async (IMediator mediator) =>
@@ -16,12 +15,16 @@ public static class GetFoods
 			{
 				HealthyScore = 10
 			};
-			
+
 			var query = new GetFoodsQuery(filter);
 
 			var result = await mediator.Send(query);
+
+			var t = FoodResponse.MapResponse(result.Value);
 			
-			return Result.Ok(result.Value); 
+			var response = new ApiResponse<FoodResponse>(true, Error.None, t);
+
+			return Results.Ok(response);
 		});
 	}
 }

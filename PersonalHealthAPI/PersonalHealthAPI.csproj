@@ -28,4 +28,8 @@
     <ProjectReference Include="..\NutritionTrackR.Persistence\NutritionTrackR.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shared\" />
+  </ItemGroup>
+
 </Project>

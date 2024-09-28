@@ -1,7 +1,7 @@
-﻿using NutritionTrackR.Core.Food.Events;
-using Unit = NutritionTrackR.Core.Food.ValueObjects.Unit;
+﻿using NutritionTrackR.Core.Food;
+using NutritionTrackR.Core.Food.ValueObjects;
 
-namespace NutritionTrackR.Contracts;
+namespace NutritionTrackR.Contracts.NutritionTracking;
 
 public class FoodEntryRequest
 {

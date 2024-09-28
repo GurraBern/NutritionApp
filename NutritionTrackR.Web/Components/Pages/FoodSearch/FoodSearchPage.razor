@@ -1,0 +1,42 @@
+﻿@page "/"
+@using NutritionTrackR.Contracts
+@using NutritionTrackR.Contracts.Food
+
+@inject FoodListAdapter FoodListAdapter
+
+<PageTitle>Search Foods</PageTitle>
+
+<MudAutocomplete T="FoodDto" SearchFunc="SearchFood" ToStringFunc="@(food => food is null ? null : $"{food.Name}")"/>
+
+<MudList T="FoodDto">
+    @foreach (var food in _filteredFoods)
+    {
+        <MudListItem>
+            <MudText>@food.Name</MudText>
+        </MudListItem>
+    }
+</MudList>
+
+@code {
+
+    private List<FoodDto> _foods = [];
+    private List<FoodDto> _filteredFoods = [];
+
+    protected override async void OnInitialized()
+    {
+        _foods = await FoodListAdapter.GetFoodItems();
+        _filteredFoods = _foods;
+    }
+
+    private Task<IEnumerable<FoodDto>> SearchFood(string searchTerm, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            return Task.FromResult(Enumerable.Empty<FoodDto>());
+        }
+
+        var searchedFoods = _foods.Where(food => food.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
+
+        return Task.FromResult(searchedFoods);
+    }
+}

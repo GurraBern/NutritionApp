@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using NutritionTrackR.Contracts;
+using NutritionTrackR.Contracts.NutritionTracking;
+using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.Commands;
-using NutritionTrackR.Core.Food.Events;
 using NutritionTrackR.Core.Food.ValueObjects;
 
 namespace PersonalHealthAPI.Features.NutrientTracking;

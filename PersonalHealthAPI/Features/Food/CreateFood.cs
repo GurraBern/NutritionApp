@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Contracts;
+using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Food.Commands;
 using NutritionTrackR.Core.Food.ValueObjects;
 
