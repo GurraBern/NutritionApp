@@ -1,8 +1,5 @@
-﻿using NutritionTrackR.Contracts;
-using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Contracts.Shared;
+﻿using NutritionTrackR.Contracts.Food;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace NutritionTrackR.Web.Components.Pages.FoodSearch;
 
@@ -20,16 +17,14 @@ public class FoodListAdapter
 		var client = CreateClient();
 
 		var response = await client.GetAsync("api/v1/food");
-		if (response.IsSuccessStatusCode)
-		{
-			var responseBody = await response.Content.ReadAsStringAsync();
-			var foods = JsonSerializer.Deserialize<ApiResponse<FoodResponse>>(responseBody).Data;
+		if (!response.IsSuccessStatusCode)//TODO show popup
+			return [];
 
-			return foods.Foods;
-		}
+		var responseBody = await response.Content.ReadAsStringAsync();
+			
+		var foodResponse = JsonSerializer.Deserialize<FoodResponse>(responseBody);
 
-		//TODO show error message
-		return [];
+		return foodResponse?.Foods ?? [];
 	}
 
 	public HttpClient CreateClient()

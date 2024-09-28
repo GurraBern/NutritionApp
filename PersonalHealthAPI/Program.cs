@@ -1,14 +1,3 @@
-using FluentResults;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using NutritionTrackR.Core.Food;
-using NutritionTrackR.Core.Food.Commands;
-using NutritionTrackR.Core.Food.Queries;
-using NutritionTrackR.Core.Shared;
-using NutritionTrackR.Core.Shared.Abstractions;
-using NutritionTrackR.Persistence;
-using NutritionTrackR.Persistence.Repositories;
 using PersonalHealthAPI.Extensions;
 using PersonalHealthAPI.Features.Food;
 using PersonalHealthAPI.Features.NutrientTracking;

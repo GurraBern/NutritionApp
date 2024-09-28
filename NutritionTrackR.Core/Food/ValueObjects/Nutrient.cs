@@ -1,4 +1,4 @@
-﻿using FluentResults;
+﻿using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Food.ValueObjects;
 
@@ -18,10 +18,10 @@ public class Nutrient
     public static Result<Nutrient> Create(string name, Weight weight)
     {
         if (string.IsNullOrEmpty(name))
-            return Result.Fail("Nutrient must have a name");
+            return Result.Failure<Nutrient>(FoodErrors.EmptyNutrientName);
 
         var nutrient = new Nutrient(name, weight);
 
-        return Result.Ok(nutrient);
+        return Result.Success(nutrient);
     }
 }

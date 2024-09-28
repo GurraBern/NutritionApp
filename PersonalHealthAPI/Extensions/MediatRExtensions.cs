@@ -1,9 +1,9 @@
-﻿using FluentResults;
-using MediatR;
+﻿using MediatR;
 using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.Commands;
 using NutritionTrackR.Core.Food.Queries;
 using NutritionTrackR.Core.Shared;
+using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace PersonalHealthAPI.Extensions;
 

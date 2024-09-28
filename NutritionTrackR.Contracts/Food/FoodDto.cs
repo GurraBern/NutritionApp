@@ -1,14 +1,12 @@
-﻿namespace NutritionTrackR.Contracts.Food;
+﻿using System.Text.Json.Serialization;
+
+namespace NutritionTrackR.Contracts.Food;
 
 public class FoodDto
 {
+	[JsonPropertyName("name")]
 	public string Name { get; set; }
-
-	public static FoodDto ToDto(Core.Food.Food food)
-	{
-		return new FoodDto()
-		{
-			Name = food.Name
-		};
-	}
+    
+	[JsonPropertyName("nutrients")]
+	public List<NutrientDto> Nutrients { get; set; }
 }

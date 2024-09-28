@@ -1,7 +1,6 @@
 ﻿using NutritionTrackR.Core.Food.Queries;
 using MediatR;
-using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Contracts.Shared;
+using PersonalHealthAPI.Extensions;
 
 namespace PersonalHealthAPI.Features.Food;
 
@@ -20,11 +19,9 @@ public static class GetFoods
 
 			var result = await mediator.Send(query);
 
-			var t = FoodResponse.MapResponse(result.Value);
+			var foods = result.Data.MapFoodResponse();
 			
-			var response = new ApiResponse<FoodResponse>(true, Error.None, t);
-
-			return Results.Ok(response);
+			return Results.Ok(foods);
 		});
 	}
 }

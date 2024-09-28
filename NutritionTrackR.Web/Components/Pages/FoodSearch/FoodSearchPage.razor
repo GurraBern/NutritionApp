@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using NutritionTrackR.Contracts
 @using NutritionTrackR.Contracts.Food
 
 @inject FoodListAdapter FoodListAdapter
@@ -22,7 +21,7 @@
     private List<FoodDto> _foods = [];
     private List<FoodDto> _filteredFoods = [];
 
-    protected override async void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         _foods = await FoodListAdapter.GetFoodItems();
         _filteredFoods = _foods;
