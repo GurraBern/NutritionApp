@@ -11,18 +11,33 @@ public class FoodListAdapter
 	{
 		_factory = factory;
 	}
-	
+
 	public async Task<List<FoodDto>> GetFoodItems()
 	{
 		var client = CreateClient();
 
 		var response = await client.GetAsync("api/v1/food");
-		if (!response.IsSuccessStatusCode)//TODO show popup
+		if (!response.IsSuccessStatusCode) //TODO show popup
 			return [];
 
 		var responseBody = await response.Content.ReadAsStringAsync();
-			
+
 		var foodResponse = JsonSerializer.Deserialize<FoodResponse>(responseBody);
+
+		return foodResponse?.Foods ?? [];
+	}
+
+	public async Task<List<FoodDto>> GetFoodEntries()
+	{
+		var client = CreateClient();
+
+		var response = await client.GetAsync("api/v1/food-log");
+		if (!response.IsSuccessStatusCode) //TODO show popup
+			return [];
+
+		var responseBody = await response.Content.ReadAsStringAsync();
+
+		var foodResponse = JsonSerializer.Deserialize<>(responseBody);
 
 		return foodResponse?.Foods ?? [];
 	}
