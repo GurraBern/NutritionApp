@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Core.NutrientTracking;
 
-public interface IFoodEntryRepository
+public interface IFoodLogRepository
 {
-	IEnumerable<FoodLoggedEvent> GetFoodEntries();
+	Task<IEnumerable<NutritionDay>> GetNutritionDays();
 }

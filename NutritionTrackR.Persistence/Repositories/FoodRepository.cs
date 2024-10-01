@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Food.Queries;
+using NutritionTrackR.Core.Foods;
 
 namespace NutritionTrackR.Persistence.Repositories;
 

@@ -4,27 +4,25 @@ using NutritionTrackR.Core.NutrientTracking;
 
 namespace NutritionTrackR.Persistence.Repositories;
 
-public class NutritionDayRepository : INutritionDayRepository
+public class NutritionDayRepository(NutritionDbContext dbContext) : INutritionDayRepository
 {
-	private readonly NutritionDbContext _dbContext;
-
-	public NutritionDayRepository(NutritionDbContext dbContext)
-	{
-		_dbContext = dbContext;
-	}
-
 	public Task<NutritionDay?> GetById(string id)
 	{
-		return _dbContext.NutritionDays.SingleOrDefaultAsync(x => x.Id.Equals(ObjectId.Parse(id)));
+		return dbContext.NutritionDays.SingleOrDefaultAsync(x => x.Id.Equals(ObjectId.Parse(id)));
 	}
 
 	public Task<int> SaveAsync()
 	{
-		return _dbContext.SaveChangesAsync();
+		return dbContext.SaveChangesAsync();
 	}
 
 	public async Task Create(NutritionDay nutritionDay)
 	{
-		await _dbContext.NutritionDays.AddAsync(nutritionDay);
+		await dbContext.NutritionDays.AddAsync(nutritionDay);
+	}
+
+	public async Task<NutritionDay?> GetByDate(DateTime date)
+	{
+		return await dbContext.NutritionDays.SingleOrDefaultAsync(nutritionDay => nutritionDay.Date.Equals(date.Date));
 	}
 }

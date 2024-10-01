@@ -1,6 +1,7 @@
 ﻿using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Food;
-using NutritionTrackR.Core.Food.ValueObjects;
+using NutritionTrackR.Core.Foods;
+using NutritionTrackR.Core.Foods.ValueObjects;
 
 namespace PersonalHealthAPI.Extensions;
 

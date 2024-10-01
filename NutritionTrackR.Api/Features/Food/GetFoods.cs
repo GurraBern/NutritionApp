@@ -1,5 +1,6 @@
 ﻿using NutritionTrackR.Core.Food.Queries;
 using MediatR;
+using NutritionTrackR.Core.Foods.Queries;
 using PersonalHealthAPI.Extensions;
 
 namespace PersonalHealthAPI.Features.Food;

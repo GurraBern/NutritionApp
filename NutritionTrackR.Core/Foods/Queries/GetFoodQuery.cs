@@ -1,7 +1,8 @@
 ﻿using MediatR;
+using NutritionTrackR.Core.Food.Queries;
 using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food.Queries;
+namespace NutritionTrackR.Core.Foods.Queries;
 
 public record GetFoodsQuery(FoodsQueryFilter Filter) : IRequest<Result<IEnumerable<Food>>>;
 

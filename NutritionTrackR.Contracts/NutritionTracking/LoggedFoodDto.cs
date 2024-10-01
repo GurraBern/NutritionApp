@@ -2,4 +2,4 @@
 
 namespace NutritionTrackR.Contracts.NutritionTracking;
 
-public record FoodEntryDto(DateTimeOffset LoggedAt, string FoodId, double Weight, UnitDto Unit, MealTypeDto MealType);
+public record LoggedFoodDto(DateTimeOffset LoggedAt, string FoodId, double Weight, UnitDto Unit, MealTypeDto MealType);

@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Core.Food.Queries;
 
-namespace NutritionTrackR.Core.Food;
+namespace NutritionTrackR.Core.Foods;
 
 public interface IFoodRepository
 {

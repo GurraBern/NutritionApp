@@ -1,6 +1,7 @@
+using NutritionTrackR.Api.Extensions;
+using NutritionTrackR.Api.Features.NutrientTracking;
 using PersonalHealthAPI.Extensions;
 using PersonalHealthAPI.Features.Food;
-using PersonalHealthAPI.Features.NutrientTracking;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ var app = builder.Build();
 app.MapCreateFood();
 app.MapGetFoods();
 app.MapTrackFood();
+app.MapGetLoggedFood();
 
 if (app.Environment.IsDevelopment())
 {

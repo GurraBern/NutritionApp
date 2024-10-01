@@ -1,6 +1,7 @@
-﻿using NutritionTrackR.Core.Shared.Abstractions;
+﻿using NutritionTrackR.Core.Food;
+using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food.ValueObjects;
+namespace NutritionTrackR.Core.Foods.ValueObjects;
 
 public class Nutrient
 {

@@ -1,5 +1,5 @@
 ﻿using NutritionTrackR.Core.Food;
-using NutritionTrackR.Core.Food.ValueObjects;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.NutrientTracking.Events;
 using NutritionTrackR.Core.Shared;
 
@@ -8,7 +8,25 @@ namespace NutritionTrackR.Core.NutrientTracking;
 public class NutritionDay : Entity
 {
 	//TODO make lists readonly to protect from unwanted manipulation
-	public List<FoodLoggedEvent> LoggedFoodEvents { get; set; } = [];
+	public DateTimeOffset Date { get; init; }
+	public List<IDomainEvent> DomainEvents { get; set; } = [];
+	public NutritionDayState NutritionDayState; // TODO use projection
+
+
+	public NutritionDay(IEnumerable<IDomainEvent> events)
+	{
+		NutritionDayState = new NutritionDayState();
+		foreach (var @event in events)
+		{
+			AppendEvent(@event);
+		}
+	}
+
+	private void AppendEvent(IDomainEvent @event)
+	{
+		DomainEvents.Add(@event);
+		NutritionDayState.Apply((dynamic)@event);
+	}
 
 	public void LogFood(string foodId, Weight weight, MealType mealType)
 	{
@@ -16,10 +34,11 @@ public class NutritionDay : Entity
 		{
 			FoodId = foodId,
 			Weight = weight,
-			MealType = mealType
+			MealType = mealType,
+			OccurredAt = DateTimeOffset.Now //TODO users should be able to override 
 		};
 
-		LoggedFoodEvents.Add(foodLoggedEvent);
+		DomainEvents.Add(foodLoggedEvent);
 	}
 
 	public void RemoveLoggedFood(string foodId, Weight weight, MealType mealType)
@@ -28,14 +47,30 @@ public class NutritionDay : Entity
 		{
 			FoodId = foodId,
 			Weight = weight,
-			MealType = mealType
+			MealType = mealType,
+			OccurredAt = DateTimeOffset.Now
 		};
 
-		LoggedFoodEvents.Add(foodLoggedEvent);
+		DomainEvents.Add(foodLoggedEvent);
 	}
 
 	public void ClearDomainEvents()
 	{
-		LoggedFoodEvents.Clear();
+		DomainEvents.Clear();
+	}
+}
+
+public class NutritionDayState
+{
+	public List<Nutrient> Nutrients { get; set; } = [];
+
+	public void Apply(FoodLoggedEvent @event)
+	{
+		
+	}
+
+	public void Apply(RemoveFoodLoggedEvent @event)
+	{
+		
 	}
 }

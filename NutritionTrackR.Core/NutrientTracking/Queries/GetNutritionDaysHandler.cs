@@ -8,13 +8,13 @@ public record GetLoggedFoodsQuery(DateTimeOffset Date) : IRequest<Result<LoggedF
 
 public record LoggedFoodResponse(IEnumerable<FoodLoggedEvent> Foods);
 
-public class GetLoggedFoodsHandler(IFoodLogRepository repository) : IRequestHandler<GetLoggedFoodsQuery, Result<LoggedFoodResponse>>
+public class GetNutritionDaysHandler(IFoodLogRepository repository) : IRequestHandler<GetLoggedFoodsQuery, Result<LoggedFoodResponse>>
 {
 	public async Task<Result<LoggedFoodResponse>> Handle(GetLoggedFoodsQuery request, CancellationToken cancellationToken)
 	{
-		var nutritionDays = await repository.GetLoggedFoods();
+		var nutritionDays = await repository.GetNutritionDays();
 
-		// var response = new LoggedFoodResponse(foodEntries);
+		// var response = new LoggedFoodResponse(nutritionDays);
 
 		return Result.Success(new LoggedFoodResponse([]));
 	}

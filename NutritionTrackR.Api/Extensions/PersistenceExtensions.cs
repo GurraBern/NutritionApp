@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using NutritionTrackR.Core.Food;
+using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.NutrientTracking;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Persistence;
 using NutritionTrackR.Persistence.Repositories;
 
-namespace PersonalHealthAPI.Extensions;
+namespace NutritionTrackR.Api.Extensions;
 
 public static class PersistenceExtensions
 {
@@ -18,6 +18,7 @@ public static class PersistenceExtensions
 		builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 		builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 		builder.Services.AddScoped<INutritionDayRepository, NutritionDayRepository>();
+		builder.Services.AddScoped<IFoodLogRepository, NutritionDaysRepository>();
 	}
 
 	private static void SetupEfCore(this WebApplicationBuilder builder)

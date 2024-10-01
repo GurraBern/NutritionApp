@@ -1,6 +1,7 @@
 using MudBlazor.Services;
 using NutritionTrackR.Web.Components;
 using NutritionTrackR.Web.Components.Pages.FoodSearch;
+using NutritionTrackR.Web.Components.Services;
 using NutritionTrackR.Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

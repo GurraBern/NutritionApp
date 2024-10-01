@@ -1,8 +1,8 @@
-﻿using NutritionTrackR.Core.Food.ValueObjects;
+﻿using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food;
+namespace NutritionTrackR.Core.Foods;
 
 public class Food : Entity
 {

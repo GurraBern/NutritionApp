@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Core.Food.Commands;
-using NutritionTrackR.Core.Food.ValueObjects;
-using Unit = NutritionTrackR.Core.Food.ValueObjects.Unit;
+using NutritionTrackR.Core.Foods.Commands;
+using NutritionTrackR.Core.Foods.ValueObjects;
+using Unit = NutritionTrackR.Core.Foods.ValueObjects.Unit;
 
 namespace PersonalHealthAPI.Features.Food;
 

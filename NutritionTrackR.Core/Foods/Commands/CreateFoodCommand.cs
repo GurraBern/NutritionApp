@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using NutritionTrackR.Core.Food.ValueObjects;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food.Commands;
+namespace NutritionTrackR.Core.Foods.Commands;
 
 public record CreateFoodCommand(string Name, List<Nutrient> Nutrients) : IRequest<Result>;
 

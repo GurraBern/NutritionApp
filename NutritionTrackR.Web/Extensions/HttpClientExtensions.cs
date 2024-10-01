@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using NutritionTrackR.Web.Components.Pages.FoodSearch;
+using NutritionTrackR.Web.Components.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace NutritionTrackR.Web.Extensions;

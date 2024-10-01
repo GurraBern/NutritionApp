@@ -1,20 +1,20 @@
 ﻿using MediatR;
-using NutritionTrackR.Core.Food.ValueObjects;
-using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Food;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food.Commands;
+namespace NutritionTrackR.Core.NutrientTracking.Commands;
 
-public record AddFoodEntryCommand(string FoodId, Weight Weight, MealType MealType) : IRequest<Result>;
+public record LogFoodCommand(string FoodId, Weight Weight, MealType MealType) : IRequest<Result>;
 
-public class AddFoodEntryCommandHandler(IMediator mediator, INutritionDayRepository repository) : IRequestHandler<AddFoodEntryCommand, Result>
+public class LogFoodCommandHandler(IMediator mediator, INutritionDayRepository repository) : IRequestHandler<LogFoodCommand, Result>
 {
-	public async Task<Result> Handle(AddFoodEntryCommand command, CancellationToken cancellationToken)
+	public async Task<Result> Handle(LogFoodCommand command, CancellationToken cancellationToken)
 	{
-		var nutritionDay = await repository.GetById(command.FoodId);
+		var nutritionDay = await repository.GetByDate(DateTimeOffset.Now.Date);
 		if (nutritionDay is null)
 		{
-			nutritionDay = new NutritionDay();
+			nutritionDay = new NutritionDay([]);
 			await repository.Create(nutritionDay);
 		}
 		
@@ -22,7 +22,7 @@ public class AddFoodEntryCommandHandler(IMediator mediator, INutritionDayReposit
 
 		await repository.SaveAsync();
 
-		foreach (var loggedFoodEvent in nutritionDay.LoggedFoodEvents)
+		foreach (var loggedFoodEvent in nutritionDay.DomainEvents)
 		{
 			await mediator.Publish(loggedFoodEvent, cancellationToken);
 		}

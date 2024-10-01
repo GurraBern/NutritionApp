@@ -14,7 +14,7 @@ public class NutritionDayConfiguration : IEntityTypeConfiguration<NutritionDay>
 
 		builder
 			.ToCollection("NutritionDays")
-			.OwnsMany(n => n.LoggedFoodEvents);
+			.OwnsMany(n => n.DomainEvents);
 
 
 	}

@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Contracts.NutritionTracking;
 
-public class FoodEntryRequest
+public class LogFoodRequest
 {
 	public string FoodId { get; set; }
 	public double Weight { get; set; }   

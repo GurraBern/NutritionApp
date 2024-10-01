@@ -1,7 +1,8 @@
 ﻿using NutritionTrackR.Contracts.Food;
+using NutritionTrackR.Contracts.NutritionTracking;
 using System.Text.Json;
 
-namespace NutritionTrackR.Web.Components.Pages.FoodSearch;
+namespace NutritionTrackR.Web.Components.Services;
 
 public class FoodListAdapter
 {
@@ -27,7 +28,7 @@ public class FoodListAdapter
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<FoodDto>> GetFoodEntries()
+	public async Task<List<LoggedFoodDto>> GetFoodEntries()
 	{
 		var client = CreateClient();
 
@@ -37,7 +38,7 @@ public class FoodListAdapter
 
 		var responseBody = await response.Content.ReadAsStringAsync();
 
-		var foodResponse = JsonSerializer.Deserialize<>(responseBody);
+		var foodResponse = JsonSerializer.Deserialize<LoggedFoodResponse>(responseBody);
 
 		return foodResponse?.Foods ?? [];
 	}
