@@ -6,8 +6,8 @@ namespace NutritionTrackR.Core.Foods;
 
 public class Food : Entity
 {
-    public string Name { get; private set;  }
-    public List<Nutrient> Nutrients { get; private set; } = [];
+    public string Name { get; set;  }
+    public List<Nutrient> Nutrients { get; set; } = [];
 
     private Food() { }
     

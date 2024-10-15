@@ -31,16 +31,23 @@ public class FoodListAdapter
 	public async Task<List<LoggedFoodDto>> GetFoodEntries()
 	{
 		var client = CreateClient();
+		try
+		{
 
-		var response = await client.GetAsync("api/v1/food-log");
-		if (!response.IsSuccessStatusCode) //TODO show popup
+			var response = await client.GetAsync("api/v1/food-log");
+			if (!response.IsSuccessStatusCode) //TODO show popup
+				return [];
+
+			var responseBody = await response.Content.ReadAsStringAsync();
+
+			var foodResponse = JsonSerializer.Deserialize<LoggedFoodResponse>(responseBody);
+
+			return foodResponse?.Foods ?? [];
+		}
+		catch (Exception e)
+		{
 			return [];
-
-		var responseBody = await response.Content.ReadAsStringAsync();
-
-		var foodResponse = JsonSerializer.Deserialize<LoggedFoodResponse>(responseBody);
-
-		return foodResponse?.Foods ?? [];
+		}
 	}
 
 	public HttpClient CreateClient()

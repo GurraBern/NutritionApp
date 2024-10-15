@@ -1,8 +1,7 @@
-﻿using NutritionTrackR.Core.NutrientTracking.Events;
-
-namespace NutritionTrackR.Core.NutrientTracking;
+﻿namespace NutritionTrackR.Core.NutrientTracking;
 
 public interface IFoodLogRepository
 {
 	Task<IEnumerable<NutritionDay>> GetNutritionDays();
+	Task<NutritionDay?> GetByDate(DateTime date);
 }

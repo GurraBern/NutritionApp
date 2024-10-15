@@ -5,7 +5,7 @@ using NutritionTrackR.Core.Foods.Commands;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using Unit = NutritionTrackR.Core.Foods.ValueObjects.Unit;
 
-namespace PersonalHealthAPI.Features.Food;
+namespace NutritionTrackR.Api.Features.Food;
 
 public static class CreateFood
 {

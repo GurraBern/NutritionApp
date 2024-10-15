@@ -1,4 +1,5 @@
 using NutritionTrackR.Api.Extensions;
+using NutritionTrackR.Api.Features.Food;
 using NutritionTrackR.Api.Features.NutrientTracking;
 using PersonalHealthAPI.Extensions;
 using PersonalHealthAPI.Features.Food;

@@ -23,6 +23,8 @@ public class NutritionDayRepository(NutritionDbContext dbContext) : INutritionDa
 
 	public async Task<NutritionDay?> GetByDate(DateTime date)
 	{
-		return await dbContext.NutritionDays.SingleOrDefaultAsync(nutritionDay => nutritionDay.Date.Equals(date.Date));
+		return await dbContext.NutritionDays
+			.FirstOrDefaultAsync(nutritionDay => nutritionDay.Date >= date.Date.Date && 
+			                                     nutritionDay.Date <= date.Date.AddDays(1).AddTicks(-1));
 	}
 }

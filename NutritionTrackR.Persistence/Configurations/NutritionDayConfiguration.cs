@@ -16,6 +16,10 @@ public class NutritionDayConfiguration : IEntityTypeConfiguration<NutritionDay>
 			.ToCollection("NutritionDays")
 			.OwnsMany(n => n.DomainEvents);
 
+		builder.Property(x => x.Date);
+
+		// builder.Ignore(n => n.NutritionDayState);
+
 
 	}
 }

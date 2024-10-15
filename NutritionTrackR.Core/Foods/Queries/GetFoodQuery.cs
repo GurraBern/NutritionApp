@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using NutritionTrackR.Core.Food.Queries;
 using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Foods.Queries;
@@ -10,7 +9,7 @@ public class GetFoodsHandler(IFoodRepository repository) : IRequestHandler<GetFo
 {
 	public async Task<Result<IEnumerable<Food>>> Handle(GetFoodsQuery query, CancellationToken cancellationToken)
 	{
-		var foods = await repository.GetAll(query.Filter);
+		var foods = await repository.GetAll();
 
 		return Result.Success(foods);
 	}

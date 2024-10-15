@@ -4,7 +4,7 @@ using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.NutrientTracking.Events;
 
-public class RemoveFoodLoggedEvent : IDomainEvent 
+public class RemoveFoodLoggedEvent : DomainEvent 
 {
 	public string FoodId { get; set; }
 	public Weight Weight { get; set; }

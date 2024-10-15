@@ -1,5 +1,4 @@
-﻿using NutritionTrackR.Core.Food.Queries;
-using MediatR;
+﻿using MediatR;
 using NutritionTrackR.Core.Foods.Queries;
 using PersonalHealthAPI.Extensions;
 

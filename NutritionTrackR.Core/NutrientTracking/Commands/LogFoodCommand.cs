@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MongoDB.Bson.Serialization.Serializers;
 using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared.Abstractions;
@@ -11,10 +12,13 @@ public class LogFoodCommandHandler(IMediator mediator, INutritionDayRepository r
 {
 	public async Task<Result> Handle(LogFoodCommand command, CancellationToken cancellationToken)
 	{
-		var nutritionDay = await repository.GetByDate(DateTimeOffset.Now.Date);
+		var t = await repository.GetById("67081d917268cbe0081c2a31");
+
+		var b = t.Date == DateTime.Now.Date;
+		var nutritionDay = await repository.GetByDate(DateTime.Now.Date);
 		if (nutritionDay is null)
 		{
-			nutritionDay = new NutritionDay([]);
+			nutritionDay = new NutritionDay();
 			await repository.Create(nutritionDay);
 		}
 		

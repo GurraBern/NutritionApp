@@ -18,7 +18,7 @@ public static class PersistenceExtensions
 		builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
 		builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 		builder.Services.AddScoped<INutritionDayRepository, NutritionDayRepository>();
-		builder.Services.AddScoped<IFoodLogRepository, NutritionDaysRepository>();
+		builder.Services.AddScoped<IFoodLogRepository, FoodLogRepository>();
 	}
 
 	private static void SetupEfCore(this WebApplicationBuilder builder)

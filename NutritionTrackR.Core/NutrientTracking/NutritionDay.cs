@@ -7,70 +7,42 @@ namespace NutritionTrackR.Core.NutrientTracking;
 
 public class NutritionDay : Entity
 {
-	//TODO make lists readonly to protect from unwanted manipulation
-	public DateTimeOffset Date { get; init; }
-	public List<IDomainEvent> DomainEvents { get; set; } = [];
-	public NutritionDayState NutritionDayState; // TODO use projection
+    //TODO make lists readonly to protect from unwanted manipulation
+    public DateTime Date { get; set; } = DateTime.Now.Date;
+    public List<DomainEvent> DomainEvents { get; set; } = [];
 
+    public NutritionDay()
+    {
+    }
 
-	public NutritionDay(IEnumerable<IDomainEvent> events)
-	{
-		NutritionDayState = new NutritionDayState();
-		foreach (var @event in events)
-		{
-			AppendEvent(@event);
-		}
-	}
+    public void LogFood(string foodId, Weight weight, MealType mealType)
+    {
+        var foodLoggedEvent = new FoodLoggedEvent
+        {
+            FoodId = foodId,
+            Weight = weight,
+            MealType = mealType,
+            OccurredAt = DateTimeOffset.Now //TODO users should be able to override 
+        };
 
-	private void AppendEvent(IDomainEvent @event)
-	{
-		DomainEvents.Add(@event);
-		NutritionDayState.Apply((dynamic)@event);
-	}
+        DomainEvents.Add(foodLoggedEvent);
+    }
 
-	public void LogFood(string foodId, Weight weight, MealType mealType)
-	{
-		var foodLoggedEvent = new FoodLoggedEvent
-		{
-			FoodId = foodId,
-			Weight = weight,
-			MealType = mealType,
-			OccurredAt = DateTimeOffset.Now //TODO users should be able to override 
-		};
+    public void RemoveLoggedFood(string foodId, Weight weight, MealType mealType)
+    {
+        var foodLoggedEvent = new FoodLoggedEvent
+        {
+            FoodId = foodId,
+            Weight = weight,
+            MealType = mealType,
+            OccurredAt = DateTimeOffset.Now
+        };
 
-		DomainEvents.Add(foodLoggedEvent);
-	}
+        DomainEvents.Add(foodLoggedEvent);
+    }
 
-	public void RemoveLoggedFood(string foodId, Weight weight, MealType mealType)
-	{
-		var foodLoggedEvent = new FoodLoggedEvent
-		{
-			FoodId = foodId,
-			Weight = weight,
-			MealType = mealType,
-			OccurredAt = DateTimeOffset.Now
-		};
-
-		DomainEvents.Add(foodLoggedEvent);
-	}
-
-	public void ClearDomainEvents()
-	{
-		DomainEvents.Clear();
-	}
-}
-
-public class NutritionDayState
-{
-	public List<Nutrient> Nutrients { get; set; } = [];
-
-	public void Apply(FoodLoggedEvent @event)
-	{
-		
-	}
-
-	public void Apply(RemoveFoodLoggedEvent @event)
-	{
-		
-	}
+    public void ClearDomainEvents()
+    {
+        DomainEvents.Clear();
+    }
 }

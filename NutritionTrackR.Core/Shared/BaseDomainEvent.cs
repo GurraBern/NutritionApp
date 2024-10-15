@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Core.Shared;
 
-public interface IDomainEvent : INotification
+public class DomainEvent : INotification
 {
-    public DateTimeOffset OccurredAt { get; protected set; }
+    public DateTimeOffset OccurredAt { get; set; }
 }
