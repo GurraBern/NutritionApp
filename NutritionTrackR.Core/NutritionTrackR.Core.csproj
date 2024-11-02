@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Person\Events\" />
+      <Folder Include="DomainServices\" />
       <Folder Include="Extensions\" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.4.1" />
-      <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.1.1" />
+      <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.2.0" />
     </ItemGroup>
 
 </Project>

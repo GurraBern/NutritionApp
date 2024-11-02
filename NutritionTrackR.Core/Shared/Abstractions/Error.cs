@@ -1,15 +1,9 @@
 ﻿namespace NutritionTrackR.Core.Shared.Abstractions;
 
-public class Error
+public class Error(string message, string code = "")
 {
-	public Error(string message, string code = "")
-	{
-		Message = message;
-		Code = code;
-	}
-
-	public string Code { get; }
-	public string Message { get; }
+	public string Code { get; } = code;
+	public string Message { get; } = message;
 
 	public static Error None => new(string.Empty);
 	public static implicit operator Error(string message) => new(message);

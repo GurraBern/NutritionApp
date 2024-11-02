@@ -1,41 +1,22 @@
-﻿using NutritionTrackR.Core.Food;
-using NutritionTrackR.Core.Food.ValueObjects;
-using NutritionTrackR.Core.NutrientTracking.Events;
+﻿using NutritionTrackR.Core.Foods;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.NutrientTracking;
 
-public class NutritionDay : Entity
+public class NutritionDay : AggregateRoot 
 {
-	//TODO make lists readonly to protect from unwanted manipulation
-	public List<FoodLoggedEvent> LoggedFoodEvents { get; set; } = [];
+    //TODO make lists readonly to protect from unwanted manipulation
+    public DateTime Date { get; private set; } = DateTime.Now.Date;
+    public List<EatenFoodEntry> ConsumedFood { get; } = [];
 
-	public void LogFood(string foodId, Weight weight, MealType mealType)
-	{
-		var foodLoggedEvent = new FoodLoggedEvent
-		{
-			FoodId = foodId,
-			Weight = weight,
-			MealType = mealType
-		};
+    public NutritionDay()
+    {
+    }
 
-		LoggedFoodEvents.Add(foodLoggedEvent);
-	}
-
-	public void RemoveLoggedFood(string foodId, Weight weight, MealType mealType)
-	{
-		var foodLoggedEvent = new FoodLoggedEvent
-		{
-			FoodId = foodId,
-			Weight = weight,
-			MealType = mealType
-		};
-
-		LoggedFoodEvents.Add(foodLoggedEvent);
-	}
-
-	public void ClearDomainEvents()
-	{
-		LoggedFoodEvents.Clear();
-	}
+    public void LogFood(FoodId foodId, Weight weight, MealType mealType)
+    {
+        var foodEntry = EatenFoodEntry.Create(foodId, weight, mealType);
+        ConsumedFood.Add(foodEntry);
+    }
 }

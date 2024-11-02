@@ -1,0 +1,30 @@
+﻿@page "/NutritionDay"
+@using NutritionTrackR.Contracts.Food
+@using NutritionTrackR.Contracts.NutritionTracking
+@using NutritionTrackR.Web.Components.Pages.FoodSearch
+@using NutritionTrackR.Web.Components.Services
+
+@inject FoodListAdapter FoodListAdapter
+
+<h3>NutritionDay</h3>
+
+<MudList T="FoodDto">
+    @foreach (var food in _foods)
+    {
+        <MudListItem>
+            <MudText>@food.LoggedAt</MudText>
+            <MudText>@food.FoodId</MudText>
+            <MudText>@food.Unit</MudText>
+            <MudText>@food.Weight</MudText>
+        </MudListItem>
+    }
+</MudList>
+
+@code {
+    private List<LoggedFoodDto> _foods = [];
+
+    protected async override Task OnInitializedAsync()
+    {
+        _foods = await FoodListAdapter.GetFoodEntries();
+    }
+}

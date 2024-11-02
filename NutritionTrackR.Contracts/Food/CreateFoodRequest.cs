@@ -4,7 +4,7 @@ namespace NutritionTrackR.Contracts.Food;
 
 public class CreateFoodRequest
 {
-	public string FoodName { get; set; }
+	public string Name { get; set; }
 	public List<NutrientDto> Nutrients { get; set; } = [];
 }
 

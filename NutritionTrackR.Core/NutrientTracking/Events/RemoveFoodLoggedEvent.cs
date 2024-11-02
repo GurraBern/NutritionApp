@@ -1,14 +1,15 @@
-﻿using NutritionTrackR.Core.Food;
-using NutritionTrackR.Core.Food.ValueObjects;
+﻿using NutritionTrackR.Core.Foods;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.NutrientTracking.Events;
 
-public class RemoveFoodLoggedEvent : BaseDomainEvent
+public class RemoveFoodLoggedEvent : DomainEvent 
 {
 	public string FoodId { get; set; }
 	public Weight Weight { get; set; }
 	public MealType MealType { get; set; }
+	public DateTimeOffset OccurredAt { get; set; }
 	
 	public RemoveFoodLoggedEvent() { }
 	
@@ -18,4 +19,5 @@ public class RemoveFoodLoggedEvent : BaseDomainEvent
 		Weight = weight;
 		MealType = mealType;
 	}
+
 }

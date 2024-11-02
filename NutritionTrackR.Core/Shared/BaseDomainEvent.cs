@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Core.Shared;
 
-public abstract class BaseDomainEvent : INotification
+public class DomainEvent : INotification
 {
-    public DateTimeOffset OccurredAt { get; protected set; } = DateTimeOffset.UtcNow;
+    public DateTimeOffset OccurredAt { get; set; }
 }
