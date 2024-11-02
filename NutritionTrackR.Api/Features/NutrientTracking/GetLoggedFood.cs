@@ -11,12 +11,14 @@ public static class GetLoggedFood
 	{
 		app.MapGet("api/v1/food-log", async (IMediator mediator) =>
 		{
-			var query = new GetLoggedFoodsQuery(new FoodsQueryFilter()
+			var query = new GetLoggedFoodsQuery(new FoodsQueryFilter
 			{
-				FoodIds = [ObjectId.Parse("66f06cbe04260df229ff2702")]
+				Date = DateTime.Now
 			});
 			
 			var nutritionState = await mediator.Send(query);
+			
+			//TODO map to response object
 			
 			return Results.Ok(nutritionState);
 		});

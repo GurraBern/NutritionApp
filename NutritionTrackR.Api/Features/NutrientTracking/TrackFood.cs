@@ -15,9 +15,7 @@ public static class TrackFood
 		{
 			var weight = Weight.Create(request.Weight, (Unit)request.Unit);
 			if (weight.IsFailure)
-			{
 				return Results.BadRequest(weight.Error);
-			}
 
 			var command = new LogFoodCommand(request.FoodId, weight.Data, (MealType)request.MealType);
 

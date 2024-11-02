@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Persistence.Repositories;
+namespace NutritionTrackR.Persistence;
 
 public class EfUnitOfWork(NutritionDbContext dbContext) : IUnitOfWork
 {

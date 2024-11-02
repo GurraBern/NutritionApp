@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
-using NutritionTrackR.Core.Food;
 using NutritionTrackR.Core.Foods;
 
 namespace NutritionTrackR.Persistence.Configurations;

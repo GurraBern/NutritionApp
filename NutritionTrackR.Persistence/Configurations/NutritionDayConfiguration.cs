@@ -7,19 +7,25 @@ namespace NutritionTrackR.Persistence.Configurations;
 
 public class NutritionDayConfiguration : IEntityTypeConfiguration<NutritionDay>
 {
+    public void Configure(EntityTypeBuilder<NutritionDay> builder)
+    {
+        builder.HasKey(n => n.Id);
 
-	public void Configure(EntityTypeBuilder<NutritionDay> builder)
-	{
-		builder.HasKey(n => n.Id);
+        builder.OwnsMany(n => n.ConsumedFood, o =>
+        {
+            o.Property(x => x.FoodId);
 
-		builder
-			.ToCollection("NutritionDays")
-			.OwnsMany(n => n.DomainEvents);
+            o.Property(x => x.FoodId);
+            o.OwnsOne(x => x.Weight, w =>
+            {
+                w.Property(p => p.Value);
+                w.Property(p => p.Unit);
+            });
+        });
 
-		builder.Property(x => x.Date);
 
-		// builder.Ignore(n => n.NutritionDayState);
+        builder.Property(x => x.Date);
 
-
-	}
+        builder.ToCollection("NutritionDays");
+    }
 }
