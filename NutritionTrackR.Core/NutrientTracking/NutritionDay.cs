@@ -1,4 +1,4 @@
-﻿using NutritionTrackR.Core.Food;
+﻿using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
@@ -14,7 +14,7 @@ public class NutritionDay : AggregateRoot
     {
     }
 
-    public void LogFood(string foodId, Weight weight, MealType mealType)
+    public void LogFood(FoodId foodId, Weight weight, MealType mealType)
     {
         var foodEntry = EatenFoodEntry.Create(foodId, weight, mealType);
         ConsumedFood.Add(foodEntry);

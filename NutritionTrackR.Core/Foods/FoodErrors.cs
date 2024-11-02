@@ -1,9 +1,9 @@
 ﻿using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.Food;
+namespace NutritionTrackR.Core.Foods;
 
 public static class FoodErrors
 {
-	public static readonly Error ZeroWeight = new Error("Weight must be greater than zero");
-	public static readonly Error EmptyNutrientName = new Error("Nutrient name cannot be empty");
+	public static readonly Error ZeroWeight = new("Weight must be greater than zero");
+	public static readonly Error EmptyNutrientName = new("Nutrient name cannot be empty");
 }

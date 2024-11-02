@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
-using MongoDB.Driver;
 using NutritionTrackR.Core.NutrientTracking;
 
 namespace NutritionTrackR.Persistence.Repositories;
@@ -25,7 +24,5 @@ public class NutritionDayRepository(NutritionDbContext dbContext) : INutritionDa
 	public async Task<NutritionDay?> GetByDate(DateTime date)
 	{
 		return await dbContext.NutritionDays.SingleOrDefaultAsync(x => x.Date == date);
-		// .FirstOrDefaultAsync(nutritionDay => nutritionDay.Date >= date.Date.Date && 
-		//                                      nutritionDay.Date <= date.Date.AddDays(1).AddTicks(-1));
 	}
 }

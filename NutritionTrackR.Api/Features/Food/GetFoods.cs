@@ -1,8 +1,8 @@
 ﻿using MediatR;
+using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Core.Foods.Queries;
-using PersonalHealthAPI.Extensions;
 
-namespace PersonalHealthAPI.Features.Food;
+namespace NutritionTrackR.Api.Features.Food;
 
 public static class GetFoods
 {

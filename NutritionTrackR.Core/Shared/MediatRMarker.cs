@@ -1,6 +1,3 @@
 ﻿namespace NutritionTrackR.Core.Shared;
 
-public class MediatRMarker
-{
-    
-}
+public class MediatRMarker;

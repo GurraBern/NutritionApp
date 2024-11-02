@@ -1,4 +1,4 @@
-﻿namespace NutritionTrackR.Core.Food;
+﻿namespace NutritionTrackR.Core.Foods;
 
 public enum MealType
 {
