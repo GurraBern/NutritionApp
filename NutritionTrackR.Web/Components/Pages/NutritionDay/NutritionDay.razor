@@ -1,30 +1,90 @@
 ﻿@page "/NutritionDay"
 @using NutritionTrackR.Contracts.Food
-@using NutritionTrackR.Contracts.NutritionTracking
-@using NutritionTrackR.Web.Components.Pages.FoodSearch
 @using NutritionTrackR.Web.Components.Services
 
 @inject FoodListAdapter FoodListAdapter
 
 <h3>NutritionDay</h3>
 
-<MudList T="FoodDto">
-    @foreach (var food in _foods)
-    {
-        <MudListItem>
-            <MudText>@food.LoggedAt</MudText>
-            <MudText>@food.FoodId</MudText>
-            <MudText>@food.Unit</MudText>
-            <MudText>@food.Weight</MudText>
+<MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item,dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+    <ChildContent>
+        @foreach(var zone in _meals)
+        {
+            <MudPaper Class="ma-4 flex-grow-1">
+                <MudList T="string" Class="d-flex flex-column mud-height-full">
+                    <MudText Typo="Typo.h6" Align="Align.Center">@zone.ZoneId</MudText>
+                    <MudDropZone T="FoodSelector" Identifier="@zone.ZoneId" Class="flex-grow-1" AllowReorder="true" />
+                </MudList>
+            </MudPaper>
+        }
+    </ChildContent>
+    <ItemRenderer>
+        <MudListItem T="FoodSelector">
+            <div class="d-flex justify-space-between">
+                <MudText>@context.Name</MudText>
+                <MudText>@context.DisplayWeight()</MudText>
+            </div>
         </MudListItem>
-    }
-</MudList>
+    </ItemRenderer>
+</MudDropContainer>
 
 @code {
-    private List<LoggedFoodDto> _foods = [];
-
-    protected async override Task OnInitializedAsync()
+    private MudDropContainer<FoodSelector> _container;
+    private List<FoodSelector> _foods = [];
+    
+    private void RefreshContainer()
     {
-        _foods = await FoodListAdapter.GetFoodEntries();
+        StateHasChanged();
+        _container.Refresh();
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var foodDtos = await FoodListAdapter.GetLoggedFood();
+        _foods = foodDtos.Select(f => new FoodSelector(f) { ZoneId = "Breakfast" }).ToList();
+        RefreshContainer();
+    }
+
+    private class FoodSelector : FoodDto
+    {
+        public string ZoneId { get; set; }
+
+        public FoodSelector(FoodDto foodDto)
+        {
+            Name = foodDto.Name;
+            Nutrients = foodDto.Nutrients;
+            Amount = foodDto.Amount;
+            Unit = foodDto.Unit;
+        }
+
+        public string DisplayWeight() => $"{Amount} {Unit.ToString()}";
+    }
+
+    private static void ItemUpdated(MudItemDropInfo<FoodSelector> dropItem) => dropItem.Item.ZoneId = dropItem.DropzoneIdentifier;
+
+    private readonly List<DropZone> _meals =
+    [
+        new DropZone { ZoneId = "Breakfast" },
+        new DropZone { ZoneId = "Lunch" },
+        new DropZone { ZoneId = "Dinner" },
+        new DropZone { ZoneId = "Snacks" }
+    ];
+
+    // private readonly List<DropZoneItem> _items =
+    // [
+    //     new DropZoneItem { ZoneId = "Breakfast", Name = "Item 1" },
+    //     new DropZoneItem { ZoneId = "Lunch", Name = "Item 2" },
+    //     new DropZoneItem { ZoneId = "Lunch", Name = "Item 3" }
+    // ];
+    //
+    private class DropZone
+    {
+        public string ZoneId { get; init; }
+    }
+    
+    // private class DropZoneItem
+    // {
+    //     public string ZoneId { get; set; }
+    //     public string Name { get; init; }
+    // }
 }

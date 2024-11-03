@@ -3,24 +3,24 @@ using NutritionTrackR.Core.Foods.ValueObjects;
 
 namespace NutritionTrackR.Core.NutrientTracking;
 
-public class EatenFoodEntry
+public class LoggedFood
 {
     public FoodId FoodId { get; private set; }
     public Weight Weight { get; private set; }
     public MealType MealType { get; private set; }
 
-    private EatenFoodEntry() { }
+    private LoggedFood() { }
 
-    private EatenFoodEntry(FoodId foodId, Weight weight, MealType mealType)
+    private LoggedFood(FoodId foodId, Weight weight, MealType mealType)
     {
         FoodId = foodId;
         Weight = weight;
         MealType = mealType;
     }
 
-    public static EatenFoodEntry Create(FoodId foodId, Weight weight, MealType mealType)
+    public static LoggedFood Create(FoodId foodId, Weight weight, MealType mealType)
     {
-        var foodEntry = new EatenFoodEntry(foodId, weight, mealType);
+        var foodEntry = new LoggedFood(foodId, weight, mealType);
 
         return foodEntry;
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 using NutritionTrackR.Core.Foods;
-using NutritionTrackR.Core.Foods.Queries;
+using NutritionTrackR.Core.Foods.ValueObjects;
 
 namespace NutritionTrackR.Persistence.Repositories;
 
@@ -11,9 +12,13 @@ public class FoodRepository(NutritionDbContext dbContext) : IFoodRepository
         await dbContext.Foods.AddAsync(food);
     }
 
-    public async Task<IEnumerable<Food>> Get(FoodsQueryFilter queryFilter)
+    public async Task<IEnumerable<Food>> Get(IEnumerable<FoodId> foodIds)
     {
-        return await dbContext.Foods.Where(x => queryFilter.FoodIds.Contains(x.Id)).AsNoTracking().ToListAsync();
+        var ids = foodIds.Select(x => ObjectId.Parse(x.Id));
+        return await dbContext.Foods
+            .Where(x => ids.Contains(x.Id))
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public Task<IEnumerable<Food>> GetById(string id)

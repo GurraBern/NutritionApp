@@ -21,7 +21,7 @@ public static class MediatRExtensions
 		builder.Services
 			.AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodCommandHandler>()
 			.AddScoped<IRequestHandler<LogFoodCommand, Result>, LogFoodCommandHandler>()
-			.AddScoped<IRequestHandler<GetLoggedFoodsQuery, Result<LoggedFoodResponse>>, GetNutritionDaysHandler>()
+			.AddScoped<IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>, GetNutritionDaysHandler>()
 			.AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>();
 	}
 }

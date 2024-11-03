@@ -5,20 +5,23 @@ using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.NutrientTracking.Queries;
 
-public record GetLoggedFoodsQuery(FoodsQueryFilter Filter) : IRequest<Result<LoggedFoodResponse>>;
+public record GetLoggedFoodsQuery(FoodsQueryFilter Filter) : IRequest<LoggedFoodResponse>;
 
-public record LoggedFoodResponse(List<Foods.Food> Foods);
+public record LoggedFoodResponse(IEnumerable<LoggedFood> LoggedFoods, IEnumerable<Food> Foods);
 
-public class GetNutritionDaysHandler(INutritionDayRepository repository, IFoodRepository foodRepository) : IRequestHandler<GetLoggedFoodsQuery, Result<LoggedFoodResponse>>
+public class GetNutritionDaysHandler(INutritionDayRepository repository, IFoodRepository foodRepository) : IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>
 {
-	public async Task<Result<LoggedFoodResponse>> Handle(GetLoggedFoodsQuery query, CancellationToken cancellationToken)
-	{
-		var nutritionDay = await repository.GetByDate(query.Filter.Date);
-		if (nutritionDay == null)
-			return Result.Success(new LoggedFoodResponse([]));
+    public async Task<LoggedFoodResponse> Handle(GetLoggedFoodsQuery query, CancellationToken cancellationToken)
+    {
+        var nutritionDay = await repository.GetByDate(query.Filter.Date);
+        if (nutritionDay == null)
+            return new LoggedFoodResponse([], []);
 
-		var foods = await foodRepository.Get(query.Filter);
+        var consumedFood = nutritionDay.ConsumedFood;
 
-		return Result.Success(new LoggedFoodResponse(foods.ToList()));
-	}
+        var foodIds = consumedFood.Select(x => x.FoodId);
+        var foods = await foodRepository.Get(foodIds);
+
+        return new LoggedFoodResponse(consumedFood, foods);
+    }
 }
