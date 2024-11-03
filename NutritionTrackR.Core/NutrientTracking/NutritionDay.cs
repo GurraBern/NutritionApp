@@ -8,7 +8,7 @@ public class NutritionDay : AggregateRoot
 {
     //TODO make lists readonly to protect from unwanted manipulation
     public DateTime Date { get; private set; } = DateTime.Now.Date;
-    public List<EatenFoodEntry> ConsumedFood { get; } = [];
+    public List<LoggedFood> ConsumedFood { get; } = [];
 
     public NutritionDay()
     {
@@ -16,7 +16,7 @@ public class NutritionDay : AggregateRoot
 
     public void LogFood(FoodId foodId, Weight weight, MealType mealType)
     {
-        var foodEntry = EatenFoodEntry.Create(foodId, weight, mealType);
+        var foodEntry = LoggedFood.Create(foodId, weight, mealType);
         ConsumedFood.Add(foodEntry);
     }
 }

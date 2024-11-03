@@ -1,6 +1,11 @@
-﻿namespace NutritionTrackR.Contracts.NutritionTracking;
+﻿using System.Text.Json.Serialization;
+using NutritionTrackR.Contracts.Food;
+
+namespace NutritionTrackR.Contracts.NutritionTracking;
 
 public class LoggedFoodResponse
 {
-	public List<LoggedFoodDto> Foods { get; set; }
+	
+	[JsonPropertyName("foods")]
+	public List<DetailedFoodDto> Foods { get; set; }
 }
