@@ -16,6 +16,7 @@ public static class FoodResponseMapper
 	public static List<FoodDto> MapFoodDtos(this IEnumerable<Food> foods) =>
 		foods.Select(food => new FoodDto()
 		{
+			Id = food.Id.ToString(),
 			Name = food.Name,
 			Nutrients = food.Nutrients.MapNutrientDtos()
 		}).ToList();

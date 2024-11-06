@@ -1,11 +1,20 @@
-﻿@page "/NutritionDay"
+﻿@page "/"
 @using NutritionTrackR.Contracts.Food
+@using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood
 @using NutritionTrackR.Web.Components.Services
 
 @inject FoodListAdapter FoodListAdapter
+@inject IDialogService DialogService
 
 <h3>NutritionDay</h3>
 
+@* TODO räkna ut för carbs protein och fat *@
+@* <div class="d-flex gap-3"> *@
+@*     <MudProgressLinear Color="Color.Primary" Rounded="true" Size="Size.Small" Value="25" /> *@
+@*     <MudProgressLinear Color="Color.Secondary" Rounded="true" Size="Size.Small" Value="75" /> *@
+@*     <MudProgressLinear Color="Color.Tertiary" Rounded="true" Size="Size.Small" Value="55" /> *@
+@* </div> *@
+@* *@
 <MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item,dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
     <ChildContent>
         @foreach(var zone in _meals)
@@ -28,6 +37,9 @@
     </ItemRenderer>
 </MudDropContainer>
 
+<MudAutocomplete T="FoodDto" ValueChanged="SelectFood" SearchFunc="SearchFood" ToStringFunc="@(food => food is null ? null : $"{food.Name}")"/>
+
+
 @code {
     private MudDropContainer<FoodSelector> _container;
     private List<FoodSelector> _foods = [];
@@ -43,7 +55,14 @@
         var foodDtos = await FoodListAdapter.GetLoggedFood();
         _foods = foodDtos.Select(f => new FoodSelector(f) { ZoneId = "Breakfast" }).ToList();
         RefreshContainer();
+
+        _searchedFood = await FoodListAdapter.GetFoodItems();
+        _filteredFoods = _searchedFood;
     }
+    
+    private List<FoodDto> _searchedFood = [];
+    private List<FoodDto> _filteredFoods = [];
+    private FoodDto foodToAdd;
 
     private class FoodSelector : FoodDto
     {
@@ -70,21 +89,40 @@
         new DropZone { ZoneId = "Snacks" }
     ];
 
-    // private readonly List<DropZoneItem> _items =
-    // [
-    //     new DropZoneItem { ZoneId = "Breakfast", Name = "Item 1" },
-    //     new DropZoneItem { ZoneId = "Lunch", Name = "Item 2" },
-    //     new DropZoneItem { ZoneId = "Lunch", Name = "Item 3" }
-    // ];
-    //
     private class DropZone
     {
         public string ZoneId { get; init; }
     }
     
-    // private class DropZoneItem
-    // {
-    //     public string ZoneId { get; set; }
-    //     public string Name { get; init; }
-    // }
+    
+    private Task<IEnumerable<FoodDto>> SearchFood(string searchTerm, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrEmpty(searchTerm))
+        {
+            return Task.FromResult(Enumerable.Empty<FoodDto>());
+        }
+
+        var searchedFoods = _searchedFood.Where(food => food.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
+
+        return Task.FromResult(searchedFoods);
+    }
+
+    private async Task SelectFood(FoodDto selectedFood)
+    {
+        DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        var parameters = new DialogParameters<AddFoodDialog>
+        {
+            { x => x.Food, selectedFood},
+        };
+
+        var dialog = await DialogService.ShowAsync<AddFoodDialog>(selectedFood.Name, parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            
+        }
+        //TODO open dialog window
+    }
+
 }

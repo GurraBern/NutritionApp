@@ -13,7 +13,7 @@ public static class TrackFood
 	{
 		app.MapPost("api/v1/food-entry", async (IMediator mediator, LogFoodRequest request) =>
 		{
-			var weight = Weight.Create(request.Weight, (Unit)request.Unit);
+			var weight = Weight.Create((double)request.Weight, (Unit)request.Unit);
 			if (weight.IsFailure)
 				return Results.BadRequest(weight.Error);
 

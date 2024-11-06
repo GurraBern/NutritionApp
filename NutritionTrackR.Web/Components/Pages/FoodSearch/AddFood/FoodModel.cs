@@ -1,0 +1,18 @@
+﻿using NutritionTrackR.Contracts.Food;
+
+namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
+
+public class FoodModel
+{
+    public FoodDto Food { get; }
+    public decimal Amount { get; set; } = 100;
+    public UnitDto Unit { get; set; } = UnitDto.Grams;
+    public MealTypeDto MealType { get; set; }
+
+    public FoodModel(FoodDto food)
+    {
+        Food = food;
+    }
+    
+    public string FoodId => Food.Id;
+}

@@ -1,0 +1,58 @@
+﻿@using NutritionTrackR.Contracts.Food
+@using NutritionTrackR.Web.Components.Services
+
+@inject FoodListAdapter FoodListAdapter
+@inject ISnackbar Snackbar
+
+@* TODO input food amount, input unit *@
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            Add Food
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <div class="d-flex">
+            <MudTextField T="decimal" @bind-Value="@Model.Amount"></MudTextField>
+
+            <MudSelect @bind-Value="@Model.Unit">
+                @foreach (var unit in Enum.GetValues(typeof(UnitDto)).Cast<UnitDto>())
+                {
+                    <MudSelectItem Value="unit">@unit</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="AddFood">Add Food</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
+    [Parameter] public FoodDto Food { get; set; }
+
+    private FoodModel Model { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Model = new FoodModel(Food);
+    }
+
+    private void Cancel() => MudDialog.Close();
+
+    private async Task AddFood()
+    {
+        try
+        {
+            await FoodListAdapter.LogFood(Model);
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Could not log food", Severity.Error);
+        }
+    }
+}
+
+@* TODO add favorite button *@

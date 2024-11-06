@@ -5,6 +5,10 @@ namespace NutritionTrackR.Contracts.Food;
 
 public class FoodDto
 {
+	
+	[JsonPropertyName("id")]
+	public string Id { get; set; }
+	
 	[JsonPropertyName("name")]
 	public string Name { get; set; }
 	
