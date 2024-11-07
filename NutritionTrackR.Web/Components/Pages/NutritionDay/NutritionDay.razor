@@ -15,14 +15,15 @@
 @*     <MudProgressLinear Color="Color.Tertiary" Rounded="true" Size="Size.Small" Value="55" /> *@
 @* </div> *@
 @* *@
-<MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item,dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+<MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item, dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
     <ChildContent>
-        @foreach(var zone in _meals)
+        @foreach (var mealZone in _mealZones)
         {
             <MudPaper Class="ma-4 flex-grow-1">
                 <MudList T="string" Class="d-flex flex-column mud-height-full">
-                    <MudText Typo="Typo.h6" Align="Align.Center">@zone.ZoneId</MudText>
-                    <MudDropZone T="FoodSelector" Identifier="@zone.ZoneId" Class="flex-grow-1" AllowReorder="true" />
+                    <MudText Typo="Typo.h6" Align="Align.Center">@mealZone.ZoneId</MudText>
+                    <MudDropZone T="FoodSelector" Identifier="@mealZone.ZoneId" Class="flex-grow-1" AllowReorder="true"/>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.AddCircle" Color="Color.Primary"></MudButton>
                 </MudList>
             </MudPaper>
         }
@@ -39,11 +40,10 @@
 
 <MudAutocomplete T="FoodDto" ValueChanged="SelectFood" SearchFunc="SearchFood" ToStringFunc="@(food => food is null ? null : $"{food.Name}")"/>
 
-
 @code {
     private MudDropContainer<FoodSelector> _container;
     private List<FoodSelector> _foods = [];
-    
+
     private void RefreshContainer()
     {
         StateHasChanged();
@@ -52,14 +52,20 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var foodDtos = await FoodListAdapter.GetLoggedFood();
-        _foods = foodDtos.Select(f => new FoodSelector(f) { ZoneId = "Breakfast" }).ToList();
-        RefreshContainer();
+        await UpdateFoodList();
 
+        //TODO move to separate class
         _searchedFood = await FoodListAdapter.GetFoodItems();
         _filteredFoods = _searchedFood;
     }
-    
+
+    private async Task UpdateFoodList()
+    {
+        var foods = await FoodListAdapter.GetLoggedFood();
+        _foods = foods.Select(f => new FoodSelector(f) { ZoneId = GetZoneId(f.MealType) }).ToList();
+        RefreshContainer();
+    }
+
     private List<FoodDto> _searchedFood = [];
     private List<FoodDto> _filteredFoods = [];
     private FoodDto foodToAdd;
@@ -74,6 +80,7 @@
             Nutrients = foodDto.Nutrients;
             Amount = foodDto.Amount;
             Unit = foodDto.Unit;
+            MealType = foodDto.MealType;
         }
 
         public string DisplayWeight() => $"{Amount} {Unit.ToString()}";
@@ -81,20 +88,28 @@
 
     private static void ItemUpdated(MudItemDropInfo<FoodSelector> dropItem) => dropItem.Item.ZoneId = dropItem.DropzoneIdentifier;
 
-    private readonly List<DropZone> _meals =
+    private readonly List<DropZone> _mealZones =
     [
-        new DropZone { ZoneId = "Breakfast" },
-        new DropZone { ZoneId = "Lunch" },
-        new DropZone { ZoneId = "Dinner" },
-        new DropZone { ZoneId = "Snacks" }
+        new DropZone { ZoneId = "Breakfast", MealType = MealTypeDto.Breakfast },
+        new DropZone { ZoneId = "Lunch", MealType = MealTypeDto.Lunch },
+        new DropZone { ZoneId = "Dinner", MealType = MealTypeDto.Dinner },
+        new DropZone { ZoneId = "Snacks", MealType = MealTypeDto.Snack }
     ];
 
     private class DropZone
     {
         public string ZoneId { get; init; }
+        public MealTypeDto MealType { get; init; }
     }
-    
-    
+
+    private string GetZoneId(MealTypeDto mealType) => mealType switch
+    {
+        MealTypeDto.Breakfast => "Breakfast",
+        MealTypeDto.Lunch => "Lunch",
+        MealTypeDto.Dinner => "Dinner",
+        MealTypeDto.Snack => "Snacks"
+    };
+
     private Task<IEnumerable<FoodDto>> SearchFood(string searchTerm, CancellationToken cancellationToken)
     {
         if (string.IsNullOrEmpty(searchTerm))
@@ -110,19 +125,15 @@
     private async Task SelectFood(FoodDto selectedFood)
     {
         DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
-        var parameters = new DialogParameters<AddFoodDialog>
+        var parameters = new DialogParameters<FoodDetails>
         {
-            { x => x.Food, selectedFood},
+            { x => x.Food, selectedFood },
+            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) }
         };
 
-        var dialog = await DialogService.ShowAsync<AddFoodDialog>(selectedFood.Name, parameters, options);
+        //TODO callback
+        var dialog = await DialogService.ShowAsync<FoodDetails>(selectedFood.Name, parameters, options);
         var result = await dialog.Result;
-
-        if (!result.Canceled)
-        {
-            
-        }
-        //TODO open dialog window
     }
 
 }

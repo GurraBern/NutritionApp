@@ -28,7 +28,8 @@ public static class GetLoggedFood
                     Name = food.Name,
                     Amount = loggedFood.Weight.Value,
                     Unit = loggedFood.Weight.Unit,
-                    Nutrients = food.Nutrients.MapNutrientDtos()
+                    Nutrients = food.Nutrients.MapNutrientDtos(),
+                    MealType = (MealTypeDto)loggedFood.MealType
                 };
             });
 

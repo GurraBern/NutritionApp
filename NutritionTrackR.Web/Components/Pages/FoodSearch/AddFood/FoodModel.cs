@@ -8,11 +8,17 @@ public class FoodModel
     public decimal Amount { get; set; } = 100;
     public UnitDto Unit { get; set; } = UnitDto.Grams;
     public MealTypeDto MealType { get; set; }
-
     public FoodModel(FoodDto food)
     {
         Food = food;
     }
     
     public string FoodId => Food.Id;
+}
+
+public class NutritionModel
+{
+    public double Carbs { get; set; } 
+    public double Protein { get; set; }
+    public double Fat { get; set; }
 }
