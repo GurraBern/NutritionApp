@@ -20,4 +20,5 @@ public class FoodDto
     
 	[JsonPropertyName("nutrients")]
 	public List<NutrientDto> Nutrients { get; set; }
+	public MealTypeDto MealType { get; set; }
 }

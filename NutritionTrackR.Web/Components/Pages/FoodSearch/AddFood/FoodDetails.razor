@@ -4,16 +4,15 @@
 @inject FoodListAdapter FoodListAdapter
 @inject ISnackbar Snackbar
 
-@* TODO input food amount, input unit *@
 <MudDialog>
     <TitleContent>
         <MudText Typo="Typo.h6">
-            Add Food
+            @Food.Name
         </MudText>
     </TitleContent>
     <DialogContent>
-        <div class="d-flex">
-            <MudTextField T="decimal" @bind-Value="@Model.Amount"></MudTextField>
+        <div class="d-flex gap-3 justify-start flex-grow-1">
+            <MudTextField T="decimal" @bind-Value="@Model.Amount"/>
 
             <MudSelect @bind-Value="@Model.Unit">
                 @foreach (var unit in Enum.GetValues(typeof(UnitDto)).Cast<UnitDto>())
@@ -22,6 +21,16 @@
                 }
             </MudSelect>
         </div>
+        
+@* <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Value="@NutritionModel.Carbs" /> *@
+@* <MudProgressCircular Size="Size.Large" Color="Color.Success" Value="@NutritionModel.Protein" /> *@
+@* <MudProgressCircular Size="Size.Large" Color="Color.Info" Value="@NutritionModel.Fat" /> *@
+
+        @foreach (var nutrient in Food.Nutrients)
+        {
+            <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+        }
+
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
@@ -32,21 +41,31 @@
 @code {
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public FoodDto Food { get; set; }
-
+    [Parameter] public EventCallback OnFoodAdded { get; set; }
     private FoodModel Model { get; set; }
+    private NutritionModel NutritionModel { get; set; }
 
     protected override void OnInitialized()
     {
         Model = new FoodModel(Food);
+        NutritionModel = new NutritionModel
+        {
+            Carbs = 57,
+            Protein = 67,
+            Fat = 34
+        };
     }
 
     private void Cancel() => MudDialog.Close();
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
 
     private async Task AddFood()
     {
         try
         {
             await FoodListAdapter.LogFood(Model);
+            await OnFoodAdded.InvokeAsync();
+            Submit();
         }
         catch (Exception)
         {
