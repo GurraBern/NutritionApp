@@ -49,9 +49,6 @@ public class FoodListAdapter(IHttpClientFactory factory)
 	{
 		var client = CreateClient();
 
-		//TODO implement dynamic mealtype based on time of day and user settings
-		foodModel.MealType = MealTypeDto.Breakfast;
-		
 		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType);
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);

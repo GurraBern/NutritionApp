@@ -41,13 +41,14 @@
 @code {
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public FoodDto Food { get; set; }
+    [Parameter] public MealTypeDto SelectedMealType { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
     private FoodModel Model { get; set; }
     private NutritionModel NutritionModel { get; set; }
 
     protected override void OnInitialized()
     {
-        Model = new FoodModel(Food);
+        Model = new FoodModel(Food, SelectedMealType);
         NutritionModel = new NutritionModel
         {
             Carbs = 57,
@@ -64,6 +65,8 @@
         try
         {
             await FoodListAdapter.LogFood(Model);
+            Snackbar.Add($"{Model.Food.Name} {Model.Food.Amount} {Model.Food.Unit} was logged", Severity.Success);
+            
             await OnFoodAdded.InvokeAsync();
             Submit();
         }

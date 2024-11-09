@@ -8,9 +8,10 @@ public class FoodModel
     public decimal Amount { get; set; } = 100;
     public UnitDto Unit { get; set; } = UnitDto.Grams;
     public MealTypeDto MealType { get; set; }
-    public FoodModel(FoodDto food)
+    public FoodModel(FoodDto food, MealTypeDto mealType)
     {
         Food = food;
+        MealType = mealType;
     }
     
     public string FoodId => Food.Id;
