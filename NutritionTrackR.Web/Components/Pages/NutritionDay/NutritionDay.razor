@@ -31,11 +31,37 @@
     </ItemRenderer>
 </MudDropContainer>
 
-@* <MudAutocomplete T="FoodDto" ValueChanged="SelectFood" SearchFunc="SearchFood" ToStringFunc="@(food => food is null ? null : $"{food.Name}")"/> *@
+
+<MudDataGrid Items="@_nutrients" EditMode="@DataGridEditMode.Cell">
+    <Columns>
+        <HierarchyColumn T="NutrientDto"/>
+        <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
+        <PropertyColumn Property="x => x.DisplayWeight()" Title="Weight"/>
+    </Columns>
+    <ChildRowContent>
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">@context.Item.Name</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+            </MudCardContent>
+        </MudCard>
+    </ChildRowContent>
+    <PagerContent>
+        <MudDataGridPager T="NutrientDto" />
+    </PagerContent>
+</MudDataGrid>
+
+<div class="d-flex flex-wrap mt-4">
+    <MudSwitch T="bool" Color="@Color.Primary">Read Only</MudSwitch>
+</div>
 
 @code {
     private MudDropContainer<FoodSelector> _container;
     private List<FoodSelector> _foods = [];
+    private List<NutrientDto> _nutrients { get; set; } = [];
 
     private void RefreshContainer()
     {
@@ -46,6 +72,8 @@
     protected override async Task OnInitializedAsync()
     {
         await UpdateFoodList();
+
+        CalculateNutrition();
     }
 
     private async Task UpdateFoodList()
@@ -54,7 +82,6 @@
         _foods = foods.Select(f => new FoodSelector(f)).ToList();
         RefreshContainer();
     }
-
 
     private async Task AddFoodToMeal(MealTypeDto mealType)
     {
@@ -68,7 +95,6 @@
         var dialog = await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
         var result = await dialog.Result;
     }
-
 
     private static void ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
     {
@@ -88,5 +114,27 @@
     {
         public string ZoneId { get; init; }
         public MealTypeDto MealType { get; init; }
+    }
+
+    private void CalculateNutrition()
+    {
+        var dictionary = new Dictionary<string, NutrientDto>();
+        
+        foreach (var food in _foods)
+        {
+            foreach (var nutrient in food.Nutrients)
+            {
+                if (dictionary.TryGetValue(nutrient.Name, out var dictionaryNutrient))
+                {
+                    dictionaryNutrient.Weight += nutrient.Weight;
+                }
+                else
+                {
+                    dictionary.Add(nutrient.Name, nutrient);
+                }
+            }
+        }
+
+        _nutrients = dictionary.Values.ToList();
     }
 }
