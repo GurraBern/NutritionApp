@@ -64,7 +64,7 @@
     {
         try
         {
-            await FoodListAdapter.LogFood(Model);
+            await FoodListAdapter.LogFood(Model, DateTime.Now);
             Snackbar.Add($"{Model.Food.Name} {Model.Food.Amount} {Model.Food.Unit} was logged", Severity.Success);
             
             await OnFoodAdded.InvokeAsync();

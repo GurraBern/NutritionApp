@@ -8,6 +8,12 @@
 
 <h3>NutritionDay</h3>
 
+<div class="d-flex">
+    <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
+    <MudText>@CurrentDate</MudText>
+    <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
+</div>
+
 <MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item, dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
     <ChildContent>
         @foreach (var mealZone in _mealZones)
@@ -63,6 +69,8 @@
     private List<FoodSelector> _foods = [];
     private List<NutrientDto> _nutrients { get; set; } = [];
 
+    private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+
     private void RefreshContainer()
     {
         StateHasChanged();
@@ -78,7 +86,7 @@
 
     private async Task UpdateFoodList()
     {
-        var foods = await FoodListAdapter.GetLoggedFood();
+        var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
         _foods = foods.Select(f => new FoodSelector(f)).ToList();
         RefreshContainer();
     }
@@ -136,5 +144,19 @@
         }
 
         _nutrients = dictionary.Values.ToList();
+    }
+
+    private async Task GetPreviousNutritionDay()
+    {
+        CurrentDate = CurrentDate.AddDays(-1);
+        
+        await UpdateFoodList();
+    }
+    
+    private async Task GetNextNutritionDay()
+    {
+        CurrentDate = CurrentDate.AddDays(1);
+
+        await UpdateFoodList();
     }
 }

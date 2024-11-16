@@ -22,12 +22,14 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<FoodDto>> GetLoggedFood()
+	public async Task<List<FoodDto>> GetLoggedFood(DateOnly date)
 	{
 		var client = CreateClient();
 		try
 		{
-			var response = await client.GetFromJsonAsync<FoodResponse>("api/v1/food-log");
+			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString()} } );	
+			
+			var response = await client.GetFromJsonAsync<FoodResponse>("api/v1/food-log" + queryString);
 
 			return response.Foods;
 		}
@@ -45,11 +47,11 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return client;
 	}
 
-	public async Task LogFood(FoodModel foodModel)
+	public async Task LogFood(FoodModel foodModel, DateTime date)
 	{
 		var client = CreateClient();
 
-		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType);
+		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date);
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
 		response.EnsureSuccessStatusCode();
