@@ -17,7 +17,7 @@ public static class TrackFood
 			if (weight.IsFailure)
 				return Results.BadRequest(weight.Error);
 
-			var command = new LogFoodCommand(new FoodId(request.FoodId), weight.Data, (MealType)request.MealType);
+			var command = new LogFoodCommand(new FoodId(request.FoodId), weight.Data, (MealType)request.MealType, request.Date);
 
 			await mediator.Send(command);
 			

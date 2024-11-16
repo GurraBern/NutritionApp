@@ -10,11 +10,11 @@ public static class GetLoggedFood
 {
     public static void MapGetLoggedFood(this WebApplication app)
     {
-        app.MapGet("api/v1/food-log", async (IMediator mediator) =>
+        app.MapGet("api/v1/food-log", async (DateOnly date, IMediator mediator) =>
         {
             var query = new GetLoggedFoodsQuery(new FoodsQueryFilter
             {
-                Date = DateTime.Now
+                Date = date.ToDateTime(TimeOnly.MaxValue)
             });
 
             var result = await mediator.Send(query);
