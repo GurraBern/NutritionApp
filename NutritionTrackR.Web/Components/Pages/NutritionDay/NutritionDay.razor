@@ -14,7 +14,7 @@
     <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
 </div>
 
-<MudDropContainer T="FoodSelector" Items="@_foods" @ref="_container" ItemsSelector="@((item, dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+<MudDropContainer T="FoodSelector" Items="@Foods" @ref="_container" ItemsSelector="@((item, dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
     <ChildContent>
         @foreach (var mealZone in _mealZones)
         {
@@ -38,7 +38,7 @@
 </MudDropContainer>
 
 
-<MudDataGrid Items="@_nutrients" EditMode="@DataGridEditMode.Cell">
+<MudDataGrid Items="@Nutrients">
     <Columns>
         <HierarchyColumn T="NutrientDto"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
@@ -60,14 +60,10 @@
     </PagerContent>
 </MudDataGrid>
 
-<div class="d-flex flex-wrap mt-4">
-    <MudSwitch T="bool" Color="@Color.Primary">Read Only</MudSwitch>
-</div>
-
 @code {
-    private MudDropContainer<FoodSelector> _container;
-    private List<FoodSelector> _foods = [];
-    private List<NutrientDto> _nutrients { get; set; } = [];
+    private MudDropContainer<FoodSelector> _container = new();
+    private List<FoodSelector> Foods { get; set; } = [];
+    private List<NutrientDto> Nutrients { get; set; } = [];
 
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
@@ -81,14 +77,14 @@
     {
         await UpdateFoodList();
 
-        CalculateNutrition();
     }
 
     private async Task UpdateFoodList()
     {
         var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
-        _foods = foods.Select(f => new FoodSelector(f)).ToList();
+        Foods = foods.Select(f => new FoodSelector(f)).ToList();
         RefreshContainer();
+        CalculateNutrition();
     }
 
     private async Task AddFoodToMeal(MealTypeDto mealType)
@@ -112,10 +108,10 @@
 
     private readonly List<DropZone> _mealZones =
     [
-        new DropZone { ZoneId = "Breakfast", MealType = MealTypeDto.Breakfast },
-        new DropZone { ZoneId = "Lunch", MealType = MealTypeDto.Lunch },
-        new DropZone { ZoneId = "Dinner", MealType = MealTypeDto.Dinner },
-        new DropZone { ZoneId = "Snacks", MealType = MealTypeDto.Snack }
+        new() { ZoneId = "Breakfast", MealType = MealTypeDto.Breakfast },
+        new() { ZoneId = "Lunch", MealType = MealTypeDto.Lunch },
+        new() { ZoneId = "Dinner", MealType = MealTypeDto.Dinner },
+        new() { ZoneId = "Snacks", MealType = MealTypeDto.Snack }
     ];
 
     private class DropZone
@@ -128,7 +124,7 @@
     {
         var dictionary = new Dictionary<string, NutrientDto>();
         
-        foreach (var food in _foods)
+        foreach (var food in Foods)
         {
             foreach (var nutrient in food.Nutrients)
             {
@@ -143,7 +139,7 @@
             }
         }
 
-        _nutrients = dictionary.Values.ToList();
+        Nutrients = dictionary.Values.ToList();
     }
 
     private async Task GetPreviousNutritionDay()
