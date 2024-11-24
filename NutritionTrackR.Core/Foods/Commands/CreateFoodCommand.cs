@@ -15,7 +15,7 @@ public class CreateFoodCommandHandler(IFoodRepository repository, IUnitOfWork un
         if (result.IsSuccess)
             return Result.Failure(result.Error);
         
-        await repository.CreateFood(result.Data);
+        await repository.CreateFood(result.Value);
         
         await unitOfWork.SaveAsync();
         

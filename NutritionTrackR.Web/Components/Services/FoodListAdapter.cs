@@ -39,14 +39,6 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			return [];
 		}
 	}
-
-	private HttpClient CreateClient()
-	{
-		var client = factory.CreateClient(nameof(FoodListAdapter));
-
-		return client;
-	}
-
 	public async Task LogFood(FoodModel foodModel, DateTime date)
 	{
 		var client = CreateClient();
@@ -55,5 +47,12 @@ public class FoodListAdapter(IHttpClientFactory factory)
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
 		response.EnsureSuccessStatusCode();
+	}
+	
+	private HttpClient CreateClient()
+	{
+		var client = factory.CreateClient(nameof(FoodListAdapter));
+
+		return client;
 	}
 }

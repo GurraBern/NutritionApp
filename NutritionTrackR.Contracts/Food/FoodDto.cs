@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using NutritionTrackR.Core.Foods.ValueObjects;
 
 namespace NutritionTrackR.Contracts.Food;
 
@@ -16,7 +15,7 @@ public class FoodDto
 	public double Amount { get; set; }
 	
 	[JsonPropertyName("unit")]
-	public Unit Unit { get; set; }
+	public UnitDto Unit { get; set; }
     
 	[JsonPropertyName("nutrients")]
 	public List<NutrientDto> Nutrients { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using NutritionTrackR.Web.Components.Services;
 using System.ComponentModel.DataAnnotations;
+using NutritionTrackR.Web.Configuration;
 
 namespace NutritionTrackR.Web.Extensions;
 
@@ -13,16 +14,15 @@ public static class HttpClientExtensions
 			.Bind(builder.Configuration.GetSection(nameof(NutritionTrackRApiSettings)))
 			.ValidateDataAnnotations();
 
-		builder.Services.AddHttpClient(nameof(FoodListAdapter), (serviceProvider, httpClient) =>
+		builder.SetupHttpClient(nameof(FoodListAdapter));
+		builder.SetupHttpClient(nameof(NutritionGoalAdapter));
+	}
+	private static void SetupHttpClient(this WebApplicationBuilder builder, string name)
+	{
+		builder.Services.AddHttpClient(name, (serviceProvider, httpClient) =>
 		{
 			var settings = serviceProvider.GetRequiredService<IOptions<NutritionTrackRApiSettings>>().Value;
 			httpClient.BaseAddress = new Uri(settings.BaseAddress);
 		});
 	}
-}
-
-public class NutritionTrackRApiSettings
-{
-	[Required]
-	public string BaseAddress { get; set; }
 }

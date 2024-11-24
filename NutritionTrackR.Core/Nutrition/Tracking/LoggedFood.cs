@@ -1,7 +1,7 @@
 ﻿using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 
-namespace NutritionTrackR.Core.NutrientTracking;
+namespace NutritionTrackR.Core.Nutrition.Tracking;
 
 public class LoggedFood
 {

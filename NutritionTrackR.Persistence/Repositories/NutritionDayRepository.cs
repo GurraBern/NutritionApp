@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Nutrition.Tracking;
 
 namespace NutritionTrackR.Persistence.Repositories;
 

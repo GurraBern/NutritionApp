@@ -30,7 +30,7 @@ public static class CreateFood
         {
             var weight = Weight.Create(nutrient.Weight, (Unit)nutrient.Unit);
             if (weight.IsSuccess)
-                nutrients.Add(Nutrient.Create(nutrient.Name, weight.Data).Data);
+                nutrients.Add(Nutrient.Create(nutrient.Name, weight.Value).Value);
         }
 
         return nutrients;

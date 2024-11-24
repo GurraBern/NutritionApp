@@ -1,0 +1,55 @@
+﻿@page "/NutritionGoal"
+@using NutritionTrackR.Contracts.Food
+@using NutritionTrackR.Web.Components.Services
+@inject NutritionGoalAdapter NutritionGoalAdapter
+<h3>NutritionGoal</h3>
+
+<MudDataGrid T="NutrientDto" Items="@Nutrients.Take(4)" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
+             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
+             Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
+    <Columns>
+        <PropertyColumn Property="x => x.Name" Title="Nutrient" Editable="false" />
+        <PropertyColumn Property="x => x.Weight" Title="Weight" Editable="true"/>
+        <PropertyColumn Property="x => x.Unit" Title="Unit" Editable="true"/>
+        <TemplateColumn Hidden="@(_isCellEditMode || _readOnly || _editTriggerRowClick)" CellClass="d-flex justify-end">
+            <CellTemplate>
+                <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@context.Actions.StartEditingItemAsync" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+
+<MudButton Class="align-content-center" Variant="Variant.Filled" Size="Size.Large" Color="Color.Tertiary" OnClick="SaveNutritionalGoal">Save</MudButton>
+
+@code {
+    private List<NutrientDto> Nutrients { get; set; } = [];
+    private bool _readOnly;
+    private bool _isCellEditMode;
+    private List<string> _events = [];
+    private bool _editTriggerRowClick;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Nutrients = NutritionGoal.Nutrients.List();
+    }
+
+    void StartedEditingItem(NutrientDto item)
+    {
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    void CanceledEditingItem(NutrientDto item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(NutrientDto item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
+    }
+
+    private async Task SaveNutritionalGoal()
+    {
+        await NutritionGoalAdapter.SetNutritionGoal(Nutrients);
+    }
+}

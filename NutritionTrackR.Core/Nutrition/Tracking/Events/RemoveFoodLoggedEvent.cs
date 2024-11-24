@@ -2,18 +2,18 @@
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
-namespace NutritionTrackR.Core.NutrientTracking.Events;
+namespace NutritionTrackR.Core.Nutrition.Tracking.Events;
 
-public class FoodLoggedEvent : DomainEvent 
+public class RemoveFoodLoggedEvent : DomainEvent 
 {
 	public string FoodId { get; set; }
 	public Weight Weight { get; set; }
 	public MealType MealType { get; set; }
 	public DateTimeOffset OccurredAt { get; set; }
 	
-	public FoodLoggedEvent() { }
+	public RemoveFoodLoggedEvent() { }
 	
-	public FoodLoggedEvent(string foodId, Weight weight, MealType mealType)
+	public RemoveFoodLoggedEvent(string foodId, Weight weight, MealType mealType)
 	{
 		FoodId = foodId;
 		Weight = weight;

@@ -2,7 +2,7 @@
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Foods.Queries;
-using NutritionTrackR.Core.NutrientTracking.Queries;
+using NutritionTrackR.Core.Nutrition.Tracking.Queries;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
 
@@ -27,7 +27,7 @@ public static class GetLoggedFood
                 {
                     Name = food.Name,
                     Amount = loggedFood.Weight.Value,
-                    Unit = loggedFood.Weight.Unit,
+                    Unit = (UnitDto)loggedFood.Weight.Unit,
                     Nutrients = food.Nutrients.MapNutrientDtos(),
                     MealType = (MealTypeDto)loggedFood.MealType
                 };

@@ -13,7 +13,9 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddMudServices();
 
+
 builder.Services.AddScoped<FoodListAdapter>();
+builder.Services.AddScoped<NutritionGoalAdapter>();
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 builder.SetupNutritionTrackRHttpClient();

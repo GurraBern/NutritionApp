@@ -1,4 +1,4 @@
-﻿namespace NutritionTrackR.Core.NutrientTracking;
+﻿namespace NutritionTrackR.Core.Nutrition.Tracking;
 
 public interface INutritionDayRepository
 {

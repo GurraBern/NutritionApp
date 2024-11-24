@@ -2,7 +2,7 @@
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 
-namespace NutritionTrackR.Core.NutrientTracking;
+namespace NutritionTrackR.Core.Nutrition.Tracking;
 
 public class NutritionDay : AggregateRoot 
 {

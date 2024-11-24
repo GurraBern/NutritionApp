@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Persistence;
 using NutritionTrackR.Persistence.Repositories;

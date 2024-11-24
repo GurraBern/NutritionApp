@@ -1,8 +1,8 @@
 ﻿using NutritionTrackR.Core.Foods.ValueObjects;
 
-namespace NutritionTrackR.Core.NutrientTracking;
+namespace NutritionTrackR.Core.Nutrition.Target;
 
-public class NutritionGoal
+public class NutritionTarget
 {
 	public DateTime ActivationDate { get; set; }
 	

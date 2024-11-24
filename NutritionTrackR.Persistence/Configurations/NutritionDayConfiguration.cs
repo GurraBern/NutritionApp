@@ -5,6 +5,7 @@ using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Nutrition.Tracking;
 
 namespace NutritionTrackR.Persistence.Configurations;
 

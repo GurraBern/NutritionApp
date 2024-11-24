@@ -2,8 +2,8 @@
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.Commands;
 using NutritionTrackR.Core.Foods.Queries;
-using NutritionTrackR.Core.NutrientTracking.Commands;
-using NutritionTrackR.Core.NutrientTracking.Queries;
+using NutritionTrackR.Core.Nutrition.Tracking.Commands;
+using NutritionTrackR.Core.Nutrition.Tracking.Queries;
 using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
 

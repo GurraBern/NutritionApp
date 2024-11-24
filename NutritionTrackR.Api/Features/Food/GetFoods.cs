@@ -19,7 +19,7 @@ public static class GetFoods
 
 			var result = await mediator.Send(query);
 
-			var foods = result.Data.MapFoodResponse();
+			var foods = result.Value.MapFoodResponse();
 			
 			return Results.Ok(foods);
 		});

@@ -14,21 +14,13 @@
     <DialogContent>
 
         <MudItem xs="12" sm="6" md="4">
-            @* <MudAutocomplete *@
-            @*     T="FoodDto" *@
-            @*     Label="Test" *@
-            @*     ValueChanged="foodValue => SelectFood(foodValue)" *@
-            @*     SearchFunc="SearchFood" *@
-            @*     ToStringFunc="@(food => food is null ? null : $"{food.Name}")" *@
-            @*     ShowProgressIndicator="true"/> *@
-
             <MudAutocomplete T="FoodDto"
-                             Label="US States" 
+                             Label="Search Food" 
                              SearchFunc="SearchFood"
                              ValueChanged="foodValue => SelectFood(foodValue)"
                              ToStringFunc="@(food => food is null ? null : $"{food.Name}")"
                              AdornmentIcon="@Icons.Material.Filled.Search" 
-                             AdornmentColor="Color.Primary" />
+                             AdornmentColor="Color.Primary"/>
         </MudItem>
         
         

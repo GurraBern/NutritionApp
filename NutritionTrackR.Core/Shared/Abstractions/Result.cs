@@ -1,8 +1,8 @@
 ﻿namespace NutritionTrackR.Core.Shared.Abstractions;
 
-public class Result<T>(bool isSuccess, Error error, T data) : Result(isSuccess, error)
+public class Result<T>(bool isSuccess, Error error, T value) : Result(isSuccess, error)
 {
-	public T Data { get; } = data;
+	public T Value { get; } = value;
 }
 
 public class Result(bool isSuccess, Error error)

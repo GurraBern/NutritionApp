@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Nutrition.Tracking;
 
 namespace NutritionTrackR.Persistence;
 
