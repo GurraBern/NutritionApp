@@ -2,6 +2,7 @@
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.Commands;
 using NutritionTrackR.Core.Foods.Queries;
+using NutritionTrackR.Core.Nutrition.Target.Commands;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 using NutritionTrackR.Core.Nutrition.Tracking.Queries;
 using NutritionTrackR.Core.Shared;
@@ -19,9 +20,10 @@ public static class MediatRExtensions
 		});
 
 		builder.Services
-			.AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodCommandHandler>()
+			.AddScoped<IRequestHandler<CreateFoodCommand, Result>, CreateFoodHandler>()
 			.AddScoped<IRequestHandler<LogFoodCommand, Result>, LogFoodCommandHandler>()
 			.AddScoped<IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>, GetNutritionDaysHandler>()
-			.AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>();
+			.AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>()
+			.AddScoped<IRequestHandler<CreateNutritionTargetCommand, Result>, CreateNutritionTargetHandler>();
 	}
 }

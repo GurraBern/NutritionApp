@@ -1,8 +1,6 @@
 ﻿using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Contracts.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
-using NutritionTrackR.Core.NutrientTracking;
 
 namespace NutritionTrackR.Api.Extensions;
 

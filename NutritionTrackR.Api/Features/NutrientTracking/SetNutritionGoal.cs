@@ -19,7 +19,7 @@ public static class SetNutritionGoal
             
             var command = new CreateNutritionTargetCommand
             {
-                StartDate = request.StartDate,
+                StartDate = request.StartDate.ToDateTime(TimeOnly.MinValue),
                 NutrientGoals = nutritionGoalsResult.Value
             };
             

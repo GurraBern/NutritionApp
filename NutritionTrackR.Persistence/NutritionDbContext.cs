@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Foods;
-using NutritionTrackR.Core.NutrientTracking;
+using NutritionTrackR.Core.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Tracking;
 
 namespace NutritionTrackR.Persistence;
@@ -9,6 +9,7 @@ public class NutritionDbContext(DbContextOptions<NutritionDbContext> options) : 
 {
     public DbSet<Food> Foods { get; init; }
     public DbSet<NutritionDay> NutritionDays { get; init; }
+    public DbSet<NutritionTarget> NutritionTargets { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

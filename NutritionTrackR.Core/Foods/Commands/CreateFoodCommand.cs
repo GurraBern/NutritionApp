@@ -6,7 +6,7 @@ namespace NutritionTrackR.Core.Foods.Commands;
 
 public record CreateFoodCommand(string Name, List<Nutrient> Nutrients) : IRequest<Result>;
 
-public class CreateFoodCommandHandler(IFoodRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<CreateFoodCommand, Result>
+public class CreateFoodHandler(IFoodRepository repository, IUnitOfWork unitOfWork) : IRequestHandler<CreateFoodCommand, Result>
 {
     public async Task<Result> Handle(CreateFoodCommand command, CancellationToken cancellationToken)
     {
