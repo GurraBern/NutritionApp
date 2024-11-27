@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Contracts.Food;
 using System.Text.Json;
-using NutritionTrackR.Contracts.NutritionTracking;
+using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 
 namespace NutritionTrackR.Web.Components.Services;

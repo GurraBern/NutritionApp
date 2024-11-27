@@ -2,6 +2,7 @@
 
 public interface INutritionTargetRepository
 {
+    Task<NutritionTarget?> GetNutritionTarget();
     Task<NutritionTarget?> GetNutritionTarget(DateTime date);
     Task Add(NutritionTarget nutritionTarget);
 }

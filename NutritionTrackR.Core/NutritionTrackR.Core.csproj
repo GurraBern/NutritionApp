@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="DomainServices\" />
       <Folder Include="Extensions\" />
-      <Folder Include="Nutrition\Target\Queries\" />
     </ItemGroup>
 
     <ItemGroup>

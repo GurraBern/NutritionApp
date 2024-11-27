@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Contracts.Food;
 
-namespace NutritionTrackR.Contracts.NutritionTracking;
+namespace NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 
 public class LogFoodRequest(string foodId, decimal weight, UnitDto unit, MealTypeDto mealType, DateTime date)
 {

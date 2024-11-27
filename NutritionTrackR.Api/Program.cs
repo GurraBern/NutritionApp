@@ -7,15 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(); //TODO remove use minmal api instead
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddFirebaseAuthentication();
 builder.Services.AddAuthorization();
-
-// builder.Services.AddSingleton(FirebaseApp.Create(new AppOptions()
-// {
-//     Credential = GoogleCredential.GetApplicationDefault(),
-// }));
-
-// builder.Services.AddSingleton(FirestoreDb.Create("nutritiontracker-f8aba"));
 
 builder.SetupPersistence();
 
@@ -29,6 +21,7 @@ app.MapGetFoods();
 app.MapTrackFood();
 app.MapGetLoggedFood();
 app.MapSetNutritionTarget();
+app.MapGetNutritionTarget();
 
 if (app.Environment.IsDevelopment())
 {

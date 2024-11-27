@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Nutrition.Target;
 
 namespace NutritionTrackR.Persistence.Configurations;
@@ -20,5 +21,7 @@ public class NutritionTargetConfiguration : IEntityTypeConfiguration<NutritionTa
                 w.Property(p => p.Unit);
             });
         });
+        
+        builder.ToCollection("NutritionTargets");
     }
 }

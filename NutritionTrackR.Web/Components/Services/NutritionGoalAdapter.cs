@@ -1,4 +1,5 @@
-﻿using NutritionTrackR.Contracts.Food;
+﻿using System.Text.Json;
+using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Contracts.Nutrition.Goals;
 using NutritionTrackR.Contracts.Nutrition.Target;
 
@@ -12,8 +13,22 @@ public class NutritionGoalAdapter
 	{
 		_factory = factory;
 	}
+	
+	public async Task<NutritionTargetDto> GetNutritionTarget()
+	{
+		var client = CreateClient();
 
-	public async Task SetNutritionGoal(List<NutrientDto> nutrients)
+		var response = await client.GetAsync("api/v1/nutrition-target");
+		response.EnsureSuccessStatusCode();
+
+		var responseBody = await response.Content.ReadAsStringAsync();
+		
+		var nutritionTarget = JsonSerializer.Deserialize<NutritionTargetDto>(responseBody);
+		
+		return nutritionTarget;
+	}
+
+	public async Task SetNutritionTarget(List<NutrientDto> nutrients)
 	{
 		var client = CreateClient();
 		var request = new NutritionTargetRequest

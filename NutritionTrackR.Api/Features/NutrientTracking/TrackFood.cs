@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NutritionTrackR.Contracts.NutritionTracking;
+using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
@@ -17,7 +17,7 @@ public static class TrackFood
 			if (weight.IsFailure)
 				return Results.BadRequest(weight.Error);
 
-			var command = new LogFoodCommand(new FoodId(request.FoodId), weight.Value, (MealType)request.MealType, request.Date);
+			var command = new LogFood(new FoodId(request.FoodId), weight.Value, (MealType)request.MealType, request.Date);
 
 			await mediator.Send(command);
 			

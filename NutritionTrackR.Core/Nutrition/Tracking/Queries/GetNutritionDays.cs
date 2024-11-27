@@ -8,7 +8,7 @@ public record GetLoggedFoodsQuery(FoodsQueryFilter Filter) : IRequest<LoggedFood
 
 public record LoggedFoodResponse(IEnumerable<LoggedFood> LoggedFoods, IEnumerable<Food> Foods);
 
-public class GetNutritionDaysHandler(INutritionDayRepository repository, IFoodRepository foodRepository) : IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>
+public class GetNutritionDays(INutritionDayRepository repository, IFoodRepository foodRepository) : IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>
 {
     public async Task<LoggedFoodResponse> Handle(GetLoggedFoodsQuery query, CancellationToken cancellationToken)
     {
