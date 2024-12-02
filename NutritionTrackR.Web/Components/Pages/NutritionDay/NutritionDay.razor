@@ -1,9 +1,12 @@
 ﻿@page "/"
 @using NutritionTrackR.Contracts.Food
+@using NutritionTrackR.Contracts.Nutrition.Target
 @using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood
+@using NutritionTrackR.Web.Components.Pages.NutritionTarget
 @using NutritionTrackR.Web.Components.Services
 
 @inject FoodListAdapter FoodListAdapter
+@inject NutritionTargetAdapter NutritionTargetAdapter
 @inject IDialogService DialogService
 
 <h3>NutritionDay</h3>
@@ -38,11 +41,23 @@
 </MudDropContainer>
 
 
-<MudDataGrid Items="@Nutrients">
+<MudDataGrid T="NutrientDto" Items="@Nutrients">
     <Columns>
         <HierarchyColumn T="NutrientDto"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
         <PropertyColumn Property="x => x.DisplayWeight()" Title="Weight"/>
+        @* <TemplateColumn bind-Value="@DailyNutritionTarget.GetProgress()"> *@
+        <TemplateColumn Title="Progress">
+            <CellTemplate>
+                @if (DailyNutritionTarget != null)
+                {
+                    <div class="d-flex align-items-center gap-3">
+                        <MudText>@(context.Item.Weight + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
+                        <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
+                    </div>
+                }
+            </CellTemplate>
+        </TemplateColumn>
     </Columns>
     <ChildRowContent>
         <MudCard>
@@ -64,6 +79,7 @@
     private MudDropContainer<FoodSelector> _container = new();
     private List<FoodSelector> Foods { get; set; } = [];
     private List<NutrientDto> Nutrients { get; set; } = [];
+    private DailyNutritionTarget DailyNutritionTarget { get; set; }
 
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
@@ -75,8 +91,14 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await InitializeNutrientTarget();
         await UpdateFoodList();
-
+    }
+    
+    private async Task InitializeNutrientTarget()
+    {
+        var nutritionTarget  = await NutritionTargetAdapter.GetNutritionTarget();
+        DailyNutritionTarget = new DailyNutritionTarget(nutritionTarget.Nutrients);
     }
 
     private async Task UpdateFoodList()

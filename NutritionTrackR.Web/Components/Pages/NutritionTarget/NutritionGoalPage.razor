@@ -1,9 +1,8 @@
 ﻿@page "/NutritionGoal"
 @using NutritionTrackR.Contracts.Food
 @using NutritionTrackR.Contracts.Nutrition.Target
-@using NutritionTrackR.Web.Components.Pages.NutritionGoal
 @using NutritionTrackR.Web.Components.Services
-@inject NutritionGoalAdapter NutritionTargetAdapter
+@inject NutritionTargetAdapter NutritionTargetAdapter
 <h3>NutritionGoal</h3>
 
 <MudDataGrid T="NutrientDto" Items="@NutritionTargetModel.Nutrients" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"

@@ -33,7 +33,6 @@ public class Weight : IComparable<Weight>
         _ => string.Empty
     };
     
-    
     public double ToGrams() => Unit switch
     {
         Unit.Grams => Value,

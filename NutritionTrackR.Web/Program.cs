@@ -15,7 +15,7 @@ builder.Services.AddMudServices();
 
 
 builder.Services.AddScoped<FoodListAdapter>();
-builder.Services.AddScoped<NutritionGoalAdapter>();
+builder.Services.AddScoped<NutritionTargetAdapter>();
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 builder.SetupNutritionTrackRHttpClient();

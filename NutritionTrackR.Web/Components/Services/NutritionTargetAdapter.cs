@@ -5,11 +5,11 @@ using NutritionTrackR.Contracts.Nutrition.Target;
 
 namespace NutritionTrackR.Web.Components.Services;
 
-public class NutritionGoalAdapter
+public class NutritionTargetAdapter
 {
 	private readonly IHttpClientFactory _factory;
 
-	public NutritionGoalAdapter(IHttpClientFactory factory)
+	public NutritionTargetAdapter(IHttpClientFactory factory)
 	{
 		_factory = factory;
 	}
@@ -43,7 +43,7 @@ public class NutritionGoalAdapter
 		
 	private HttpClient CreateClient()
 	{
-		var client = _factory.CreateClient(nameof(NutritionGoalAdapter));
+		var client = _factory.CreateClient(nameof(NutritionTargetAdapter));
 
 		return client;
 	}

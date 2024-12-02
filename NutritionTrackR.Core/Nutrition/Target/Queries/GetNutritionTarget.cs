@@ -9,7 +9,7 @@ public class GetNutritionTarget(INutritionTargetRepository repository) : IReques
 {
     public async Task<Result<NutritionTarget>> Handle(GetNutritionTargetQuery query, CancellationToken cancellationToken)
     {
-        var nutritionTarget = await repository.GetNutritionTarget(query.Date);
+        var nutritionTarget = await repository.GetNutritionTarget();
         return nutritionTarget is null
             ? Result.Failure<NutritionTarget>(NutritionTargetErrors.NoExistingNutritionTargets)
             : Result.Success(nutritionTarget);

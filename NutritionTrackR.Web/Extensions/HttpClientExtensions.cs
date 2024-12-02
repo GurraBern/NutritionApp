@@ -15,7 +15,7 @@ public static class HttpClientExtensions
 			.ValidateDataAnnotations();
 
 		builder.SetupHttpClient(nameof(FoodListAdapter));
-		builder.SetupHttpClient(nameof(NutritionGoalAdapter));
+		builder.SetupHttpClient(nameof(NutritionTargetAdapter));
 	}
 	private static void SetupHttpClient(this WebApplicationBuilder builder, string name)
 	{
