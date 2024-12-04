@@ -46,7 +46,6 @@
         <HierarchyColumn T="NutrientDto"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
         <PropertyColumn Property="x => x.DisplayWeight()" Title="Weight"/>
-        @* <TemplateColumn bind-Value="@DailyNutritionTarget.GetProgress()"> *@
         <TemplateColumn Title="Progress">
             <CellTemplate>
                 @if (DailyNutritionTarget != null)
