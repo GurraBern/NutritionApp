@@ -10,6 +10,8 @@ public class GetFoodsHandler(IFoodRepository repository) : IRequestHandler<GetFo
 	public async Task<Result<IEnumerable<Food>>> Handle(GetFoodsQuery query, CancellationToken cancellationToken)
 	{
 		var foods = await repository.GetAll();
+		
+		
 
 		return Result.Success(foods);
 	}

@@ -60,7 +60,8 @@ public enum Unit
    Milligram,
    Microgram,
    Pound,
-   Ounce
+   Ounce,
+   Kcal
 }
 
 public enum MeasurementSystem

@@ -7,6 +7,7 @@ namespace NutritionTrackR.Core.Foods;
 public class Food : Entity
 {
     public string Name { get; set;  }
+    public string? ExternalId { get; set; }
     public List<Nutrient> Nutrients { get; set; } = [];
 
     private Food() { }

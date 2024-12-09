@@ -21,5 +21,7 @@ public class FoodConfiguration : IEntityTypeConfiguration<Food>
 				});
 			})
 			.HasKey(f => f.Id);
+
+		builder.Property(x => x.ExternalId);
 	}
 }
