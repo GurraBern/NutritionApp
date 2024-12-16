@@ -42,6 +42,7 @@
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public FoodDto Food { get; set; }
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
+    [Parameter] public DateTime Date { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
     private FoodModel Model { get; set; }
     private NutritionModel NutritionModel { get; set; }
@@ -64,7 +65,7 @@
     {
         try
         {
-            await FoodListAdapter.LogFood(Model, DateTime.Now);
+            await FoodListAdapter.LogFood(Model, Date);
             Snackbar.Add($"{Model.Food.Name} {Model.Food.Amount} {Model.Food.Unit} was logged", Severity.Success);
             
             await OnFoodAdded.InvokeAsync();

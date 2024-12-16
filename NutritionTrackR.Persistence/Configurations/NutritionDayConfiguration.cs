@@ -15,6 +15,8 @@ public class NutritionDayConfiguration : IEntityTypeConfiguration<NutritionDay>
 
         builder.OwnsMany(n => n.ConsumedFood, o =>
         {
+            o.Property(x => x.LoggedFoodId);
+            
             o.Property(x => x.FoodId)
                 .HasConversion(v => ObjectId.Parse(v.Id), v => new FoodId(v.ToString()));
 
