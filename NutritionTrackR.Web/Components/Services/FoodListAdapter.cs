@@ -1,7 +1,9 @@
-﻿using NutritionTrackR.Contracts.Food;
+﻿using System.Globalization;
+using NutritionTrackR.Contracts.Food;
 using System.Text.Json;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
+using NutritionTrackR.Web.Components.Pages.NutritionDay;
 
 namespace NutritionTrackR.Web.Components.Services;
 
@@ -22,16 +24,18 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<FoodDto>> GetLoggedFood(DateOnly date)
+	public async Task<List<LoggedFoodModel>> GetLoggedFood(DateOnly date)
 	{
 		var client = CreateClient();
 		try
 		{
-			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString()} } );	
+			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString(CultureInfo.InvariantCulture)} } );	
 			
 			var response = await client.GetFromJsonAsync<FoodResponse>("api/v1/food-log" + queryString);
 
-			return response.Foods;
+			var loggedFood = response.Foods.Select(foodDto => new LoggedFoodModel(foodDto)).ToList();
+
+			return loggedFood;
 		}
 		catch (Exception e)
 		{
@@ -39,6 +43,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			return [];
 		}
 	}
+	
 	public async Task LogFood(FoodModel foodModel, DateTime date)
 	{
 		var client = CreateClient();
@@ -46,6 +51,24 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date);
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
+		response.EnsureSuccessStatusCode();
+	}
+	
+	public async Task UpdateLoggedFood(LoggedFoodModel foodModel, DateTime date)
+	{
+		var client = CreateClient();
+
+		var request = new UpdateLoggedFoodRequest
+		{
+			Date = date,
+			FoodId = foodModel.FoodId,
+			LoggedFoodId = foodModel.FoodId,
+			Weight = foodModel.Amount,
+			Unit = foodModel.Unit,
+			MealType = foodModel.MealType
+		};
+
+		var response = await client.PutAsJsonAsync("api/v1/food-entry", request);
 		response.EnsureSuccessStatusCode();
 	}
 	

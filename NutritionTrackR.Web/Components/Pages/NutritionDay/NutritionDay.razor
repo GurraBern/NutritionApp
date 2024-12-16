@@ -33,7 +33,7 @@
     <ItemRenderer>
         <MudListItem T="FoodSelector">
             <div class="d-flex justify-space-between">
-                <MudText>@context.Name</MudText>
+                <MudText>@context.LoggedFoodModel.Food.Name</MudText>
                 <MudText>@context.DisplayWeight()</MudText>
             </div>
         </MudListItem>
@@ -114,17 +114,20 @@
         var parameters = new DialogParameters<FoodSearchDialog>
         {
             { x => x.SelectedMealType, mealType },
-            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) }
+            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) },
+            { x => x.Date, CurrentDate.ToDateTime(TimeOnly.MinValue)}
         };
 
         var dialog = await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
         var result = await dialog.Result;
     }
 
-    private static void ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
+    private async Task ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
     {
         dropItem.Item.ZoneId = dropItem.DropzoneIdentifier;
-        dropItem.Item.MealType = FoodSelector.GetMealType(dropItem.DropzoneIdentifier);
+        dropItem.Item.LoggedFoodModel.MealType = FoodSelector.GetMealType(dropItem.DropzoneIdentifier);
+        
+        await FoodListAdapter.UpdateLoggedFood(dropItem.Item.LoggedFoodModel, DateTime.Now);
     }
 
     private readonly List<DropZone> _mealZones =
@@ -147,7 +150,7 @@
         
         foreach (var food in Foods)
         {
-            foreach (var nutrient in food.Nutrients)
+            foreach (var nutrient in food.LoggedFoodModel.Nutrients)
             {
                 if (dictionary.TryGetValue(nutrient.Name, out var dictionaryNutrient))
                 {

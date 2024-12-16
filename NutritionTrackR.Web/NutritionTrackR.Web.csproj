@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>3afbc73f-f279-47d4-986f-0c6217446d7b</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MudBlazor" Version="7.8.0" />
+      <PackageReference Include="MudBlazor" Version="7.15.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -5,6 +5,7 @@ namespace NutritionTrackR.Core.Nutrition.Tracking;
 
 public class LoggedFood
 {
+    public Guid LoggedFoodId { get; private set; } = Guid.NewGuid();
     public FoodId FoodId { get; private set; }
     public Weight Weight { get; private set; }
     public MealType MealType { get; private set; }

@@ -23,7 +23,7 @@ public static class GetLoggedFood
             var response = result.LoggedFoods.Select(loggedFood =>
             {
                 var food = result.Foods.First(f => f.Id.ToString() == loggedFood.FoodId.Id);
-                return new FoodDto 
+                return new FoodDto
                 {
                     Name = food.Name,
                     Amount = loggedFood.Weight.Value,

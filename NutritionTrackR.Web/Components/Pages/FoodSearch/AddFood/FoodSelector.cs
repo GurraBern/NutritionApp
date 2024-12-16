@@ -1,22 +1,20 @@
 ﻿using NutritionTrackR.Contracts.Food;
+using NutritionTrackR.Web.Components.Pages.NutritionDay;
 
 namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 
-public class FoodSelector : FoodDto
+public class FoodSelector
 {
     public string ZoneId { get; set; }
+    public LoggedFoodModel LoggedFoodModel { get; set; }
 
-    public FoodSelector(FoodDto foodDto)
+    public FoodSelector(LoggedFoodModel foodModel)
     {
-        ZoneId = GetZoneId(foodDto.MealType);
-        Name = foodDto.Name;
-        Nutrients = foodDto.Nutrients;
-        Amount = foodDto.Amount;
-        Unit = foodDto.Unit;
-        MealType = foodDto.MealType;
+        ZoneId = GetZoneId(foodModel.MealType);
+        LoggedFoodModel = foodModel;
     }
 
-    public string DisplayWeight() => $"{Amount} {Unit.ToString()}";
+    public string DisplayWeight() => $"{LoggedFoodModel.Amount} {LoggedFoodModel.Unit.ToString()}";
 
     public static MealTypeDto GetMealType(string input) => input switch
     {

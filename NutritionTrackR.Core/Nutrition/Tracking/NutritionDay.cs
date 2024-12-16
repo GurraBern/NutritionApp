@@ -19,4 +19,12 @@ public class NutritionDay : AggregateRoot
         var foodEntry = LoggedFood.Create(foodId, weight, mealType);
         ConsumedFood.Add(foodEntry);
     }
+
+    public void UpdateFood(LoggedFood loggedFood)
+    {
+        var food = ConsumedFood.First(x => x.LoggedFoodId == loggedFood.LoggedFoodId);
+
+        ConsumedFood.Remove(food);
+        ConsumedFood.Add(loggedFood);
+    }
 }

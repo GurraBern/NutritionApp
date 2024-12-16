@@ -35,6 +35,7 @@
     
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
+    [Parameter] public DateTime Date { get; set; }
     private List<FoodDto> _searchedFood = [];
     
     protected override async Task OnInitializedAsync()
@@ -61,7 +62,8 @@
         {
             { x => x.Food, selectedFood },
             { x => x.SelectedMealType, SelectedMealType },
-            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodAdded) }
+            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodAdded) },
+            { x => x.Date, Date}
         };
     
         var dialog = await DialogService.ShowAsync<FoodDetailsDialog>(selectedFood.Name, parameters, options);
