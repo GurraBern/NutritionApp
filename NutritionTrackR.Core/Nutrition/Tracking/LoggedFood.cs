@@ -25,4 +25,23 @@ public class LoggedFood
 
         return foodEntry;
     }
+    
+    
+    public static LoggedFood Create(Guid loggedFoodId, FoodId foodId, Weight weight, MealType mealType)
+    {
+        var foodEntry = new LoggedFood(foodId, weight, mealType)
+        {
+            LoggedFoodId = loggedFoodId
+        };
+
+        return foodEntry;
+    }
+
+    public void UpdateWith(LoggedFood loggedFood)
+    {
+        LoggedFoodId = loggedFood.LoggedFoodId;
+        FoodId = loggedFood.FoodId;
+        Weight = loggedFood.Weight;
+        MealType = loggedFood.MealType;
+    }
 }

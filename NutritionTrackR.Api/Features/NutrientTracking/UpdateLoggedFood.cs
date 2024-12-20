@@ -20,7 +20,7 @@ public static class UpdateLoggedFood
 				return Results.BadRequest(weight.Error);
 			
 
-			var loggedFood = LoggedFood.Create(foodId, weight.Value, (MealType)request.MealType);
+			var loggedFood = LoggedFood.Create(request.LoggedFoodId, foodId, weight.Value, (MealType)request.MealType);
 			
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);
 

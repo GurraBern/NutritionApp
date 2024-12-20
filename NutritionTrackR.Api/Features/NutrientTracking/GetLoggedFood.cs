@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Food;
+using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods.Queries;
 using NutritionTrackR.Core.Nutrition.Tracking.Queries;
+using GetLoggedFoodResponse = NutritionTrackR.Contracts.Nutrition.NutritionTracking.LoggedFoodResponse;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
 
@@ -20,11 +22,13 @@ public static class GetLoggedFood
             var result = await mediator.Send(query);
             
             //TODO use dictionary instead
-            var response = result.LoggedFoods.Select(loggedFood =>
+            var loggedFoodDtos = result.LoggedFoods.Select(loggedFood =>
             {
                 var food = result.Foods.First(f => f.Id.ToString() == loggedFood.FoodId.Id);
-                return new FoodDto
+                return new LoggedFoodDto 
                 {
+                    Id = loggedFood.FoodId.Id,
+                    LoggedFoodId = loggedFood.LoggedFoodId,
                     Name = food.Name,
                     Amount = loggedFood.Weight.Value,
                     Unit = (UnitDto)loggedFood.Weight.Unit,
@@ -33,9 +37,9 @@ public static class GetLoggedFood
                 };
             });
 
-            return Results.Ok(new FoodResponse
+            return Results.Ok(new GetLoggedFoodResponse
             {
-                Foods = response.ToList()
+                Foods = loggedFoodDtos.ToList()
             });
         });
     }
