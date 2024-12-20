@@ -15,7 +15,7 @@ public class FoodModel
     }
     
     public string FoodId => Food.Id;
-    public List<NutrientDto> Nutrients { get; set; }
+    public List<NutrientDto> Nutrients => Food.Nutrients;
 }
 
 public class NutritionModel

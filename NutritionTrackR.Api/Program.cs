@@ -22,6 +22,7 @@ app.MapTrackFood();
 app.MapGetLoggedFood();
 app.MapSetNutritionTarget();
 app.MapGetNutritionTarget();
+app.MapUpdateLoggedFood();
 
 if (app.Environment.IsDevelopment())
 {

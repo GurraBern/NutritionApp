@@ -31,7 +31,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		{
 			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString(CultureInfo.InvariantCulture)} } );	
 			
-			var response = await client.GetFromJsonAsync<FoodResponse>("api/v1/food-log" + queryString);
+			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-log" + queryString);
 
 			var loggedFood = response.Foods.Select(foodDto => new LoggedFoodModel(foodDto)).ToList();
 
@@ -62,7 +62,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		{
 			Date = date,
 			FoodId = foodModel.FoodId,
-			LoggedFoodId = foodModel.FoodId,
+			LoggedFoodId = foodModel.LoggedFoodId,
 			Weight = foodModel.Amount,
 			Unit = foodModel.Unit,
 			MealType = foodModel.MealType
