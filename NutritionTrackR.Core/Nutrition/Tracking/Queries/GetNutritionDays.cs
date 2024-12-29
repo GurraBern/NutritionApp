@@ -1,6 +1,9 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using MongoDB.Bson;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.Queries;
+using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking.Queries;
 
@@ -8,7 +11,7 @@ public record GetLoggedFoodsQuery(FoodsQueryFilter Filter) : IRequest<LoggedFood
 
 public record LoggedFoodResponse(IEnumerable<LoggedFood> LoggedFoods, IEnumerable<Food> Foods);
 
-public class GetNutritionDays(INutritionDayRepository repository, IFoodRepository foodRepository) : IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>
+public class GetNutritionDays(INutritionDbContext dbContext, INutritionDayRepository repository) : IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>
 {
     public async Task<LoggedFoodResponse> Handle(GetLoggedFoodsQuery query, CancellationToken cancellationToken)
     {
@@ -16,11 +19,14 @@ public class GetNutritionDays(INutritionDayRepository repository, IFoodRepositor
         if (nutritionDay == null)
             return new LoggedFoodResponse([], []);
 
-        var consumedFood = nutritionDay.ConsumedFood;
+        var foodIds = nutritionDay.ConsumedFood
+            .Select(x => ObjectId.Parse(x.FoodId.Id));
+        
+        var foods = await dbContext.Foods
+            .Where(x => foodIds.Contains(x.Id))
+            .AsNoTracking()
+            .ToListAsync(cancellationToken: cancellationToken);
 
-        var foodIds = consumedFood.Select(x => x.FoodId);
-        var foods = await foodRepository.Get(foodIds);
-
-        return new LoggedFoodResponse(consumedFood, foods);
+        return new LoggedFoodResponse(nutritionDay.ConsumedFood, foods);
     }
 }

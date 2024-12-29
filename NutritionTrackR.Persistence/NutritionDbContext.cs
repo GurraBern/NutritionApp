@@ -2,10 +2,11 @@
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Tracking;
+using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Persistence;
 
-public class NutritionDbContext(DbContextOptions<NutritionDbContext> options) : DbContext(options)
+public class NutritionDbContext(DbContextOptions<NutritionDbContext> options) : DbContext(options), INutritionDbContext
 {
     public DbSet<Food> Foods { get; init; }
     public DbSet<NutritionDay> NutritionDays { get; init; }

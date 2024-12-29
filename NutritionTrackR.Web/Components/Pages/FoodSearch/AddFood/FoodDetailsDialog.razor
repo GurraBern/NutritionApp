@@ -34,7 +34,15 @@
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton OnClick="AddFood">Add Food</MudButton>
+        
+        @if (IsEditMode is false)
+        {
+            <MudButton OnClick="AddFood">Add</MudButton>
+        }
+        else
+        {
+            <MudButton OnClick="UpdateFood">Update</MudButton>
+        }
     </DialogActions>
 </MudDialog>
 
@@ -44,6 +52,7 @@
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
     [Parameter] public DateTime Date { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
+    [Parameter] public bool IsEditMode { get; set; }
     private FoodModel Model { get; set; }
     private NutritionModel NutritionModel { get; set; }
 
@@ -76,6 +85,13 @@
             Snackbar.Add("Could not log food", Severity.Error);
         }
     }
+
+    private async Task UpdateFood()
+    {
+        var test = NutritionModel;
+        // await FoodListAdapter.UpdateLoggedFood(NutritionModel, DateTime.Now);
+    }
+
 }
 
 @* TODO add favorite button *@

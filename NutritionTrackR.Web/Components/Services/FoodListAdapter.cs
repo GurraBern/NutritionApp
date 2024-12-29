@@ -9,15 +9,17 @@ namespace NutritionTrackR.Web.Components.Services;
 
 public class FoodListAdapter(IHttpClientFactory factory)
 {
-	public async Task<List<FoodDto>> GetFoodItems()
+	public async Task<IEnumerable<FoodDto>> GetFoodItems(string searchTerm = "", CancellationToken token = default)
 	{
 		var client = CreateClient();
-
-		var response = await client.GetAsync("api/v1/food");
+		
+		var queryString = QueryString.Create(new Dictionary<string, string?> { {"searchTerm", searchTerm} } );	
+		
+		var response = await client.GetAsync("api/v1/food" + queryString, token);
 		if (!response.IsSuccessStatusCode) //TODO show popup
 			return [];
 
-		var responseBody = await response.Content.ReadAsStringAsync();
+		var responseBody = await response.Content.ReadAsStringAsync(token);
 
 		var foodResponse = JsonSerializer.Deserialize<FoodResponse>(responseBody);
 

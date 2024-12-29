@@ -12,18 +12,17 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-
         <MudItem xs="12" sm="6" md="4">
-            <MudAutocomplete T="FoodDto"
+            <MudAutocomplete @ref="FoodAutoComplete"
+                             T="FoodDto"
                              Label="Search Food" 
-                             SearchFunc="SearchFood"
+                             SearchFunc="@Search"
                              ValueChanged="foodValue => SelectFood(foodValue)"
+                             ShowProgressIndicator="true"
                              ToStringFunc="@(food => food is null ? null : $"{food.Name}")"
                              AdornmentIcon="@Icons.Material.Filled.Search" 
                              AdornmentColor="Color.Primary"/>
         </MudItem>
-        
-        
     </DialogContent>
     <DialogActions>
         <MudButton>Add Food</MudButton>
@@ -32,27 +31,29 @@
 
 
 @code {
-    
+    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
     [Parameter] public DateTime Date { get; set; }
-    private List<FoodDto> _searchedFood = [];
+    private IEnumerable<FoodDto> _searchedFood = [];
+    
+    private MudAutocomplete<FoodDto> FoodAutoComplete { get; set; }
+    private void Cancel() => MudDialog.Close();
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     
     protected override async Task OnInitializedAsync()
     {
         _searchedFood = await FoodListAdapter.GetFoodItems();
     }
     
-    private Task<IEnumerable<FoodDto>> SearchFood(string searchTerm, CancellationToken cancellationToken)
+    private async Task<IEnumerable<FoodDto>> Search(string searchTerm, CancellationToken token)
     {
         if (string.IsNullOrEmpty(searchTerm))
-        {
-            return Task.FromResult(Enumerable.Empty<FoodDto>());
-        }
+            return [];
 
-        var searchedFoods = _searchedFood.Where(food => food.Name.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
+        var foods = await FoodListAdapter.GetFoodItems(searchTerm, token);
 
-        return Task.FromResult(searchedFoods);
+        return foods;
     }
 
     private async Task SelectFood(FoodDto selectedFood)
@@ -65,8 +66,16 @@
             { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodAdded) },
             { x => x.Date, Date}
         };
+
+        await FoodAutoComplete.CloseMenuAsync();
     
         var dialog = await DialogService.ShowAsync<FoodDetailsDialog>(selectedFood.Name, parameters, options);
+        
         var result = await dialog.Result;
+
+        if (result is { Canceled: false, Data: true })
+        {
+            Submit();
+        }
     }
 }

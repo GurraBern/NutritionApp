@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using NutritionTrackR.Contracts.Food
-@using NutritionTrackR.Contracts.Nutrition.Target
 @using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood
 @using NutritionTrackR.Web.Components.Pages.NutritionTarget
 @using NutritionTrackR.Web.Components.Services
@@ -31,7 +30,7 @@
         }
     </ChildContent>
     <ItemRenderer>
-        <MudListItem T="FoodSelector">
+        <MudListItem T="FoodSelector" OnClick="() => OpenLoggedFoodDetails(context.LoggedFoodModel)">
             <div class="d-flex justify-space-between">
                 <MudText>@context.LoggedFoodModel.Food.Name</MudText>
                 <MudText>@context.DisplayWeight()</MudText>
@@ -119,7 +118,6 @@
         };
 
         var dialog = await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
-        var result = await dialog.Result;
     }
 
     private async Task ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
@@ -148,18 +146,15 @@
     {
         var dictionary = new Dictionary<string, NutrientDto>();
         
-        foreach (var food in Foods)
+        foreach (var nutrient in Foods.SelectMany(food => food.LoggedFoodModel.Nutrients))
         {
-            foreach (var nutrient in food.LoggedFoodModel.Nutrients)
+            if (dictionary.TryGetValue(nutrient.Name, out var dictionaryNutrient))
             {
-                if (dictionary.TryGetValue(nutrient.Name, out var dictionaryNutrient))
-                {
-                    dictionaryNutrient.Weight += nutrient.Weight;
-                }
-                else
-                {
-                    dictionary.Add(nutrient.Name, nutrient);
-                }
+                dictionaryNutrient.Weight += nutrient.Weight;
+            }
+            else
+            {
+                dictionary.Add(nutrient.Name, nutrient);
             }
         }
 
@@ -178,5 +173,18 @@
         CurrentDate = CurrentDate.AddDays(1);
 
         await UpdateFoodList();
+    }
+
+    private async Task OpenLoggedFoodDetails(LoggedFoodModel loggedFoodModel)
+    {
+        DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        DialogParameters<FoodDetailsDialog> parameters = new()
+        {
+            { x => x.Food, loggedFoodModel.Food },
+            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) },
+            { x => x.IsEditMode, true}
+        };
+    
+        await DialogService.ShowAsync<FoodDetailsDialog>(loggedFoodModel.Food.Name, parameters, options);
     }
 }

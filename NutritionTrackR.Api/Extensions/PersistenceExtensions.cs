@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Tracking;
+using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Persistence;
 using NutritionTrackR.Persistence.Repositories;
@@ -15,9 +16,9 @@ public static class PersistenceExtensions
 	public static void SetupPersistence(this WebApplicationBuilder builder)
 	{
 		builder.SetupEfCore();
+		builder.Services.AddScoped<INutritionDbContext, NutritionDbContext>();
 		
 		builder.Services.AddScoped<IUnitOfWork, EfUnitOfWork>();
-		builder.Services.AddScoped<IFoodRepository, FoodRepository>();
 		builder.Services.AddScoped<INutritionDayRepository, NutritionDayRepository>();
 		builder.Services.AddScoped<INutritionTargetRepository, NutritionTargetRepository>();
 	}

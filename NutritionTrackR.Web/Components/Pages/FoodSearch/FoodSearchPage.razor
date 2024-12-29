@@ -24,7 +24,6 @@
 
     protected async override Task OnInitializedAsync()
     {
-        _foods = await FoodListAdapter.GetFoodItems();
         _filteredFoods = _foods;
     }
 

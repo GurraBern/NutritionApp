@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Core.Foods.Queries;
 
@@ -8,13 +9,13 @@ public static class GetFoods
 {
 	public static void MapGetFoods(this WebApplication app)
 	{
-		app.MapGet("api/v1/food", async (IMediator mediator) =>
+		app.MapGet("api/v1/food", async ([FromServices] IMediator mediator, [FromQuery] string searchTerm) =>
 		{
-			var filter = new FoodsQueryFilter
+			var filter = new FoodsQueryFilter()
 			{
-				HealthyScore = 10
+				Name = searchTerm
 			};
-
+			
 			var query = new GetFoodsQuery(filter);
 
 			var result = await mediator.Send(query);
