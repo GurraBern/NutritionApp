@@ -39,7 +39,6 @@
     </ItemRenderer>
 </MudDropContainer>
 
-
 <MudDataGrid T="NutrientDto" Items="@Nutrients">
     <Columns>
         <HierarchyColumn T="NutrientDto"/>
@@ -47,13 +46,10 @@
         <PropertyColumn Property="x => x.DisplayWeight()" Title="Weight"/>
         <TemplateColumn Title="Progress">
             <CellTemplate>
-                @if (DailyNutritionTarget != null)
-                {
-                    <div class="d-flex align-items-center gap-3">
-                        <MudText>@(context.Item.Weight + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
-                        <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
-                    </div>
-                }
+                <div class="d-flex align-items-center gap-3">
+                    <MudText>@(Math.Round(context.Item.Weight, 2) + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
+                    <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
+                </div>
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -113,8 +109,8 @@
         var parameters = new DialogParameters<FoodSearchDialog>
         {
             { x => x.SelectedMealType, mealType },
-            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) },
-            { x => x.Date, CurrentDate.ToDateTime(TimeOnly.MinValue)}
+            { x => x.OnFoodChanged, EventCallback.Factory.Create(this, UpdateFoodList) },
+            { x => x.Date, CurrentDate}
         };
 
         var dialog = await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
@@ -123,9 +119,9 @@
     private async Task ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
     {
         dropItem.Item.ZoneId = dropItem.DropzoneIdentifier;
-        dropItem.Item.LoggedFoodModel.MealType = FoodSelector.GetMealType(dropItem.DropzoneIdentifier);
+        dropItem.Item.LoggedFoodModel.Food.MealType = FoodSelector.GetMealType(dropItem.DropzoneIdentifier);
         
-        await FoodListAdapter.UpdateLoggedFood(dropItem.Item.LoggedFoodModel, DateTime.Now);
+        await FoodListAdapter.UpdateLoggedFood(dropItem.Item.LoggedFoodModel, DateOnly.FromDateTime(DateTime.Now));
     }
 
     private readonly List<DropZone> _mealZones =
@@ -175,14 +171,15 @@
         await UpdateFoodList();
     }
 
-    private async Task OpenLoggedFoodDetails(LoggedFoodModel loggedFoodModel)
+    private async Task OpenLoggedFoodDetails(FoodModel loggedFoodModel)
     {
         DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
         DialogParameters<FoodDetailsDialog> parameters = new()
         {
-            { x => x.Food, loggedFoodModel.Food },
+            { x => x.FoodModel, loggedFoodModel },
             { x => x.OnFoodAdded, EventCallback.Factory.Create(this, UpdateFoodList) },
-            { x => x.IsEditMode, true}
+            { x => x.IsEditMode, true},
+            { x => x.Date, CurrentDate}
         };
     
         await DialogService.ShowAsync<FoodDetailsDialog>(loggedFoodModel.Food.Name, parameters, options);

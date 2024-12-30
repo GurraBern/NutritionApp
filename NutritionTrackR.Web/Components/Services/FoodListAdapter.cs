@@ -26,7 +26,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<LoggedFoodModel>> GetLoggedFood(DateOnly date)
+	public async Task<List<FoodModel>> GetLoggedFood(DateOnly date)
 	{
 		var client = CreateClient();
 		try
@@ -35,7 +35,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			
 			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-log" + queryString);
 
-			var loggedFood = response.Foods.Select(foodDto => new LoggedFoodModel(foodDto)).ToList();
+			var loggedFood = response.Foods.Select(foodDto => new FoodModel(foodDto, foodDto.LoggedFoodId)).ToList();
 
 			return loggedFood;
 		}
@@ -46,25 +46,25 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		}
 	}
 	
-	public async Task LogFood(FoodModel foodModel, DateTime date)
+	public async Task LogFood(FoodModel foodModel, DateOnly date)
 	{
 		var client = CreateClient();
 
-		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date);
+		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date.ToDateTime(TimeOnly.MinValue));
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
 		response.EnsureSuccessStatusCode();
 	}
 	
-	public async Task UpdateLoggedFood(LoggedFoodModel foodModel, DateTime date)
+	public async Task UpdateLoggedFood(FoodModel foodModel, DateOnly date)
 	{
 		var client = CreateClient();
 
 		var request = new UpdateLoggedFoodRequest
 		{
-			Date = date,
+			Date = date.ToDateTime(TimeOnly.MinValue),
 			FoodId = foodModel.FoodId,
-			LoggedFoodId = foodModel.LoggedFoodId,
+			LoggedFoodId = foodModel.LoggedFoodId!.Value,
 			Weight = foodModel.Amount,
 			Unit = foodModel.Unit,
 			MealType = foodModel.MealType

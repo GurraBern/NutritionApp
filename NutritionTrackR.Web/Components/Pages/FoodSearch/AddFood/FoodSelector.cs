@@ -1,14 +1,13 @@
 ﻿using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Web.Components.Pages.NutritionDay;
 
 namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 
 public class FoodSelector
 {
     public string ZoneId { get; set; }
-    public LoggedFoodModel LoggedFoodModel { get; set; }
+    public FoodModel LoggedFoodModel { get; set; }
 
-    public FoodSelector(LoggedFoodModel foodModel)
+    public FoodSelector(FoodModel foodModel)
     {
         ZoneId = GetZoneId(foodModel.MealType);
         LoggedFoodModel = foodModel;

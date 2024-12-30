@@ -2,19 +2,16 @@
 
 namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 
-public class FoodModel
+public class FoodModel(FoodDto food, Guid? loggedFoodId = default)
 {
-    public FoodDto Food { get; }
-    public decimal Amount { get; set; } = 100;
+    public FoodDto Food { get; } = food;
+    public decimal Amount { get; set; } = new(food.Amount);
     public UnitDto Unit { get; set; } = UnitDto.Grams;
-    public MealTypeDto MealType { get; set; }
-    public FoodModel(FoodDto food, MealTypeDto mealType)
-    {
-        Food = food;
-        MealType = mealType;
-    }
-    
+    public Guid? LoggedFoodId { get; set; } = loggedFoodId;
+
     public string FoodId => Food.Id;
+    public string Name => Food.Name;
+    public MealTypeDto MealType => Food.MealType;
     public List<NutrientDto> Nutrients => Food.Nutrients;
 }
 

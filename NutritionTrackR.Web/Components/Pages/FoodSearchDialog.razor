@@ -33,18 +33,12 @@
 @code {
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
-    [Parameter] public EventCallback OnFoodAdded { get; set; }
-    [Parameter] public DateTime Date { get; set; }
-    private IEnumerable<FoodDto> _searchedFood = [];
-    
-    private MudAutocomplete<FoodDto> FoodAutoComplete { get; set; }
+    [Parameter] public EventCallback OnFoodChanged { get; set; }
+    [Parameter] public DateOnly Date { get; set; }
+
+    private MudAutocomplete<FoodDto> FoodAutoComplete { get; set; } = new();
     private void Cancel() => MudDialog.Close();
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
-    
-    protected override async Task OnInitializedAsync()
-    {
-        _searchedFood = await FoodListAdapter.GetFoodItems();
-    }
     
     private async Task<IEnumerable<FoodDto>> Search(string searchTerm, CancellationToken token)
     {
@@ -58,12 +52,13 @@
 
     private async Task SelectFood(FoodDto selectedFood)
     {
+        var foodModel = new FoodModel(selectedFood);
         DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
         DialogParameters<FoodDetailsDialog> parameters = new()
         {
-            { x => x.Food, selectedFood },
+            { x => x.FoodModel, foodModel },
             { x => x.SelectedMealType, SelectedMealType },
-            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodAdded) },
+            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodChanged) },
             { x => x.Date, Date}
         };
 

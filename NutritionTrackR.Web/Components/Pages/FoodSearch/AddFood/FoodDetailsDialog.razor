@@ -7,14 +7,14 @@
 <MudDialog>
     <TitleContent>
         <MudText Typo="Typo.h6">
-            @Food.Name
+            @FoodModel.Name
         </MudText>
     </TitleContent>
     <DialogContent>
         <div class="d-flex gap-3 justify-start flex-grow-1">
-            <MudTextField T="decimal" @bind-Value="@Model.Amount"/>
+            <MudTextField T="decimal" @bind-Value="@FoodModel.Amount"/>
 
-            <MudSelect @bind-Value="@Model.Unit">
+            <MudSelect @bind-Value="@FoodModel.Unit">
                 @foreach (var unit in Enum.GetValues(typeof(UnitDto)).Cast<UnitDto>())
                 {
                     <MudSelectItem Value="unit">@unit</MudSelectItem>
@@ -26,7 +26,7 @@
 @* <MudProgressCircular Size="Size.Large" Color="Color.Success" Value="@NutritionModel.Protein" /> *@
 @* <MudProgressCircular Size="Size.Large" Color="Color.Info" Value="@NutritionModel.Fat" /> *@
 
-        @foreach (var nutrient in Food.Nutrients)
+        @foreach (var nutrient in FoodModel.Nutrients)
         {
             <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
         }
@@ -48,17 +48,19 @@
 
 @code {
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
-    [Parameter] public FoodDto Food { get; set; }
+    [Parameter] public FoodModel FoodModel { get; set; }
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
-    [Parameter] public DateTime Date { get; set; }
+    [Parameter] public DateOnly Date { get; set; }
     [Parameter] public EventCallback OnFoodAdded { get; set; }
     [Parameter] public bool IsEditMode { get; set; }
-    private FoodModel Model { get; set; }
+    // private FoodModel Model { get; set; }
     private NutritionModel NutritionModel { get; set; }
 
     protected override void OnInitialized()
     {
-        Model = new FoodModel(Food, SelectedMealType);
+        // Model = new FoodModel(Food, SelectedMealType);
+        
+        // todo init nutrition model
         NutritionModel = new NutritionModel
         {
             Carbs = 57,
@@ -74,8 +76,8 @@
     {
         try
         {
-            await FoodListAdapter.LogFood(Model, Date);
-            Snackbar.Add($"{Model.Food.Name} {Model.Food.Amount} {Model.Food.Unit} was logged", Severity.Success);
+            await FoodListAdapter.LogFood(FoodModel, Date);
+            Snackbar.Add($"{FoodModel.Food.Name} {FoodModel.Food.Amount} {FoodModel.Food.Unit} was logged", Severity.Success);
             
             await OnFoodAdded.InvokeAsync();
             Submit();
@@ -88,10 +90,17 @@
 
     private async Task UpdateFood()
     {
-        var test = NutritionModel;
-        // await FoodListAdapter.UpdateLoggedFood(NutritionModel, DateTime.Now);
+        try
+        {
+            await FoodListAdapter.UpdateLoggedFood(FoodModel, Date);
+            await OnFoodAdded.InvokeAsync();
+            Submit();
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Could not update logged food", Severity.Error);
+        }
     }
-
 }
 
 @* TODO add favorite button *@

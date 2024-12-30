@@ -19,7 +19,7 @@ public class NutrientDto
 	[JsonPropertyName("unit")]
 	public UnitDto Unit { get; set; }
 
-	public string DisplayWeight() => $"{Weight} {Unit.ToString()}";
+	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit.ToString()}";
 }
 
 public enum UnitDto
