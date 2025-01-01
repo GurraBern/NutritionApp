@@ -47,8 +47,15 @@
         <TemplateColumn Title="Progress">
             <CellTemplate>
                 <div class="d-flex align-items-center gap-3">
-                    <MudText>@(Math.Round(context.Item.Weight, 2) + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
-                    <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
+                    @if (DailyNutritionTarget.IsComplete(context.Item) is false)
+                    {
+                        <MudText>@(Math.Round(context.Item.Weight, 2) + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
+                        <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
+                    }
                 </div>
             </CellTemplate>
         </TemplateColumn>

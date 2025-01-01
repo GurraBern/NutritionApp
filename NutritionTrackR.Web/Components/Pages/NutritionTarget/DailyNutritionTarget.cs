@@ -36,4 +36,10 @@ public class DailyNutritionTarget
 		UnitDto.Milligram => nutrient.Weight * 1_000, 
 		UnitDto.Microgram => nutrient.Weight * 1000_000 
 	};
+
+	public bool IsComplete(NutrientDto nutrient)
+	{
+		var progress = GetProgress(nutrient);
+		return progress >= 100;
+	}
 }

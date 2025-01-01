@@ -29,6 +29,7 @@ public class FoodSelector
         MealTypeDto.Breakfast => "Breakfast",
         MealTypeDto.Lunch => "Lunch",
         MealTypeDto.Dinner => "Dinner",
-        MealTypeDto.Snack => "Snacks"
+        MealTypeDto.Snack => "Snacks",
+        _ => "Snacks"
     };
 }
