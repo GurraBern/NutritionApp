@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Contracts.Nutrition.Target;
 
-public class NutritionTargetRequest
+public record NutritionTargetRequest
 {
 	public DateOnly StartDate { get; set; }
 	public List<NutrientDto> NutrientGoals { get; set; } = [];

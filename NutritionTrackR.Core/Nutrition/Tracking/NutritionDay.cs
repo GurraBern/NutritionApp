@@ -22,7 +22,14 @@ public class NutritionDay : AggregateRoot
 
     public void UpdateFood(LoggedFood loggedFood)
     {
-        var food = ConsumedFood.First(x => x.LoggedFoodId == loggedFood.LoggedFoodId);
-        food.UpdateWith(loggedFood);
+        var previousFood = ConsumedFood.First(x => x.LoggedFoodId == loggedFood.LoggedFoodId);
+        previousFood.UpdateWith(loggedFood);
+    }
+
+    public void DeleteFood(Guid loggedFoodId)
+    {
+        var food = ConsumedFood.First(x => x.LoggedFoodId == loggedFoodId);
+        
+        ConsumedFood.Remove(food);
     }
 }

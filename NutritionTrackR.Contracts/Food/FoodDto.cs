@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Contracts.Food;
 
-public class FoodDto
+public record FoodDto
 {
 	
 	[JsonPropertyName("id")]
@@ -23,7 +23,7 @@ public class FoodDto
 	
 	public FoodDto() { }
 
-	public FoodDto(string name, List<NutrientDto> nutrients, double amount, UnitDto unit, MealTypeDto mealType)
+	protected FoodDto(string name, List<NutrientDto> nutrients, double amount, UnitDto unit, MealTypeDto mealType)
 	{
 		Name = name;
 		Amount = amount;

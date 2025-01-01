@@ -3,7 +3,7 @@ using NutritionTrackR.Contracts.Food;
 
 namespace NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 
-public class LoggedFoodDto : FoodDto
+public record LoggedFoodDto : FoodDto
 {
 	
 	[JsonPropertyName("loggedFoodId")]

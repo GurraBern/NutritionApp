@@ -2,7 +2,7 @@ using NutritionTrackR.Contracts.Food;
 
 namespace NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 
-public class UpdateLoggedFoodRequest
+public record UpdateLoggedFoodRequest
 {
     public DateTime Date { get; set; } 
     public Guid LoggedFoodId { get; set; }

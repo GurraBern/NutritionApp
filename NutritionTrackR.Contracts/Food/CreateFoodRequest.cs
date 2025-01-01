@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Contracts.Food;
 
-public class CreateFoodRequest
+public record CreateFoodRequest
 {
 	public string Name { get; set; }
 	public List<NutrientDto> Nutrients { get; set; } = [];

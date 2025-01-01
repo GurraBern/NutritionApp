@@ -35,13 +35,14 @@
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
         
-        @if (IsEditMode is false)
+        @if (IsEditMode)
         {
-            <MudButton OnClick="AddFood">Add</MudButton>
+            <MudButton OnClick="RemoveFood">Remove</MudButton>
+            <MudButton OnClick="UpdateFood">Update</MudButton>
         }
         else
         {
-            <MudButton OnClick="UpdateFood">Update</MudButton>
+            <MudButton OnClick="AddFood">Add</MudButton>
         }
     </DialogActions>
 </MudDialog>
@@ -101,6 +102,21 @@
             Snackbar.Add("Could not update logged food", Severity.Error);
         }
     }
+
+    private async Task RemoveFood()
+    {
+        try
+        {
+            await FoodListAdapter.RemoveLoggedFood(FoodModel, Date);
+            await OnFoodAdded.InvokeAsync();
+            Submit();
+        }
+        catch (Exception)
+        {
+            Snackbar.Add("Could not update logged food", Severity.Error);
+        }
+    }
+
 }
 
 @* TODO add favorite button *@

@@ -3,7 +3,7 @@ using NutritionTrackR.Contracts.Food;
 
 namespace NutritionTrackR.Contracts.Nutrition.Target;
 
-public class NutritionTargetDto
+public record NutritionTargetDto
 {
     [JsonPropertyName("date")]
     public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);

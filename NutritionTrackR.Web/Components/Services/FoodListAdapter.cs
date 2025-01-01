@@ -80,4 +80,19 @@ public class FoodListAdapter(IHttpClientFactory factory)
 
 		return client;
 	}
+
+	public async Task RemoveLoggedFood(FoodModel foodModel, DateOnly date)
+	{
+		
+		var client = CreateClient();
+
+		var request = new DeleteLoggedFoodRequest
+		{
+			Date = date.ToDateTime(TimeOnly.MinValue),
+			LoggedFoodId = foodModel.LoggedFoodId!.Value
+		};
+
+		var response = await client.PostAsJsonAsync("api/v1/food-entry/delete", request);
+		response.EnsureSuccessStatusCode();
+	}
 }

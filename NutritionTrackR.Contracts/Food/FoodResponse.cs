@@ -2,7 +2,7 @@
 
 namespace NutritionTrackR.Contracts.Food;
 
-public class FoodResponse
+public record FoodResponse
 {
 	[JsonPropertyName("foods")]
 	public List<FoodDto> Foods { get; set; }

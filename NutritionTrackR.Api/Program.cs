@@ -23,6 +23,7 @@ app.MapGetLoggedFood();
 app.MapSetNutritionTarget();
 app.MapGetNutritionTarget();
 app.MapUpdateLoggedFood();
+app.MapDeleteLoggedFood();
 
 if (app.Environment.IsDevelopment())
 {
