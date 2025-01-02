@@ -27,6 +27,7 @@
 <!--    <ProjectReference Include="..\Nutrition.Core\Nutrition.Core.csproj" />-->
     <ProjectReference Include="..\NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj" />
     <ProjectReference Include="..\NutritionTrackR.Persistence\NutritionTrackR.Persistence.csproj" />
+    <ProjectReference Include="..\NutritionTrackR.Web\NutritionTrackR.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

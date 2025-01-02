@@ -1,0 +1,118 @@
+@using NutritionTrackR.Web.Pages
+@inject IDialogService DialogService
+@inject FoodListAdapter FoodListAdapter
+@inject ISnackbar Snackbar
+
+<MudDropContainer T="FoodSelector" Items="@Foods" @ref="_container" ItemsSelector="@((item, dropzoneId) => item.ZoneId == dropzoneId)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+    <ChildContent>
+        @foreach (var mealZone in _mealZones)
+        {
+            <MudPaper Class="ma-4 flex-grow-1">
+                <MudList T="string" Class="d-flex flex-column mud-height-full">
+                    <MudText Typo="Typo.h6" Align="Align.Center">@mealZone.ZoneId</MudText>
+                    <MudDropZone T="FoodSelector" Identifier="@mealZone.ZoneId" Class="flex-grow-1" AllowReorder="true"/>
+                    <MudButton Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.AddCircle" Color="Color.Primary" OnClick="() => AddFoodToMeal(mealZone.MealType)"/>
+                </MudList>
+            </MudPaper>
+        }
+    </ChildContent>
+    <ItemRenderer>
+        <MudListItem T="FoodSelector" OnClick="() => OpenLoggedFoodDetails(context.LoggedFoodModel)">
+            <div class="d-flex justify-space-between">
+                <MudText>@context.LoggedFoodModel.Food.Name</MudText>
+                <MudText>@context.DisplayWeight()</MudText>
+            </div>
+        </MudListItem>
+    </ItemRenderer>
+</MudDropContainer>
+
+@code {
+    
+    [Parameter] 
+    public List<FoodSelector> Foods { get; set; } = [];
+    
+    [Parameter] 
+    public EventCallback<List<FoodSelector>> FoodsChanged { get; set; } 
+    
+    [Parameter] 
+    public DateOnly CurrentDate { get; set; }
+
+    private MudDropContainer<FoodSelector> _container = new();
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        RefreshContainer();
+    } 
+    
+    private void RefreshContainer()
+    {
+        StateHasChanged();
+        _container.Refresh();
+    }
+    
+    // public async Task OnFoodsChanged(List<FoodSelector> updatedFoods)
+    // {
+    //     var t = 5;
+    //     // await FoodChanged.InvokeAsync();
+    // }
+
+    // private async Task UpdateFoodList()
+    // {
+    //     var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
+    //     Foods = foods.Select(f => new FoodSelector(f)).ToList();
+    //     RefreshContainer();
+    // }
+    
+    private async Task AddFoodToMeal(MealTypeDto mealType)
+    {
+        DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        var parameters = new DialogParameters<FoodSearchDialog>
+        {
+            { x => x.SelectedMealType, mealType },
+            // { x => x.OnFoodChanged, OnFoodChanged },
+            { x => x.Date, CurrentDate}
+        };
+    
+        await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
+    }
+    
+    private async Task OpenLoggedFoodDetails(FoodModel loggedFoodModel)
+    {
+        DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+        DialogParameters<FoodDetailsDialog> parameters = new()
+        {
+            { x => x.FoodModel, loggedFoodModel },
+            // { x => x.OnFoodAdded, OnFoodChanged },
+            { x => x.IsEditMode, true},
+            { x => x.CurrentDate, CurrentDate}
+        };
+    
+        await DialogService.ShowAsync<FoodDetailsDialog>(loggedFoodModel.Food.Name, parameters, options);
+    }
+    
+    private async Task ItemUpdated(MudItemDropInfo<FoodSelector> dropItem)
+    {
+        dropItem.Item.ZoneId = dropItem.DropzoneIdentifier;
+        dropItem.Item.LoggedFoodModel.Food.MealType = FoodSelector.GetMealType(dropItem.DropzoneIdentifier);
+
+        var result = await FoodListAdapter.UpdateLoggedFood(dropItem.Item.LoggedFoodModel, CurrentDate);
+        if (result.IsFailure)
+        {
+            Snackbar.Add(result.Error, Severity.Error);
+            return;
+        }
+
+        Snackbar.Add("Updated food", Severity.Success);
+    }
+
+    private readonly List<DropZone> _mealZones =
+    [
+        new("Breakfast", MealTypeDto.Breakfast),
+        new("Lunch", MealTypeDto.Lunch),
+        new("Dinner", MealTypeDto.Dinner),
+        new("Snacks", MealTypeDto.Snacks),
+    ];
+
+    private record DropZone(string ZoneId, MealTypeDto MealType);
+}

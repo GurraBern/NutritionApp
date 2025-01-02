@@ -2,6 +2,7 @@
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Target.Commands;
+using NutritionTrackR.Web.Extensions;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
 
@@ -14,7 +15,7 @@ public static class SetNutritionTarget
             if (nutritionGoalsResult.IsFailure)
                 return Results.BadRequest(nutritionGoalsResult.Error);
 
-            var command = new CreateNutritionTargetCommand(request.StartDate.ToDateTime(TimeOnly.MinValue), nutritionGoalsResult.Value);
+            var command = new CreateNutritionTargetCommand(request.StartDate.ToDateTime(), nutritionGoalsResult.Value);
             
             await mediator.Send(command);
 

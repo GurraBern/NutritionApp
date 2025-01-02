@@ -2,6 +2,7 @@
 using NutritionTrackR.Web.Components.Services;
 using System.ComponentModel.DataAnnotations;
 using NutritionTrackR.Web.Configuration;
+using NutritionTrackR.Web.Services;
 
 namespace NutritionTrackR.Web.Extensions;
 

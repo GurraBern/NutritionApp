@@ -1,6 +1,5 @@
 using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
-using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 
 namespace NutritionTrackR.Web.Components.Pages.NutritionDay;
 

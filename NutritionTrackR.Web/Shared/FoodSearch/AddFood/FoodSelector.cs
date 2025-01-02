@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Contracts.Food;
 
-namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
+namespace NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 
 public class FoodSelector
 {
@@ -20,7 +20,7 @@ public class FoodSelector
         "Breakfast" => MealTypeDto.Breakfast,
         "Lunch" => MealTypeDto.Lunch,
         "Dinner" => MealTypeDto.Dinner,
-        "Snacks" => MealTypeDto.Snack,
+        "Snacks" => MealTypeDto.Snacks,
         _ => throw new ArgumentException("Invalid meal type", nameof(input))
     };
 
@@ -29,7 +29,7 @@ public class FoodSelector
         MealTypeDto.Breakfast => "Breakfast",
         MealTypeDto.Lunch => "Lunch",
         MealTypeDto.Dinner => "Dinner",
-        MealTypeDto.Snack => "Snacks",
+        MealTypeDto.Snacks => "Snacks",
         _ => "Snacks"
     };
 }
