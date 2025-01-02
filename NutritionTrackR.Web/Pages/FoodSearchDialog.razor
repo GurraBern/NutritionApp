@@ -31,10 +31,17 @@
 
 
 @code {
-    [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
-    [Parameter] public MealTypeDto SelectedMealType { get; set; }
-    [Parameter] public EventCallback<MealTypeDto> OnFoodChanged { get; set; }
-    [Parameter] public DateOnly Date { get; set; }
+    [CascadingParameter] 
+    private MudDialogInstance MudDialog { get; set; }
+    
+    [Parameter] 
+    public MealTypeDto SelectedMealType { get; set; }
+    
+    [Parameter] 
+    public EventCallback<List<FoodSelector>> OnFoodChangedEventCallback { get; set; }
+    
+    [Parameter] 
+    public DateOnly Date { get; set; }
 
     private MudAutocomplete<FoodDto> FoodAutoComplete { get; set; } = new();
     private void Cancel() => MudDialog.Close();
@@ -58,7 +65,7 @@
         {
             { x => x.FoodModel, foodModel },
             { x => x.SelectedMealType, SelectedMealType },
-            { x => x.OnFoodAdded, OnFoodChanged },
+            { x => x.OnFoodChangedEventCallback, OnFoodChangedEventCallback },
             { x => x.CurrentDate, Date}
         };
 

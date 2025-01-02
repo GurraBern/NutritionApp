@@ -34,6 +34,9 @@
     [Parameter] 
     public EventCallback<List<FoodSelector>> FoodsChanged { get; set; } 
     
+    [Parameter]
+    public EventCallback<List<FoodSelector>> OnFoodChangedEventCallback { get; set; } 
+    
     [Parameter] 
     public DateOnly CurrentDate { get; set; }
 
@@ -51,29 +54,16 @@
         _container.Refresh();
     }
     
-    // public async Task OnFoodsChanged(List<FoodSelector> updatedFoods)
-    // {
-    //     var t = 5;
-    //     // await FoodChanged.InvokeAsync();
-    // }
-
-    // private async Task UpdateFoodList()
-    // {
-    //     var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
-    //     Foods = foods.Select(f => new FoodSelector(f)).ToList();
-    //     RefreshContainer();
-    // }
-    
     private async Task AddFoodToMeal(MealTypeDto mealType)
     {
         DialogOptions options = new() { MaxWidth = MaxWidth.Medium, FullWidth = true };
         var parameters = new DialogParameters<FoodSearchDialog>
         {
             { x => x.SelectedMealType, mealType },
-            // { x => x.OnFoodChanged, OnFoodChanged },
+            { x => x.OnFoodChangedEventCallback, OnFoodChangedEventCallback },
             { x => x.Date, CurrentDate}
         };
-    
+
         await DialogService.ShowAsync<FoodSearchDialog>("Food Search", parameters, options);
     }
     
