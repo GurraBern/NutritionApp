@@ -1,9 +1,11 @@
 using MediatR;
+using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
+using NutritionTrackR.Core.Shared.Abstractions;
 using Unit = NutritionTrackR.Core.Foods.ValueObjects.Unit;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
@@ -19,15 +21,14 @@ public static class UpdateLoggedFood
 			if (weight.IsFailure)
 				return Results.BadRequest(weight.Error);
 			
-
 			var loggedFood = LoggedFood.Create(request.LoggedFoodId, foodId, weight.Value, (MealType)request.MealType);
 			
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);
 
-			await mediator.Send(command);
-			
-			return Results.Created();
+			var result = await mediator.Send(command);
+			return result.IsFailure
+				? Results.NotFound(ApiResponse.Failure(result.Error))
+				: Results.Created("", ApiResponse.Success());
 		});
 	}
-    
 }

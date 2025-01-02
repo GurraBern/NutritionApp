@@ -1,19 +1,11 @@
 ﻿using System.Text.Json;
 using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Contracts.Nutrition.Goals;
 using NutritionTrackR.Contracts.Nutrition.Target;
 
-namespace NutritionTrackR.Web.Components.Services;
+namespace NutritionTrackR.Web.Services;
 
-public class NutritionTargetAdapter
+public class NutritionTargetAdapter(IHttpClientFactory factory)
 {
-	private readonly IHttpClientFactory _factory;
-
-	public NutritionTargetAdapter(IHttpClientFactory factory)
-	{
-		_factory = factory;
-	}
-	
 	public async Task<NutritionTargetDto> GetNutritionTarget()
 	{
 		var client = CreateClient();
@@ -43,7 +35,7 @@ public class NutritionTargetAdapter
 		
 	private HttpClient CreateClient()
 	{
-		var client = _factory.CreateClient(nameof(NutritionTargetAdapter));
+		var client = factory.CreateClient(nameof(NutritionTargetAdapter));
 
 		return client;
 	}

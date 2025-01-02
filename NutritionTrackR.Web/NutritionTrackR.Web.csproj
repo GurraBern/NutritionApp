@@ -15,4 +15,20 @@
       <ProjectReference Include="..\NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Layout\MainLayout.razor" />
+      <AdditionalFiles Include="Layout\NavMenu.razor" />
+      <AdditionalFiles Include="Pages\Error.razor" />
+      <AdditionalFiles Include="Pages\FoodSearchDialog.razor" />
+      <AdditionalFiles Include="Pages\NutritionDay\NutritionDayPage.razor" />
+      <AdditionalFiles Include="Pages\NutritionTarget\NutritionGoalPage.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Components\Pages\Error.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\FoodSearchDialog.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\NutritionDay\NutritionDayPage.razor" />
+      <_ContentIncludedByDefault Remove="Components\Pages\NutritionTarget\NutritionGoalPage.razor" />
+    </ItemGroup>
+
 </Project>

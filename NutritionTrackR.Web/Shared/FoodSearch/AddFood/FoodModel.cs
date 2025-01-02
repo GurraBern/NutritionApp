@@ -1,8 +1,8 @@
 ﻿using NutritionTrackR.Contracts.Food;
 
-namespace NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
+namespace NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 
-public class FoodModel(FoodDto food, Guid? loggedFoodId = default)
+public class FoodModel(FoodDto food, Guid? loggedFoodId = null)
 {
     public FoodDto Food { get; } = food;
     public decimal Amount { get; set; } = new(food.Amount);
@@ -12,8 +12,17 @@ public class FoodModel(FoodDto food, Guid? loggedFoodId = default)
     public string FoodId => Food.Id;
     public string Name => Food.Name;
     public MealTypeDto MealType => Food.MealType;
-    public List<NutrientDto> Nutrients => Food.Nutrients;
-}
+    public List<NutrientDto> Nutrients => GetNutrients();
+
+    private List<NutrientDto> GetNutrients()
+    {
+        return Food.Nutrients.Select(nutrient => new NutrientDto
+        {
+            Name = nutrient.Name,
+            Weight = nutrient.Weight/100 * Food.Amount,
+            Unit = nutrient.Unit
+        }).ToList();
+    }}
 
 public class NutritionModel
 {

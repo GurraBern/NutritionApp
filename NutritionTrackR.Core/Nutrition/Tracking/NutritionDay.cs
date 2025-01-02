@@ -1,6 +1,7 @@
 ﻿using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
+using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking;
 
@@ -20,16 +21,23 @@ public class NutritionDay : AggregateRoot
         ConsumedFood.Add(foodEntry);
     }
 
-    public void UpdateFood(LoggedFood loggedFood)
+    public Result UpdateFood(LoggedFood loggedFood)
     {
-        var previousFood = ConsumedFood.First(x => x.LoggedFoodId == loggedFood.LoggedFoodId);
+        var previousFood = ConsumedFood.FirstOrDefault(x => x.LoggedFoodId == loggedFood.LoggedFoodId);
+        if (previousFood is null) 
+            return Result.Failure("Logged food could not be found");
+        
         previousFood.UpdateWith(loggedFood);
+        return Result.Success();
     }
 
-    public void DeleteFood(Guid loggedFoodId)
+    public Result DeleteFood(Guid id)
     {
-        var food = ConsumedFood.First(x => x.LoggedFoodId == loggedFoodId);
+        var food = ConsumedFood.FirstOrDefault(x => x.LoggedFoodId == id);
+        if (food is null) 
+            return Result.Failure("Logged food could not be removed");
         
         ConsumedFood.Remove(food);
+        return Result.Success();
     }
 }

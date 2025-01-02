@@ -1,9 +1,11 @@
 ﻿using System.Globalization;
 using NutritionTrackR.Contracts.Food;
 using System.Text.Json;
+using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
-using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood;
 using NutritionTrackR.Web.Components.Pages.NutritionDay;
+using NutritionTrackR.Web.Extensions;
+using NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 
 namespace NutritionTrackR.Web.Components.Services;
 
@@ -50,19 +52,19 @@ public class FoodListAdapter(IHttpClientFactory factory)
 	{
 		var client = CreateClient();
 
-		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date.ToDateTime(TimeOnly.MinValue));
+		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date.ToDateTime());
 
 		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
 		response.EnsureSuccessStatusCode();
 	}
 	
-	public async Task UpdateLoggedFood(FoodModel foodModel, DateOnly date)
+		public async Task<ApiResponse> UpdateLoggedFood(FoodModel foodModel, DateOnly date)
 	{
 		var client = CreateClient();
 
 		var request = new UpdateLoggedFoodRequest
 		{
-			Date = date.ToDateTime(TimeOnly.MinValue),
+			Date = date.ToDateTime(),
 			FoodId = foodModel.FoodId,
 			LoggedFoodId = foodModel.LoggedFoodId!.Value,
 			Weight = foodModel.Amount,
@@ -70,8 +72,29 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			MealType = foodModel.MealType
 		};
 
-		var response = await client.PutAsJsonAsync("api/v1/food-entry", request);
-		response.EnsureSuccessStatusCode();
+		var updateResponse = await client.PutAsJsonAsync("api/v1/food-entry", request);
+		if(updateResponse.IsSuccessStatusCode is false)
+			return await updateResponse.Content.ReadFromJsonAsync<ApiResponse>() ?? ApiResponse.DefaultError();
+		
+		return ApiResponse.Success();
+	}
+		
+	public async Task<ApiResponse> RemoveLoggedFood(FoodModel foodModel, DateOnly date)
+	{
+		var client = CreateClient();
+
+		var request = new DeleteLoggedFoodRequest
+		{
+			Date = date.ToDateTime(),
+			LoggedFoodId = foodModel.LoggedFoodId!.Value
+		};
+
+		var deleteResponse = await client.PostAsJsonAsync("api/v1/food-entry/delete", request);
+		
+		if(deleteResponse.IsSuccessStatusCode)
+			return ApiResponse.Success();
+			
+		return await deleteResponse.Content.ReadFromJsonAsync<ApiResponse>() ?? ApiResponse.DefaultError();
 	}
 	
 	private HttpClient CreateClient()
@@ -79,20 +102,5 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		var client = factory.CreateClient(nameof(FoodListAdapter));
 
 		return client;
-	}
-
-	public async Task RemoveLoggedFood(FoodModel foodModel, DateOnly date)
-	{
-		
-		var client = CreateClient();
-
-		var request = new DeleteLoggedFoodRequest
-		{
-			Date = date.ToDateTime(TimeOnly.MinValue),
-			LoggedFoodId = foodModel.LoggedFoodId!.Value
-		};
-
-		var response = await client.PostAsJsonAsync("api/v1/food-entry/delete", request);
-		response.EnsureSuccessStatusCode();
 	}
 }

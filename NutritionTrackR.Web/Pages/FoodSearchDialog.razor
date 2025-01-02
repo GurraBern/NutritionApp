@@ -1,6 +1,6 @@
 ﻿@using NutritionTrackR.Contracts.Food
-@using NutritionTrackR.Web.Components.Pages.FoodSearch.AddFood
 @using NutritionTrackR.Web.Components.Services
+@using NutritionTrackR.Web.Shared.FoodSearch.AddFood
 
 @inject FoodListAdapter FoodListAdapter
 @inject IDialogService DialogService
@@ -33,7 +33,7 @@
 @code {
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
     [Parameter] public MealTypeDto SelectedMealType { get; set; }
-    [Parameter] public EventCallback OnFoodChanged { get; set; }
+    [Parameter] public EventCallback<MealTypeDto> OnFoodChanged { get; set; }
     [Parameter] public DateOnly Date { get; set; }
 
     private MudAutocomplete<FoodDto> FoodAutoComplete { get; set; } = new();
@@ -58,8 +58,8 @@
         {
             { x => x.FoodModel, foodModel },
             { x => x.SelectedMealType, SelectedMealType },
-            { x => x.OnFoodAdded, EventCallback.Factory.Create(this, OnFoodChanged) },
-            { x => x.Date, Date}
+            { x => x.OnFoodAdded, OnFoodChanged },
+            { x => x.CurrentDate, Date}
         };
 
         await FoodAutoComplete.CloseMenuAsync();

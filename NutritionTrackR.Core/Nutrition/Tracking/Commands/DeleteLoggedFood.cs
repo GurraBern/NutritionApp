@@ -13,9 +13,12 @@ public class DeleteLoggedFood(INutritionDayRepository repository) : IRequestHand
         if (nutritionDay is null)
             return Result.Failure("Nutrition day could not be found");
         
-        nutritionDay.DeleteFood(command.LoggedFoodId);
+        var result = nutritionDay.DeleteFood(command.LoggedFoodId);
+        if (result.IsFailure)
+            return result;
+
         await repository.SaveAsync();
 
-        return Result.Success();
+        return result;
     }
 }
