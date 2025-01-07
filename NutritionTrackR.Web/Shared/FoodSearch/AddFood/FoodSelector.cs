@@ -24,7 +24,7 @@ public class FoodSelector
         _ => throw new ArgumentException("Invalid meal type", nameof(input))
     };
 
-    public static string GetZoneId(MealTypeDto mealType) => mealType switch
+    private static string GetZoneId(MealTypeDto mealType) => mealType switch
     {
         MealTypeDto.Breakfast => "Breakfast",
         MealTypeDto.Lunch => "Lunch",

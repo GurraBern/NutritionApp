@@ -9,6 +9,29 @@
     <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
 </div>
 
+<div class="d-flex justify-center">
+    @* TODO create custom component for round progressbar, should have background for progress indicator *@
+    <div class="flex-column">
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Carbs)"/>
+        <MudText Align="Align.Center">Carbs</MudText>
+    </div>
+
+    <div class="flex-column">
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Protein)"/>
+        <MudText Align="Align.Center">Protein</MudText>
+    </div>
+
+    <div class="flex-column">
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Fat)"/>
+        <MudText Align="Align.Center">Fat</MudText>
+    </div>
+</div>
+
+<div class="d-flex flex-column mt-5 mx-5">
+    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Kcal)"></MudProgressLinear>
+    <MudText Align="Align.Center">Kcal</MudText>
+</div>
+
 <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="Foods" CurrentDate="@CurrentDate"/>
 
 <MudDataGrid T="NutrientDto" Items="@Nutrients">
@@ -49,9 +72,14 @@
 @code {
     private List<FoodSelector> Foods { get; set; } = [];
     private List<NutrientDto> Nutrients { get; set; } = [];
-    private DailyNutritionTarget DailyNutritionTarget { get; set; }
-
+    private DailyNutritionTarget DailyNutritionTarget { get; set; } = new([]);
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    
+    // TODO move these to a model class
+    private NutrientDto? Kcal { get; set; } = new();
+    private NutrientDto? Carbs { get; set; } = new();
+    private NutrientDto? Protein { get; set; } = new();
+    private NutrientDto? Fat { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,10 +93,18 @@
     {
         var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
         Foods = foods.Select(f => new FoodSelector(f)).ToList();
-        CalculateNutrition();
+
+        var calculatedNutrition = CalculateNutrition();
+        Nutrients = calculatedNutrition.Values.ToList();
+
+        // todo to model class
+        Kcal = calculatedNutrition.TryGetValue("Kcal", out var kcal) ? kcal : null;
+        Carbs = calculatedNutrition.TryGetValue("Carbohydrates", out var carbs) ? carbs : null;
+        Protein = calculatedNutrition.TryGetValue("Protein", out var protein) ? protein : null;
+        Fat = calculatedNutrition.TryGetValue("Total Fat", out var fat) ? fat : null;
     }
 
-    private void CalculateNutrition()
+    private Dictionary<string, NutrientDto> CalculateNutrition()
     {
         var dictionary = new Dictionary<string, NutrientDto>();
         
@@ -84,7 +120,7 @@
             }
         }
 
-        Nutrients = dictionary.Values.ToList();
+        return dictionary;
     }
 
     //TODO create component for previous and next date in the header

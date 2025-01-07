@@ -32,6 +32,7 @@ public class LoggedFood
         var foodEntry = new LoggedFood(foodId, weight, mealType)
         {
             LoggedFoodId = loggedFoodId
+            
         };
 
         return foodEntry;

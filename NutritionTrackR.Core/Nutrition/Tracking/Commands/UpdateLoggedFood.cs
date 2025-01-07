@@ -12,7 +12,7 @@ public class UpdateLoggedFoodHandler(INutritionDayRepository repository) : IRequ
         var nutritionDay = await repository.GetByDate(command.Date);
         if (nutritionDay is null)
             return Result.Failure("Nutrition day could not be found");
-        
+
         var result = nutritionDay.UpdateFood(command.LoggedFood);
         if (result.IsFailure)
             return Result.Failure(result.Error);

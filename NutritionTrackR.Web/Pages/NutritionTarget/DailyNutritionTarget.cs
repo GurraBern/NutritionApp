@@ -11,9 +11,9 @@ public class DailyNutritionTarget
 		NutrientTargets = nutrients.ToDictionary(x => x.Name);
 	}
 
-	public double GetProgress(NutrientDto nutrient)
+	public double GetProgress(NutrientDto? nutrient)
 	{
-		if (!NutrientTargets.TryGetValue(nutrient.Name, out var targetNutrient)) return 0;
+		if (nutrient is null || !NutrientTargets.TryGetValue(nutrient.Name, out var targetNutrient)) return 0;
 
 		var convertedWeight = ConvertUnit(nutrient);
 
