@@ -1,7 +1,6 @@
 using MudBlazor;
 using MudBlazor.Services;
 using NutritionTrackR.Web;
-using NutritionTrackR.Web.Components.Services;
 using NutritionTrackR.Web.Extensions;
 using NutritionTrackR.Web.Services;
 

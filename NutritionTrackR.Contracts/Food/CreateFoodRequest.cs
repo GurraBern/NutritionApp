@@ -20,6 +20,12 @@ public class NutrientDto
 	public UnitDto Unit { get; set; }
 
 	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit.ToString()}";
+
+	public void From(NutrientDto nutrient)
+	{
+		Name = nutrient.Name;
+		Weight += nutrient.Weight; //TODO need to handle addition with the use of Unit
+	}
 }
 
 public enum UnitDto

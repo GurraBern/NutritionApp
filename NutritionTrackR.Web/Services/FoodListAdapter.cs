@@ -1,13 +1,12 @@
 ﻿using System.Globalization;
-using NutritionTrackR.Contracts.Food;
 using System.Text.Json;
 using NutritionTrackR.Contracts;
+using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
-using NutritionTrackR.Web.Components.Pages.NutritionDay;
 using NutritionTrackR.Web.Extensions;
 using NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 
-namespace NutritionTrackR.Web.Components.Services;
+namespace NutritionTrackR.Web.Services;
 
 public class FoodListAdapter(IHttpClientFactory factory)
 {

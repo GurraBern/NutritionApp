@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using NutritionTrackR.Web.Components.Services;
-using System.ComponentModel.DataAnnotations;
 using NutritionTrackR.Web.Configuration;
 using NutritionTrackR.Web.Services;
 

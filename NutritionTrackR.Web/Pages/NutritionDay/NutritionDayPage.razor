@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using NutritionTrackR.Web.Pages.NutritionTarget
 @using NutritionTrackR.Web.Services
 @inject FoodListAdapter FoodListAdapter
 @inject NutritionTargetAdapter NutritionTargetAdapter
@@ -17,24 +18,24 @@
     </div>
 
     <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Protein)"/>
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Protein)"/>
         <MudText Align="Align.Center">Protein</MudText>
     </div>
 
     <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Fat)"/>
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Fat)"/>
         <MudText Align="Align.Center">Fat</MudText>
     </div>
 </div>
 
 <div class="d-flex flex-column mt-5 mx-5">
-    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Kcal)"></MudProgressLinear>
+    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Calories)"></MudProgressLinear>
     <MudText Align="Align.Center">Kcal</MudText>
 </div>
 
-<MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="Foods" CurrentDate="@CurrentDate"/>
+<MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
 
-<MudDataGrid T="NutrientDto" Items="@Nutrients">
+<MudDataGrid T="NutrientDto" Items="@NutrientsModel.NutrientList">
     <Columns>
         <HierarchyColumn T="NutrientDto"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
@@ -70,8 +71,8 @@
 </MudDataGrid>
 
 @code {
-    private List<FoodSelector> Foods { get; set; } = [];
-    private List<NutrientDto> Nutrients { get; set; } = [];
+    private List<FoodSelector> FoodSelectors { get; set; } = [];
+    private NutrientsModel NutrientsModel { get; set; } = new();
     private DailyNutritionTarget DailyNutritionTarget { get; set; } = new([]);
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     
@@ -92,36 +93,13 @@
     private async Task UpdateFoodList()
     {
         var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
-        Foods = foods.Select(f => new FoodSelector(f)).ToList();
-
-        var calculatedNutrition = CalculateNutrition();
-        Nutrients = calculatedNutrition.Values.ToList();
-
-        // todo to model class
-        Kcal = calculatedNutrition.TryGetValue("Kcal", out var kcal) ? kcal : null;
-        Carbs = calculatedNutrition.TryGetValue("Carbohydrates", out var carbs) ? carbs : null;
-        Protein = calculatedNutrition.TryGetValue("Protein", out var protein) ? protein : null;
-        Fat = calculatedNutrition.TryGetValue("Total Fat", out var fat) ? fat : null;
-    }
-
-    private Dictionary<string, NutrientDto> CalculateNutrition()
-    {
-        var dictionary = new Dictionary<string, NutrientDto>();
+        FoodSelectors = foods.Select(f => new FoodSelector(f)).ToList();
         
-        foreach (var nutrient in Foods.SelectMany(food => food.LoggedFoodModel.Nutrients))
-        {
-            if (dictionary.TryGetValue(nutrient.Name, out var dictionaryNutrient))
-            {
-                dictionaryNutrient.Weight += nutrient.Weight;
-            }
-            else
-            {
-                dictionary.Add(nutrient.Name, nutrient);
-            }
-        }
+        NutrientsModel.RecalculateNutrients(foods);
 
-        return dictionary;
+        var test = NutrientsModel.Protein;
     }
+
 
     //TODO create component for previous and next date in the header
     private async Task GetPreviousNutritionDay()

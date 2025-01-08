@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Contracts.Food;
 
-namespace NutritionTrackR.Web.Components.Pages.NutritionTarget;
+namespace NutritionTrackR.Web.Pages.NutritionTarget;
 
 public class DailyNutritionTarget
 {
@@ -34,7 +34,8 @@ public class DailyNutritionTarget
 	{
 		UnitDto.Grams => nutrient.Weight,
 		UnitDto.Milligram => nutrient.Weight * 1_000, 
-		UnitDto.Microgram => nutrient.Weight * 1000_000 
+		UnitDto.Microgram => nutrient.Weight * 1000_000,
+		_ => -1
 	};
 
 	public bool IsComplete(NutrientDto nutrient)
