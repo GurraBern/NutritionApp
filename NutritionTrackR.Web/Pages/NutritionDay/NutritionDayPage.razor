@@ -13,40 +13,40 @@
 <div class="d-flex justify-center">
     @* TODO create custom component for round progressbar, should have background for progress indicator *@
     <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(Carbs)"/>
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Carbohydrates.GetProgress()"/>
         <MudText Align="Align.Center">Carbs</MudText>
     </div>
 
     <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Protein)"/>
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Protein.GetProgress()"/>
         <MudText Align="Align.Center">Protein</MudText>
     </div>
 
     <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Fat)"/>
+        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Fat.GetProgress()"/>
         <MudText Align="Align.Center">Fat</MudText>
     </div>
 </div>
 
 <div class="d-flex flex-column mt-5 mx-5">
-    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="@DailyNutritionTarget.GetProgress(NutrientsModel.Calories)"></MudProgressLinear>
+    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="NutrientsModel.Calories.GetProgress()"></MudProgressLinear>
     <MudText Align="Align.Center">Kcal</MudText>
 </div>
 
 <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
 
-<MudDataGrid T="NutrientDto" Items="@NutrientsModel.NutrientList">
+<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.NutrientList">
     <Columns>
-        <HierarchyColumn T="NutrientDto"/>
+        <HierarchyColumn T="NutrientWrapper"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
         <PropertyColumn Property="x => x.Weight" Title="Weight"/>
         <TemplateColumn Title="Progress">
             <CellTemplate>
                 <div class="d-flex align-items-center gap-3">
-                    @if (DailyNutritionTarget.IsComplete(context.Item) is false)
+                    @if (context.Item.IsComplete is false)
                     {
-                        <MudText>@(Math.Round(context.Item.Weight, 2) + "/" + DailyNutritionTarget.GetNutrientTarget(context.Item) + " " + context.Item.Unit)</MudText>
-                        <MudProgressLinear Value="@(DailyNutritionTarget.GetProgress(context.Item))" Min="0" Max="100" Color="Color.Primary"/>
+                        <MudText>@context.Item.ToProgressDisplayString()</MudText>
+                        <MudProgressLinear Value="@context.Item.GetProgress()" Min="0" Max="100" Color="Color.Primary"/>
                     }
                     else
                     {
@@ -72,21 +72,14 @@
 
 @code {
     private List<FoodSelector> FoodSelectors { get; set; } = [];
-    private NutrientsModel NutrientsModel { get; set; } = new();
-    private DailyNutritionTarget DailyNutritionTarget { get; set; } = new([]);
+    private NutrientsModel NutrientsModel { get; } = new();
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
     
-    // TODO move these to a model class
-    private NutrientDto? Kcal { get; set; } = new();
-    private NutrientDto? Carbs { get; set; } = new();
-    private NutrientDto? Protein { get; set; } = new();
-    private NutrientDto? Fat { get; set; } = new();
-
     protected override async Task OnInitializedAsync()
     {
-        var nutritionTarget  = await NutritionTargetAdapter.GetNutritionTarget();
-        DailyNutritionTarget = new DailyNutritionTarget(nutritionTarget.Nutrients);
-        
+        var nutritionTargets  = await NutritionTargetAdapter.GetNutritionTarget();
+        NutrientsModel.SetNutrientTargets(nutritionTargets.Nutrients.ToDictionary(x => x.Name));
+
         await UpdateFoodList();
     }
     
@@ -96,10 +89,7 @@
         FoodSelectors = foods.Select(f => new FoodSelector(f)).ToList();
         
         NutrientsModel.RecalculateNutrients(foods);
-
-        var test = NutrientsModel.Protein;
     }
-
 
     //TODO create component for previous and next date in the header
     private async Task GetPreviousNutritionDay()
