@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Nutrition.Target;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Persistence.Configurations;
 
@@ -18,7 +19,9 @@ public class NutritionTargetConfiguration : IEntityTypeConfiguration<NutritionTa
             o.OwnsOne(x => x.Weight, w =>
             {
                 w.Property(p => p.Value);
-                w.Property(p => p.Unit);
+                w.Property(p => p.Unit).HasConversion(
+                    weightUnit => weightUnit.Name,
+                    weightUnit => WeightUnit.FromString(weightUnit).Value);
             });
         });
         

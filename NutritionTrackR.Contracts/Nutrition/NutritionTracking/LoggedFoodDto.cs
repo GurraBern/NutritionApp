@@ -11,7 +11,7 @@ public record LoggedFoodDto : FoodDto
     
 	public LoggedFoodDto() { }
 
-	public LoggedFoodDto(string name, List<NutrientDto> nutrients, double amount, UnitDto unit, MealTypeDto mealType) :
+	public LoggedFoodDto(string name, List<NutrientDto> nutrients, double amount, string unit, MealTypeDto mealType) :
 		base(name, nutrients, amount, unit, mealType)
 	{
 	}

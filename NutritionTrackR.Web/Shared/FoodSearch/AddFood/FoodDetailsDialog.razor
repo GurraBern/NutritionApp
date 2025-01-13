@@ -11,30 +11,31 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <div class="d-flex gap-3 justify-start flex-grow-1">
-            <MudTextField T="decimal" @bind-Value="@FoodModel.Amount"/>
-
-            <MudSelect @bind-Value="@FoodModel.Unit">
-                @foreach (var unit in Enum.GetValues(typeof(UnitDto)).Cast<UnitDto>())
-                {
-                    <MudSelectItem Value="unit">@unit</MudSelectItem>
-                }
-            </MudSelect>
-        </div>
+                <div class="d-flex gap-3 justify-start flex-grow-1">
+                    <MudTextField T="decimal" @bind-Value="@FoodModel.Amount"/>
         
-@* <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Value="@NutritionModel.Carbs" /> *@
-@* <MudProgressCircular Size="Size.Large" Color="Color.Success" Value="@NutritionModel.Protein" /> *@
-@* <MudProgressCircular Size="Size.Large" Color="Color.Info" Value="@NutritionModel.Fat" /> *@
-
-        @foreach (var nutrient in FoodModel.Nutrients)
-        {
-            <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-        }
+                    @* todo this part does not work no longer *@
+                    <MudSelect @bind-Value="@FoodModel.Unit">
+                        @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
+                        {
+                            <MudSelectItem Value="unit">@unit</MudSelectItem>
+                        }
+                    </MudSelect>
+                </div>
+        
+        @* <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Value="@NutritionModel.Carbs" /> *@
+        @* <MudProgressCircular Size="Size.Large" Color="Color.Success" Value="@NutritionModel.Protein" /> *@
+        @* <MudProgressCircular Size="Size.Large" Color="Color.Info" Value="@NutritionModel.Fat" /> *@
+        
+                @foreach (var nutrient in FoodModel.Nutrients)
+                {
+                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                }
 
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Cancel</MudButton>
-        
+
         @if (IsEditMode)
         {
             <MudButton OnClick="RemoveFood">Remove</MudButton>
@@ -48,29 +49,29 @@
 </MudDialog>
 
 @code {
-    [CascadingParameter] 
+    [CascadingParameter]
     private MudDialogInstance MudDialog { get; set; }
-    
-    [Parameter] 
+
+    [Parameter]
     public FoodModel FoodModel { get; set; }
-    
-    [Parameter] 
+
+    [Parameter]
     public MealTypeDto SelectedMealType { get; set; }
-    
-    [Parameter] 
+
+    [Parameter]
     public DateOnly CurrentDate { get; set; }
-    
-    [Parameter] 
+
+    [Parameter]
     public EventCallback<List<FoodSelector>> OnFoodChangedEventCallback { get; set; }
-    
-    [Parameter] 
+
+    [Parameter]
     public bool IsEditMode { get; set; }
     // private NutritionModel NutritionModel { get; set; }
 
     protected override void OnInitialized()
     {
         // Model = new FoodModel(Food, SelectedMealType);
-        
+
         // todo init nutrition model
         // NutritionModel = new NutritionModel
         // {
@@ -89,7 +90,7 @@
         {
             await FoodListAdapter.LogFood(FoodModel, CurrentDate);
             Snackbar.Add($"{FoodModel.Food.Name} {FoodModel.Food.Amount} {FoodModel.Food.Unit} was logged", Severity.Success);
-            
+
             await OnFoodChangedEventCallback.InvokeAsync();
             Submit();
         }
@@ -119,7 +120,7 @@
             await OnFoodChangedEventCallback.InvokeAsync();
             Submit();
         }
-        
+
         Snackbar.Add(result.Error, Severity.Error);
     }
 }

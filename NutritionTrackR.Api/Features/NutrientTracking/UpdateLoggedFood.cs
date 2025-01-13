@@ -6,7 +6,7 @@ using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 using NutritionTrackR.Core.Shared.Abstractions;
-using Unit = NutritionTrackR.Core.Foods.ValueObjects.Unit;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
 
@@ -14,14 +14,17 @@ public static class UpdateLoggedFood
 {
 	public static void MapUpdateLoggedFood(this WebApplication app)
 	{
-		app.MapPut("api/v1/food-entry", async (IMediator mediator, UpdateLoggedFoodRequest request) =>
+		app.MapPut("api/v1/food-logs", async (IMediator mediator, UpdateLoggedFoodRequest request) =>
 		{
-			var foodId = new FoodId(request.FoodId);
-			var weight = Weight.Create((double)request.Weight, (Unit)request.Unit);
+			var unitResult = WeightUnit.FromString(request.Unit);
+			if(unitResult.IsFailure)
+				return Results.BadRequest(unitResult.Error);
+			
+			var weight = Weight.Create((double)request.Weight, unitResult.Value);
 			if (weight.IsFailure)
 				return Results.BadRequest(weight.Error);
 			
-			var loggedFood = LoggedFood.Create(request.LoggedFoodId, foodId, weight.Value, (MealType)request.MealType);
+			var loggedFood = LoggedFood.Create(request.LoggedFoodId, new FoodId(request.FoodId), weight.Value, (MealType)request.MealType);
 			
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);
 

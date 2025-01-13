@@ -1,16 +1,17 @@
 ﻿@page "/"
 @using NutritionTrackR.Web.Pages.NutritionTarget
 @using NutritionTrackR.Web.Services
+@using NutritionTrackR.WebPages.NutritionTarget
 @inject FoodListAdapter FoodListAdapter
 @inject NutritionTargetAdapter NutritionTargetAdapter
 
-<div class="d-flex">
+<div class="d-flex justify-content-center">
     <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
     <MudText>@CurrentDate</MudText>
     <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
 </div>
 
-<div class="d-flex justify-center">
+<div class="d-flex justify-content-center">
     @* TODO create custom component for round progressbar, should have background for progress indicator *@
     <div class="flex-column">
         <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Carbohydrates.GetProgress()"/>
@@ -28,14 +29,14 @@
     </div>
 </div>
 
-<div class="d-flex flex-column mt-5 mx-5">
+<div class="d-flex flex-column mt-5 justify-content-center">
     <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="NutrientsModel.Calories.GetProgress()"></MudProgressLinear>
     <MudText Align="Align.Center">Kcal</MudText>
 </div>
 
 <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
 
-<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.NutrientList">
+<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.NutrientList" Class="justify-content-center" size="500px">
     <Columns>
         <HierarchyColumn T="NutrientWrapper"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>

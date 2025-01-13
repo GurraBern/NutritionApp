@@ -10,5 +10,6 @@ public interface INutritionDbContext
     DbSet<Food> Foods { get; }
     DbSet<NutritionDay> NutritionDays { get; }
     DbSet<NutritionTarget> NutritionTargets { get; }
+    public DbSet<BodyMeasurements.BodyMeasurement> BodyMeasurements { get; init; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

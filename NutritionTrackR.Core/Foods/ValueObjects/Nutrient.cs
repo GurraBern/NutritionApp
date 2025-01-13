@@ -1,4 +1,5 @@
 ﻿using NutritionTrackR.Core.Shared.Abstractions;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.Foods.ValueObjects;
 

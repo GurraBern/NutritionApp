@@ -2,6 +2,7 @@
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
 using NutritionTrackR.Core.Shared.Abstractions;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking;
 

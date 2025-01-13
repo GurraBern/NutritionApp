@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Nutrition.Target;
+using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Persistence.Repositories;
 
-public class NutritionTargetRepository(NutritionDbContext dbContext) : INutritionTargetRepository
+public class NutritionTargetRepository(INutritionDbContext dbContext) : INutritionTargetRepository
 {
     //TODO should we be able to set future nutrition targets? Maybe get the most recent nutrition target from the past.
     

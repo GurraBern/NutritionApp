@@ -1,6 +1,10 @@
 using NutritionTrackR.Api.Extensions;
+using NutritionTrackR.Api.Features.BodyMeasurement;
 using NutritionTrackR.Api.Features.Food;
 using NutritionTrackR.Api.Features.NutrientTracking;
+using NutritionTrackR.Core.Shared;
+using NutritionTrackR.Persistence;
+using NutritionTrackR.Persistence.External;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +28,7 @@ app.MapSetNutritionTarget();
 app.MapGetNutritionTarget();
 app.MapUpdateLoggedFood();
 app.MapDeleteLoggedFood();
+app.MapTrackBodyMeasurement();
 
 if (app.Environment.IsDevelopment())
 {
@@ -39,4 +44,11 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+
+
+
+
+
 

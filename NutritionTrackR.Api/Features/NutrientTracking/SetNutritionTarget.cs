@@ -10,7 +10,7 @@ public static class SetNutritionTarget
 {
     public static void MapSetNutritionTarget(this WebApplication app)
     {
-        app.MapPost("api/v1/nutrition-target/set", async (NutritionTargetRequest request, IMediator mediator) => {
+        app.MapPost("api/v1/nutrition-targets/set", async (NutritionTargetRequest request, IMediator mediator) => {
             var nutritionGoalsResult = request.NutrientGoals.MapNutrient();
             if (nutritionGoalsResult.IsFailure)
                 return Results.BadRequest(nutritionGoalsResult.Error);

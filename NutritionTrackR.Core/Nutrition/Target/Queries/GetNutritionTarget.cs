@@ -3,15 +3,13 @@ using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Nutrition.Target.Queries;
 
-public record GetNutritionTargetQuery(DateTime Date) : IRequest<Result<NutritionTarget>>;
+public record GetNutritionTargetQuery(DateTime Date) : IRequest<NutritionTarget>;
 
-public class GetNutritionTarget(INutritionTargetRepository repository) : IRequestHandler<GetNutritionTargetQuery, Result<NutritionTarget>>
+public class GetNutritionTarget(INutritionTargetRepository repository) : IRequestHandler<GetNutritionTargetQuery, NutritionTarget>
 {
-    public async Task<Result<NutritionTarget>> Handle(GetNutritionTargetQuery query, CancellationToken cancellationToken)
+    public async Task<NutritionTarget> Handle(GetNutritionTargetQuery query, CancellationToken cancellationToken)
     {
         var nutritionTarget = await repository.GetNutritionTarget();
-        return nutritionTarget is null
-            ? Result.Failure<NutritionTarget>(NutritionTargetErrors.NoExistingNutritionTargets)
-            : Result.Success(nutritionTarget);
+        return nutritionTarget ?? new NutritionTarget(query.Date, []);
     }
 }

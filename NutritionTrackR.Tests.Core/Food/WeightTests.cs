@@ -1,16 +1,22 @@
 using FluentAssertions;
 using NutritionTrackR.Core.Foods.ValueObjects;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Tests.Core.Food;
 
 public class WeightTests
 {
+	public static TheoryData<WeightUnit, double, double> ToGramsTestData => new()
+	{
+		{ WeightUnit.Grams, 1000, 1000 },
+		{ WeightUnit.Milligram, 1000, 1 },
+		{ WeightUnit.Microgram, 1000000, 1 },
+		{ WeightUnit.Pound, 1, 453.592d }
+	};
+	
 	[Theory]
-	[InlineData(Unit.Grams, 1000, 1000)]
-	[InlineData(Unit.Milligram, 1000, 1)]
-	[InlineData(Unit.Microgram, 1000_000, 1)]
-	[InlineData(Unit.Pound, 1, 453.592)]
-	public void ToGrams_ShouldConvertCorrectly(Unit unit, double amount, double expected)
+	[MemberData(nameof(ToGramsTestData), MemberType = typeof(WeightTests))]	
+	public void ToGrams_ShouldConvertCorrectly(WeightUnit unit, double amount, double expected)
 	{
 		// Arrange
 		var weight = Weight.Create(amount, unit).Value;
@@ -22,13 +28,18 @@ public class WeightTests
 		result.Should().Be(expected);
 	}
 	
+	public static TheoryData<WeightUnit, double> EqualAmountTestData => new()
+	{
+		{ WeightUnit.Milligram, 250_000 },
+		{ WeightUnit.Microgram, 250_000_000 },
+	};
+	
 	[Theory]
-	[InlineData(Unit.Milligram, 250_000)]
-	[InlineData(Unit.Microgram, 250_000_000)]
-	public void Given_equal_amount_Then_return_true(Unit unit, double amount)
+	[MemberData(nameof(EqualAmountTestData), MemberType = typeof(WeightTests))]
+	public void Given_equal_amount_Then_return_true(WeightUnit unit, double amount)
 	{
 		// Arrange
-		var weight1 = Weight.Create(250, Unit.Grams).Value;
+		var weight1 = Weight.Create(250, WeightUnit.Grams).Value;
 		var weight2 = Weight.Create(amount, unit).Value;
 	
 		// Act
@@ -42,8 +53,8 @@ public class WeightTests
 	public void OperatorGreaterThan_ShouldReturnTrue_WhenFirstWeightIsGreater()
 	{
 		// Arrange
-		var weight1 = Weight.Create(2000, Unit.Grams).Value;
-		var weight2 = Weight.Create(1000, Unit.Grams).Value;
+		var weight1 = Weight.Create(2000, WeightUnit.Grams).Value;
+		var weight2 = Weight.Create(1000, WeightUnit.Grams).Value;
 	
 		// Act & Assert
 		weight1.Should().BeGreaterThan(weight2);
@@ -53,8 +64,8 @@ public class WeightTests
 	public void OperatorLessThan_ShouldReturnTrue_WhenFirstWeightIsLesser()
 	{
 		// Arrange
-		var weight1 = Weight.Create(500, Unit.Grams).Value;
-		var weight2 = Weight.Create(1000, Unit.Grams).Value;
+		var weight1 = Weight.Create(500, WeightUnit.Grams).Value;
+		var weight2 = Weight.Create(1000, WeightUnit.Grams).Value;
 	
 		// Act & Assert
 		weight1.Should().BeLessThan(weight2);
@@ -64,8 +75,8 @@ public class WeightTests
 	public void OperatorGreaterThanOrEqual_ShouldReturnTrue_WhenFirstWeightIsGreaterOrEqual()
 	{
 		// Arrange
-		var weight1 = Weight.Create(1000, Unit.Grams).Value;
-		var weight2 = Weight.Create(1000, Unit.Grams).Value;
+		var weight1 = Weight.Create(1000, WeightUnit.Grams).Value;
+		var weight2 = Weight.Create(1000, WeightUnit.Grams).Value;
 	
 		// Act & Assert
 		weight1.Should().BeGreaterThanOrEqualTo(weight2);
@@ -75,8 +86,8 @@ public class WeightTests
 	public void OperatorLessThanOrEqual_ShouldReturnTrue_WhenFirstWeightIsLesserOrEqual()
 	{
 		// Arrange
-		var weight1 = Weight.Create(1000, Unit.Grams).Value;
-		var weight2 = Weight.Create(1000, Unit.Grams).Value;
+		var weight1 = Weight.Create(1000, WeightUnit.Grams).Value;
+		var weight2 = Weight.Create(1000, WeightUnit.Grams).Value;
 	
 		// Act & Assert
 		weight1.Should().BeLessThanOrEqualTo(weight2);

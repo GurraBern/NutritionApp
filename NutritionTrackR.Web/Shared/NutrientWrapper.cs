@@ -11,8 +11,8 @@ public class NutrientWrapper(NutrientDto trackedNutrient)
     private NutrientDto NutritionTarget { get; set; } = new();
 
     public string Name => TrackedNutrient.Name;
-    public UnitDto Unit => TrackedNutrient.Unit;
-    public double Weight => TrackedNutrient.Weight;
+    public string Unit => TrackedNutrient.Unit;
+    public double Weight => Math.Round(TrackedNutrient.Weight, 2);
     public bool IsComplete => GetProgress() > MaxProgress;
 
     public void AddWeight(NutrientWrapper nutrient)
@@ -38,12 +38,4 @@ public class NutrientWrapper(NutrientDto trackedNutrient)
     }
 
     public string ToProgressDisplayString() => Math.Round(TrackedNutrient.Weight, 2) + "/" + NutritionTarget.Weight + " " + NutritionTarget.Unit;
-
-    private static double ConvertUnit(NutrientDto nutrient) => nutrient.Unit switch
-    {
-        UnitDto.Grams => nutrient.Weight,
-        UnitDto.Milligram => nutrient.Weight * 1_000, 
-        UnitDto.Microgram => nutrient.Weight * 1000_000,
-        _ => -1
-    };
 }

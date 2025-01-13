@@ -16,7 +16,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		
 		var queryString = QueryString.Create(new Dictionary<string, string?> { {"searchTerm", searchTerm} } );	
 		
-		var response = await client.GetAsync("api/v1/food" + queryString, token);
+		var response = await client.GetAsync("api/v1/foods" + queryString, token);
 		if (!response.IsSuccessStatusCode) //TODO show popup
 			return [];
 
@@ -34,7 +34,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		{
 			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString(CultureInfo.InvariantCulture)} } );	
 			
-			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-log" + queryString);
+			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-logs" + queryString);
 
 			var loggedFood = response.Foods.Select(foodDto => new FoodModel(foodDto, foodDto.LoggedFoodId)).ToList();
 
@@ -51,9 +51,9 @@ public class FoodListAdapter(IHttpClientFactory factory)
 	{
 		var client = CreateClient();
 
-		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit, foodModel.MealType, date.ToDateTime());
+		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit.ToString(), foodModel.MealType, date.ToDateTime());
 
-		var response = await client.PostAsJsonAsync("api/v1/food-entry", request);
+		var response = await client.PostAsJsonAsync("api/v1/food-logs", request);
 		response.EnsureSuccessStatusCode();
 	}
 	
@@ -67,11 +67,11 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			FoodId = foodModel.FoodId,
 			LoggedFoodId = foodModel.LoggedFoodId!.Value,
 			Weight = foodModel.Amount,
-			Unit = foodModel.Unit,
+			Unit = foodModel.Unit.ToString(),
 			MealType = foodModel.MealType
 		};
 
-		var updateResponse = await client.PutAsJsonAsync("api/v1/food-entry", request);
+		var updateResponse = await client.PutAsJsonAsync("api/v1/food-logs", request);
 		if(updateResponse.IsSuccessStatusCode is false)
 			return await updateResponse.Content.ReadFromJsonAsync<ApiResponse>() ?? ApiResponse.DefaultError();
 		
@@ -88,7 +88,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			LoggedFoodId = foodModel.LoggedFoodId!.Value
 		};
 
-		var deleteResponse = await client.PostAsJsonAsync("api/v1/food-entry/delete", request);
+		var deleteResponse = await client.PostAsJsonAsync("api/v1/food-logs/delete", request);
 		
 		if(deleteResponse.IsSuccessStatusCode)
 			return ApiResponse.Success();

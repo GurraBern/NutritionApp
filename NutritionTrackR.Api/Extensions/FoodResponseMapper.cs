@@ -11,8 +11,8 @@ public static class FoodResponseMapper
 		Foods = foods.MapFoodDtos()
 	};
 
-	public static List<FoodDto> MapFoodDtos(this IEnumerable<Food> foods) =>
-		foods.Select(food => new FoodDto()
+	private static List<FoodDto> MapFoodDtos(this IEnumerable<Food> foods) =>
+		foods.Select(food => new FoodDto
 		{
 			Id = food.Id.ToString(),
 			Name = food.Name,
@@ -21,28 +21,11 @@ public static class FoodResponseMapper
 
 
 	public static List<NutrientDto> MapNutrientDtos(this IEnumerable<Nutrient> nutrients) =>
-		nutrients.Select(nutrient => new NutrientDto()
+		nutrients.Select(nutrient => new NutrientDto
 		{
 			Name = nutrient.Name,
 			Weight = nutrient.Weight.Value,
-			Unit = (UnitDto)nutrient.Weight.Unit
+			Unit = nutrient.Weight.Unit.Name
 		}).ToList();
-	
-	
-	// public static FoodResponse MapLoggedFoodResponse(this IEnumerable<LoggedFood> foods) => new()
- //    	{
- //    		Foods = foods.MapLoggedFoodDtos()
- //    	};
-	//
-	// public static List<LoggedFoodDto> MapLoggedFoodDtos(this IEnumerable<LoggedFood> foods) =>
-	// 	foods.Select(food => new LoggedFoodDto(food.)).ToList();
- //    
- //    
- //    	public static List<NutrientDto> MapNutrientDtos(this IEnumerable<Nutrient> nutrients) =>
- //    		nutrients.Select(nutrient => new NutrientDto()
- //    		{
- //    			Name = nutrient.Name,
- //    			Weight = nutrient.Weight.Value,
- //    			Unit = (UnitDto)nutrient.Weight.Unit
- //    		}).ToList();
 }
+	

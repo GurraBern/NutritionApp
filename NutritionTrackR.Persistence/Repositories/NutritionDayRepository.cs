@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MongoDB.Bson;
 using NutritionTrackR.Core.Nutrition.Tracking;
+using NutritionTrackR.Core.Shared;
 
 namespace NutritionTrackR.Persistence.Repositories;
 
-public class NutritionDayRepository(NutritionDbContext dbContext) : INutritionDayRepository
+public class NutritionDayRepository(INutritionDbContext dbContext) : INutritionDayRepository
 {
 	public Task<NutritionDay?> GetById(string id)
 	{

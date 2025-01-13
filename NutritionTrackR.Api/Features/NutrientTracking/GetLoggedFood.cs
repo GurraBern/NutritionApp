@@ -12,7 +12,7 @@ public static class GetLoggedFood
 {
     public static void MapGetLoggedFood(this WebApplication app)
     {
-        app.MapGet("api/v1/food-log", async (DateOnly date, IMediator mediator) =>
+        app.MapGet("api/v1/food-logs", async (DateOnly date, IMediator mediator) =>
         {
             var query = new GetLoggedFoodsQuery(new FoodsQueryFilter
             {
@@ -31,7 +31,7 @@ public static class GetLoggedFood
                     LoggedFoodId = loggedFood.LoggedFoodId,
                     Name = food.Name,
                     Amount = loggedFood.Weight.Value,
-                    Unit = (UnitDto)loggedFood.Weight.Unit,
+                    Unit = loggedFood.Weight.Unit.Name,
                     Nutrients = food.Nutrients.MapNutrientDtos(),
                     MealType = (MealTypeDto)loggedFood.MealType
                 };

@@ -10,7 +10,7 @@ public static class DeleteLoggedFood
 {
     public static void MapDeleteLoggedFood(this WebApplication app)
     {
-        app.MapPost("api/v1/food-entry/delete",
+        app.MapPost("api/v1/food-logs/delete",
             async ([FromServices] IMediator mediator, [FromBody] DeleteLoggedFoodRequest request) =>
         {
             var command = new DeleteLoggedFoodCommand(request.Date, request.LoggedFoodId);

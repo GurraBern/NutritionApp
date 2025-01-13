@@ -1,5 +1,7 @@
 namespace NutritionTrackR.Contracts;
 
+//TODO use problem details instead
+[Obsolete]
 public class ApiResponse
 {
     public bool IsSuccess { get; init; }

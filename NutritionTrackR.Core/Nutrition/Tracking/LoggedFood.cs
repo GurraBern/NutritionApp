@@ -1,5 +1,6 @@
 ﻿using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
+using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking;
 

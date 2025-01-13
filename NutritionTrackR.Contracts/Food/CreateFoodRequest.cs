@@ -11,26 +11,15 @@ public record CreateFoodRequest
 public class NutrientDto
 {
 	[JsonPropertyName("name")]
-	public string Name { get; set; } = string.Empty;
+	public string Name { get; set; }
 
 	[JsonPropertyName("weight")]
 	public double Weight { get; set; }
-    
+
 	[JsonPropertyName("unit")]
-	public UnitDto Unit { get; set; }
+	public string Unit { get; set; }
 
-	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit.ToString()}";
-}
-
-public enum UnitDto
-{
-	Serving = 0,
-	Grams = 1,
-	Milligram = 2,
-	Microgram = 3,
-	Pound = 4,
-	Ounce = 5,
-	Kcal = 6
+	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit}";
 }
 
 public enum MealTypeDto

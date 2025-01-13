@@ -10,9 +10,9 @@ public class NutritionTargetAdapter(IHttpClientFactory factory)
 	{
 		var client = CreateClient();
 
-		var response = await client.GetAsync("api/v1/nutrition-target");
+		var response = await client.GetAsync("api/v1/nutrition-targets");
 		response.EnsureSuccessStatusCode();
-
+		
 		var responseBody = await response.Content.ReadAsStringAsync();
 		
 		var nutritionTarget = JsonSerializer.Deserialize<NutritionTargetDto>(responseBody);
@@ -29,7 +29,7 @@ public class NutritionTargetAdapter(IHttpClientFactory factory)
 			NutrientGoals = nutrients
 		};
 
-		var response = await client.PostAsJsonAsync("api/v1/nutrition-target/set", request);
+		var response = await client.PostAsJsonAsync("api/v1/nutrition-targets/set", request);
 		response.EnsureSuccessStatusCode();
 	}
 		

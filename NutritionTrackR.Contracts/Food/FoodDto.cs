@@ -15,7 +15,7 @@ public record FoodDto
 	public double Amount { get; set; }
 	
 	[JsonPropertyName("unit")]
-	public UnitDto Unit { get; set; }
+	public string Unit { get; set; }
     
 	[JsonPropertyName("nutrients")]
 	public List<NutrientDto> Nutrients { get; set; }
@@ -23,7 +23,7 @@ public record FoodDto
 	
 	public FoodDto() { }
 
-	protected FoodDto(string name, List<NutrientDto> nutrients, double amount, UnitDto unit, MealTypeDto mealType)
+	protected FoodDto(string name, List<NutrientDto> nutrients, double amount, string unit, MealTypeDto mealType)
 	{
 		Name = name;
 		Amount = amount;

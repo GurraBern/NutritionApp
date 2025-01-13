@@ -49,3 +49,12 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.main-layout {
+    height: 100vh;
+    margin: 1rem;
+    display:  grid;
+    gap:  1rem;
+    grid-template-columns: 3fr 5fr;
+    grid-auto-rows:2fr 1fr;
+}

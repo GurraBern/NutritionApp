@@ -9,7 +9,7 @@ public static class GetFoods
 {
 	public static void MapGetFoods(this WebApplication app)
 	{
-		app.MapGet("api/v1/food", async ([FromServices] IMediator mediator, [FromQuery] string searchTerm) =>
+		app.MapGet("api/v1/foods", async ([FromServices] IMediator mediator, [FromQuery] string searchTerm) =>
 		{
 			var filter = new FoodsQueryFilter()
 			{

@@ -2,4 +2,4 @@
 
 namespace NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 
-public record LogFoodRequest(string FoodId, decimal Weight, UnitDto Unit, MealTypeDto MealType, DateTime Date);
+public record LogFoodRequest(string FoodId, decimal Weight, string Unit, MealTypeDto MealType, DateTime Date);
