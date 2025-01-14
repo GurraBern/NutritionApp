@@ -28,19 +28,19 @@ public class Weight : IComparable<Weight>
     
     public static string Abbreviation(WeightUnit weightUnit) => weightUnit.Unit switch
     {
-        WeightUnitEnum.Grams => "g",
-        WeightUnitEnum.Milligram => "mg",
-        WeightUnitEnum.Microgram => "μg",
+        WeightUnits.Grams => "g",
+        WeightUnits.Milligram => "mg",
+        WeightUnits.Microgram => "μg",
         _ => string.Empty
     };
     
     //TODO return result instead
     public double ToGrams() => Unit.Unit switch
     {
-        WeightUnitEnum.Grams => Value,
-        WeightUnitEnum.Milligram => Value/1_000,
-        WeightUnitEnum.Microgram => Value/1_000_000,
-        WeightUnitEnum.Pound => Value * 453.592,
+        WeightUnits.Grams => Value,
+        WeightUnits.Milligram => Value/1_000,
+        WeightUnits.Microgram => Value/1_000_000,
+        WeightUnits.Pound => Value * 453.592,
         _ => throw new NotSupportedException($"Unit {Unit} is not supported.")
     };
 
@@ -72,17 +72,17 @@ public class Weight : IComparable<Weight>
 public class WeightUnit
 {
     public string Name { get; private set; }
-    public WeightUnitEnum Unit { get; private set; }
+    public WeightUnits Unit { get; private set; }
     
-    public static WeightUnit Serving => new("Serving", WeightUnitEnum.Serving);
-    public static WeightUnit Grams => new("Grams", WeightUnitEnum.Grams);
-    public static WeightUnit Milligram => new("Milligram", WeightUnitEnum.Milligram);
-    public static WeightUnit Microgram => new("Microgram", WeightUnitEnum.Microgram);
-    public static WeightUnit Pound => new("Pound", WeightUnitEnum.Pound);
-    public static WeightUnit Ounce => new("Ounce", WeightUnitEnum.Ounce);
-    public static WeightUnit Kcal => new("Kcal", WeightUnitEnum.Kcal);
+    public static WeightUnit Serving => new("Serving", WeightUnits.Serving);
+    public static WeightUnit Grams => new("Grams", WeightUnits.Grams);
+    public static WeightUnit Milligram => new("Milligram", WeightUnits.Milligram);
+    public static WeightUnit Microgram => new("Microgram", WeightUnits.Microgram);
+    public static WeightUnit Pound => new("Pound", WeightUnits.Pound);
+    public static WeightUnit Ounce => new("Ounce", WeightUnits.Ounce);
+    public static WeightUnit Kcal => new("Kcal", WeightUnits.Kcal);
     
-    public WeightUnit(string name, WeightUnitEnum unit)
+    public WeightUnit(string name, WeightUnits unit)
     {
         Name = name;
         Unit = unit;
@@ -101,7 +101,7 @@ public class WeightUnit
     };
 }
 
-public enum WeightUnitEnum
+public enum WeightUnits
 {
    Serving,
    Grams,

@@ -2,17 +2,24 @@
 
 namespace NutritionTrackR.Web.Shared;
 
+//TODO no reason to take in dto we just need to map
 public class NutrientWrapper(NutrientDto trackedNutrient)
 {
     private const double MaxProgress = 100;
-    private NutrientDto TrackedNutrient { get; } = trackedNutrient;
+    public NutrientDto TrackedNutrient { get; } = trackedNutrient;
 
     //TODO what happens if new() maybe rethink?
     private NutrientDto NutritionTarget { get; set; } = new();
 
     public string Name => TrackedNutrient.Name;
     public string Unit => TrackedNutrient.Unit;
-    public double Weight => Math.Round(TrackedNutrient.Weight, 2);
+    
+    public double Weight
+    {
+        get => Math.Round(TrackedNutrient.Weight, 2);
+        set => trackedNutrient.Weight = value;
+    }
+    
     public bool IsComplete => GetProgress() > MaxProgress;
 
     public void AddWeight(NutrientWrapper nutrient)

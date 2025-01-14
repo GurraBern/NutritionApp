@@ -2,6 +2,7 @@
 @using NutritionTrackR.Contracts.Nutrition.Target
 @using NutritionTrackR.Web.Services
 @inject NutritionTargetAdapter NutritionTargetAdapter
+@inject IDialogService DialogService
 <h3>NutritionGoal</h3>
 
 <MudDataGrid T="NutrientDto" Items="@NutritionTargetModel.Nutrients" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
@@ -20,6 +21,7 @@
 </MudDataGrid>
 
 <MudButton Class="align-content-center" Variant="Variant.Filled" Size="Size.Large" Color="Color.Tertiary" OnClick="SaveNutritionalGoal">Save</MudButton>
+<MudButton Class="align-content-center" Variant="Variant.Filled" Size="Size.Large" Color="Color.Tertiary" OnClick="CreateNutritionalGoal">Create</MudButton>
 
 @code {
     private NutritionTargetDto NutritionTargetModel { get; set; } = new();
@@ -51,5 +53,10 @@
     private async Task SaveNutritionalGoal()
     {
         await NutritionTargetAdapter.SetNutritionTarget(NutritionTargetModel.Nutrients);
+    }
+    private async Task CreateNutritionalGoal()
+    {
+        //TODO dialog lista -> alla nutrients med dropdown -> välj vikt create
+        await DialogService.ShowAsync<NutritionTargetDialog>();
     }
 }

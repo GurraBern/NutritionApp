@@ -1,0 +1,61 @@
+﻿@using NutritionTrackR.Web.Services
+@using NutritionTrackR.Web.Shared.Nutrition
+@inject NutritionTargetAdapter NutritionTargetAdapter
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            Set new nutrition target
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <div class="d-flex gap-3 justify-start flex-grow-1">
+            <MudSelect @bind-Value="@SelectedNutrient" Label="Nutrient" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var nutrient in Model.AllNutrients)
+                {
+                    <MudSelectItem Value="nutrient">@nutrient.Name</MudSelectItem>
+                }
+            </MudSelect>
+            
+            <MudNumericField T="double" @bind-Value="Weight" Label="Weight"></MudNumericField>
+            
+            <MudSelect @bind-Value="@Unit" Label="Nutrient" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var nutrient in Enum.GetValues(typeof(Unit)).Cast<Unit>())
+                {
+                    <MudSelectItem Value="nutrient">@nutrient</MudSelectItem>
+                }
+            </MudSelect>
+        </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="Create">Create</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private NutrientWrapper SelectedNutrient { get; set; }
+    private double Weight { get; set; }
+    private Unit Unit { get; set; }
+    private NutrientsModel Model { get; set; } = new();
+
+
+    private void Cancel() => MudDialog.Close();
+    private async Task Create()
+    {
+        //TODO fix
+        SelectedNutrient.TrackedNutrient.Weight = Weight;
+        SelectedNutrient.TrackedNutrient.Unit = Unit.ToString();
+        var nutrients = new List<NutrientDto>
+        {
+            SelectedNutrient.TrackedNutrient
+        }.ToDictionary(x => x.Name);
+
+        Model.SetNutrientTargets(nutrients);
+        await NutritionTargetAdapter.SetNutritionTarget(nutrients.Values.ToList());
+    }
+}

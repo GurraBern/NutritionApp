@@ -1,8 +1,7 @@
 ﻿using NutritionTrackR.Contracts.Food;
-using NutritionTrackR.Web.Shared;
 using NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 
-namespace NutritionTrackR.WebPages.NutritionTarget;
+namespace NutritionTrackR.Web.Shared.Nutrition;
 
 public class NutrientsModel
 {
@@ -11,13 +10,15 @@ public class NutrientsModel
 		var nutrientDictionary = foods
 			.SelectMany(food => food.Nutrients)
 			.GroupBy(nutrient => nutrient.Name)
-			.ToDictionary(group => group.Key, group => new NutrientWrapper(new NutrientDto
-			{
-				Name = group.Key,
-				Weight = group.Sum(nutrient => nutrient.Weight)
-			}));
+			.ToDictionary(group => group.Key, group =>
+				new NutrientWrapper(
+					new NutrientDto
+					{
+						Name = group.Key,
+						Weight = group.Sum(nutrient => nutrient.Weight)
+					}));
 
-		foreach (var nutrient in NutrientList)
+		foreach (var nutrient in AllNutrients)
 		{
 			nutrient.ClearWeight();
 			if (nutrientDictionary.TryGetValue(nutrient.Name, out var combinedNutrient))
@@ -29,7 +30,7 @@ public class NutrientsModel
 
 	public void SetNutrientTargets(Dictionary<string, NutrientDto> nutrientTargets)
 	{
-		foreach (var nutrient in NutrientList)
+		foreach (var nutrient in AllNutrients)
 		{
 			if (nutrientTargets.TryGetValue(nutrient.Name, out var nutrientTarget))
 			{
@@ -120,6 +121,6 @@ public class NutrientsModel
     public NutrientWrapper Valine = new(new NutrientDto { Name = "Valine", Unit = nameof(Unit.Milligram), Weight = 0 });
 	// public static NutrientDto Theobromine => new() { Name = "Theobromine", Unit = UnitDto.Grams, Weight = 0 };
 
-	public List<NutrientWrapper> NutrientList => [Calories, Protein, Carbohydrates, Fiber, Sugars, Starch, Fat, SaturatedFat, TransFat, MonounsaturatedFat, PolyunsaturatedFat, Chloride, Omega3, Omega6, Cholesterol, VitaminA, VitaminD, VitaminE, VitaminC, VitaminK1, VitaminK2, Thiamin, Riboflavin, Niacin, PantothenicAcid, VitaminB6, Biotin, Folate, VitaminB12, TocopherolAlpha, Choline, FolicAcid, CaroteneAlpha, CaroteneBeta, CryptoxanthinBeta, LuteinZeaxanthin, Lycopene, Calcium, Chromium, Iron, Zinc, Sodium, Magnesium, Copper, Fluoride, Iodine, Molybdenum, Nickel, Phosphorus, Potassium, Manganese, Phosphorus, Selenium, Alanine, Arginine, Asparagine, AsparticAcid, Cystine, GlutamicAcid, Glutamine, Glycine, Histidine, Hydroxyproline, Isoleucine, Leucine, Lysine, Methionine, Phenylalanine, Proline, Serine, Threonine, Tryptophan, Tyrosine, Valine];
+	public List<NutrientWrapper> AllNutrients => [Calories, Protein, Carbohydrates, Fiber, Sugars, Starch, Fat, SaturatedFat, TransFat, MonounsaturatedFat, PolyunsaturatedFat, Chloride, Omega3, Omega6, Cholesterol, VitaminA, VitaminD, VitaminE, VitaminC, VitaminK1, VitaminK2, Thiamin, Riboflavin, Niacin, PantothenicAcid, VitaminB6, Biotin, Folate, VitaminB12, TocopherolAlpha, Choline, FolicAcid, CaroteneAlpha, CaroteneBeta, CryptoxanthinBeta, LuteinZeaxanthin, Lycopene, Calcium, Chromium, Iron, Zinc, Sodium, Magnesium, Copper, Fluoride, Iodine, Molybdenum, Nickel, Phosphorus, Potassium, Manganese, Phosphorus, Selenium, Alanine, Arginine, Asparagine, AsparticAcid, Cystine, GlutamicAcid, Glutamine, Glycine, Histidine, Hydroxyproline, Isoleucine, Leucine, Lysine, Methionine, Phenylalanine, Proline, Serine, Threonine, Tryptophan, Tyrosine, Valine];
 }
 

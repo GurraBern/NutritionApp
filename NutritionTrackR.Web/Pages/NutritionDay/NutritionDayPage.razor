@@ -1,7 +1,7 @@
 ﻿@page "/"
 @using NutritionTrackR.Web.Pages.NutritionTarget
 @using NutritionTrackR.Web.Services
-@using NutritionTrackR.WebPages.NutritionTarget
+@using NutritionTrackR.Web.Shared.Nutrition
 @inject FoodListAdapter FoodListAdapter
 @inject NutritionTargetAdapter NutritionTargetAdapter
 
@@ -36,7 +36,7 @@
 
 <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
 
-<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.NutrientList" Class="justify-content-center" size="500px">
+<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.AllNutrients" Class="justify-content-center" size="500px">
     <Columns>
         <HierarchyColumn T="NutrientWrapper"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
