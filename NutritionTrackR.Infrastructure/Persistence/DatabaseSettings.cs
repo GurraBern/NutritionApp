@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NutritionTrackR.Persistence;
+namespace NutritionTrackR.Infrastructure.Persistence;
 
 public class DatabaseSettings
 {

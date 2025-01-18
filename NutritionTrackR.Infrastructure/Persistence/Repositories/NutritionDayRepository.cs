@@ -3,7 +3,7 @@ using MongoDB.Bson;
 using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Shared;
 
-namespace NutritionTrackR.Persistence.Repositories;
+namespace NutritionTrackR.Infrastructure.Persistence.Repositories;
 
 public class NutritionDayRepository(INutritionDbContext dbContext) : INutritionDayRepository
 {

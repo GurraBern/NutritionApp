@@ -5,7 +5,7 @@ using NutritionTrackR.Core.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Shared;
 
-namespace NutritionTrackR.Persistence;
+namespace NutritionTrackR.Infrastructure.Persistence;
 
 public class NutritionDbContext(DbContextOptions<NutritionDbContext> options) : DbContext(options), INutritionDbContext
 {

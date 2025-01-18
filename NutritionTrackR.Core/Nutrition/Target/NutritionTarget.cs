@@ -5,7 +5,7 @@ namespace NutritionTrackR.Core.Nutrition.Target;
 
 public class NutritionTarget : AggregateRoot 
 {
-	public DateTime ActivationDate { get; set; }
+	public DateTime ActivationDate { get; private set; }
 	
 	public List<Nutrient> Nutrients { get; private set; } = [];
 

@@ -4,7 +4,7 @@ using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Nutrition.Target;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Persistence.Configurations;
+namespace NutritionTrackR.Infrastructure.Persistence.Configurations;
 
 public class NutritionTargetConfiguration : IEntityTypeConfiguration<NutritionTarget>
 {

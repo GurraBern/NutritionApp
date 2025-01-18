@@ -4,7 +4,7 @@ using MongoDB.EntityFrameworkCore.Extensions;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Persistence.Configurations;
+namespace NutritionTrackR.Infrastructure.Persistence.Configurations;
 
 public class FoodConfiguration : IEntityTypeConfiguration<Food>
 {

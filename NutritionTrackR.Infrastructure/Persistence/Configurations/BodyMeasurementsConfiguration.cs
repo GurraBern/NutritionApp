@@ -5,7 +5,7 @@ using NutritionTrackR.Core.BodyMeasurements;
 using NutritionTrackR.Core.BodyMeasurements.ValueObjects;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Persistence.Configurations;
+namespace NutritionTrackR.Infrastructure.Persistence.Configurations;
 
 public class BodyMeasurementsConfiguration : IEntityTypeConfiguration<BodyMeasurement>
 {

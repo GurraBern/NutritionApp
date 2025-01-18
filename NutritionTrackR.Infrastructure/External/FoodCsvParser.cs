@@ -4,7 +4,7 @@ using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Persistence.External;
+namespace NutritionTrackR.Infrastructure.External;
 
 public class FoodCsvParser
 {

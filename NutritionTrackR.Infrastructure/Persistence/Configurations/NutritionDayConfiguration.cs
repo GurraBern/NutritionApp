@@ -6,7 +6,7 @@ using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Persistence.Configurations;
+namespace NutritionTrackR.Infrastructure.Persistence.Configurations;
 
 public class NutritionDayConfiguration : IEntityTypeConfiguration<NutritionDay>
 {

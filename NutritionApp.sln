@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{40008F77-2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Core", "NutritionTrackR.Core\NutritionTrackR.Core.csproj", "{AB920ADE-4C3F-49CB-90FF-87AE28C5FA09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Persistence", "NutritionTrackR.Persistence\NutritionTrackR.Persistence.csproj", "{7D7C5DC3-971C-4D03-8DCF-2188944417C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Infrastructure", "NutritionTrackR.Infrastructure\NutritionTrackR.Infrastructure.csproj", "{7D7C5DC3-971C-4D03-8DCF-2188944417C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NutritionTrackR.Contracts", "NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj", "{4D29A247-1E07-4926-81E4-C5CF51251FB5}"
 EndProject

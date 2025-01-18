@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>NutritionTrackR.Persistence</RootNamespace>
+        <RootNamespace>NutritionTrackR.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
