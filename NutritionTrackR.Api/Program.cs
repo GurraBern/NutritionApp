@@ -5,7 +5,7 @@ using NutritionTrackR.Api.Features.NutrientTracking;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(); //TODO remove use minmal api instead
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
@@ -25,7 +25,8 @@ app.MapSetNutritionTarget();
 app.MapGetNutritionTarget();
 app.MapUpdateLoggedFood();
 app.MapDeleteLoggedFood();
-app.MapTrackBodyMeasurement();
+app.MapTrackBodyWeight();
+app.MapGetBodyWeight();
 
 if (app.Environment.IsDevelopment())
 {

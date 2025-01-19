@@ -1,37 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MongoDB.EntityFrameworkCore.Extensions;
-using NutritionTrackR.Core.BodyMeasurements;
-using NutritionTrackR.Core.BodyMeasurements.ValueObjects;
+using NutritionTrackR.Core.BodyMeasurements.Events;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Infrastructure.Persistence.Configurations;
 
-public class BodyMeasurementsConfiguration : IEntityTypeConfiguration<BodyMeasurement>
+public class BodyMeasurementsConfiguration : IEntityTypeConfiguration<WeightEvent>
 {
-
-    public void Configure(EntityTypeBuilder<BodyMeasurement> builder)
+    public void Configure(EntityTypeBuilder<WeightEvent> builder)
     {
-        builder.ToCollection("BodyMeasurements");
+	    builder.ToCollection("BodyMeasurements")
+		    .HasDiscriminator<string>("Discriminator")
+		    .HasValue<WeightTracked>(nameof(WeightTracked));
+        
         builder.HasKey(m => m.Id);
 
-        builder.Property(m => m.Date);
+		builder.Property(x => x.Descriptor);
+		
+        builder.HasIndex(x => x.UserId);
+		builder.Property(x => x.UserId);
+		
+        builder.Property(m => m.OccuredAt);
         
-        builder.OwnsOne(m => m.Weight, weight => {
-            weight.Property(x => x.Value)
-                .HasConversion<double>();
-            
-            weight.Property(x => x.Unit).HasConversion(
-            w => w.Name,
-            w => WeightUnit.FromString(w).Value);
-        });
-
-        builder.OwnsMany(m => m.Measurements, x => {
-
-            x.Property(y => y.Length);
-            x.Property(y => y.Unit).HasConversion(
-            t => t.Name, 
-            t => MeasurementUnit.FromString(t)); //TODO .Value
-        });
+		builder.OwnsOne(n => n.Weight, weight => {
+			weight.Property(x => x.Value);
+			weight.Property(x => x.Unit)
+				.HasConversion(w => w.Name, w => WeightUnit.FromString(w).Value);
+		});
     }
 }

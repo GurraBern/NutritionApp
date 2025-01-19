@@ -4,8 +4,11 @@ using NutritionTrackR.Contracts.Food;
 
 namespace NutritionTrackR.Contracts.BodyMeasurement;
 
-public class TrackBodyMeasurementRequest
+public class TrackBodyWeightRequest
 {
+    [JsonPropertyName("userId")]
+    public Guid UserId { get; set; }
+    
     [JsonPropertyName("date")]
     public DateTime Date { get; set; }
     
@@ -14,9 +17,4 @@ public class TrackBodyMeasurementRequest
     
     [JsonPropertyName("unit")]
     public string WeightUnit { get; set; }
-
-    [JsonPropertyName("measurements")]
-    public List<MeasurementDto> Measurements { get; set; } = [];
 }
-
-public record MeasurementDto(decimal Length, string Unit);

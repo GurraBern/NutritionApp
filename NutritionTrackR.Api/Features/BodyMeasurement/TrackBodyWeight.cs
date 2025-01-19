@@ -2,25 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.BodyMeasurement;
-using NutritionTrackR.Core.BodyMeasurements;
-using NutritionTrackR.Core.BodyMeasurements.ValueObjects;
+using NutritionTrackR.Core.BodyMeasurements.Commands;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Api.Features.BodyMeasurement;
 
-public static class TrackBodyMeasurement
+public static class TrackBodyWeight
 {
-    public static void MapTrackBodyMeasurement(this WebApplication app)
+    public static void MapTrackBodyWeight(this WebApplication app)
     {
-        app.MapPost("api/v1/body-measurements", async ([FromServices] IMediator mediator, [FromBody] TrackBodyMeasurementRequest request) => {
-
-            var measurements = from measurementDto in request.Measurements
-                let unit = MeasurementUnit.FromString(measurementDto.Unit)
-                select Measurement.Create(measurementDto.Length, unit)
-                into measurement
-                where measurement.IsSuccess
-                select measurement.Value;
-
+        app.MapPost("api/v1/body-measurements", async ([FromServices] IMediator mediator, [FromBody] TrackBodyWeightRequest request) => {
+            
+            request.UserId = Guid.Parse("29e2d142-21d9-40a5-accf-cd591671f030"); //TODO change to the users id
+            
             var weightUnitResult = WeightUnit.FromString(request.WeightUnit);
             if (weightUnitResult.IsFailure)
             {
@@ -30,7 +24,7 @@ public static class TrackBodyMeasurement
 
             var weight = Weight.Create(request.Weight, weightUnitResult.Value);
                 
-            var command = new TrackBodyMeasurementCommand(request.Date, weight.Value, measurements);
+            var command = new TrackBodyWeightCommand(request.UserId, request.Date, weight.Value);
             var result = await mediator.Send(command);
             
             return result.IsSuccess

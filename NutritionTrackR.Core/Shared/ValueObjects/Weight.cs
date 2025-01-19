@@ -16,6 +16,8 @@ public class Weight : IComparable<Weight>
         Unit = unit;
     }
 
+    public static Weight Zero() => new(0, WeightUnit.Grams);
+
     public static Result<Weight> Create(double amount, WeightUnit unit)
     {
         if (amount <= 0)
@@ -81,6 +83,7 @@ public class WeightUnit
     public static WeightUnit Pound => new("Pound", WeightUnits.Pound);
     public static WeightUnit Ounce => new("Ounce", WeightUnits.Ounce);
     public static WeightUnit Kcal => new("Kcal", WeightUnits.Kcal);
+    public static WeightUnit Kilogram => new("Kilogram", WeightUnits.Kilogram);
     
     public WeightUnit(string name, WeightUnits unit)
     {
@@ -97,19 +100,21 @@ public class WeightUnit
         "Pound" => Result.Success(Pound),
         "Ounce" => Result.Success(Ounce),
         "Kcal" => Result.Success(Kcal),
+        "Kilogram" => Result.Success(Kilogram),
         _ => Result.Failure<WeightUnit>("Unit is not supported.")
     };
 }
 
 public enum WeightUnits
 {
-   Serving,
-   Grams,
-   Milligram,
-   Microgram,
-   Pound,
-   Ounce,
-   Kcal
+   Serving = 1,
+   Grams = 2,
+   Milligram = 3,
+   Microgram = 4,
+   Pound = 5,
+   Ounce = 6,
+   Kcal = 7,
+   Kilogram = 8
 }
 
 public enum MeasurementSystem
