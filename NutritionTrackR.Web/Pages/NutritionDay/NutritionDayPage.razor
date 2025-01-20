@@ -5,6 +5,8 @@
 @inject FoodListAdapter FoodListAdapter
 @inject NutritionTargetAdapter NutritionTargetAdapter
 
+@inherits CancellableComponent
+
 <div class="d-flex justify-content-center">
     <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
     <MudText>@CurrentDate</MudText>
@@ -78,7 +80,7 @@
     
     protected override async Task OnInitializedAsync()
     {
-        var nutritionTargets  = await NutritionTargetAdapter.GetNutritionTarget();
+        var nutritionTargets  = await NutritionTargetAdapter.GetNutritionTarget(Cts.Token);
         NutrientsModel.SetNutrientTargets(nutritionTargets.Nutrients.ToDictionary(x => x.Name));
 
         await UpdateFoodList();
@@ -86,7 +88,7 @@
     
     private async Task UpdateFoodList()
     {
-        var foods = await FoodListAdapter.GetLoggedFood(CurrentDate);
+        var foods = await FoodListAdapter.GetLoggedFood(CurrentDate, Cts.Token);
         FoodSelectors = foods.Select(f => new FoodSelector(f)).ToList();
         
         NutrientsModel.RecalculateNutrients(foods);

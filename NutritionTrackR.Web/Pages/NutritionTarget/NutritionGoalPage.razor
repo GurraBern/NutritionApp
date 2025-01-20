@@ -3,6 +3,8 @@
 @using NutritionTrackR.Web.Services
 @inject NutritionTargetAdapter NutritionTargetAdapter
 @inject IDialogService DialogService
+@inherits CancellableComponent
+
 <h3>NutritionGoal</h3>
 
 <MudDataGrid T="NutrientDto" Items="@NutritionTargetModel.Nutrients" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
@@ -32,7 +34,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        NutritionTargetModel = await NutritionTargetAdapter.GetNutritionTarget();
+        NutritionTargetModel = await NutritionTargetAdapter.GetNutritionTarget(Cts.Token);
     }
 
     void StartedEditingItem(NutrientDto item)

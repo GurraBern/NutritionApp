@@ -12,14 +12,14 @@ public static class GetLoggedFood
 {
     public static void MapGetLoggedFood(this WebApplication app)
     {
-        app.MapGet("api/v1/food-logs", async (DateOnly date, IMediator mediator) =>
+        app.MapGet("api/v1/food-logs", async (DateOnly date, IMediator mediator, CancellationToken cancellationToken = default) =>
         {
             var query = new GetLoggedFoodsQuery(new FoodsQueryFilter
             {
                 Date = date.ToDateTime(TimeOnly.MaxValue)
             });
 
-            var result = await mediator.Send(query);
+            var result = await mediator.Send(query, cancellationToken);
             
             //TODO use dictionary instead
             var loggedFoodDtos = result.LoggedFoods.Select(loggedFood =>

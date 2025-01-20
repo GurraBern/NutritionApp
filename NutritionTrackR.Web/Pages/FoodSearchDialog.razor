@@ -45,7 +45,7 @@
     private void Cancel() => MudDialog.Close();
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
     
-    private async Task<IEnumerable<FoodDto>> Search(string searchTerm, CancellationToken token)
+    private async Task<IEnumerable<FoodDto>> Search(string searchTerm, CancellationToken token = default)
     {
         if (string.IsNullOrEmpty(searchTerm))
             return [];

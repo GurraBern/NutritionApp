@@ -10,11 +10,11 @@ public static class GetNutritionTarget
 {
     public static void MapGetNutritionTarget(this WebApplication app)
     {
-        app.MapGet("api/v1/nutrition-targets", async (IMediator mediator) => {
+        app.MapGet("api/v1/nutrition-targets", async (IMediator mediator, CancellationToken cancellationToken) => {
             
             var query = new GetNutritionTargetQuery(DateTime.Now);
             
-            var nutritionTarget = await mediator.Send(query);
+            var nutritionTarget = await mediator.Send(query, cancellationToken);
 
             return Results.Ok(new NutritionTargetDto
             {

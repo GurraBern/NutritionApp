@@ -6,14 +6,14 @@ namespace NutritionTrackR.Web.Services;
 
 public class NutritionTargetAdapter(IHttpClientFactory factory)
 {
-	public async Task<NutritionTargetDto> GetNutritionTarget()
+	public async Task<NutritionTargetDto> GetNutritionTarget(CancellationToken cancellationToken = default)
 	{
 		var client = CreateClient();
 
-		var response = await client.GetAsync("api/v1/nutrition-targets");
+		var response = await client.GetAsync("api/v1/nutrition-targets", cancellationToken);
 		response.EnsureSuccessStatusCode();
 		
-		var responseBody = await response.Content.ReadAsStringAsync();
+		var responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
 		
 		var nutritionTarget = JsonSerializer.Deserialize<NutritionTargetDto>(responseBody);
 		

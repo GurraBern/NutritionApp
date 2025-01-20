@@ -27,14 +27,14 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<FoodModel>> GetLoggedFood(DateOnly date)
+	public async Task<List<FoodModel>> GetLoggedFood(DateOnly date, CancellationToken cancellationToken = default)
 	{
 		var client = CreateClient();
 		try
 		{
 			var queryString = QueryString.Create(new Dictionary<string, string?> { {"date", date.ToString(CultureInfo.InvariantCulture)} } );	
 			
-			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-logs" + queryString);
+			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-logs" + queryString, cancellationToken);
 
 			var loggedFood = response.Foods.Select(foodDto => new FoodModel(foodDto, foodDto.LoggedFoodId)).ToList();
 
