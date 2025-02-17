@@ -1,0 +1,14 @@
+﻿@page "/WeightTrackingPage"
+@using NutritionTrackR.Web.Services
+@inject WeightAdapter WeightAdapter
+
+@code {
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var weights = await WeightAdapter.GetWeightData();
+
+    }
+}

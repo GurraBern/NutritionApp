@@ -1,5 +1,6 @@
 using MudBlazor;
 using MudBlazor.Services;
+
 using NutritionTrackR.Web;
 using NutritionTrackR.Web.Extensions;
 using NutritionTrackR.Web.Services;
@@ -13,8 +14,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddMudServices();
 
 
-builder.Services.AddScoped<FoodListAdapter>();
-builder.Services.AddScoped<NutritionTargetAdapter>();
+
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 builder.SetupNutritionTrackRHttpClient();

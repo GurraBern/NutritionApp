@@ -1,6 +1,6 @@
 ﻿using NutritionTrackR.Core.Shared.Abstractions;
 
-namespace NutritionTrackR.Core.WeightTracking.ValueObjects;
+namespace NutritionTrackR.Core.BodyMeasurements.ValueObjects;
 
 public class Measurement
 {

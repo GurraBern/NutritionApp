@@ -8,13 +8,12 @@ public static class GetBodyWeight
 {
     public static void MapGetBodyWeight(this WebApplication app)
     {
-        app.MapGet("api/v1/body-measurements", async ([FromServices] IMediator mediator, CancellationToken cancellationToken) => {
-            
+        app.MapGet("api/v1/body-measurements/{id:int}/current-weight", async ([FromServices] IMediator mediator, [FromRoute] int id, CancellationToken cancellationToken = default) => {
             var userId = Guid.Parse("29e2d142-21d9-40a5-accf-cd591671f030"); //TODO change to the users id
             
-            var command = new BodyWeightQuery(userId);
+            var query = new BodyWeightQuery(userId);
             
-            var result = await mediator.Send(command, cancellationToken);
+            var result = await mediator.Send(query, cancellationToken);
             
             //TODO return response
             return Results.Ok();

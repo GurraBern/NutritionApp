@@ -44,5 +44,13 @@ public class NutrientWrapper(NutrientDto trackedNutrient)
         TrackedNutrient.Weight = 0;
     }
 
-    public string ToProgressDisplayString() => Math.Round(TrackedNutrient.Weight, 2) + "/" + NutritionTarget.Weight + " " + NutritionTarget.Unit;
+    public string ToProgressDisplayString()
+    {
+        if (TrackedNutrient.Weight == 0)
+            return "-";
+
+        return NutritionTarget.Weight == 0
+            ? $"{Math.Round(TrackedNutrient.Weight, 2)} {TrackedNutrient.Unit}"
+            : $"{Math.Round(TrackedNutrient.Weight, 2)} / {NutritionTarget.Weight} {TrackedNutrient.Unit}";
+    }    
 }

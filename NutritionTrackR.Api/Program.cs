@@ -27,6 +27,7 @@ app.MapUpdateLoggedFood();
 app.MapDeleteLoggedFood();
 app.MapTrackBodyWeight();
 app.MapGetBodyWeight();
+app.MapGetBodyWeightData();
 
 if (app.Environment.IsDevelopment())
 {

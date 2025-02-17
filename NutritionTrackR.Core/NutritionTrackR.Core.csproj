@@ -16,4 +16,8 @@
       <PackageReference Include="MongoDB.EntityFrameworkCore" Version="8.2.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj" />
+    </ItemGroup>
+
 </Project>

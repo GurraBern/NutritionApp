@@ -1,4 +1,7 @@
 ﻿using MediatR;
+using NutritionTrackR.Contracts.BodyMeasurement;
+using NutritionTrackR.Core.BodyMeasurements.Events;
+using NutritionTrackR.Core.BodyMeasurements.Queries;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.Commands;
 using NutritionTrackR.Core.Foods.Queries;
@@ -24,6 +27,8 @@ public static class MediatRExtensions
 			.AddScoped<IRequestHandler<LogFood, Result>, LogFoodCommandHandler>()
 			.AddScoped<IRequestHandler<GetLoggedFoodsQuery, LoggedFoodResponse>, GetNutritionDays>()
 			.AddScoped<IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>, GetFoodsHandler>()
-			.AddScoped<IRequestHandler<CreateNutritionTargetCommand, Result>, CreateNutritionTarget>();
+			.AddScoped<IRequestHandler<CreateNutritionTargetCommand, Result>, CreateNutritionTarget>()
+			.AddScoped<IRequestHandler<GetBodyWeightDataQuery, IEnumerable<WeightDto>>, GetCurrentBodyWeightDataQueryHandler>()
+			;
 	}
 }

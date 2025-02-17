@@ -12,10 +12,18 @@ public static class HttpClientExtensions
 			.AddOptions<NutritionTrackRApiSettings>()
 			.Bind(builder.Configuration.GetSection(nameof(NutritionTrackRApiSettings)))
 			.ValidateDataAnnotations();
-
-		builder.SetupHttpClient(nameof(FoodListAdapter));
-		builder.SetupHttpClient(nameof(NutritionTargetAdapter));
+		
+		builder.SetupAdapter<FoodListAdapter>();
+		builder.SetupAdapter<NutritionTargetAdapter>();
+		builder.SetupAdapter<WeightAdapter>();
 	}
+
+	private static void SetupAdapter<T>(this WebApplicationBuilder builder) where T : class
+	{
+		builder.SetupHttpClient(typeof(T).Name);
+		builder.Services.AddScoped<T>();
+	}
+	
 	private static void SetupHttpClient(this WebApplicationBuilder builder, string name)
 	{
 		builder.Services.AddHttpClient(name, (serviceProvider, httpClient) =>

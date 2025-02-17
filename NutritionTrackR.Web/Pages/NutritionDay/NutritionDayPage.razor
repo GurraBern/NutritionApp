@@ -43,12 +43,28 @@
         <HierarchyColumn T="NutrientWrapper"/>
         <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
         <PropertyColumn Property="x => x.Weight" Title="Weight"/>
-        <TemplateColumn Title="Progress">
+
+
+        <TemplateColumn Title="Nutrition Intake">
             <CellTemplate>
                 <div class="d-flex align-items-center gap-3">
                     @if (context.Item.IsComplete is false)
                     {
                         <MudText>@context.Item.ToProgressDisplayString()</MudText>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
+                    }
+                </div>
+            </CellTemplate>
+        </TemplateColumn>
+        
+        <TemplateColumn Title="Progress">
+            <CellTemplate>
+                <div class="d-flex align-items-center gap-3">
+                    @if (context.Item.IsComplete is false)
+                    {
                         <MudProgressLinear Value="@context.Item.GetProgress()" Min="0" Max="100" Color="Color.Primary"/>
                     }
                     else
