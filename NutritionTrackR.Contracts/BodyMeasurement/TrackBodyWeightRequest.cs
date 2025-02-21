@@ -10,7 +10,7 @@ public class TrackBodyWeightRequest
     public Guid UserId { get; set; }
     
     [JsonPropertyName("date")]
-    public DateTime Date { get; set; }
+    public DateTime Date { get; set; } = DateTime.UtcNow;
     
     [JsonPropertyName("weight")]
     public double Weight { get; set; }

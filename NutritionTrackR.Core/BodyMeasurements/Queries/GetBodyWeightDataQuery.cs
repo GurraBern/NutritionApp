@@ -15,7 +15,7 @@ public class GetCurrentBodyWeightDataQueryHandler(INutritionDbContext dbContext)
         
         var bodyWeights = await dbContext.BodyWeights
             .AsNoTracking()
-            .Where(x => x.OccuredAt <= startOfYear)
+            .Where(x => x.OccuredAt >= startOfYear)
             .ToListAsync(cancellationToken);
 
         var bodyWeightData = bodyWeights.ToDto();

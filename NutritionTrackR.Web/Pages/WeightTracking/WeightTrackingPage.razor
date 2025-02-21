@@ -1,14 +1,50 @@
 ﻿@page "/WeightTrackingPage"
+@using NutritionTrackR.Contracts.BodyMeasurement
 @using NutritionTrackR.Web.Services
 @inject WeightAdapter WeightAdapter
 
+<MudChart ChartType="ChartType.Line" ChartSeries="@_series" @bind-SelectedIndex="Index" XAxisLabels="@_xAxisLabels" Width="100%" Height="350px" ChartOptions="@_options"/>
+
+@* todo dynamic unit *@
+<MudNumericField T="decimal" Label="Enter weight" AdornmentText="kg" Adornment="Adornment.End" Format="F1" Variant="Variant.Outlined" @bind-Value="Weight"></MudNumericField>
+<MudButton Color="Color.Primary" OnClick="@TrackWeight">Track Weight</MudButton>
+
 @code {
-
-
+    private int Index = -1;
+    private readonly ChartOptions _options = new()
+    {
+        ShowLegend = false,
+        YAxisTicks = 1 
+    };
+    
+    //TODO to chart component
+    private readonly List<ChartSeries> _series = [];
+    private readonly string[] _xAxisLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+    
+    private decimal Weight { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         var weights = await WeightAdapter.GetWeightData();
+        
+        SetupChart(weights);
 
+        if(weights.Any())
+            Weight = (decimal)weights.Last().Amount;
+    }
+    
+    private void SetupChart(List<WeightDto> weights)
+    {
+        var chartSeries = new ChartSeries
+        {
+            Data = weights.Select(x => x.Amount).ToArray()
+        };
+
+        _series.Add(chartSeries);
+    }
+
+    private async Task TrackWeight()
+    {
+        await WeightAdapter.TrackWeight(Weight);
     }
 }
