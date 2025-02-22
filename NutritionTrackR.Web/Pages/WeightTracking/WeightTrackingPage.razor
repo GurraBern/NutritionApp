@@ -9,6 +9,60 @@
 <MudNumericField T="decimal" Label="Enter weight" AdornmentText="kg" Adornment="Adornment.End" Format="F1" Variant="Variant.Outlined" @bind-Value="Weight"></MudNumericField>
 <MudButton Color="Color.Primary" OnClick="@TrackWeight">Track Weight</MudButton>
 
+
+<MudText Typo="Typo.h3">Weight Log</MudText>
+<MudList T="WeightDto">
+    @foreach (var weightEntry in Weights)
+    {
+        <MudListItem Class="list-item-container">
+            <span class="d-flex gap-3 align-items-center">
+                <MudText>@weightEntry.Date.ToShortDateString()</MudText>
+                <MudText>@weightEntry.ToDisplayString()</MudText>
+                
+                <MudIconButton Class="action-button" Icon="@Icons.Material.Filled.Delete" OnClick="DeleteWeightEntry"/>
+            </span>
+        </MudListItem>
+    }
+    
+</MudList>
+
+@* todo move to file *@
+<style>
+    .list-item-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-button {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 8px;
+        will-change: transform, opacity;
+    }
+
+    .list-item-container:hover .action-button {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    /* Optional: Add hover effect to button itself */
+    .action-button:hover {
+        transform: scale(1.1);
+        transition: transform 0.2s ease;
+    }
+
+    /* Optional: Add background hover effect to list item */
+    .list-item-container:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+</style>
+
 @code {
     private int Index = -1;
     private readonly ChartOptions _options = new()
@@ -20,20 +74,21 @@
     //TODO to chart component
     private readonly List<ChartSeries> _series = [];
     private readonly string[] _xAxisLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
-    
+
+    private IEnumerable<WeightDto> Weights { get; set; } = [];
     private decimal Weight { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var weights = await WeightAdapter.GetWeightData();
+        Weights = await WeightAdapter.GetWeightData();
         
-        SetupChart(weights);
+        SetupChart(Weights);
 
-        if(weights.Any())
-            Weight = (decimal)weights.Last().Amount;
+        if(Weights.Any())
+            Weight = (decimal)Weights.Last().Amount;
     }
     
-    private void SetupChart(List<WeightDto> weights)
+    private void SetupChart(IEnumerable<WeightDto> weights)
     {
         var chartSeries = new ChartSeries
         {
@@ -46,5 +101,10 @@
     private async Task TrackWeight()
     {
         await WeightAdapter.TrackWeight(Weight);
+    }
+    
+    private async Task DeleteWeightEntry()
+    {
+        await WeightAdapter.DeleteWeight();
     }
 }

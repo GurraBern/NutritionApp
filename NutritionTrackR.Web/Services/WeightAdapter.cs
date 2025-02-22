@@ -35,4 +35,9 @@ public class WeightAdapter(IHttpClientFactory factory)
 		
 
 	}
+	public async Task DeleteWeight()
+	{
+		//TODO if i want it to be a read only database should i still allow deletes? should i instead create a delete weight event
+		throw new NotImplementedException();
+	}
 }

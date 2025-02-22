@@ -29,7 +29,7 @@ public static class TrackBodyWeight
             
             return result.IsSuccess
                 ? Results.NoContent()
-                : Results.NotFound(ApiResponse.Failure(result.Error));
+                : Results.NotFound(result.Error);
         });
     }
 }
