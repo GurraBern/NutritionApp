@@ -8,8 +8,11 @@ public record BodyWeightDataResponse
 	public IEnumerable<WeightDto> BodyWeightData { get; set; } = [];
 }
 
-public record WeightDto(double Amount, string Unit, DateTime Date)
+public record WeightDto(string Id, double Amount, string Unit, DateTime Date)
 {
+	[JsonPropertyName("id")]
+	public string Id { get; set; } = Id;
+	
 	[JsonPropertyName("amount")]
 	public double Amount { get; set; } = Amount;
 	

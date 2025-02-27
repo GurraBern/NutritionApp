@@ -7,6 +7,6 @@ public static class Mapper
 {
 	public static IEnumerable<WeightDto> ToDto(this IEnumerable<WeightEvent> weightEvents)
 	{
-		return weightEvents.Select(x => new WeightDto(x.Weight.Value, x.Weight.Unit.Unit.ToString(), x.OccuredAt));
+		return weightEvents.Select(x => new WeightDto(x.Id.ToString(), x.Weight.Value, x.Weight.Unit.Unit.ToString(), x.OccuredAt));
 	}
 }

@@ -14,6 +14,7 @@ public class GetBodyWeightQuery(INutritionDbContext dbContext) : IRequestHandler
         var weightEvents = await dbContext.BodyWeights
             .Where(x => x.UserId == request.UserId)
             .OrderBy(x => x.OccuredAt)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var bodyWeight = new BodyWeight();

@@ -9,7 +9,6 @@
 <MudNumericField T="decimal" Label="Enter weight" AdornmentText="kg" Adornment="Adornment.End" Format="F1" Variant="Variant.Outlined" @bind-Value="Weight"></MudNumericField>
 <MudButton Color="Color.Primary" OnClick="@TrackWeight">Track Weight</MudButton>
 
-
 <MudText Typo="Typo.h3">Weight Log</MudText>
 <MudList T="WeightDto">
     @foreach (var weightEntry in Weights)
@@ -19,7 +18,7 @@
                 <MudText>@weightEntry.Date.ToShortDateString()</MudText>
                 <MudText>@weightEntry.ToDisplayString()</MudText>
                 
-                <MudIconButton Class="action-button" Icon="@Icons.Material.Filled.Delete" OnClick="DeleteWeightEntry"/>
+                <MudIconButton Class="action-button" Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteWeightEntry(weightEntry.Id)"/>
             </span>
         </MudListItem>
     }
@@ -103,8 +102,8 @@
         await WeightAdapter.TrackWeight(Weight);
     }
     
-    private async Task DeleteWeightEntry()
+    private async Task DeleteWeightEntry(string id)
     {
-        await WeightAdapter.DeleteWeight();
+        await WeightAdapter.DeleteWeight(id);
     }
 }
