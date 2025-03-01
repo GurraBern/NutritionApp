@@ -2,29 +2,39 @@
 @using NutritionTrackR.Contracts.BodyMeasurement
 @using NutritionTrackR.Web.Services
 @inject WeightAdapter WeightAdapter
+<MudContainer MaxWidth="MaxWidth.Medium" Class="center-container gap-y-4">
+    <div class="flex-column gap-5">
+        
+    <MudChart ChartType="ChartType.Line" Width="100%" ChartSeries="@_series" @bind-SelectedIndex="Index" XAxisLabels="@_xAxisLabels" ChartOptions="@_options"/>
 
-<MudChart ChartType="ChartType.Line" ChartSeries="@_series" @bind-SelectedIndex="Index" XAxisLabels="@_xAxisLabels" Width="100%" Height="350px" ChartOptions="@_options"/>
+    <div class="my-5">
+        @* todo dynamic unit *@
+        <div class="d-flex gap-3">
+            <MudDatePicker Label="Date"></MudDatePicker>
+            <MudNumericField T="decimal" Label="Enter weight" AdornmentText="kg" Adornment="Adornment.End" Format="F1" Variant="Variant.Outlined" @bind-Value="Weight"></MudNumericField>
+        </div>
 
-@* todo dynamic unit *@
-<MudNumericField T="decimal" Label="Enter weight" AdornmentText="kg" Adornment="Adornment.End" Format="F1" Variant="Variant.Outlined" @bind-Value="Weight"></MudNumericField>
-<MudButton Color="Color.Primary" OnClick="@TrackWeight">Track Weight</MudButton>
+        <MudButton Color="Color.Primary" OnClick="@TrackWeight">Track Weight</MudButton>
+    </div>
 
-<MudText Typo="Typo.h3">Weight Log</MudText>
-<MudList T="WeightDto">
-    @foreach (var weightEntry in Weights)
-    {
-        <MudListItem Class="list-item-container">
-            <span class="d-flex gap-3 align-items-center">
-                <MudText>@weightEntry.Date.ToShortDateString()</MudText>
-                <MudText>@weightEntry.ToDisplayString()</MudText>
-                
-                <MudIconButton Class="action-button" Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteWeightEntry(weightEntry.Id)"/>
-            </span>
-        </MudListItem>
-    }
-    
-</MudList>
+    <div class="my-5">
+        <MudText Typo="Typo.h3">Weight Log</MudText>
+        <MudList T="WeightDto">
+            @foreach (var weightEntry in Weights)
+            {
+                <MudListItem Class="list-item-container">
+                    <span class="d-flex gap-3 align-items-center">
+                        <MudText>@weightEntry.Date.ToShortDateString()</MudText>
+                        <MudText>@weightEntry.ToDisplayString()</MudText>
 
+                        <MudIconButton Class="action-button" Icon="@Icons.Material.Filled.Delete" OnClick="() => DeleteWeightEntry(weightEntry.Id)"/>
+                    </span>
+                </MudListItem>
+            }
+        </MudList>
+    </div>
+    </div>
+</MudContainer>
 @* todo move to file *@
 <style>
     .list-item-container {
