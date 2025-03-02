@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using FluentResults;
 using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Contracts.Nutrition.Target;
 
@@ -20,7 +21,8 @@ public class NutritionTargetAdapter(IHttpClientFactory factory)
 		return nutritionTarget;
 	}
 
-	public async Task SetNutritionTarget(List<NutrientDto> nutrients)
+	//TODO return result and show snackbar and update view
+	public async Task<Result> SetNutritionTarget(List<NutrientDto> nutrients)
 	{
 		var client = CreateClient();
 		var request = new NutritionTargetRequest
@@ -30,7 +32,8 @@ public class NutritionTargetAdapter(IHttpClientFactory factory)
 		};
 
 		var response = await client.PostAsJsonAsync("api/v1/nutrition-targets/set", request);
-		response.EnsureSuccessStatusCode();
+
+		return response.IsSuccessStatusCode ? Result.Ok() : Result.Fail("Could not create nutrition target");
 	}
 		
 	private HttpClient CreateClient()

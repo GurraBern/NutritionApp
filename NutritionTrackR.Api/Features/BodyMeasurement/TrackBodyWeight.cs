@@ -16,7 +16,7 @@ public static class TrackBodyWeight
             request.UserId = Guid.Parse("29e2d142-21d9-40a5-accf-cd591671f030"); //TODO change to the users id
             
             var weightUnitResult = WeightUnit.FromString(request.WeightUnit);
-            if (weightUnitResult.IsFailure)
+            if (weightUnitResult.IsFailed)
             {
                 // TODO add problem details
                 return TypedResults.BadRequest();

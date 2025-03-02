@@ -1,5 +1,5 @@
-﻿using NutritionTrackR.Core.Foods;
-using NutritionTrackR.Core.Shared.Abstractions;
+﻿using FluentResults;
+using NutritionTrackR.Core.Foods;
 
 namespace NutritionTrackR.Core.Shared.ValueObjects;
 
@@ -21,11 +21,11 @@ public class Weight : IComparable<Weight>
     public static Result<Weight> Create(double amount, WeightUnit unit)
     {
         if (amount <= 0)
-            return Result.Failure<Weight>(FoodErrors.ZeroWeight);
+            return Result.Fail(FoodErrors.ZeroWeight);
 
         var weight = new Weight(amount, unit);
         
-        return Result.Success(weight);
+        return Result.Ok(weight);
     }
     
     public static string Abbreviation(WeightUnit weightUnit) => weightUnit.Unit switch
@@ -93,15 +93,15 @@ public class WeightUnit
 
     public static Result<WeightUnit> FromString(string unit) => unit switch
     {
-        "Serving" => Result.Success(Serving),
-        "Grams" => Result.Success(Grams),
-        "Milligram" => Result.Success(Milligram),
-        "Microgram" => Result.Success(Microgram),
-        "Pound" => Result.Success(Pound),
-        "Ounce" => Result.Success(Ounce),
-        "Kcal" => Result.Success(Kcal),
-        "Kilogram" => Result.Success(Kilogram),
-        _ => Result.Failure<WeightUnit>("Unit is not supported.")
+        "Serving" => Result.Ok(Serving),
+        "Grams" => Result.Ok(Grams),
+        "Milligram" => Result.Ok(Milligram),
+        "Microgram" => Result.Ok(Microgram),
+        "Pound" => Result.Ok(Pound),
+        "Ounce" => Result.Ok(Ounce),
+        "Kcal" => Result.Ok(Kcal),
+        "Kilogram" => Result.Ok(Kilogram),
+        _ => Result.Fail("Unit is not supported.")
     };
 }
 

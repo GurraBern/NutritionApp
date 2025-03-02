@@ -1,6 +1,6 @@
-﻿using NutritionTrackR.Contracts.Food;
+﻿using FluentResults;
+using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Foods.ValueObjects;
-using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Api.Extensions;
@@ -12,21 +12,15 @@ public static class NutrientMapper
         var nutrients = new List<Nutrient>();
         foreach (var nutrientDto in nutrientDtos)
         {
-            var unit = WeightUnit.FromString(nutrientDto.Unit);
-            if (unit.IsFailure)
-                return Result.Failure<List<Nutrient>>(unit.Error);
-                
-            var weight = Weight.Create(nutrientDto.Weight, unit.Value);
-            if (weight.IsFailure)
-                return Result.Failure<List<Nutrient>>(weight.Error);
-            
-            var nutrient = Nutrient.Create(nutrientDto.Name, weight.Value);
-            if (nutrient.IsFailure)
-                return Result.Failure<List<Nutrient>>(nutrient.Error);
+            var unitResult = WeightUnit.FromString(nutrientDto.Unit);
+            var weightResult = Weight.Create(nutrientDto.Weight, unitResult.Value);
+            var nutrientResult = Nutrient.Create(nutrientDto.Name, weightResult.Value);
 
-            nutrients.Add(nutrient.Value);
+            Result.Merge(unitResult, weightResult, nutrientResult);
+
+            nutrients.Add(nutrientResult.Value);
         }
 
-        return Result.Success(nutrients);
+        return Result.Ok(nutrients);
     }
 }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
@@ -14,14 +15,13 @@ public static class TrackFood
 		app.MapPost("api/v1/food-logs", async (IMediator mediator, LogFoodRequest request) =>
 		{
 			var unitResult = WeightUnit.FromString(request.Unit);
-			if(unitResult.IsFailure)
-				return Results.BadRequest(unitResult.Error);
-			
-			var weight = Weight.Create((double)request.Weight, unitResult.Value);
-			if (weight.IsFailure)
-				return Results.BadRequest(weight.Error);
+			var weightResult = Weight.Create((double)request.Weight, unitResult.Value);
+			var mergedResult = Result.Merge(unitResult, weightResult);
 
-			var command = new LogFood(new FoodId(request.FoodId), weight.Value, (MealType)request.MealType, request.Date);
+			if (mergedResult.IsFailed)
+				return Results.BadRequest(mergedResult.Errors);
+			
+			var command = new LogFood(new FoodId(request.FoodId), weightResult.Value, (MealType)request.MealType, request.Date);
 
 			await mediator.Send(command);
 			

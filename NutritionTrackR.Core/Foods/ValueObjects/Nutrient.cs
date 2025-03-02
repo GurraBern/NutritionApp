@@ -1,9 +1,9 @@
-﻿using NutritionTrackR.Core.Shared.Abstractions;
+﻿using FluentResults;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.Foods.ValueObjects;
 
-public class Nutrient
+public record Nutrient
 {
     public string Name { get; private set; }
     public Weight Weight { get; private set; }
@@ -19,10 +19,10 @@ public class Nutrient
     public static Result<Nutrient> Create(string name, Weight weight)
     {
         if (string.IsNullOrEmpty(name))
-            return Result.Failure<Nutrient>(FoodErrors.EmptyNutrientName);
+            return Result.Fail(FoodErrors.EmptyNutrientName);
 
         var nutrient = new Nutrient(name, weight);
-
-        return Result.Success(nutrient);
+        
+        return Result.Ok(nutrient);
     }
 }

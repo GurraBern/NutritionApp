@@ -34,6 +34,12 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await FetchNutritionTarget();
+    }
+    
+    private async Task FetchNutritionTarget()
+    {
+
         NutritionTargetModel = await NutritionTargetAdapter.GetNutritionTarget(Cts.Token);
     }
 
@@ -56,9 +62,15 @@
     {
         await NutritionTargetAdapter.SetNutritionTarget(NutritionTargetModel.Nutrients);
     }
+    
     private async Task CreateNutritionalGoal()
     {
-        //TODO dialog lista -> alla nutrients med dropdown -> välj vikt create
-        await DialogService.ShowAsync<NutritionTargetDialog>();
+        var dialogReference = await DialogService.ShowAsync<NutritionTargetDialog>();
+        
+        var dialogResult = await dialogReference.Result;
+        if (dialogResult.Canceled is false)
+        {
+            await FetchNutritionTarget();
+        }
     }
 }

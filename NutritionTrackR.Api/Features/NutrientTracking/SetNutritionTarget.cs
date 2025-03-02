@@ -1,4 +1,6 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Target.Commands;
@@ -12,13 +14,14 @@ public static class SetNutritionTarget
     {
         app.MapPost("api/v1/nutrition-targets/set", async (NutritionTargetRequest request, IMediator mediator) => {
             var nutritionGoalsResult = request.NutrientGoals.MapNutrient();
-            if (nutritionGoalsResult.IsFailure)
-                return Results.BadRequest(nutritionGoalsResult.Error);
-
+            if (nutritionGoalsResult.IsFailed)
+                return Results.BadRequest(nutritionGoalsResult.Errors);
+                // return Results.ValidationProblem(nutritionGoalsResult);
+                
             var command = new CreateNutritionTargetCommand(request.StartDate.ToDateTime(), nutritionGoalsResult.Value);
             
             await mediator.Send(command);
-
+            
             return Results.Ok();
         });
     }

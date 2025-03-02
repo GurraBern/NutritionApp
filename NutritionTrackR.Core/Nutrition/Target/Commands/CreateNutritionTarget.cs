@@ -12,17 +12,17 @@ public class CreateNutritionTarget(INutritionDbContext dbContext) : IRequestHand
 {
 	public async Task<Result> Handle(CreateNutritionTargetCommand command, CancellationToken cancellationToken)
 	{
-		var nutritionTarget = await dbContext.NutritionTargets
-            .SingleOrDefaultAsync(x => x.ActivationDate == command.StartDate, cancellationToken);
+		var nutrientGoalsToAdd = command.NutrientGoals;
 		
+		var nutritionTarget = await dbContext.NutritionTargets.SingleOrDefaultAsync(x => x.ActivationDate == command.StartDate, cancellationToken);
 		if (nutritionTarget is null)
 		{
-			nutritionTarget = new NutritionTarget(command.StartDate, command.NutrientGoals);
+			nutritionTarget = new NutritionTarget(command.StartDate, nutrientGoalsToAdd);
 			dbContext.NutritionTargets.Add(nutritionTarget);
 		}
 		else
 		{
-			nutritionTarget.ReplaceNutrients(command.NutrientGoals);
+			nutritionTarget.AddOrUpdateNutrientTargets(nutrientGoalsToAdd);
 		}
 
 		await dbContext.SaveChangesAsync(cancellationToken);

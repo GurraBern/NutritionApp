@@ -43,8 +43,8 @@
     private Unit Unit { get; set; }
     private NutrientsModel Model { get; set; } = new();
 
-
     private void Cancel() => MudDialog.Close();
+    
     private async Task Create()
     {
         //TODO fix
@@ -56,6 +56,9 @@
         }.ToDictionary(x => x.Name);
 
         Model.SetNutrientTargets(nutrients);
-        await NutritionTargetAdapter.SetNutritionTarget(nutrients.Values.ToList());
+        var result = await NutritionTargetAdapter.SetNutritionTarget(nutrients.Values.ToList());
+        
+        if(result.IsSuccess)
+            MudDialog.Close(true);
     }
 }

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Contracts.Food;
 using NutritionTrackR.Core.Foods.Commands;
@@ -23,21 +24,18 @@ public static class CreateFood
         });
     }
 
+    //TODO for consumers of api there should be details about why the food could not be created, we dont want half created foods with missing ingredients!!!
     private static List<Nutrient> ConvertToDomainNutrients(CreateFoodRequest request)
     {
         List<Nutrient> nutrients = [];
         foreach (var nutrient in request.Nutrients)
         {
-            var unit = WeightUnit.FromString(nutrient.Unit);
-            if (unit.IsFailure)
-            {
-                //TODO find way to return fail to create certain nutrient
-                continue;
-            }
-                
-            var weight = Weight.Create(nutrient.Weight, unit.Value);
-            if (weight.IsSuccess)
-                nutrients.Add(Nutrient.Create(nutrient.Name, weight.Value).Value);
+            var unitResult = WeightUnit.FromString(nutrient.Unit);
+            var weightResult = Weight.Create(nutrient.Weight, unitResult.Value);
+
+            var result = Result.Merge(unitResult, weightResult);
+            if (result.IsSuccess)
+                nutrients.Add(Nutrient.Create(nutrient.Name, weightResult.Value).Value);
         }
 
         return nutrients;

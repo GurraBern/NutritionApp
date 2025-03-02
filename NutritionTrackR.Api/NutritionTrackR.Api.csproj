@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>acb1c8fd-18e2-4fcd-8461-766cb651b5f2</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ContainerRepository>nutrition-tracker-image</ContainerRepository>
     <RootNamespace>NutritionTrackR.Api</RootNamespace>
   </PropertyGroup>
 

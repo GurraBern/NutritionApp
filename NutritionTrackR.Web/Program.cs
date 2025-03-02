@@ -11,10 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents();
 
+//Mudblazor
 builder.Services.AddMudServices();
-
-
-
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 builder.SetupNutritionTrackRHttpClient();
