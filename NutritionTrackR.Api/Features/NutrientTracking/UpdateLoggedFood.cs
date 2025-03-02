@@ -1,6 +1,5 @@
 using FluentResults;
 using MediatR;
-using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
@@ -29,9 +28,9 @@ public static class UpdateLoggedFood
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);
 
 			var result = await mediator.Send(command);
-			return result.IsFailure
-				? Results.NotFound(ApiResponse.Failure(result.Error))
-				: Results.Created("", ApiResponse.Success());
+			return result.IsSuccess
+				? Results.Created()
+				: Results.NotFound(result.Errors);
 		});
 	}
 }

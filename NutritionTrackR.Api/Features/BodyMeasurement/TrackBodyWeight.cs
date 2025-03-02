@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.BodyMeasurement;
 using NutritionTrackR.Core.BodyMeasurements.Commands;
 using NutritionTrackR.Core.Shared.ValueObjects;
@@ -29,7 +28,7 @@ public static class TrackBodyWeight
             
             return result.IsSuccess
                 ? Results.NoContent()
-                : Results.NotFound(result.Error);
+                : Results.NotFound(result.Errors);
         });
     }
 }

@@ -1,10 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Target.Commands;
-using NutritionTrackR.Web.Extensions;
 
 namespace NutritionTrackR.Api.Features.NutrientTracking;
 

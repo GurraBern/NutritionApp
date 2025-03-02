@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
-using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Nutrition.Target.Commands;
 
@@ -27,6 +27,6 @@ public class CreateNutritionTarget(INutritionDbContext dbContext) : IRequestHand
 
 		await dbContext.SaveChangesAsync(cancellationToken);
 		
-		return Result.Success();
+		return Result.Ok();
 	}
 }

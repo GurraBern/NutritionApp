@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using NutritionTrackR.Core.BodyMeasurements.Events;
 using NutritionTrackR.Core.Shared;
-using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.BodyMeasurements.Commands;
@@ -21,7 +21,7 @@ public class TrackBodyWeightRequestHandler(INutritionDbContext dbContext) : IReq
 
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
+        return Result.Ok();
     }
     
     // TODO Bodymeasurements (index på user och datum?)

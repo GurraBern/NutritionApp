@@ -1,6 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NutritionTrackR.Contracts;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 
@@ -19,7 +18,7 @@ public static class DeleteLoggedFood
 
             return result.IsSuccess
                 ? Results.NoContent()
-                : Results.NotFound(ApiResponse.Failure(result.Error));
+                : Results.NotFound(result.Errors);
         });
     }
 }

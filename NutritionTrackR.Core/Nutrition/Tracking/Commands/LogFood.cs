@@ -1,7 +1,7 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
-using NutritionTrackR.Core.Shared.Abstractions;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking.Commands;
@@ -23,6 +23,6 @@ public class LogFoodCommandHandler(INutritionDayRepository repository) : IReques
 
 		await repository.SaveAsync();
 
-		return Result.Success();
+		return Result.Ok();
 	}
 }

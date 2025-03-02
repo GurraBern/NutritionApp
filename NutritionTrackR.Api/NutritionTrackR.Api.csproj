@@ -8,6 +8,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <ContainerRepository>nutrition-tracker-image</ContainerRepository>
     <RootNamespace>NutritionTrackR.Api</RootNamespace>
+
+<!--    <PublishTrimmed>true</PublishTrimmed>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,10 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-<!--    <ProjectReference Include="..\Nutrition.Core\Nutrition.Core.csproj" />-->
     <ProjectReference Include="..\NutritionTrackR.Contracts\NutritionTrackR.Contracts.csproj" />
     <ProjectReference Include="..\NutritionTrackR.Infrastructure\NutritionTrackR.Infrastructure.csproj" />
-    <ProjectReference Include="..\NutritionTrackR.Web\NutritionTrackR.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿using NutritionTrackR.Core.Shared.Abstractions;
+﻿using FluentResults;
 
 namespace NutritionTrackR.Core.BodyMeasurements.ValueObjects;
 
@@ -15,10 +15,10 @@ public class Measurement
     {
         if (length < 0)
         {
-            return Result.Failure<Measurement>("Length cannot be negative");
+            return Result.Fail("Length cannot be negative");
         }
 
-        return Result.Success(new Measurement
+        return Result.Ok(new Measurement
         {
             Length = length,
             Unit = measurementUnit

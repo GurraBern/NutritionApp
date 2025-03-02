@@ -1,5 +1,5 @@
+using FluentResults;
 using MediatR;
-using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Nutrition.Tracking.Commands;
 
@@ -11,10 +11,10 @@ public class DeleteLoggedFood(INutritionDayRepository repository) : IRequestHand
     {
         var nutritionDay = await repository.GetByDate(command.Date);
         if (nutritionDay is null)
-            return Result.Failure("Nutrition day could not be found");
+            return Result.Fail("Nutrition day could not be found");
         
         var result = nutritionDay.DeleteFood(command.LoggedFoodId);
-        if (result.IsFailure)
+        if (result.IsFailed)
             return result;
 
         await repository.SaveAsync();

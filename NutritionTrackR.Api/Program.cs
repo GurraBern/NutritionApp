@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
 builder.Services.AddProblemDetails();
+builder.Services.AddHealthChecks();
 
 builder.SetupPersistence();
 

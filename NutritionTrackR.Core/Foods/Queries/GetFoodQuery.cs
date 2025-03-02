@@ -1,21 +1,21 @@
-﻿using MediatR;
+﻿using FluentResults;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using NutritionTrackR.Core.Shared;
-using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Foods.Queries;
 
-public record GetFoodsQuery(FoodsQueryFilter Filter) : IRequest<Result<IEnumerable<Food>>>;
+public record GetFoodsQuery(FoodsQueryFilter Filter) : IRequest<Result<List<Food>>>;
 
-public class GetFoodsHandler(INutritionDbContext dbContext) : IRequestHandler<GetFoodsQuery, Result<IEnumerable<Food>>>
+public class GetFoodsHandler(INutritionDbContext dbContext) : IRequestHandler<GetFoodsQuery, Result<List<Food>>>
 {
-	public async Task<Result<IEnumerable<Food>>> Handle(GetFoodsQuery query, CancellationToken cancellationToken = default)
+	public async Task<Result<List<Food>>> Handle(GetFoodsQuery query, CancellationToken cancellationToken = default)
 	{
 		var foods = await dbContext.Foods
 			.Where(f => f.Name.Contains(query.Filter.Name, StringComparison.CurrentCultureIgnoreCase))
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 		
-		return Result.Success<IEnumerable<Food>>(foods);
+		return Result.Ok(foods);
 	}
 }

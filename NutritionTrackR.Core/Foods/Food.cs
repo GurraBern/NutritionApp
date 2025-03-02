@@ -1,6 +1,6 @@
-﻿using NutritionTrackR.Core.Foods.ValueObjects;
+﻿using FluentResults;
+using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Shared;
-using NutritionTrackR.Core.Shared.Abstractions;
 
 namespace NutritionTrackR.Core.Foods;
 
@@ -22,6 +22,6 @@ public class Food : Entity
     {
         var food = new Food(name, nutrients);
 
-        return Result.Success(food);
+        return Result.Ok(food);
     }
 }
