@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using NutritionTrackR.Web.Pages.NutritionTarget
 @using NutritionTrackR.Web.Services
 @using NutritionTrackR.Web.Shared.Nutrition
 @inject FoodListAdapter FoodListAdapter
@@ -7,92 +6,46 @@
 
 @inherits CancellableComponent
 
-<div class="d-flex justify-content-center">
-    <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
-    <MudText>@CurrentDate</MudText>
-    <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
-</div>
-
-<div class="d-flex justify-content-center">
-    @* TODO create custom component for round progressbar, should have background for progress indicator *@
-    <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Carbohydrates.GetProgress()"/>
-        <MudText Align="Align.Center">Carbs</MudText>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="center-container">
+    <div class="d-flex justify-content-center">
+        <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
+        <MudText>@CurrentDate</MudText>
+        <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
     </div>
 
-    <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Protein.GetProgress()"/>
-        <MudText Align="Align.Center">Protein</MudText>
+    <div class="d-flex justify-content-center">
+        @* TODO create custom component for round progressbar, should have background for progress indicator *@
+        <div class="flex-column">
+            <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Carbohydrates.GetProgress()"/>
+            <MudText Align="Align.Center">Carbs</MudText>
+        </div>
+
+        <div class="flex-column">
+            <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Protein.GetProgress()"/>
+            <MudText Align="Align.Center">Protein</MudText>
+        </div>
+
+        <div class="flex-column">
+            <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Fat.GetProgress()"/>
+            <MudText Align="Align.Center">Fat</MudText>
+        </div>
     </div>
 
-    <div class="flex-column">
-        <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Fat.GetProgress()"/>
-        <MudText Align="Align.Center">Fat</MudText>
+    <div class="d-flex flex-column mt-5 justify-content-center">
+        <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="NutrientsModel.Calories.GetProgress()"></MudProgressLinear>
+        <MudText Align="Align.Center">Kcal</MudText>
     </div>
-</div>
 
-<div class="d-flex flex-column mt-5 justify-content-center">
-    <MudProgressLinear Size="Size.Large" Color="Color.Primary" Value="NutrientsModel.Calories.GetProgress()"></MudProgressLinear>
-    <MudText Align="Align.Center">Kcal</MudText>
-</div>
+    <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
 
-<MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
-
-<MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.AllNutrients" Class="justify-content-center" size="500px">
-    <Columns>
-        <HierarchyColumn T="NutrientWrapper"/>
-        <PropertyColumn Property="x => x.Name" Title="Nutrient"/>
-        <PropertyColumn Property="x => x.Weight" Title="Weight"/>
-
-
-        <TemplateColumn Title="Nutrition Intake">
-            <CellTemplate>
-                <div class="d-flex align-items-center gap-3">
-                    @if (context.Item.IsComplete is false)
-                    {
-                        <MudText>@context.Item.ToProgressDisplayString()</MudText>
-                    }
-                    else
-                    {
-                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
-                    }
-                </div>
-            </CellTemplate>
-        </TemplateColumn>
-        
-        <TemplateColumn Title="Progress">
-            <CellTemplate>
-                <div class="d-flex align-items-center gap-3">
-                    @if (context.Item.IsComplete is false)
-                    {
-                        <MudProgressLinear Value="@context.Item.GetProgress()" Min="0" Max="100" Color="Color.Primary"/>
-                    }
-                    else
-                    {
-                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
-                    }
-                </div>
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-    <ChildRowContent>
-        <MudCard>
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">@context.Item.Name</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-        </MudCard>
-    </ChildRowContent>
-    <PagerContent>
-        <MudDataGridPager T="NutrientDto" />
-    </PagerContent>
-</MudDataGrid>
+</MudContainer>
 
 @code {
     private List<FoodSelector> FoodSelectors { get; set; } = [];
     private NutrientsModel NutrientsModel { get; } = new();
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    
+    private SortMode _sortMode = SortMode.Multiple;
     
     protected override async Task OnInitializedAsync()
     {
