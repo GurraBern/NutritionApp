@@ -46,7 +46,7 @@ public class NutrientsModel
 	public NutrientWrapper Sugars = new(new NutrientDto { Name = "Sugars", Unit = nameof(Unit.Grams), Weight = 0 });
 	public NutrientWrapper Starch = new(new NutrientDto { Name = "Starch", Unit = nameof(Unit.Grams), Weight = 0 });
 
-	public NutrientWrapper Fat = new(new NutrientDto { Name = "Fat", Unit = nameof(Unit.Grams), Weight = 0 });
+	public NutrientWrapper Fat = new(new NutrientDto { Name = "Total Fat", Unit = nameof(Unit.Grams), Weight = 0 });
 	public NutrientWrapper SaturatedFat = new(new NutrientDto { Name = "SaturatedFat", Unit = nameof(Unit.Grams), Weight = 0 });
 	public NutrientWrapper TransFat = new(new NutrientDto { Name = "TransFat", Unit = nameof(Unit.Grams), Weight = 0 });
 	public NutrientWrapper MonounsaturatedFat = new(new NutrientDto { Name = "MonounsaturatedFat", Unit = nameof(Unit.Grams), Weight = 0 });

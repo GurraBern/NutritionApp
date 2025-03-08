@@ -19,7 +19,7 @@
             <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Carbohydrates.GetProgress()"/>
             <MudText Align="Align.Center">Carbs</MudText>
         </div>
-
+        
         <div class="flex-column">
             <MudProgressCircular Style="width: 200px; height: 200px;" Color="Color.Primary" Value="@NutrientsModel.Protein.GetProgress()"/>
             <MudText Align="Align.Center">Protein</MudText>
@@ -44,8 +44,6 @@
     private List<FoodSelector> FoodSelectors { get; set; } = [];
     private NutrientsModel NutrientsModel { get; } = new();
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    
-    private SortMode _sortMode = SortMode.Multiple;
     
     protected override async Task OnInitializedAsync()
     {

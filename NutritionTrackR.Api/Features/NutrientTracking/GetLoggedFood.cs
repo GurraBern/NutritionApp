@@ -21,7 +21,6 @@ public static class GetLoggedFood
 
             var result = await mediator.Send(query, cancellationToken);
             
-            //TODO use dictionary instead
             var loggedFoodDtos = result.LoggedFoods.Select(loggedFood =>
             {
                 var food = result.Foods.First(f => f.Id.ToString() == loggedFood.FoodId.Id);

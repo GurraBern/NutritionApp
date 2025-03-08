@@ -21,12 +21,17 @@ public static class FoodResponseMapper
 		}).ToList();
 
 
-	public static List<NutrientDto> MapNutrientDtos(this IEnumerable<Nutrient> nutrients) =>
-		nutrients.Select(nutrient => new NutrientDto
+	public static List<NutrientDto> MapNutrientDtos(this IEnumerable<Nutrient> nutrients)
+	{
+		//todo behöver mappa rätt!
+		
+		
+		return nutrients.Select(nutrient => new NutrientDto
 		{
 			Name = nutrient.Name,
 			Weight = nutrient.Weight.Value,
 			Unit = nutrient.Weight.Unit.Name
 		}).ToList();
+	}
 }
 	

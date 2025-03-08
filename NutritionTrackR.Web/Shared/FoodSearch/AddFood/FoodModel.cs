@@ -5,7 +5,7 @@ namespace NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 public class FoodModel(FoodDto food, Guid? loggedFoodId = null)
 {
     public FoodDto Food { get; } = food;
-    public double Amount { get; set; }
+    public double Amount { get; set; } = 100;
     public Unit Unit { get; set; }
     public Guid? LoggedFoodId { get; set; } = loggedFoodId;
 

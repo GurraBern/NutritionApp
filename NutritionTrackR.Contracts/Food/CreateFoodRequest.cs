@@ -22,6 +22,8 @@ public class NutrientDto
 	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit}";
 }
 
+
+
 public enum MealTypeDto
 {
 	Unclassified = 0,
