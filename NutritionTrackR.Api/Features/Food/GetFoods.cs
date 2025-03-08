@@ -11,7 +11,7 @@ public static class GetFoods
 	{
 		app.MapGet("api/v1/foods", async ([FromServices] IMediator mediator, [FromQuery] string searchTerm, CancellationToken cancellationToken = default) =>
 		{
-			var filter = new FoodsQueryFilter()
+			var filter = new FoodsQueryFilter
 			{
 				Name = searchTerm
 			};

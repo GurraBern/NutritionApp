@@ -1,5 +1,4 @@
-﻿@using NutritionTrackR.Contracts.Food
-@using NutritionTrackR.Web.Services
+﻿@using NutritionTrackR.Web.Services
 
 @inject FoodListAdapter FoodListAdapter
 @inject ISnackbar Snackbar
@@ -11,26 +10,21 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-                <div class="d-flex gap-3 justify-start flex-grow-1">
-                    <MudTextField T="decimal" @bind-Value="@FoodModel.Amount"/>
-        
-                    @* todo this part does not work no longer *@
-                    <MudSelect @bind-Value="@FoodModel.Unit">
-                        @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
-                        {
-                            <MudSelectItem Value="unit">@unit</MudSelectItem>
-                        }
-                    </MudSelect>
-                </div>
-        
-        @* <MudProgressCircular Size="Size.Large" Color="Color.Secondary" Value="@NutritionModel.Carbs" /> *@
-        @* <MudProgressCircular Size="Size.Large" Color="Color.Success" Value="@NutritionModel.Protein" /> *@
-        @* <MudProgressCircular Size="Size.Large" Color="Color.Info" Value="@NutritionModel.Fat" /> *@
-        
-                @foreach (var nutrient in FoodModel.Nutrients)
+        <div class="d-flex gap-3 justify-start flex-grow-1">
+            <MudNumericField T="double" @bind-Value="FoodModel.Amount"/>
+
+            <MudSelect @bind-Value="@FoodModel.Unit">
+                @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
                 {
-                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    <MudSelectItem Value="unit">@unit</MudSelectItem>
                 }
+            </MudSelect>
+        </div>
+
+        @foreach (var nutrient in FoodModel.Nutrients)
+        {
+            <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+        }
 
     </DialogContent>
     <DialogActions>
@@ -53,7 +47,7 @@
     private MudDialogInstance MudDialog { get; set; }
 
     [Parameter]
-    public FoodModel FoodModel { get; set; }
+    public required FoodModel FoodModel { get; set; }
 
     [Parameter]
     public MealTypeDto SelectedMealType { get; set; }
@@ -66,20 +60,6 @@
 
     [Parameter]
     public bool IsEditMode { get; set; }
-    // private NutritionModel NutritionModel { get; set; }
-
-    protected override void OnInitialized()
-    {
-        // Model = new FoodModel(Food, SelectedMealType);
-
-        // todo init nutrition model
-        // NutritionModel = new NutritionModel
-        // {
-        //     Carbs = 57,
-        //     Protein = 67,
-        //     Fat = 34
-        // };
-    }
 
     private void Cancel() => MudDialog.Close();
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));

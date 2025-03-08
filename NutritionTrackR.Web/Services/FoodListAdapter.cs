@@ -51,7 +51,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 	{
 		var client = CreateClient();
 
-		var request = new LogFoodRequest(foodModel.FoodId, foodModel.Amount, foodModel.Unit.ToString(), foodModel.MealType, date.ToDateTime());
+		var request = new LogFoodRequest(foodModel.FoodId, (decimal)foodModel.Amount, foodModel.Unit.ToString(), foodModel.MealType, date.ToDateTime());
 
 		var response = await client.PostAsJsonAsync("api/v1/food-logs", request);
 		response.EnsureSuccessStatusCode();
@@ -66,7 +66,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			Date = date.ToDateTime(),
 			FoodId = foodModel.FoodId,
 			LoggedFoodId = foodModel.LoggedFoodId!.Value,
-			Weight = foodModel.Amount,
+			Weight = (decimal)foodModel.Amount,
 			Unit = foodModel.Unit.ToString(),
 			MealType = foodModel.MealType
 		};

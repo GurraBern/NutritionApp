@@ -5,7 +5,7 @@ namespace NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 public class FoodModel(FoodDto food, Guid? loggedFoodId = null)
 {
     public FoodDto Food { get; } = food;
-    public decimal Amount { get; set; } = new(100);
+    public double Amount { get; set; }
     public Unit Unit { get; set; }
     public Guid? LoggedFoodId { get; set; } = loggedFoodId;
 
@@ -19,15 +19,8 @@ public class FoodModel(FoodDto food, Guid? loggedFoodId = null)
         return Food.Nutrients.Select(nutrient => new NutrientDto
         {
             Name = nutrient.Name,
-            Weight = nutrient.Weight/100 * Food.Amount,
+            Weight = nutrient.Weight/100 * Amount,
             Unit = nutrient.Unit
         }).ToList();
     }
-}
-
-public class NutritionModel
-{
-    public double Carbs { get; set; } 
-    public double Protein { get; set; }
-    public double Fat { get; set; }
 }

@@ -16,6 +16,7 @@ public static class FoodResponseMapper
 		{
 			Id = food.Id.ToString(),
 			Name = food.Name,
+			Amount = 100, //TODO might need to check the unit, if serving use 1
 			Nutrients = food.Nutrients.MapNutrientDtos()
 		}).ToList();
 
