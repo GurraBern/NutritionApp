@@ -7,10 +7,10 @@
 @inherits CancellableComponent
 
 <MudContainer MaxWidth="MaxWidth.Medium" Class="center-container">
-    <div class="d-flex justify-content-center">
-        <MudButton OnClick="GetPreviousNutritionDay">Previous Day</MudButton>
-        <MudText>@CurrentDate</MudText>
-        <MudButton OnClick="GetNextNutritionDay">Next Day</MudButton>
+    <div class="d-flex justify-content-center align-items-center my-5">
+        <MudIconButton Size="Size.Large" Icon="@Icons.Material.Filled.KeyboardArrowLeft" OnClick="@GetPreviousNutritionDay">Previous Day</MudIconButton>
+        <MudText Typo="Typo.h4" Align="Align.Center">@CurrentDate</MudText>
+        <MudIconButton Size="Size.Large" Icon="@Icons.Material.Filled.KeyboardArrowRight" OnClick="@GetNextNutritionDay">Next Day</MudIconButton>
     </div>
 
     <div class="d-flex justify-content-center">
