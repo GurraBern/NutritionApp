@@ -9,7 +9,7 @@
 <MudContainer MaxWidth="MaxWidth.Medium" Class="center-container">
     <div class="d-flex justify-content-center align-items-center my-5">
         <MudIconButton Size="Size.Large" Icon="@Icons.Material.Filled.KeyboardArrowLeft" OnClick="@GetPreviousNutritionDay">Previous Day</MudIconButton>
-        <MudText Typo="Typo.h4" Align="Align.Center">@CurrentDate</MudText>
+        <MudButton Style="font-size: 24px" OnClick="@GetTodayNutritionDay" Size="Size.Large" Variant="Variant.Text">@CurrentDate</MudButton>
         <MudIconButton Size="Size.Large" Icon="@Icons.Material.Filled.KeyboardArrowRight" OnClick="@GetNextNutritionDay">Next Day</MudIconButton>
     </div>
 
@@ -72,6 +72,13 @@
     private async Task GetNextNutritionDay()
     {
         CurrentDate = CurrentDate.AddDays(1);
+
+        await UpdateFoodList();
+    }
+    
+    private async Task GetTodayNutritionDay()
+    {
+        CurrentDate = DateOnly.FromDateTime(DateTime.Now);
 
         await UpdateFoodList();
     }
