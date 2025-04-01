@@ -28,7 +28,7 @@ public class WeightAdapter(IHttpClientFactory factory)
 		{
 			UserId = Guid.Empty,
 			Weight = (double)weight,
-			WeightUnit = "Kilogram"
+			WeightUnit = "Kilogram" //TODO 
 		};
 		
 		var response = await client.PostAsJsonAsync("api/v1/body-measurements", request);

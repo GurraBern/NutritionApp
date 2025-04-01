@@ -21,23 +21,44 @@
             </MudSelect>
         </div>
 
-        @foreach (var nutrient in FoodModel.Nutrients)
-        {
-            <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-        }
-
+        <MudExpansionPanels MultiExpansion="true">
+            <MudExpansionPanel Text="Core Nutrients" Expanded="true">
+                @foreach (var nutrient in FoodModel.CoreNutrients)
+                {
+                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                }
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Vitamins">
+                @foreach (var nutrient in FoodModel.Vitamins)
+                {
+                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                }
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Minerals">
+                @foreach (var nutrient in FoodModel.Minerals)
+                {
+                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                }
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Amino Acids">
+                @foreach (var nutrient in FoodModel.AminoAcids)
+                {
+                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                }
+            </MudExpansionPanel>
+        </MudExpansionPanels>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton OnClick="@Cancel">Cancel</MudButton>
 
         @if (IsEditMode)
         {
-            <MudButton OnClick="RemoveFood">Remove</MudButton>
-            <MudButton OnClick="UpdateFood">Update</MudButton>
+            <MudButton OnClick="@RemoveFood">Remove</MudButton>
+            <MudButton OnClick="@UpdateFood">Update</MudButton>
         }
         else
         {
-            <MudButton OnClick="AddFood">Add</MudButton>
+            <MudButton OnClick="@AddFood">Add</MudButton>
         }
     </DialogActions>
 </MudDialog>
