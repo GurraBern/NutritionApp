@@ -16,6 +16,7 @@ public static class HttpClientExtensions
 		builder.SetupAdapter<FoodListAdapter>();
 		builder.SetupAdapter<NutritionTargetAdapter>();
 		builder.SetupAdapter<WeightAdapter>();
+		builder.SetupAdapter<FoodAdapter>();
 	}
 
 	private static void SetupAdapter<T>(this WebApplicationBuilder builder) where T : class

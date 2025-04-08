@@ -1,0 +1,22 @@
+﻿@page "/foods"
+
+@inject NavigationManager NavigationManager
+
+<h3>Foods</h3>
+
+<MudButton OnClick="@NavigateToCreateFood">Create New Food</MudButton>
+
+@* todo list all foods created by user *@
+@* todo edit foods created by user *@
+
+@* todo maybe store foods for the user locally, enable some export? *@
+@* todo be able to share foods with others? With export? *@
+
+@code {
+
+    private void NavigateToCreateFood()
+    {
+        //TODO navigate to create food
+        NavigationManager.NavigateTo("/create-food");
+    }
+}

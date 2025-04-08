@@ -1,0 +1,51 @@
+﻿@page "/create-food"
+@using NutritionTrackR.Web.Services
+@using NutritionTrackR.Web.Shared.Nutrition
+
+@inject FoodAdapter FoodAdapter
+
+<h3>CreateFood</h3>
+
+@* todo add nutrients, no duplicates, a list that constantly decreases in size of nutrients *@
+<MudTextField T="string" Label="Food Name" @bind-Value="@FoodName"></MudTextField>
+
+<div class="d-flex flex-column gap-3">
+    @foreach (var nutrient in NutrientsToAdd)
+    {
+        <NutrientEntry Nutrient="nutrient" AvailableNutrients="AvailableNutrients"></NutrientEntry>
+    }
+</div>
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@AddNutrient">Add Nutrient</MudButton>
+
+@* todo add confirmation box *@
+<MudButton Variant="Variant.Filled" Color="Color.Success" OnClick="@CreateNewFood">Create Food</MudButton>
+
+@code {
+    //TODO ensure that the available nutrients in each select is only ones that has not been selected!!!
+    private string FoodName { get; set; } = string.Empty;
+    private List<NutrientDto> NutrientsToAdd { get; set; } = [];
+
+    private List<string> AvailableNutrients { get; set; } = [];
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        //TODO set default Unit in backend
+        AvailableNutrients = Nutrients.All.Select(x => x.Name).ToList();
+    }
+    
+    //TODO add validation when creating food so that all nutrients have name, weight and unit
+    //TODO ensure that all the weight add up to 100
+
+    private void AddNutrient()
+    {
+        NutrientsToAdd.Add(NutrientDto.Empty);
+    }
+    
+    private async Task CreateNewFood()
+    {
+        await FoodAdapter.CreateFood(FoodName, NutrientsToAdd);
+    }
+}

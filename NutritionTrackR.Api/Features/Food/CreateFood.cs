@@ -14,6 +14,9 @@ public static class CreateFood
     {
         app.MapPost("api/v1/foods", async ([FromBody] CreateFoodRequest request, IMediator mediator) =>
         {
+            //TODO validate that no nutrient appears twice!
+            //TODO if no nutrition bad request
+            
             var nutrients = ConvertToDomainNutrients(request);
 
             var command = new CreateFoodCommand(request.Name, nutrients);

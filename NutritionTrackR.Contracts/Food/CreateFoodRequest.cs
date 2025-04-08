@@ -20,6 +20,13 @@ public class NutrientDto
 	public string Unit { get; set; }
 
 	public string DisplayWeight() => $"{Math.Round(Weight, 2)} {Unit}";
+	
+	public static NutrientDto Empty => new()
+	{
+		Name = string.Empty,
+		Weight = 0,
+		Unit = "",
+	};
 }
 
 

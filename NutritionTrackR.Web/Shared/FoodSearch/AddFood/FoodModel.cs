@@ -23,7 +23,7 @@ public class FoodModel(FoodDto food, Guid? loggedFoodId = null)
             Unit = nutrient.Unit
         }).ToList();
 
-    public List<NutrientDto> CoreNutrients => GetNutrients().Where(x => x.Name is "Carbohydrates" or "Fat" or "Protein").ToList();
+    public List<NutrientDto> CoreNutrients => GetNutrients().Where(x => x.Name is "Carbohydrates" or "Fat" or "Protein" or "Calories").ToList();
 
     public List<NutrientDto> Vitamins => GetNutrients().Where(x => x.Name is 
         "Vitamin A" or "Vitamin C" or "Vitamin D" or "Vitamin B6" or "Vitamin E" or 

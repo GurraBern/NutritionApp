@@ -1,0 +1,32 @@
+﻿<div class="d-flex">
+    <MudSelect T="string?" @bind-Value="Nutrient.Name" Label="Nutrient" AnchorOrigin="Origin.BottomCenter">
+        @foreach (var nutrient in AvailableNutrients)
+        {
+            <MudSelectItem Value="nutrient">@nutrient</MudSelectItem>
+        }
+    </MudSelect>
+
+    <MudNumericField T="double" Label="Weight" @bind-Value="@Nutrient.Weight"></MudNumericField>
+
+    <MudSelect T="Unit?" Value="@SelectedUnit" ValueChanged="OnUnitChanged" Label="Unit" AnchorOrigin="Origin.BottomCenter">
+        @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit?>())
+        {
+            <MudSelectItem Value="unit">@unit</MudSelectItem>
+        }
+    </MudSelect>
+</div>
+@code {
+    [Parameter]
+    public required NutrientDto Nutrient { get; set; }
+
+    [Parameter]
+    public List<string> AvailableNutrients { get; set; } = [];
+
+    private Unit? SelectedUnit { get; set; }
+
+    private void OnUnitChanged(Unit? unit)
+    {
+        SelectedUnit = unit;
+        Nutrient.Unit = unit.ToString();
+    }
+}
