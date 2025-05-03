@@ -5,7 +5,7 @@ namespace NutritionTrackR.Web.Shared.Nutrition;
 
 public class NutrientsModel
 {
-	public void RecalculateNutrients(List<FoodModel> foods)
+	public void RecalculateNutrients(List<LoggedFoodModel> foods)
 	{
 		var nutrientDictionary = foods
 			.SelectMany(food => food.Nutrients)

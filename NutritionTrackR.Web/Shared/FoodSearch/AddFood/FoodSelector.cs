@@ -5,9 +5,9 @@ namespace NutritionTrackR.Web.Shared.FoodSearch.AddFood;
 public class FoodSelector
 {
     public string ZoneId { get; set; }
-    public FoodModel LoggedFoodModel { get; set; }
+    public LoggedFoodModel LoggedFoodModel { get; set; }
 
-    public FoodSelector(FoodModel foodModel)
+    public FoodSelector(LoggedFoodModel foodModel)
     {
         ZoneId = GetZoneId(foodModel.MealType);
         LoggedFoodModel = foodModel;

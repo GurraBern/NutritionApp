@@ -10,16 +10,33 @@
         </MudText>
     </TitleContent>
     <DialogContent>
-        <div class="d-flex gap-3 justify-start flex-grow-1">
-            <MudNumericField T="double" @bind-Value="FoodModel.Amount"/>
 
-            <MudSelect @bind-Value="@FoodModel.Unit">
-                @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
-                {
+        @if (IsEditMode is false)
+        {
+            <div class="d-flex gap-3 justify-start flex-grow-1">
+                <MudNumericField T="double" @bind-Value="LoggedFoodModel.Amount"/>
+
+                <MudSelect @bind-Value="@LoggedFoodModel.Unit">
+                    @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
+                    {
                     <MudSelectItem Value="unit">@unit</MudSelectItem>
-                }
-            </MudSelect>
-        </div>
+                    }
+                </MudSelect>
+            </div>
+        }
+        else
+        {
+            <div class="d-flex gap-3 justify-start flex-grow-1">
+                <MudNumericField T="double" @bind-Value="FoodModel.Amount"/>
+
+                <MudSelect @bind-Value="@FoodModel.Unit">
+                    @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
+                    {
+                    <MudSelectItem Value="unit">@unit</MudSelectItem>
+                    }
+                </MudSelect>
+            </div>
+        }
 
         <MudExpansionPanels MultiExpansion="true">
             <MudExpansionPanel Text="Core Nutrients" Expanded="true">
@@ -71,6 +88,9 @@
     public required FoodModel FoodModel { get; set; }
 
     [Parameter]
+    public required LoggedFoodModel LoggedFoodModel { get; set; }
+
+    [Parameter]
     public MealTypeDto SelectedMealType { get; set; }
 
     [Parameter]
@@ -103,7 +123,7 @@
 
     private async Task UpdateFood()
     {
-        var result = await FoodListAdapter.UpdateLoggedFood(FoodModel, CurrentDate);
+        var result = await FoodListAdapter.UpdateLoggedFood(LoggedFoodModel, CurrentDate);
         if (result.IsSuccess)
         {
             await OnFoodChangedEventCallback.InvokeAsync();
@@ -115,7 +135,7 @@
 
     private async Task RemoveFood()
     {
-        var result = await FoodListAdapter.RemoveLoggedFood(FoodModel, CurrentDate);
+        var result = await FoodListAdapter.RemoveLoggedFood(LoggedFoodModel, CurrentDate);
         if (result.IsSuccess)
         {
             await OnFoodChangedEventCallback.InvokeAsync();

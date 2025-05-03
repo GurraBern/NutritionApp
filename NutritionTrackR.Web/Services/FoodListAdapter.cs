@@ -27,7 +27,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return foodResponse?.Foods ?? [];
 	}
 
-	public async Task<List<FoodModel>> GetLoggedFood(DateOnly date, CancellationToken cancellationToken = default)
+	public async Task<List<LoggedFoodModel>> GetLoggedFood(DateOnly date, CancellationToken cancellationToken = default)
 	{
 		var client = CreateClient();
 		try
@@ -36,7 +36,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 			
 			var response = await client.GetFromJsonAsync<LoggedFoodResponse>("api/v1/food-logs" + queryString, cancellationToken);
 
-			var loggedFood = response.Foods.Select(foodDto => new FoodModel(foodDto, foodDto.LoggedFoodId)).ToList();
+			var loggedFood = response.Foods.Select(foodDto => new LoggedFoodModel(foodDto, foodDto.LoggedFoodId)).ToList();
 
 			return loggedFood;
 		}
@@ -57,7 +57,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		response.EnsureSuccessStatusCode();
 	}
 	
-		public async Task<ApiResponse> UpdateLoggedFood(FoodModel foodModel, DateOnly date)
+		public async Task<ApiResponse> UpdateLoggedFood(LoggedFoodModel foodModel, DateOnly date)
 	{
 		var client = CreateClient();
 
@@ -78,7 +78,7 @@ public class FoodListAdapter(IHttpClientFactory factory)
 		return ApiResponse.Success();
 	}
 		
-	public async Task<ApiResponse> RemoveLoggedFood(FoodModel foodModel, DateOnly date)
+	public async Task<ApiResponse> RemoveLoggedFood(LoggedFoodModel foodModel, DateOnly date)
 	{
 		var client = CreateClient();
 
