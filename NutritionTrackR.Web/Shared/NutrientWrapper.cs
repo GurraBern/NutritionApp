@@ -3,7 +3,7 @@
 namespace NutritionTrackR.Web.Shared;
 
 //TODO no reason to take in dto we just need to map
-public class NutrientWrapper(NutrientDto trackedNutrient)
+public class NutrientWrapper(NutrientDto trackedNutrient, NutrientType type)
 {
     private const double MaxProgress = 100;
     public NutrientDto TrackedNutrient { get; } = trackedNutrient;
@@ -13,6 +13,8 @@ public class NutrientWrapper(NutrientDto trackedNutrient)
 
     public string Name => TrackedNutrient.Name;
     public string Unit => TrackedNutrient.Unit;
+    
+    public NutrientType Type => type;
     
     public double Weight
     {
@@ -53,4 +55,14 @@ public class NutrientWrapper(NutrientDto trackedNutrient)
             ? $"{Math.Round(TrackedNutrient.Weight, 2)} {TrackedNutrient.Unit}"
             : $"{Math.Round(TrackedNutrient.Weight, 2)} / {NutritionTarget.Weight} {TrackedNutrient.Unit}";
     }    
+}
+
+public enum NutrientType
+{
+    MainNutrient,
+    Vitamin,
+    AminoAcid,
+    Macro,
+    Mineral,
+    None = 99
 }

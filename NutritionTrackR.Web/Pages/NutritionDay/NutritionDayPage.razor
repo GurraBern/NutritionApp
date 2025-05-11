@@ -37,10 +37,82 @@
     </div>
 
     <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
+    
+    
+    
+    <MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.AllNutrients" @ref="@_dataGrid"
+                 Hover FixedHeader Groupable
+                 Height="500px">
+             @* GroupClassFunc="@(_customizeGroupStyle ? GroupClassFunc : null)" *@
+             @* GroupStyleFunc="@(_customizeGroupStyle ? GroupStyleFunc : null)"> *@
+    <ToolBarContent>
+        @* <MudText Typo="Typo.h6">Daily Nutrition<span class="ml-2" style="color: var(--mud-palette-warning);font-size: smaller;">2025</span></MudText> *@
+        @* <MudSpacer /> *@
+        
+        @* TODO add search *@
+        @* <MudTextField AdornmentIcon="@Icons.Material.Outlined.Search" Adornment="Adornment.End" Placeholder="Filter Results" *@
+        @*               @bind-Value="_searchString" @bind-Value:after="@(() => _dataGrid.ReloadServerData())"  *@
+        @*               DebounceInterval="100" Variant="Variant.Outlined" Clearable /> *@
+    </ToolBarContent>
+    <Columns>
+        <PropertyColumn Groupable="false" Sortable="false" Property="x => x.Name" Title="Nutrient"/>
+        
+        <PropertyColumn Groupable="false" Sortable="false" Property="x => x.Weight" Title="Weight"/>
 
+        <PropertyColumn Property="x => x.Unit" Title="Unit"
+                        Groupable="false" Sortable="false"
+                        @bind-GroupByOrder="_climateOrder"
+                        @bind-GroupExpanded="_climateExpanded">
+        </PropertyColumn>
+        
+        <TemplateColumn Groupable="false"
+                        Sortable="false" Property="x => x.Type" Title="Progress"
+                        @bind-Grouping="_primaryIndustryGrouping"
+                        GroupBy="_primaryGrouping">
+            <CellTemplate>
+                <div class="d-flex align-items-center gap-3">
+                    @if (context.Item.IsComplete is false)
+                    {
+                        <MudProgressLinear Value="@context.Item.GetProgress()" Min="0" Max="100" Color="Color.Primary"/>
+                    }
+                    else
+                    {
+                        <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
+                    }
+                </div>
+            </CellTemplate>
+            <GroupTemplate>
+                <div class="d-flex align-center">
+                    <MudIcon Icon="@GetNutrientIcon(context.Grouping.Key.ToString())" Size="Size.Small" Class="mr-2"/>
+                    <span style="font-weight:bold">@context.Grouping.Key</span>
+                    <MudChip Variant="Variant.Outlined" Size="Size.Small" Class="ml-2">
+                        @context.Grouping.Count() nutrients
+                    </MudChip>
+                </div>
+            </GroupTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+    
 </MudContainer>
 
 @code {
+    private MudDataGrid<NutrientWrapper> _dataGrid = null!;
+    private string? _searchString = string.Empty;
+    
+    private bool _primaryIndustryGrouping = true;
+    private int _climateOrder = 1;
+    private bool _climateExpanded = true;
+
+    private readonly Func<NutrientWrapper, object>? _primaryGrouping = x => x.Type switch
+    {
+        NutrientType.MainNutrient => "Main",
+        NutrientType.AminoAcid => "AminoAcids",
+        NutrientType.Vitamin => "Vitamins",
+        NutrientType.Mineral => "Minerals",
+        _ => "Unknown"
+    };
+    
     private List<FoodSelector> FoodSelectors { get; set; } = [];
     private NutrientsModel NutrientsModel { get; } = new();
     private DateOnly CurrentDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
@@ -81,5 +153,17 @@
         CurrentDate = DateOnly.FromDateTime(DateTime.Now);
 
         await UpdateFoodList();
+    }
+
+    private static string GetNutrientIcon(string type)
+    {
+        return type switch 
+        {
+            "Main" => Icons.Material.Filled.Business,
+            "AminoAcids" => Icons.Material.Filled.AddHome,
+            "Minerals" => Icons.Material.Filled.Terrain,
+            "Vitamins" => Icons.Material.Filled.Backup,
+            _ => string.Empty
+        };
     }
 }

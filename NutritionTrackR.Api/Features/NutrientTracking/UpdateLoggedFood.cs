@@ -22,7 +22,6 @@ public static class UpdateLoggedFood
 			if(mergedResult.IsFailed)
 				return Results.BadRequest(mergedResult.Errors);
 			
-			
 			var loggedFood = LoggedFood.Create(request.LoggedFoodId, new FoodId(request.FoodId), weightResult.Value, (MealType)request.MealType);
 			
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);

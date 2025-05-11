@@ -6,16 +6,16 @@
 <MudDialog>
     <TitleContent>
         <MudText Typo="Typo.h6">
-            @FoodModel.Name
+            @(IsEditMode ? LoggedFoodModel.Name : FoodModel.Name)
         </MudText>
     </TitleContent>
     <DialogContent>
 
-        @if (IsEditMode is false)
+        @if (IsEditMode)
         {
             <div class="d-flex gap-3 justify-start flex-grow-1">
                 <MudNumericField T="double" @bind-Value="LoggedFoodModel.Amount"/>
-
+            
                 <MudSelect @bind-Value="@LoggedFoodModel.Unit">
                     @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
                     {
@@ -28,7 +28,7 @@
         {
             <div class="d-flex gap-3 justify-start flex-grow-1">
                 <MudNumericField T="double" @bind-Value="FoodModel.Amount"/>
-
+            
                 <MudSelect @bind-Value="@FoodModel.Unit">
                     @foreach (var unit in Enum.GetValues(typeof(Unit)).Cast<Unit>())
                     {
@@ -38,32 +38,65 @@
             </div>
         }
 
-        <MudExpansionPanels MultiExpansion="true">
-            <MudExpansionPanel Text="Core Nutrients" Expanded="true">
-                @foreach (var nutrient in FoodModel.CoreNutrients)
-                {
-                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-                }
-            </MudExpansionPanel>
-            <MudExpansionPanel Text="Vitamins">
-                @foreach (var nutrient in FoodModel.Vitamins)
-                {
-                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-                }
-            </MudExpansionPanel>
-            <MudExpansionPanel Text="Minerals">
-                @foreach (var nutrient in FoodModel.Minerals)
-                {
-                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-                }
-            </MudExpansionPanel>
-            <MudExpansionPanel Text="Amino Acids">
-                @foreach (var nutrient in FoodModel.AminoAcids)
-                {
-                    <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
-                }
-            </MudExpansionPanel>
-        </MudExpansionPanels>
+        @if (IsEditMode)
+        {
+            <MudExpansionPanels MultiExpansion="true">
+                <MudExpansionPanel Text="Core Nutrients" Expanded="true">
+                    @foreach (var nutrient in LoggedFoodModel.CoreNutrients)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Vitamins">
+                    @foreach (var nutrient in LoggedFoodModel.Vitamins)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Minerals">
+                    @foreach (var nutrient in LoggedFoodModel.Minerals)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Amino Acids">
+                    @foreach (var nutrient in LoggedFoodModel.AminoAcids)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        }
+        else
+        {
+            
+            <MudExpansionPanels MultiExpansion="true">
+                <MudExpansionPanel Text="Core Nutrients" Expanded="true">
+                    @foreach (var nutrient in FoodModel.CoreNutrients)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Vitamins">
+                    @foreach (var nutrient in FoodModel.Vitamins)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Minerals">
+                    @foreach (var nutrient in FoodModel.Minerals)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Text="Amino Acids">
+                    @foreach (var nutrient in FoodModel.AminoAcids)
+                    {
+                        <MudText>@nutrient.Name @nutrient.DisplayWeight()</MudText>
+                    }
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        }
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="@Cancel">Cancel</MudButton>
@@ -85,10 +118,10 @@
     private MudDialogInstance MudDialog { get; set; }
 
     [Parameter]
-    public required FoodModel FoodModel { get; set; }
+    public FoodModel FoodModel { get; set; }
 
     [Parameter]
-    public required LoggedFoodModel LoggedFoodModel { get; set; }
+    public LoggedFoodModel LoggedFoodModel { get; set; }
 
     [Parameter]
     public MealTypeDto SelectedMealType { get; set; }
