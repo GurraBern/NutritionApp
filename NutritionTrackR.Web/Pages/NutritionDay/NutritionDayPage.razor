@@ -38,8 +38,6 @@
 
     <MealDropZones OnFoodChangedEventCallback="UpdateFoodList"  @bind-Foods="FoodSelectors" CurrentDate="@CurrentDate"/>
     
-    
-    
     <MudDataGrid T="NutrientWrapper" Items="@NutrientsModel.AllNutrients" @ref="@_dataGrid"
                  Hover FixedHeader Groupable
                  Height="500px">
@@ -70,12 +68,12 @@
                         @bind-Grouping="_primaryIndustryGrouping"
                         GroupBy="_primaryGrouping">
             <CellTemplate>
-                <div class="d-flex align-items-center gap-3">
-                    @if (context.Item.IsComplete is false)
+                <div class="d-flex align-items-center justify-content-center gap-3">
+                    @if (context.Item.IsComplete is false && context.Item.HasNutrientGoal)
                     {
                         <MudProgressLinear Value="@context.Item.GetProgress()" Min="0" Max="100" Color="Color.Primary"/>
                     }
-                    else
+                    else if(context.Item.HasNutrientGoal)
                     {
                         <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success"></MudIcon>
                     }

@@ -19,10 +19,12 @@ public class NutrientWrapper(NutrientDto trackedNutrient, NutrientType type)
     public double Weight
     {
         get => Math.Round(TrackedNutrient.Weight, 2);
-        set => trackedNutrient.Weight = value;
+        set => TrackedNutrient.Weight = value;
     }
     
     public bool IsComplete => GetProgress() > MaxProgress;
+    
+    public bool HasNutrientGoal => NutritionTarget.Weight != 0;
 
     public void AddWeight(NutrientWrapper nutrient)
     {
