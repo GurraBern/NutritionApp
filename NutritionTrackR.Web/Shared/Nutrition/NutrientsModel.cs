@@ -55,7 +55,7 @@ public class NutrientsModel
 	public NutrientWrapper Omega3 = new(new NutrientDto { Name = "Omega 3", Unit = nameof(Unit.Grams), Weight = 0 }, NutrientType.MainNutrient);
 	public NutrientWrapper Omega6 = new(new NutrientDto { Name = "Omega 6", Unit = nameof(Unit.Grams), Weight = 0 }, NutrientType.MainNutrient);
 
-	// V, NutrientType.Vitaminitamins
+	// Vitamins
 	public NutrientWrapper VitaminA = new(new NutrientDto { Name = "Vitamin A", Unit = nameof(Unit.Microgram), Weight = 0 }, NutrientType.Vitamin);
 	public NutrientWrapper VitaminC = new(new NutrientDto { Name = "Vitamin C", Unit = nameof(Unit.Milligram), Weight = 0 }, NutrientType.Vitamin);
 	public NutrientWrapper VitaminD = new(new NutrientDto { Name = "Vitamin D", Unit = nameof(Unit.Microgram), Weight = 0 }, NutrientType.Vitamin);

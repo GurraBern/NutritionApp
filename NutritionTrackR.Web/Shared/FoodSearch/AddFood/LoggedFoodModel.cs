@@ -7,9 +7,7 @@ public class LoggedFoodModel(FoodDto food, Guid? loggedFoodId = null)
     private FoodDto Food { get; } = food; //TODO ska bara innehålla vad det är för något
     public double Amount { get; set; } = food.Amount;
     public Unit Unit { get; set; }
-    
     public Guid? LoggedFoodId { get; set; } = loggedFoodId;
-
     public string FoodId => Food.Id;
     public string Name => Food.Name;
     public MealTypeDto MealType { get; set; } = food.MealType;
@@ -25,7 +23,7 @@ public class LoggedFoodModel(FoodDto food, Guid? loggedFoodId = null)
         }).ToList();
 
     public List<NutrientDto> CoreNutrients => GetNutrients().Where(x => x.Name is "Carbohydrates" or "Fat" or "Protein" or "Calories").ToList();
-
+    
     public List<NutrientDto> Vitamins => GetNutrients().Where(x => x.Name is 
         "Vitamin A" or "Vitamin C" or "Vitamin D" or "Vitamin B6" or "Vitamin E" or 
         "Vitamin K1" or "Vitamin K2" or "Thiamin" or "Riboflavin" or "Niacin" or 
