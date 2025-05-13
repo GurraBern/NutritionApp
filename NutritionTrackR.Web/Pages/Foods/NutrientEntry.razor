@@ -27,6 +27,6 @@
     private void OnUnitChanged(Unit? unit)
     {
         SelectedUnit = unit;
-        Nutrient.Unit = unit.ToString();
+        Nutrient.Unit = unit?.ToString() ?? string.Empty;
     }
 }

@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <PackageReference Include="FluentResults" Version="3.16.0" />
-      <PackageReference Include="MudBlazor" Version="7.15.0" />
+      <PackageReference Include="MudBlazor" Version="8.6.0" />
     </ItemGroup>
 
     <ItemGroup>

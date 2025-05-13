@@ -9,10 +9,11 @@ public class Food : Entity
     public string Name { get; set;  }
     public string? ExternalId { get; set; }
     public List<Nutrient> Nutrients { get; set; } = [];
-    public string Source { get; init; } = string.Empty;
+    public string Source { get; set; } = string.Empty;
 
     private Food() { }
     
+    //TODO Add source parameter here
     private Food(string name, List<Nutrient> nutrients)
     {
         Name = name;

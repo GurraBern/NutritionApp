@@ -7,9 +7,13 @@
 
 <h3>NutritionGoal</h3>
 
-<MudDataGrid T="NutrientDto" Items="@NutritionTargetModel.Nutrients" ReadOnly="@_readOnly" EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)"
-             StartedEditingItem="@StartedEditingItem" CanceledEditingItem="@CanceledEditingItem" CommittedItemChanges="@CommittedItemChanges"
-             Bordered="true" Dense="true" EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
+<MudDataGrid T="NutrientDto" 
+             Items="@NutritionTargetModel.Nutrients" 
+             ReadOnly="@_readOnly" 
+             EditMode="@(_isCellEditMode ? DataGridEditMode.Cell : DataGridEditMode.Form)" 
+             Bordered="true" 
+             Dense="true" 
+             EditTrigger="@(_editTriggerRowClick ? DataGridEditTrigger.OnRowClick : DataGridEditTrigger.Manual)">
     <Columns>
         <PropertyColumn Property="x => x.Name" Title="Nutrient" Editable="false" />
         <PropertyColumn Property="x => x.Weight" Title="Weight" Editable="true"/>
@@ -27,9 +31,10 @@
 
 @code {
     private NutritionTargetDto NutritionTargetModel { get; set; } = new();
+    
+    //TODO remove?
     private bool _readOnly;
     private bool _isCellEditMode;
-    private List<string> _events = [];
     private bool _editTriggerRowClick;
 
     protected override async Task OnInitializedAsync()
@@ -43,21 +48,6 @@
         NutritionTargetModel = await NutritionTargetAdapter.GetNutritionTarget(Cts.Token);
     }
 
-    void StartedEditingItem(NutrientDto item)
-    {
-        _events.Insert(0, $"Event = StartedEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
-    void CanceledEditingItem(NutrientDto item)
-    {
-        _events.Insert(0, $"Event = CanceledEditingItem, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
-    void CommittedItemChanges(NutrientDto item)
-    {
-        _events.Insert(0, $"Event = CommittedItemChanges, Data = {System.Text.Json.JsonSerializer.Serialize(item)}");
-    }
-
     private async Task SaveNutritionalGoal()
     {
         await NutritionTargetAdapter.SetNutritionTarget(NutritionTargetModel.Nutrients);
@@ -68,7 +58,7 @@
         var dialogReference = await DialogService.ShowAsync<NutritionTargetDialog>();
         
         var dialogResult = await dialogReference.Result;
-        if (dialogResult.Canceled is false)
+        if (dialogResult?.Canceled is false)
         {
             await FetchNutritionTarget();
         }

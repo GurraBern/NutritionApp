@@ -3,6 +3,7 @@
 @using NutritionTrackR.Web.Shared.Nutrition
 
 @inject FoodAdapter FoodAdapter
+@inject ISnackbar Snackbar
 
 <h3>CreateFood</h3>
 
@@ -46,6 +47,11 @@
     
     private async Task CreateNewFood()
     {
-        await FoodAdapter.CreateFood(FoodName, NutrientsToAdd);
+        var result = await FoodAdapter.CreateFood(FoodName, NutrientsToAdd);
+
+        if (result.IsSuccess)
+            Snackbar.Add($"{FoodName} created", Severity.Success);
+        else
+            Snackbar.Add($"{FoodName} could not be created", Severity.Error);
     }
 }
