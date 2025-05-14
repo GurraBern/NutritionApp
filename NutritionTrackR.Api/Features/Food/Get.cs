@@ -5,7 +5,7 @@ using NutritionTrackR.Core.Foods.Queries;
 
 namespace NutritionTrackR.Api.Features.Food;
 
-public static class GetFoods
+public static class Get
 {
 	public static void MapGetFoods(this WebApplication app)
 	{

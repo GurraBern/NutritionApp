@@ -3,13 +3,12 @@ using MediatR;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Foods;
 using NutritionTrackR.Core.Foods.ValueObjects;
-using NutritionTrackR.Core.Nutrition.Tracking;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.LoggedFood;
 
-public static class UpdateLoggedFood
+public static class Update
 {
 	public static void MapUpdateLoggedFood(this WebApplication app)
 	{
@@ -22,7 +21,7 @@ public static class UpdateLoggedFood
 			if(mergedResult.IsFailed)
 				return Results.BadRequest(mergedResult.Errors);
 			
-			var loggedFood = LoggedFood.Create(request.LoggedFoodId, new FoodId(request.FoodId), weightResult.Value, (MealType)request.MealType);
+			var loggedFood = Core.Nutrition.Tracking.LoggedFood.Create(request.LoggedFoodId, new FoodId(request.FoodId), weightResult.Value, (MealType)request.MealType);
 			
 			var command = new UpdateLoggedFoodCommand(loggedFood, request.Date);
 

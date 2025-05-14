@@ -3,9 +3,9 @@ using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Nutrition.Target;
 using NutritionTrackR.Core.Nutrition.Target.Commands;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.NutrientTarget;
 
-public static class SetNutritionTarget 
+public static class Set 
 {
     public static void MapSetNutritionTarget(this WebApplication app)
     {

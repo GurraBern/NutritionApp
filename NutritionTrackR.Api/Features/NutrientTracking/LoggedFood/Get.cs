@@ -6,9 +6,9 @@ using NutritionTrackR.Core.Foods.Queries;
 using NutritionTrackR.Core.Nutrition.Tracking.Queries;
 using GetLoggedFoodResponse = NutritionTrackR.Contracts.Nutrition.NutritionTracking.LoggedFoodResponse;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.LoggedFood;
 
-public static class GetLoggedFood
+public static class Get
 {
     public static void MapGetLoggedFood(this WebApplication app)
     {

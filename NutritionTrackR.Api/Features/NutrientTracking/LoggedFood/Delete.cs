@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using NutritionTrackR.Contracts.Nutrition.NutritionTracking;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.LoggedFood;
 
-public static class DeleteLoggedFood
+public static class Delete
 {
     public static void MapDeleteLoggedFood(this WebApplication app)
     {

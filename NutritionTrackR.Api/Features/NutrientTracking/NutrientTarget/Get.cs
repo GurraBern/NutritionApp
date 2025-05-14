@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Contracts.Nutrition.Target;
-using NutritionTrackR.Core.Nutrition.Target.Commands;
 using NutritionTrackR.Core.Nutrition.Target.Queries;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.NutrientTarget;
 
-public static class GetNutritionTarget
+public static class Get
 {
     public static void MapGetNutritionTarget(this WebApplication app)
     {

@@ -6,7 +6,7 @@ using NutritionTrackR.Core.Foods.ValueObjects;
 using NutritionTrackR.Core.Nutrition.Tracking.Commands;
 using NutritionTrackR.Core.Shared.ValueObjects;
 
-namespace NutritionTrackR.Api.Features.NutrientTracking;
+namespace NutritionTrackR.Api.Features.NutrientTracking.LoggedFood;
 
 public static class TrackFood
 {

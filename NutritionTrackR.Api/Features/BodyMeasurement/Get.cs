@@ -4,7 +4,7 @@ using NutritionTrackR.Core.BodyMeasurements.Queries;
 
 namespace NutritionTrackR.Api.Features.BodyMeasurement;
 
-public static class GetBodyWeightData
+public static class Get
 {
     public static void MapGetBodyWeightData(this WebApplication app)
     {

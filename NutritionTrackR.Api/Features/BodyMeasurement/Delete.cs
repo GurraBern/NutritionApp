@@ -7,7 +7,7 @@ using NutritionTrackR.Core.BodyMeasurements.Queries;
 
 namespace NutritionTrackR.Api.Features.BodyMeasurement;
 
-public static class DeleteBodyWeight
+public static class Delete
 {
     public static void MapDeleteWeight(this WebApplication app)
     {

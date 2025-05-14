@@ -8,7 +8,7 @@ using NutritionTrackR.Core.Shared.ValueObjects;
 
 namespace NutritionTrackR.Api.Features.Food;
 
-public static class CreateFood
+public static class Create
 {
     public static void MapCreateFood(this WebApplication app)
     {

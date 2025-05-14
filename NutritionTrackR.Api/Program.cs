@@ -2,6 +2,8 @@ using NutritionTrackR.Api.Extensions;
 using NutritionTrackR.Api.Features.BodyMeasurement;
 using NutritionTrackR.Api.Features.Food;
 using NutritionTrackR.Api.Features.NutrientTracking;
+using NutritionTrackR.Api.Features.NutrientTracking.LoggedFood;
+using NutritionTrackR.Api.Features.NutrientTracking.NutrientTarget;
 
 var builder = WebApplication.CreateBuilder(args);
 
